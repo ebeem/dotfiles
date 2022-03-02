@@ -1,0 +1,8 @@
+* RSS                                                                :elfeed:
+*** GNOME                                                          :gnome:
+**** https://www.gnome.org/feed/
+*** GODOT                                                           :godot:
+**** https://godotengine.org/rss.xml
+*** HACKING                                                         :hacking:
+**** https://latesthackingnews.com/feed/
+**** http://feeds.feedburner.com/TheHackersNews
