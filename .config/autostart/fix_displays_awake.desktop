@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Fix Displays Awake
+GenericName=A descriptive name
+Comment=Some description about your script
+Exec=/home/ebeem/workspace/shell/fix_displays_awake.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true

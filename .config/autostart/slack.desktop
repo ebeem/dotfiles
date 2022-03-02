@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Slack
+Comment=Slack Desktop
+GenericName=Slack Client for Linux
+Exec=env LD_PRELOAD=/usr/lib/libcurl.so.3 /usr/bin/slack %U
+Icon=slack
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Network;InstantMessaging;
+MimeType=x-scheme-handler/slack;

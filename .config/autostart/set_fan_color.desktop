@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Fan Color
+GenericName=A descriptive name
+Comment=Some description about your script
+Exec=/home/ebeem/workspace/shell/set_fan_color.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
+

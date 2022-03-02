@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=set_keyboard_config
+Comment=set_keyboard_config
+Icon=applications-other
+Exec=sudo /home/ebeem/workspace/shell/set_keyboard_config.sh
+Actions=
+Categories=X-GNOME-Utilities;

@@ -1,0 +1,270 @@
+[desktop/background]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///home/ebeem/dotfiles/.wallpaper.png'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+show-desktop-icons=false
+
+[desktop/calendar]
+show-weekdate=true
+
+[desktop/input-sources]
+mru-sources=[('xkb', 'ara+qwerty_digits'), ('xkb', 'us')]
+per-window=true
+sources=[('xkb', 'us'), ('xkb', 'ara+qwerty_digits')]
+xkb-options=['lv3:ralt_switch']
+
+[desktop/interface]
+clock-format='12h'
+clock-show-seconds=true
+clock-show-weekday=true
+cursor-theme='Breeze_Snow'
+document-font-name='Ubuntu 11.5'
+enable-animations=true
+enable-hot-corners=false
+font-antialiasing='grayscale'
+font-hinting='slight'
+font-name='Ubuntu 11.5'
+gtk-im-module='gtk-im-context-simple'
+gtk-theme='Colloid-dark-nord'
+icon-theme='Colloid-dark'
+locate-pointer=false
+monospace-font-name='UbuntuMono Nerd Font Mono Bold 11.5'
+show-battery-percentage=false
+text-scaling-factor=1.0
+toolkit-accessibility=false
+
+[desktop/wm/keybindings]
+move-to-workspace-1=['<Primary><shift><Alt>KP_7']
+move-to-workspace-2=['<Primary><Shift><Alt>KP_8']
+move-to-workspace-3=['<Primary><shift><Alt>KP_9']
+move-to-workspace-4=['<Primary><shift><Alt>KP_4']
+move-to-workspace-5=['<Primary><shift><Alt>KP_5']
+move-to-workspace-6=['<Primary><shift><Alt>KP_6']
+move-to-workspace-7=['<Primary><shift><Alt>KP_1']
+move-to-workspace-8=['<Primary><shift><Alt>KP_2']
+move-to-workspace-9=['<Primary><shift><Alt>KP_3']
+panel-main-menu=@as []
+switch-applications=@as []
+switch-applications-backward=@as []
+switch-to-workspace-1=['<Primary><Alt>KP_7']
+switch-to-workspace-2=['<Primary><Alt>KP_8']
+switch-to-workspace-3=['<Primary><Alt>KP_9']
+switch-to-workspace-4=['<Primary><Alt>KP_4']
+switch-to-workspace-5=['<Primary><Alt>KP_5']
+switch-to-workspace-6=['<Primary><Alt>KP_6']
+switch-to-workspace-7=['<Primary><Alt>KP_1']
+switch-to-workspace-8=['<Primary><Alt>KP_2']
+switch-to-workspace-9=['<Primary><Alt>KP_3']
+switch-to-workspace-left=['<Control><Alt>Left']
+switch-windows=['<Alt>Tab']
+switch-windows-backward=['<Shift><Alt>Tab']
+
+[desktop/wm/preferences]
+button-layout='appmenu:minimize,maximize,close'
+focus-mode='click'
+num-workspaces=9
+titlebar-font='Ubuntu 11.5'
+
+[mutter]
+attach-modal-dialogs=true
+dynamic-workspaces=false
+edge-tiling=true
+focus-change-on-pointer-rest=true
+overlay-key='Super_L'
+workspaces-only-on-primary=false
+
+[nautilus/compression]
+default-compression-format='zip'
+
+[nautilus/icon-view]
+default-zoom-level='standard'
+
+[nautilus/list-view]
+default-column-order=['name', 'size', 'type', 'owner', 'group', 'permissions', 'where', 'date_modified', 'date_modified_with_time', 'date_accessed', 'recency', 'starred', 'detailed_type']
+default-visible-columns=['name', 'size', 'date_modified', 'starred']
+
+[nautilus/preferences]
+default-folder-viewer='icon-view'
+search-filter-time-type='last_modified'
+search-view='list-view'
+show-directory-item-counts='always'
+show-image-thumbnails='always'
+
+[nautilus/window-state]
+initial-size=(1019, 611)
+maximized=false
+sidebar-width=278
+
+[settings-daemon/plugins/power]
+power-button-action='nothing'
+sleep-inactive-ac-timeout=3600
+sleep-inactive-ac-type='nothing'
+
+[shell/extensions/arcmenu]
+arc-menu-icon=4
+arc-menu-placement='Panel'
+available-placement=[true, false, false]
+custom-menu-button-icon-size=21.0
+distro-icon=6
+enable-custom-arc-menu=false
+enable-menu-button-arrow=false
+enable-standlone-runner-menu=false
+hot-corners='Default'
+menu-button-active-color='rgb(153,193,241)'
+menu-button-appearance='Icon'
+menu-button-border-radius=0
+menu-button-color='rgb(153,193,241)'
+menu-button-icon='Distro_Icon'
+menu-button-override-border-radius=false
+menu-hotkey='Super_L'
+menu-layout='Unity'
+override-hot-corners=false
+override-menu-button-active-color=false
+override-menu-button-color=false
+pinned-app-list=['Files', '', 'org.gnome.Nautilus.desktop', 'Firefox Developer Edition', '', 'firefox-developer-edition.desktop', 'Thunderbird', '', 'thunderbird.desktop', 'Discord', '', 'discord.desktop', 'Slack', '', 'slack.desktop', 'OBS Studio', '', 'com.obsproject.Studio.desktop', 'Quod Libet', '', 'io.github.quodlibet.QuodLibet.desktop', 'Tilix', '', 'com.gexperts.Tilix.desktop', 'LibreOffice Writer', '', 'libreoffice-writer.desktop', 'LibreOffice Impress', '', 'libreoffice-impress.desktop', 'LibreOffice Calc', '', 'libreoffice-calc.desktop', 'Godot Mono', '', 'godot-mono.desktop', 'Emacs', '', 'emacs.desktop', 'Element', '', 'io.element.Element.desktop', 'Blender', '', 'blender.desktop', 'LMMS', '', 'lmms.desktop', 'Inkscape Vector Graphics Editor', '', 'org.inkscape.Inkscape.desktop', 'Blanket', '', 'com.rafaelmardojai.Blanket.desktop']
+position-in-panel='Left'
+prefs-visible-page=0
+recently-installed-apps=['VTube Studio.desktop', 'libreoffice-base.desktop', 'jetbrains-studio.desktop', 'org.olivevideoeditor.Olive.desktop', 'electron15.desktop', 'org.kde.kuserfeedback-console.desktop', 'net.sourceforge.drumstick-guiplayer.desktop', 'net.sourceforge.drumstick-vpiano.desktop', 'net.sourceforge.drumstick-drumgrid.desktop', 'libreoffice-math.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-impress.desktop', 'libreoffice-draw.desktop']
+runner-hotkey-open-primary-monitor=true
+runner-menu-hotkey='Super_L'
+show-activities-button=false
+unity-pinned-app-list=['Home', 'ArcMenu_Home', 'ArcMenu_Home', 'Documents', 'ArcMenu_Documents', 'ArcMenu_Documents', 'Downloads', 'ArcMenu_Downloads', 'ArcMenu_Downloads', 'Software', 'system-software-install-symbolic', 'org.gnome.Software.desktop', 'Files', 'system-file-manager', 'org.gnome.Nautilus.desktop', 'Log Out', 'application-exit-symbolic', 'ArcMenu_LogOut', 'Lock', 'changes-prevent-symbolic', 'ArcMenu_Lock', 'Power Off', 'system-shutdown-symbolic', 'ArcMenu_PowerOff']
+
+[shell/extensions/auto-move-windows]
+application-list=['uget-gtk.desktop:1', 'slack.desktop:4', 'discord.desktop:4', 'rhythmbox.desktop:9', 'steam.desktop:6', 'jetbrains-datagrip.desktop:3', 'net.sourceforge.liferea.desktop:7', 'org.gnome.Lollypop.desktop:9', 'thunderbird.desktop:7', 'userapp-Thunderbird-MXF6PZ.desktop:7', 'firefox-developer-edition.desktop:1', 'io.element.Element.desktop:7', 'kodi.desktop:3', 'steam-native.desktop:6', 'io.github.quodlibet.QuodLibet.desktop:9']
+
+[shell/extensions/dynamic-panel-transparency]
+enable-background-color=true
+enable-maximized-text-color=true
+enable-opacity=true
+enable-overview-text-color=true
+enable-text-color=false
+force-theme-update=false
+hide-corners=false
+icon-shadow=false
+icon-shadow-position=(0, 2, 5)
+maximized-opacity=230
+maximized-text-color=(255, 190, 111)
+panel-color=[12, 20, 31]
+panel-theme-color=(12, 20, 31)
+remove-panel-styling=false
+text-color=(246, 97, 81)
+text-shadow=false
+text-shadow-position=(0, 3, 5)
+theme-opacity=255
+transition-speed=424
+unmaximized-opacity=115
+
+[shell/extensions/espresso]
+has-battery=false
+restore-state=true
+show-notifications=false
+user-enabled=true
+
+[shell/extensions/just-perfection]
+accessibility-menu=true
+activities-button=true
+aggregate-menu=true
+animation=1
+app-menu=true
+app-menu-icon=true
+background-menu=true
+clock-menu=true
+dash=true
+dash-icon-size=0
+double-super-to-appgrid=true
+gesture=true
+hot-corner=false
+keyboard-layout=true
+osd=true
+panel=true
+panel-arrow=true
+panel-corner-size=0
+panel-in-overview=true
+panel-notification-icon=true
+power-icon=true
+ripple-box=true
+search=true
+show-apps-button=true
+startup-status=0
+theme=false
+top-panel-position=0
+type-to-search=true
+window-demands-attention-focus=false
+window-picker-icon=true
+window-preview-caption=true
+window-preview-close-button=true
+workspace=true
+workspace-background-corner-size=0
+workspace-popup=true
+workspace-switcher-should-show=false
+workspace-switcher-size=0
+workspaces-in-app-grid=true
+
+[shell/extensions/netspeedsimplified]
+fontmode=0
+hideindicator=false
+isvertical=false
+lockmouseactions=true
+mode=3
+refreshtime=1.0
+restartextension=false
+shortenunits=true
+togglebool=true
+
+[shell/extensions/openweather]
+actual-city=0
+city='26.52,50.024722>القطيف, المنطقة الشرقية, 31911, السعودية >-1'
+days-forecast=2
+decimal-places=1
+geolocation-provider='openstreetmaps'
+menu-alignment=82.867132867132867
+position-in-panel='center'
+pressure-unit='hPa'
+show-comment-in-forecast=true
+show-text-in-panel=true
+translate-condition=true
+unit='celsius'
+use-default-owm-key=true
+use-symbolic-icons=true
+weather-provider='openweathermap'
+wind-direction=true
+wind-speed-unit='kph'
+
+[shell/extensions/user-theme]
+name='Colloid-dark-nord'
+
+[shell/extensions/vitals]
+fixed-widths=false
+hot-sensors=['_memory_usage_', '_system_load_1m_']
+show-battery=false
+update-time=1
+use-higher-precision=false
+
+[shell/extensions/wsmatrix]
+cache-popup=true
+cache-switcher=true
+enable-popup-workspace-click=true
+enable-popup-workspace-hover=false
+multi-monitor=true
+num-columns=3
+num-rows=3
+popup-timeout=0
+scale=0.5
+show-overview-grid=true
+show-thumbnails=true
+show-workspace-names=false
+wraparound-mode='rows-columns'
+
+[shell/overrides]
+workspaces-only-on-primary=false
+
+[shell/weather]
+automatic-location=true
+locations=[<(uint32 2, <('Al Qatif, Saudi Arabia', '', false, [(0.46286131762889621, 0.87309610629484269)], [(0.46121779343217073, 0.87465721604428914)])>)>]
+
+[shell/window-switcher]
+app-icon-mode='both'
+current-workspace-only=true
