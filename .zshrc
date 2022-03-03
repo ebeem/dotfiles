@@ -46,7 +46,7 @@ export ANDROID_HOME=/mnt/storage/android
 export ANDROID_SDK_ROOT=$ANDROID_HOME
 export PATH=/home/ebeem/workspace/git/flutter/bin:/home/ebeem/.dotnet/tools:$PATH
 export PATH=/home/ebeem/.dotnet/tools:$PATH
-export PATH=~/.emacs.d/bin:$PATH
+export PATH=~/.emacs.d/bin:~/.bin:$PATH
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/ebeem/.steam
 export XDG_CONFIG_HOME=~/.config
 source $ZSH/oh-my-zsh.sh
