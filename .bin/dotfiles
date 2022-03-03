@@ -1,0 +1,59 @@
+#!/bin/bash
+full_path=$(realpath $0)
+dir_path=$(dirname $full_path)
+
+pre_install() {
+    # enable multilib (only needed for gaming machines, steam + wine)
+    sudo sed -z -i 's|#\[multilib\]\n#Include = /etc/pacman.d/mirrorlist|\[multilib\]\nInclude = /etc/pacman.d/mirrorlist|g' /etc/pacman.conf
+
+    # enable coloring and parallel download
+    sudo sed -z -i 's|#Color|Color|g' /etc/pacman.conf
+    sudo sed -z -i 's|#ParallelDownloads = 5|ParallelDownloads = 15|g' /etc/pacman.conf
+
+    # installing AUR helper
+    if ! command -v paru &> /dev/null;
+    then
+        echo "installing paru (AUR)"
+        sudo pacman -S --needed base-devel git
+        cd /tmp
+        git clone https://aur.archlinux.org/paru.git
+        cd paru
+        makepkg --noconfirm -si
+    fi
+}
+
+install() {
+    # update available packages
+    paru -Syu --noconfirm
+
+    # install dependencies
+    cd $dir_path/../.arch_pkgs
+    makepkg --needed --noconfirm -si
+}
+
+# $1 is the name of the service
+enable_system_service() {
+    if [ $(systemctl is-enabled $1) != 'enabled' ]
+    then
+        systemctl enable --now $1
+    fi
+}
+
+# $1 is the name of the service
+enable_user_service() {
+    if [ $(systemctl --user is-enabled $1) != 'enabled' ]
+    then
+        systemctl --user enable --now $1
+    fi
+}
+
+post_install() {
+    enable_system_service "ckb-next-daemon.service"
+    enable_system_service "NetworkManager.service"
+    enable_system_service "bluetooth.service"
+    enable_user_service "mpd.service"
+}
+
+pre_install
+install
+post_install
