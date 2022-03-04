@@ -2,5 +2,4 @@
 .idea
 *.log
 tmp/
-.arch_pkgs/
 !.arch_pkgs/PKGBUILD
