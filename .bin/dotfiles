@@ -18,7 +18,7 @@ pre_install() {
         cd /tmp
         git clone https://aur.archlinux.org/paru.git
         cd paru
-        makepkg --noconfirm -si
+        makepkg --noconfirm -sicC
     fi
 }
 
@@ -28,7 +28,7 @@ install() {
 
     # install dependencies
     cd $dir_path/../.arch_pkgs
-    makepkg --needed --noconfirm -si
+    makepkg --noconfirm -sifcC
 }
 
 # $1 is the name of the service
@@ -47,13 +47,26 @@ enable_user_service() {
     fi
 }
 
+mail_setup() {
+    if [ ! -e ~/.mail ];
+    then
+        echo "creating mail directory"
+        mkdir ~/.mail
+    fi
+}
+
 post_install() {
     enable_system_service "ckb-next-daemon.service"
     enable_system_service "NetworkManager.service"
     enable_system_service "bluetooth.service"
     enable_user_service "mpd.service"
+    enable_user_service "emacs.service"
+    mail_setup
 }
 
 pre_install
 install
 post_install
+
+cd $dir_path/../
+stow ./
