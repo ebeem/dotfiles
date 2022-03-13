@@ -55,6 +55,10 @@ mail_setup() {
     fi
 }
 
+load_gnome_config() {
+    dconf load /org/gnome/ < ../.gnome
+}
+
 post_install() {
     enable_system_service "ckb-next-daemon.service"
     enable_system_service "NetworkManager.service"
