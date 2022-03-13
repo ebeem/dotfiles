@@ -24,6 +24,7 @@ depends=(
     'ocs-url'
     'deluge-gtk'
     'stow'
+    'nextcloud'
 
     # office suite
     'libreoffice-fresh'
