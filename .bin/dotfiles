@@ -71,6 +71,7 @@ post_install() {
 pre_install
 install
 post_install
+load_gnome_config
 
 cd $dir_path/../
 stow ./
