@@ -4,7 +4,6 @@ Host imap.gmail.com
 User ebeem2@gmail.com
 # Pass ***************
 # To store the password in an encrypted file use PassCmd instead of Pass
-# PassCmd "python ~/workspace/python/password-manager/main-bash.py 'Google@ebeem2@gmail.com'"
 PassCmd "cat ~/.secret/gmeb2"
 # Use SSL
 SSLType IMAPS

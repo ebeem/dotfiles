@@ -24,7 +24,12 @@ depends=(
     'ocs-url'
     'deluge-gtk'
     'stow'
+    'cronie'
     'nextcloud'
+    'nextcloud-client'
+    'aspell'
+    'fd'
+    'editorconfig-core-c'
 
     # office suite
     'libreoffice-fresh'

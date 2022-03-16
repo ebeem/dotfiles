@@ -42,7 +42,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/cloud/org/")
 
 ;;; :ui doom-dashboard
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
@@ -157,7 +157,8 @@ Set to nil to disable the warning."
 
 ;; elfeed
 (setq rmh-elfeed-org-files (list "~/.doom.d/elfeed.org"))
-;; (elfeed-goodies/setup)
+(setq elfeed-goodies/entry-pane-position 'bottom)
+(elfeed-goodies/setup)
 
 ;; (projectile-register-project-type 'godot '("project.godot")
 ;;                                   :project-file "project.godot"
@@ -205,6 +206,9 @@ Set to nil to disable the warning."
 
 ;; modeline
 (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
+(setq doom-modeline-icon (display-graphic-p))
+(setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-major-mode-color-icon t)
 
 ;; vterm
 (add-hook 'vterm-mode-hook (lambda () (hide-mode-line-mode -1)))
@@ -215,17 +219,10 @@ Set to nil to disable the warning."
 ;; mu4e
 (setq mu4e-update-interval 30
       mu4e-change-filenames-when-moving t
-      mu4e-get-mail-command "mbsync -a")
+      mu4e-get-mail-command "mbsync -a"
+      mu4e-view-prefer-html f
+      mu4e-view-show-images t
+      mu4e-display-update-status-in-modeline t)
 
-;; (mu4e t)
-;; (setq mu4e-html2text-command "html2text -utf8 -width 72") ;; nil "Shel command that converts HTML
-;; ref: http://emacs.stackexchange.com/questions/3051/how-can-i-use-eww-as-a-renderer-for-mu4e
-(defun my-render-html-message ()
-  (let ((dom (libxml-parse-html-region (point-min) (point-max))))
-    (erase-buffer)
-    (shr-insert-document dom)
-    (goto-char (point-min))))
-(setq mu4e-view-prefer-html t) ;; try to render
-(setq mu4e-html2text-command 'my-render-html-message)
 ;; TODO: mu4e bookmarks
 ;;
