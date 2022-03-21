@@ -27,6 +27,7 @@ depends=(
     'cronie'
     'nextcloud'
     'nextcloud-client'
+    'grive'
     'aspell'
     'aspell-en'
     'fd'
