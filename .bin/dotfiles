@@ -28,7 +28,8 @@ install() {
 
     # install dependencies
     cd $dir_path/../.arch_pkgs
-    makepkg --noconfirm -sifcC
+    # makepkg --noconfirm -sifcC
+    paru -Ui --noconfirm
 }
 
 # $1 is the name of the service
