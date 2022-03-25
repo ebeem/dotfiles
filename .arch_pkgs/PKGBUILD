@@ -239,6 +239,7 @@ depends=(
 
     # virtualization
     'virtualbox'
+    'virtualbox-host-modules-arch'
     'kubectl'
     'docker'
     'docker-compose'

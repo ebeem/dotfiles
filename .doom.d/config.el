@@ -23,7 +23,7 @@
 ;;
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-(setq doom-font (font-spec :family "UbuntuMono Nerd Font Mono" :size 18 :weight 'bold)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 18 :weight 'bold))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them

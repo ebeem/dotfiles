@@ -1,36 +1,47 @@
-IMAPAccount gmail
-# Address to connect to
+# ============================== EMAIL ============================== #
+IMAPAccount gmeb2
 Host imap.gmail.com
-User ebeem2@gmail.com
-# Pass ***************
-# To store the password in an encrypted file use PassCmd instead of Pass
-PassCmd "cat ~/.secret/gmeb2"
-# Use SSL
+UserCmd "sed -n 1p ~/.secret/mails"
+PassCmd "sed -n 1p ~/.secret/mailsp"
 SSLType IMAPS
-# The following line should work. If you get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
 CertificateFile /etc/ssl/certs/ca-certificates.crt
-#CertificateFile ~/.cert/imap.gmail.com.pem
-#CertificateFile ~/.cert/Equifax_Secure_CA.pem
 
-IMAPStore gmail-remote
-Account gmail
+IMAPStore gmeb2-remote
+Account gmeb2
 
-MaildirStore gmail-local
+MaildirStore gmeb2-local
 SubFolders Verbatim
-# The trailing "/" is important
 Path ~/.mail/gmail_ebeem2/
 Inbox ~/.mail/gmail_ebeem2/Inbox
 
-Channel gmail
-Far :gmail-remote:
-Near :gmail-local:
-# Exclude everything under the internal [Gmail] folder, except the interesting folders
+Channel gmeb2
+Far :gmeb2-remote:
+Near :gmeb2-local:
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-# Or include everything
-#Patterns *
-# Automatically create missing mailboxes, both locally and on the server
 Create Both
-# Sync the movement of messages between folders and deletions, add after making sure the sync works
 Expunge Both
-# Save the synchronization state files in the relevant directory
+SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount gmibm
+Host imap.gmail.com
+UserCmd "sed -n 2p ~/.secret/mails"
+PassCmd "sed -n 2p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmibm-remote
+Account gmibm
+
+MaildirStore gmibm-local
+SubFolders Verbatim
+Path ~/.mail/gmail_ibraheem_marhoon/
+Inbox ~/.mail/gmail_ibraheem_marhoon/Inbox
+
+Channel gmibm
+Far :gmibm-remote:
+Near :gmibm-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+Expunge Both
 SyncState *
