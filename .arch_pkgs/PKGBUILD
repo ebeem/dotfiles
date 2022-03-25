@@ -179,6 +179,7 @@ depends=(
     'ttc-iosevka'
     'ttc-iosevka-aile'
     'ttf-ubuntu-font-family'
+    'ttf-jetbrains-mono'
     'nerd-fonts-complete'
     'plymouth'
     'noto-fonts'
