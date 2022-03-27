@@ -24,7 +24,7 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
-      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 18 :weight 'bold))
+      doom-variable-pitch-font (font-spec :family "iosevka" :size 18 :weight 'bold))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -197,12 +197,12 @@ Set to nil to disable the warning."
 (setq howdoyou-number-of-answers 10)
 (map! :leader
       (:prefix-map ("s" . "search")
-       :desc "How do you"     "h" #'howdoyou-query
-       ))
+       :desc "How do you" "h" #'howdoyou-query))
+
 (eval-after-load "howdoyou"
   '(progn
-     (define-key howdoyou-mode-map (kbd "C-c <left>") #'howdoyou-previous-link)
-     (define-key howdoyou-mode-map (kbd "C-c <right>") #'howdoyou-next-link)))
+     (define-key howdoyou-mode-map (kbd "C-c k") #'howdoyou-previous-link)
+     (define-key howdoyou-mode-map (kbd "C-c j") #'howdoyou-next-link)))
 
 ;; modeline
 (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
@@ -250,3 +250,11 @@ Set to nil to disable the warning."
  '(treemacs-on-failure-pulse-face ((t (:inherit default))))
  '(treemacs-on-success-pulse-face ((t (:inherit default))))
  '(treemacs-root-face ((t (:inherit default :inherit default)))))
+
+;; automatically highlight symbols under the curse
+(setq highlight-symbol-idle-delay 0)
+(add-hook 'prog-mode-hook 'highlight-symbol-mode)
+
+;; custom vim keybindings
+(global-set-key (kbd "<C-k>") 'drag-stuff-up)
+(global-set-key (kbd "<C-j>") 'drag-stuff-down)

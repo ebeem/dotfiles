@@ -32,6 +32,7 @@ depends=(
     'aspell-en'
     'fd'
     'editorconfig-core-c'
+    'pass'
 
     # office suite
     'libreoffice-fresh'
@@ -39,6 +40,7 @@ depends=(
     #   browser
     'firefox'
     'firefox-developer-edition'
+    'qutebrowser'
 
     #   arch specific
     'arch-install-scripts'
@@ -58,6 +60,7 @@ depends=(
     'dotnet-targeting-pack-3.1'
     'mono'
     'omnisharp-roslyn'
+
     #   python
     'python'
     'python-keras'
@@ -69,6 +72,7 @@ depends=(
     'jupyter'
     'cython'
     'cython2'
+    'spyder'
 
     #   dart
     'dart'
@@ -180,7 +184,6 @@ depends=(
     'ttc-iosevka-aile'
     'ttf-ubuntu-font-family'
     'ttf-jetbrains-mono'
-    'nerd-fonts-complete'
     'plymouth'
     'noto-fonts'
 
@@ -209,7 +212,7 @@ depends=(
 
     # hardware
     'i-nex'
-    'ckb-next-git'
+    'ckb-next'
     'openrgb'
     'nvidia'
     'cuda'
@@ -239,8 +242,7 @@ depends=(
     'openvpn'
 
     # virtualization
-    'virtualbox'
-    'virtualbox-host-modules-arch'
+    'qmeu'
     'kubectl'
     'docker'
     'docker-compose'

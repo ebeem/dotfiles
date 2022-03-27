@@ -48,5 +48,14 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+;; install stack-overflow searching tool
 (package! howdoyou)
-;
+
+;; highlight symbols under the curse
+(package! highlight-symbol)
+
+;; install matrix client
+(package! plz
+  :recipe (:host github :repo "alphapapa/plz.el"))
+(package! ement
+  :recipe (:host github :repo "alphapapa/ement.el"))

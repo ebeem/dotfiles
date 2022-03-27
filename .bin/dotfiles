@@ -27,7 +27,7 @@ install() {
     paru -Syu --noconfirm
 
     # install dependencies
-    cd $dir_path/../.arch_pkgs
+    cd $dir_path/..
     # makepkg --noconfirm -sifcC
     paru -Ui --noconfirm
 }

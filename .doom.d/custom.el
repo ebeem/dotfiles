@@ -6,7 +6,7 @@
  '(ansi-color-names-vector
    ["#282c34" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#bbc2cf"])
  '(custom-safe-themes
-   '("5b9b15a95d141d69b1e48429cb64b653a02b9e59dd6d64dbdffcdf617394af5f" default))
+   '("835868dcd17131ba8b9619d14c67c127aa18b90a82438c8613586331129dda63" "234dbb732ef054b109a9e5ee5b499632c63cc24f7c2383a849815dacc1727cb6" "5b9b15a95d141d69b1e48429cb64b653a02b9e59dd6d64dbdffcdf617394af5f" default))
  '(exwm-floating-border-color "#191b20")
  '(fci-rule-color "#5B6268")
  '(highlight-tail-colors
@@ -18,6 +18,7 @@
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(objed-cursor-color "#ff6c6b")
+ '(package-selected-packages '(highlight-symbol quelpa-use-package ement))
  '(pdf-view-midnight-colors (cons "#bbc2cf" "#282c34"))
  '(rustic-ansi-faces
    ["#282c34" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#bbc2cf"])
@@ -49,4 +50,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(treemacs-directory-collapsed-face ((t (:inherit default))))
+ '(treemacs-directory-face ((t (:inherit default))))
+ '(treemacs-file-face ((t (:inherit default))))
+ '(treemacs-fringe-indicator-face ((t (:inherit default))))
+ '(treemacs-git-added-face ((t (:inherit default))))
+ '(treemacs-git-conflict-face ((t (:inherit default))))
+ '(treemacs-git-ignored-face ((t (:inherit default))))
+ '(treemacs-git-modified-face ((t (:inherit default))))
+ '(treemacs-git-renamed-face ((t (:inherit default))))
+ '(treemacs-git-unmodified-face ((t (:inherit default))))
+ '(treemacs-git-untracked-face ((t (:inherit default))))
+ '(treemacs-header-face ((t (:inherit default))))
+ '(treemacs-on-failure-pulse-face ((t (:inherit default))))
+ '(treemacs-on-success-pulse-face ((t (:inherit default))))
+ '(treemacs-root-face ((t (:inherit default :inherit default)))))
