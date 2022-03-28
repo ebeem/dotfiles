@@ -24,7 +24,7 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
-      doom-variable-pitch-font (font-spec :family "iosevka" :size 18 :weight 'bold))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 18 :weight 'regular))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -43,6 +43,18 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/cloud/org/")
+
+;; Make sure org-indent face is available
+(require 'org-indent)
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
 
 ;;; :ui doom-dashboard
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
@@ -209,6 +221,7 @@ Set to nil to disable the warning."
 (setq doom-modeline-icon (display-graphic-p))
 (setq doom-modeline-major-mode-icon t)
 (setq doom-modeline-major-mode-color-icon t)
+(setq doom-modeline-height 1)
 
 ;; vterm
 (add-hook 'vterm-mode-hook (lambda () (hide-mode-line-mode -1)))
@@ -226,30 +239,6 @@ Set to nil to disable the warning."
 
 ;; TODO: mu4e bookmarks
 ;;
-
-
-
-;; treemacs configuration
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(treemacs-directory-collapsed-face ((t (:inherit default))))
- '(treemacs-directory-face ((t (:inherit default))))
- '(treemacs-file-face ((t (:inherit default))))
- '(treemacs-fringe-indicator-face ((t (:inherit default))))
- '(treemacs-git-added-face ((t (:inherit default))))
- '(treemacs-git-conflict-face ((t (:inherit default))))
- '(treemacs-git-ignored-face ((t (:inherit default))))
- '(treemacs-git-modified-face ((t (:inherit default))))
- '(treemacs-git-renamed-face ((t (:inherit default))))
- '(treemacs-git-unmodified-face ((t (:inherit default))))
- '(treemacs-git-untracked-face ((t (:inherit default))))
- '(treemacs-header-face ((t (:inherit default))))
- '(treemacs-on-failure-pulse-face ((t (:inherit default))))
- '(treemacs-on-success-pulse-face ((t (:inherit default))))
- '(treemacs-root-face ((t (:inherit default :inherit default)))))
 
 ;; automatically highlight symbols under the curse
 (setq highlight-symbol-idle-delay 0)

@@ -180,6 +180,8 @@ depends=(
 
     # look and behavior
     'breeze-snow-cursor-theme'
+    'ttf-fira-sans'
+    'ttf-fira-code'
     'ttc-iosevka'
     'ttc-iosevka-aile'
     'ttf-ubuntu-font-family'
@@ -242,7 +244,7 @@ depends=(
     'openvpn'
 
     # virtualization
-    'qmeu'
+    'qemu'
     'kubectl'
     'docker'
     'docker-compose'
