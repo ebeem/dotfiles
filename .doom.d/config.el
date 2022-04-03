@@ -24,7 +24,7 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 18 :weight 'regular))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 16))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -153,7 +153,6 @@ Set to nil to disable the warning."
 ;; (setq bidi-paragraph-direction 'right-to-left)
 
 (setq projectile-project-search-path '(("~/workspace/" . 3) ("~/" . 2)))
-(setq emms-source-file-default-directory "/mnt/repository/media/music/")
 (setq projectile-enable-caching nil)
 (setq projectile-auto-discover nil)
 
@@ -177,19 +176,17 @@ Set to nil to disable the warning."
 ;; 				  :compile "msbuild"
 ;; 				  :run "godot-mono -d --remote-debug localhost:45000")
 
-(require 'emms-setup)
-(emms-all)
-(emms-default-players)
-(setq emms-source-file-default-directory "~/Music/"  ;; Change to your music folder
-      emms-info-functions '(emms-info-tinytag))  ;; When using Tinytag
-;;(setq emms-info-functions '(emms-info-exiftool)) When using Exiftool
-
-
-
+;;(require 'emms-setup)
+;;(emms-all)
+;;(emms-default-players)
+(setq emms-player-mpd-server-name "localhost"
+      emms-player-mpd-server-port "6601"
+      emms-player-mpd-music-directory "~/Music"
+      emms-player-list '(emms-player-mpd))
 
 ;; Load cover images
 (setq emms-browser-covers 'emms-browser-cache-thumbnail-async)
-
+(emms-player-mpd-connect)
 
 ;; Keyboard shortcuts
 (global-set-key (kbd "<XF86AudioPrev>") 'emms-previous)
