@@ -116,7 +116,6 @@ depends=(
     'emacs'
     'aspell'
     'arduino'
-    'atom'
     'visual-studio-code-bin'
     'godot'
     'godot-mono-bin'
