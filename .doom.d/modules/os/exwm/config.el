@@ -1,9 +1,9 @@
 ;;; ui/exwm/config.el -*- lexical-binding: t; -*-
 
 ;; Make the launcher only show app names
-(use-package! counsel
-  :custom
-  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
+;; (use-package! counsel
+;;   :custom
+;;   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
 
 (defun elken/playerctl-format (function format)
   "Invoke playerctl for FUNCTION using FORMAT to present output"
@@ -94,10 +94,6 @@
 
 (after! (exwm doom-modeline)
   (setq all-the-icons-scale-factor 1.1)
-  (use-package! doom-modeline-exwm)
-  (use-package! doom-modeline-now-playing
-    :config
-    (doom-modeline-now-playing-timer))
   (doom-modeline-def-segment exwm-buffer-info
     (concat
      (let ((face (if (doom-modeline--active)

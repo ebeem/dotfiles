@@ -9,3 +9,6 @@
            IS-EXWM)
   (require 'exwm)
   (exwm-enable))
+  ;; (require 'exwm)
+  ;; (require 'exwm-config)
+  ;; (exwm-config-default)
