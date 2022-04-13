@@ -11,8 +11,8 @@ Account gmeb2
 
 MaildirStore gmeb2-local
 SubFolders Verbatim
-Path ~/.mail/gmail_ebeem2/
-Inbox ~/.mail/gmail_ebeem2/Inbox
+Path ~/.mail/gmeb2/
+Inbox ~/.mail/gmeb2/Inbox
 
 Channel gmeb2
 Far :gmeb2-remote:
@@ -35,8 +35,8 @@ Account gmibm
 
 MaildirStore gmibm-local
 SubFolders Verbatim
-Path ~/.mail/gmail_ibraheem_marhoon/
-Inbox ~/.mail/gmail_ibraheem_marhoon/Inbox
+Path ~/.mail/gmibm/
+Inbox ~/.mail/gmibm/Inbox
 
 Channel gmibm
 Far :gmibm-remote:

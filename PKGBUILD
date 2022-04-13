@@ -116,6 +116,7 @@ depends=(
     'emacs'
     'aspell'
     'arduino'
+    'atom'
     'visual-studio-code-bin'
     'godot'
     'godot-mono-bin'
@@ -172,6 +173,7 @@ depends=(
     'celluloid'
     'mpc'
     'mpd'
+    'ncmpcpp'
     'mopidy'
     'mopidy-spotify'
     'mopidy-local'
@@ -206,6 +208,13 @@ depends=(
     'dconf-editor'
     'gdm'
     'gnome-system-monitor'
+
+    # window-manager
+    'python-pywal'
+    'rofi'
+    'polybar'
+    'networkmanager-dmenu-git'
+    'picom'
 
     # browsers
     'chromium'
