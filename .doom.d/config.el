@@ -185,6 +185,8 @@ Set to nil to disable the warning."
       emms-player-list '(emms-player-mpd))
 
 ;; Load cover images
+;; (add-to-list 'emms-info-functions 'emms-info-mpd)
+(add-to-list 'emms-player-list 'emms-player-mpd)
 (setq emms-browser-covers 'emms-browser-cache-thumbnail-async)
 (emms-player-mpd-connect)
 
@@ -227,12 +229,80 @@ Set to nil to disable the warning."
 (doom-load-envvars-file "~/.doom.d/env")
 
 ;; mu4e
-(setq mu4e-update-interval 30
+(setq mu4e-update-interval (* 60 2)
+      mu4e-maildir "~/.mail"
       mu4e-change-filenames-when-moving t
       mu4e-get-mail-command "mbsync -a"
-      mu4e-view-prefer-html nil
-      mu4e-view-show-images t
       mu4e-display-update-status-in-modeline t)
+
+  (with-eval-after-load "mm-decode"
+    (add-to-list 'mm-discouraged-alternatives "text/html")
+    (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+
+  ;; (setq mu4e-contexts
+  ;;       (list
+  ;;        ;; Work account
+  ;;        (make-mu4e-context
+  ;;         :name "Work"
+  ;;         :match-func
+  ;;           (lambda (msg)
+  ;;             (when msg
+  ;;               (string-prefix-p "/gmibm" (mu4e-message-field msg :maildir))))
+  ;;         :vars '((user-mail-address . "ibraheem.marhoon@gmail.com")
+  ;;                 (user-full-name    . "Ibraheem Almarhoon")
+  ;;                 (mu4e-drafts-folder  . "/gmibm/drafts")
+  ;;                 (mu4e-sent-folder  . "/gmibm/[Gmail]/Sent Mail")
+  ;;                 (mu4e-refile-folder  . "/gmibm/[Gmail]/All Mail")
+  ;;                 (mu4e-trash-folder  . "/gmibm/trash"))),
+  ;;        (make-mu4e-context
+  ;;         :name "Work"
+  ;;         :match-func
+  ;;           (lambda (msg)
+  ;;             (when msg
+  ;;               (string-prefix-p "/gmeb2" (mu4e-message-field msg :maildir))))
+  ;;         :vars '((user-mail-address . "ebeem2@gmail.com")
+  ;;                 (user-full-name    . "Ibraheem Almarhoon")
+  ;;                 (mu4e-drafts-folder  . "/gmeb2/drafts")
+  ;;                 (mu4e-sent-folder  . "/gmeb2/[Gmail]/Sent Mail")
+  ;;                 (mu4e-refile-folder  . "/gmeb2/[Gmail]/All Mail")
+  ;;                 (mu4e-trash-folder  . "/gmeb2/trash")))
+  ;;        ))
+
+
+;; assumed Maildir layout
+;; ~/Maildir/Account0/{Inbox,Sent,Trash}
+;; ~/Maildir/Account1/{Inbox,Sent,Trash}
+;; where Account0 is context name
+(defun def-mu4e-context (context-name full-name mail-address signature)
+  "Return a mu4e context named CONTEXT-NAME with :match-func matching
+   folder name CONTEXT-NAME in Maildir. The context's `user-mail-address',
+   `user-full-name' and `mu4e-compose-signature' is set to MAIL-ADDRESS
+   FULL-NAME and SIGNATURE respectively.
+   Special folders are set to context specific folders."
+  (let ((dir-name (concat "/" context-name)))
+    (make-mu4e-context
+     :name context-name
+     ;; we match based on the maildir of the message
+     ;; this matches maildir /Arkham and its sub-directories
+     :match-func
+     `(lambda (msg)
+        (when msg
+          (string-match-p
+           ,(concat "^" dir-name)
+           (mu4e-message-field msg :maildir))))
+     :vars
+     `((user-mail-address    . ,mail-address)
+       (user-full-name       . ,full-name)
+       (mu4e-sent-folder     . ,(concat dir-name "/sent"))
+       (mu4e-drafts-folder   . ,(concat dir-name "/drafts"))
+       (mu4e-trash-folder    . ,(concat dir-name "/trash"))
+       (mu4e-compose-signature . ,signature)))))
+;;Fixing duplicate UID errors when using mbsync and mu4e
+(setq mu4e-change-filenames-when-moving t)
+
+;; (setq mu4e-contexts
+;;       `(,(def-mu4e-context "gmibm" "Ibraheem Almarhoon" "ibraheem.marhoon@gmail.com" "emacs")
+;;         (def-mu4e-context "gmeb2" "Ibraheem Almarhoon" "ebeem2@gmail.com" "emacs")))
 
 ;; TODO: mu4e bookmarks
 ;;

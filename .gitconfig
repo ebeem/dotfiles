@@ -3,3 +3,6 @@
 	name = Almarhoon Ibraheem
 [core]
 	autocrlf = input
+[http]
+	sslverify = false
+	proxy = 

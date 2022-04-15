@@ -33,5 +33,6 @@ fi
 
 twm &
 xclock -geometry 50x50-1+1 &
-# exec exwm
+picom -b --experimental-backends --dbus
+~/.config/polybar/cuts/launch.sh &
 exwm

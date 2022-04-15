@@ -195,6 +195,7 @@ depends=(
     'ttc-iosevka-aile'
     'ttf-ubuntu-font-family'
     'ttf-jetbrains-mono'
+    'nerd-fonts-jetbrains-mono'
     'plymouth'
     'noto-fonts'
 
@@ -215,6 +216,7 @@ depends=(
     'polybar'
     'networkmanager-dmenu-git'
     'picom'
+    'xorg-xrandr'
 
     # browsers
     'chromium'

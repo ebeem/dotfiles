@@ -1,9 +1,9 @@
 ;;; ui/exwm/config.el -*- lexical-binding: t; -*-
 
 ;; Make the launcher only show app names
-;; (use-package! counsel
-;;   :custom
-;;   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
+(use-package! counsel
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
 
 (defun elken/playerctl-format (function format)
   "Invoke playerctl for FUNCTION using FORMAT to present output"
@@ -63,14 +63,14 @@
 (defun elken/exwm-init-hook ()
   "Various init processes for exwm"
   ;; Daemon applications
-  (elken/run-in-background "pasystray")
-  (elken/run-in-background "megasync")
-  (elken/run-in-background "nm-applet")
+  ;; (elken/run-in-background "pasystray")
+  ;; (elken/run-in-background "megasync")
+  ;; (elken/run-in-background "nm-applet")
 
   ;; Startup applications
-  (elken/run-application "spotify")
-  (elken/run-application "discord")
-  (elken/run-application "firefox")
+  ;; (elken/run-application "spotify")
+  ;; (elken/run-application "discord")
+  ;; (elken/run-application "firefox")
 
   ;; Default emacs behaviours
   ;; TODO Take this out of emacs
@@ -92,29 +92,29 @@
             :action #'elken/kill-process--action
             :caller 'elken/kill-process))
 
-(after! (exwm doom-modeline)
-  (setq all-the-icons-scale-factor 1.1)
-  (doom-modeline-def-segment exwm-buffer-info
-    (concat
-     (let ((face (if (doom-modeline--active)
-                     'doom-modeline-buffer-file
-                   'mode-line-inactive)))
-       (doom-modeline-icon 'octicon "browser" "" ""
-                           :face face :v-adjust -0.05))
-     (doom-modeline-spc)
-     (doom-modeline--buffer-name)))
-  (setf (alist-get 'exwm-mode all-the-icons-mode-icon-alist)
-        '(all-the-icons-octicon "browser" :v-adjust -0.05))
-  (doom-modeline-def-modeline 'exwm
-    '(bar workspace-name exwm-workspaces debug exwm-buffer-info)
-    '(now-playing objed-state misc-info persp-name grip mu4e gnus github repl lsp major-mode process "  "))
-  (defun doom-modeline-set-exwm-modeline ()
-    "Set exwm mode-line"
-    (doom-modeline-set-modeline 'exwm))
-  (add-hook 'exwm-mode-hook #'doom-modeline-set-exwm-modeline)
-  (doom-modeline-def-modeline 'main
-    '(bar workspace-name exwm-workspaces debug modals matches buffer-info remote-host parrot selection-info)
-    '(now-playing objed-state misc-info persp-name grip mu4e gnus github repl lsp major-mode process vcs checker "  ")))
+;; (after! (exwm doom-modeline)
+;;   (setq all-the-icons-scale-factor 1.1)
+;;   (doom-modeline-def-segment exwm-buffer-info
+;;     (concat
+;;      (let ((face (if (doom-modeline--active)
+;;                      'doom-modeline-buffer-file
+;;                    'mode-line-inactive)))
+;;        (doom-modeline-icon 'octicon "browser" "" ""
+;;                            :face face :v-adjust -0.05))
+;;      (doom-modeline-spc)
+;;      (doom-modeline--buffer-name)))
+;;   (setf (alist-get 'exwm-mode all-the-icons-mode-icon-alist)
+;;         '(all-the-icons-octicon "browser" :v-adjust -0.05))
+;;   (doom-modeline-def-modeline 'exwm
+;;     '(bar workspace-name exwm-workspaces debug exwm-buffer-info)
+;;     '(now-playing objed-state misc-info persp-name grip mu4e gnus github repl lsp major-mode process "  "))
+;;   (defun doom-modeline-set-exwm-modeline ()
+;;     "Set exwm mode-line"
+;;     (doom-modeline-set-modeline 'exwm))
+;;   (add-hook 'exwm-mode-hook #'doom-modeline-set-exwm-modeline)
+;;   (doom-modeline-def-modeline 'main
+;;     '(bar workspace-name exwm-workspaces debug modals matches buffer-info remote-host parrot selection-info)
+;;     '(now-playing objed-state misc-info persp-name grip mu4e gnus github repl lsp major-mode process vcs checker "  ")))
 
 ;; Used to handle screen locking (currently unused), media keys and screenshotting
 (use-package! desktop-environment
@@ -138,10 +138,7 @@
   (setq exwm-workspace-show-all-buffers t)
 
   ;; Set a sane number of default workspaces
-  (setq exwm-workspace-number 5)
-
-  ;; Define workspace setup for monitors
-  (setq exwm-randr-workspace-monitor-plist `(,(elken/exwm-get-index 2) "DP-0" ,(elken/exwm-get-index 3) "DP-0"))
+  (setq exwm-workspace-number 9)
 
   (setq exwm-workspace-index-map
         (lambda (index) (number-to-string (+ 1 index))))
@@ -153,25 +150,16 @@
   (add-hook 'exwm-init-hook #'elken/exwm-init-hook)
 
   ;; Update window title
-  (add-hook 'exwm-update-title-hook #'elken/exwm-update-title)
+  ;; (add-hook 'exwm-update-title-hook #'elken/exwm-update-title)
 
   ;; Configure windows as created
-  (add-hook 'exwm-manage-finish-hook #'elken/configure-window-by-class)
+  ;; (add-hook 'exwm-manage-finish-hook #'elken/configure-window-by-class)
 
   ;; /Always/ pass these to emacs
   (setq exwm-input-prefix-keys
         '(?\C-x
-          ?\C-u
-          ?\C-h
           ?\M-x
-          ?\C-w
-          ?\M-`
-          ?\M-&
-          ?\M-:
-          ?\M-\
-          ?\C-g
-          ?\C-\M-j
-          ?\C-\ ))
+          ?\C-g))
 
   ;; Shortcut to passthrough next keys
   (map! :map exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
@@ -179,21 +167,17 @@
   ;; Setup screen layout
   (require 'exwm-randr)
   (exwm-randr-enable)
-  (start-process-shell-command "xrandr" nil "xrandr --output HDMI-0 --primary --mode 2560x1440 --pos 0x1080 --output DP-0 --mode 2560x1080 --pos 0x0")
-
+  (setq exwm-randr-workspace-monitor-plist '(0 "DP-4"
+            1 "HDMI-0"
+					  2 "DP-2"))
+  ;; (add-hook 'exwm-randr-screen-change-hook
+	;;     (lambda ()
+	;;       (start-process-shell-command
+	;;        "xrandr" nil "xrandr --output HDMI-0 --right-of DP-4 --output DP-2 --left-of DP-4")))
+  (start-process-shell-command "xrandr" nil "xrandr --output HDMI-0 --right-of DP-4 --output DP-2 --left-of DP-4")
+  
   ;; Set the wallpaper
-  (elken/set-wallpaper (expand-file-name "images/background.png" doom-private-dir))
-
-  ;; Setup tray
-  (require 'exwm-systemtray)
-  (setq exwm-systemtray-height 16)
-  (exwm-systemtray-enable)
-
-  ;; Date/time
-  (setq display-time-format " [ %H:%M %d/%m/%y]")
-  (setq display-time-default-load-average nil)
-  (display-time-mode 1)
-
+  (elken/set-wallpaper (expand-file-name "wallpaper.png" doom-private-dir))
   (exwm-input-set-key (kbd "<s-return>") '+eshell/toggle)
 
   (setq exwm-input-global-keys
