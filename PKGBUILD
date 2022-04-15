@@ -182,6 +182,7 @@ depends=(
     'mopidy-mpris'
     # 'mopidy-notifier'
     'mopidy-mpd'
+    'mopidy-iris'
     'vlc'
     'kodi'
     'yt-dlp'
@@ -217,6 +218,15 @@ depends=(
     'networkmanager-dmenu-git'
     'picom'
     'xorg-xrandr'
+    'feh'
+    'pamixer'
+    'brightnessctl'
+    'scrot'
+    'slock'
+    'upower'
+    'tlp'
+    'playerctl'
+    'xsettingsd'
 
     # browsers
     'chromium'

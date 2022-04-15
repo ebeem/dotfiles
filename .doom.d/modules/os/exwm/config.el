@@ -5,21 +5,9 @@
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
 
-(defun elken/playerctl-format (function format)
-  "Invoke playerctl for FUNCTION using FORMAT to present output"
-  (string-trim (shell-command-to-string (format "playerctl %s --format '%s'" function format))))
-
-(defun elken/exwm-get-index (index)
-  "Get the correct index from the passed index"
-  (- index 1))
-
 (defun elken/run-application (command)
-  "Run the specified command as an application"
+  "run the specified command as an application"
   (call-process "gtk-launch" nil 0 nil command))
-
-(defun elken/exwm-update-class ()
-  "Update the buffer to be the name of the window"
-  (exwm-workspace-rename-buffer exwm-class-name))
 
 (defun elken/run-in-background (command &optional args)
   "Run the specified command as a daemon"
@@ -27,38 +15,10 @@
   (setq elken/process-alist
         (cons `(,command . ,(start-process-shell-command command nil (format "%s %s" command (or args "")))) elken/process-alist)))
 
-(defun elken/reload-tray ()
-  "Restart the systemtray"
-  (interactive)
-  (exwm-systemtray--exit)
-  (exwm-systemtray--init))
-
 (defun elken/set-wallpaper (file)
   "Set the DE wallpaper to be $FILE"
   (interactive)
   (start-process-shell-command "feh" nil (format "feh --bg-scale %s" file)))
-
-(defun elken/exwm-update-title ()
-  "Update the window title when needed"
-  (pcase (downcase (or exwm-class-name ""))
-    ("spotify" (exwm-workspace-rename-buffer (format "Spotify: %s" (elken/playerctl-format "--player=spotify metadata" "{{ artist }} - {{ title }}"))))
-    (_ (exwm-workspace-rename-buffer (format "%s" exwm-title)))))
-
-(defun elken/configure-window-by-class()
-  "Configuration for windows (grouped by WM_CLASS)"
-  (interactive)
-  (pcase (downcase (or exwm-class-name ""))
-    ("mpv" (progn
-             (exwm-floating-toggle-floating)
-             (exwm-layout-toggle-mode-line)))
-    ("discord" (progn
-                 (exwm-workspace-move-window (elken/exwm-get-index 3))
-                 (elken/reload-tray)))
-    ("megasync" (progn
-                  (exwm-floating-toggle-floating)
-                  (exwm-layout-toggle-mode-line)))
-    ("spotify" (exwm-workspace-move-window (elken/exwm-get-index 4)))
-    ("firefox" (exwm-workspace-move-window (elken/exwm-get-index 2)))))
 
 (defun elken/exwm-init-hook ()
   "Various init processes for exwm"
@@ -92,30 +52,6 @@
             :action #'elken/kill-process--action
             :caller 'elken/kill-process))
 
-;; (after! (exwm doom-modeline)
-;;   (setq all-the-icons-scale-factor 1.1)
-;;   (doom-modeline-def-segment exwm-buffer-info
-;;     (concat
-;;      (let ((face (if (doom-modeline--active)
-;;                      'doom-modeline-buffer-file
-;;                    'mode-line-inactive)))
-;;        (doom-modeline-icon 'octicon "browser" "" ""
-;;                            :face face :v-adjust -0.05))
-;;      (doom-modeline-spc)
-;;      (doom-modeline--buffer-name)))
-;;   (setf (alist-get 'exwm-mode all-the-icons-mode-icon-alist)
-;;         '(all-the-icons-octicon "browser" :v-adjust -0.05))
-;;   (doom-modeline-def-modeline 'exwm
-;;     '(bar workspace-name exwm-workspaces debug exwm-buffer-info)
-;;     '(now-playing objed-state misc-info persp-name grip mu4e gnus github repl lsp major-mode process "  "))
-;;   (defun doom-modeline-set-exwm-modeline ()
-;;     "Set exwm mode-line"
-;;     (doom-modeline-set-modeline 'exwm))
-;;   (add-hook 'exwm-mode-hook #'doom-modeline-set-exwm-modeline)
-;;   (doom-modeline-def-modeline 'main
-;;     '(bar workspace-name exwm-workspaces debug modals matches buffer-info remote-host parrot selection-info)
-;;     '(now-playing objed-state misc-info persp-name grip mu4e gnus github repl lsp major-mode process vcs checker "  ")))
-
 ;; Used to handle screen locking (currently unused), media keys and screenshotting
 (use-package! desktop-environment
   :after exwm
@@ -140,20 +76,8 @@
   ;; Set a sane number of default workspaces
   (setq exwm-workspace-number 9)
 
-  (setq exwm-workspace-index-map
-        (lambda (index) (number-to-string (+ 1 index))))
-
-  ;; Set the buffer to the name of the window class
-  (add-hook 'exwm-update-class-hook #'elken/exwm-update-class)
-
   ;; Init hook
   (add-hook 'exwm-init-hook #'elken/exwm-init-hook)
-
-  ;; Update window title
-  ;; (add-hook 'exwm-update-title-hook #'elken/exwm-update-title)
-
-  ;; Configure windows as created
-  ;; (add-hook 'exwm-manage-finish-hook #'elken/configure-window-by-class)
 
   ;; /Always/ pass these to emacs
   (setq exwm-input-prefix-keys
@@ -169,16 +93,15 @@
   (exwm-randr-enable)
   (setq exwm-randr-workspace-monitor-plist '(0 "DP-4"
             1 "HDMI-0"
-					  2 "DP-2"))
-  ;; (add-hook 'exwm-randr-screen-change-hook
-	;;     (lambda ()
-	;;       (start-process-shell-command
-	;;        "xrandr" nil "xrandr --output HDMI-0 --right-of DP-4 --output DP-2 --left-of DP-4")))
-  (start-process-shell-command "xrandr" nil "xrandr --output HDMI-0 --right-of DP-4 --output DP-2 --left-of DP-4")
-  
+            2 "DP-2"))
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+	      (start-process-shell-command
+	       "xrandr" nil "xrandr --output HDMI-0 --right-of DP-4 --output DP-2 --left-of DP-4")))
+
   ;; Set the wallpaper
-  (elken/set-wallpaper (expand-file-name "wallpaper.png" doom-private-dir))
-  (exwm-input-set-key (kbd "<s-return>") '+eshell/toggle)
+  (elken/set-wallpaper "~/.wallpaper.png")
+  ;; (exwm-input-set-key (kbd "<s-return>") '+eshell/toggle)
 
   (setq exwm-input-global-keys
         '(
@@ -196,31 +119,4 @@
 
           ([?\s-w] . exwm-workspace-switch)
 
-          ([?\s-Q] . (lambda () (interactive) (kill-buffer)))
-          ([?\s-1] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 1))))
-          ([?\s-2] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 2))))
-          ([?\s-3] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 3))))
-          ([?\s-4] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 4))))
-          ([?\s-5] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 5))))
-          ([?\s-6] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 6))))
-          ([?\s-7] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 7))))
-          ([?\s-8] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 8))))
-          ([?\s-9] . (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create (elken/exwm-get-index 9)))))))
+          ([?\s-Q] . (lambda () (interactive) (kill-buffer))))))

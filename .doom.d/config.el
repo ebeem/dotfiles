@@ -314,3 +314,14 @@ Set to nil to disable the warning."
 ;; custom vim keybindings
 (global-set-key (kbd "<C-k>") 'drag-stuff-up)
 (global-set-key (kbd "<C-j>") 'drag-stuff-down)
+
+;; desktop-environment
+(setq desktop-environment-volume-get-command "pamixer --get-volume"
+      desktop-environment-volume-set-command "pamixer %s"
+      desktop-environment-volume-toggle-command "pamixer -t"
+      desktop-environment-volume-toggle-microphone-command "pamixer -t"
+      desktop-environment-volume-get-regexp "\\([0-9]+\\)"
+      desktop-environment-volume-normal-increment "-i 5"
+      desktop-environment-volume-normal-decrement "-d 5"
+      desktop-environment-volume-small-increment "-i 1"
+      desktop-environment-volume-small-decrement "-d 1")
