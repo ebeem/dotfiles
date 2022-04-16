@@ -15,11 +15,6 @@
   (setq elken/process-alist
         (cons `(,command . ,(start-process-shell-command command nil (format "%s %s" command (or args "")))) elken/process-alist)))
 
-(defun elken/set-wallpaper (file)
-  "Set the DE wallpaper to be $FILE"
-  (interactive)
-  (start-process-shell-command "feh" nil (format "feh --bg-scale %s" file)))
-
 (defun elken/exwm-init-hook ()
   "Various init processes for exwm"
   ;; Daemon applications
@@ -90,17 +85,15 @@
 
   ;; Setup screen layout
   (require 'exwm-randr)
-  (exwm-randr-enable)
   (setq exwm-randr-workspace-monitor-plist '(0 "DP-4"
-            1 "HDMI-0"
-            2 "DP-2"))
+            1 "DP-2"
+            2 "HDMI-0"))
   (add-hook 'exwm-randr-screen-change-hook
             (lambda ()
 	      (start-process-shell-command
-	       "xrandr" nil "xrandr --output HDMI-0 --right-of DP-4 --output DP-2 --left-of DP-4")))
+	       "xrandr" nil "xrandr --output DP-4 --left-of DP-2 --output DP-2 --left-of HDMI-0")))
+  (exwm-randr-enable)
 
-  ;; Set the wallpaper
-  (elken/set-wallpaper "~/.wallpaper.png")
   ;; (exwm-input-set-key (kbd "<s-return>") '+eshell/toggle)
 
   (setq exwm-input-global-keys
@@ -111,12 +104,8 @@
           ([s-right] . windmove-right)
           ([s-up] . windmove-up)
           ([s-down] . windmove-down)
-
           ([?\s-&] . (lambda (command) (interactive (list (read-shell-command "[command] $ ")))
                        (start-process-shell-command command nil command)))
-
           ([?\s-e] . (lambda () (interactive) (dired "~")))
-
           ([?\s-w] . exwm-workspace-switch)
-
-          ([?\s-Q] . (lambda () (interactive) (kill-buffer))))))
+          ([?\s-q] . (lambda () (interactive) (kill-buffer))))))

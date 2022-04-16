@@ -33,6 +33,8 @@ depends=(
     'fd'
     'editorconfig-core-c'
     'pass'
+    'thunar'
+    'flameshot'
 
     # office suite
     'libreoffice-fresh'

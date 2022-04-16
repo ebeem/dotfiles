@@ -1,5 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
-;;; ui/exwm/packages.el
+;;; os/exwm/packages.el
 
 (package! exwm)
 (package! desktop-environment)
