@@ -179,21 +179,24 @@ Set to nil to disable the warning."
 ;;(require 'emms-setup)
 ;;(emms-all)
 ;;(emms-default-players)
-(setq emms-player-mpd-server-name "localhost"
-      emms-player-mpd-server-port "6601"
-      emms-player-mpd-music-directory "~/Music"
-      emms-player-list '(emms-player-mpd))
+;; (setq emms-player-mpd-server-name "localhost"
+;;       emms-player-mpd-server-port "6600"
+;;       emms-player-mpd-music-directory "~/Music"
+;;       emms-player-list '(emms-player-mpd))
 
 ;; Load cover images
 ;; (add-to-list 'emms-info-functions 'emms-info-mpd)
-(add-to-list 'emms-player-list 'emms-player-mpd)
-(setq emms-browser-covers 'emms-browser-cache-thumbnail-async)
-(emms-player-mpd-connect)
+;; (add-to-list 'emms-player-list 'emms-player-mpd)
+;; (setq emms-browser-covers 'emms-browser-emaccache-thumbnail-async)
+;; (emms-player-mpd-connect)
 
-;; Keyboard shortcuts
-(global-set-key (kbd "<XF86AudioPrev>") 'emms-previous)
-(global-set-key (kbd "<XF86AudioNext>") 'emms-next)
-(global-set-key (kbd "<XF86AudioPlay>") 'emms-pause)
+(setq mingus-mpd-port 6600
+      mingus-mpd-host "localhost")
+
+;; ;; Keyboard shortcuts
+;; (global-set-key (kbd "<XF86AudioPrev>") 'emms-previous)
+;; (global-set-key (kbd "<XF86AudioNext>") 'emms-next)
+;; (global-set-key (kbd "<XF86AudioPlay>") 'emms-pause)
 
 
 ;; saving desktop frames to session files
@@ -216,11 +219,15 @@ Set to nil to disable the warning."
      (define-key howdoyou-mode-map (kbd "C-c j") #'howdoyou-next-link)))
 
 ;; modeline
-(setq doom-modeline-buffer-file-name-style 'truncate-with-project)
-(setq doom-modeline-icon (display-graphic-p))
-(setq doom-modeline-major-mode-icon t)
-(setq doom-modeline-major-mode-color-icon t)
-(setq doom-modeline-height 1)
+(setq doom-modeline-buffer-file-name-style 'truncate-with-project
+      doom-modeline-icon (display-graphic-p)
+      doom-modeline-major-mode-icon t
+      doom-modeline-major-mode-color-icon t
+      doom-modeline-persp-name t
+      doom-modeline-persp-icon t
+      doom-modeline-github t
+      doom-modeline-mu4e t
+      doom-modeline-height 1)
 
 ;; vterm
 (add-hook 'vterm-mode-hook (lambda () (hide-mode-line-mode -1)))
@@ -235,38 +242,38 @@ Set to nil to disable the warning."
       mu4e-get-mail-command "mbsync -a"
       mu4e-display-update-status-in-modeline t)
 
-  (with-eval-after-load "mm-decode"
-    (add-to-list 'mm-discouraged-alternatives "text/html")
-    (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+(with-eval-after-load "mm-decode"
+  (add-to-list 'mm-discouraged-alternatives "text/html")
+  (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
-  ;; (setq mu4e-contexts
-  ;;       (list
-  ;;        ;; Work account
-  ;;        (make-mu4e-context
-  ;;         :name "Work"
-  ;;         :match-func
-  ;;           (lambda (msg)
-  ;;             (when msg
-  ;;               (string-prefix-p "/gmibm" (mu4e-message-field msg :maildir))))
-  ;;         :vars '((user-mail-address . "ibraheem.marhoon@gmail.com")
-  ;;                 (user-full-name    . "Ibraheem Almarhoon")
-  ;;                 (mu4e-drafts-folder  . "/gmibm/drafts")
-  ;;                 (mu4e-sent-folder  . "/gmibm/[Gmail]/Sent Mail")
-  ;;                 (mu4e-refile-folder  . "/gmibm/[Gmail]/All Mail")
-  ;;                 (mu4e-trash-folder  . "/gmibm/trash"))),
-  ;;        (make-mu4e-context
-  ;;         :name "Work"
-  ;;         :match-func
-  ;;           (lambda (msg)
-  ;;             (when msg
-  ;;               (string-prefix-p "/gmeb2" (mu4e-message-field msg :maildir))))
-  ;;         :vars '((user-mail-address . "ebeem2@gmail.com")
-  ;;                 (user-full-name    . "Ibraheem Almarhoon")
-  ;;                 (mu4e-drafts-folder  . "/gmeb2/drafts")
-  ;;                 (mu4e-sent-folder  . "/gmeb2/[Gmail]/Sent Mail")
-  ;;                 (mu4e-refile-folder  . "/gmeb2/[Gmail]/All Mail")
-  ;;                 (mu4e-trash-folder  . "/gmeb2/trash")))
-  ;;        ))
+;; (setq mu4e-contexts
+;;       (list
+;;        ;; Work account
+;;        (make-mu4e-context
+;;         :name "Work"
+;;         :match-func
+;;           (lambda (msg)
+;;             (when msg
+;;               (string-prefix-p "/gmibm" (mu4e-message-field msg :maildir))))
+;;         :vars '((user-mail-address . "ibraheem.marhoon@gmail.com")
+;;                 (user-full-name    . "Ibraheem Almarhoon")
+;;                 (mu4e-drafts-folder  . "/gmibm/drafts")
+;;                 (mu4e-sent-folder  . "/gmibm/[Gmail]/Sent Mail")
+;;                 (mu4e-refile-folder  . "/gmibm/[Gmail]/All Mail")
+;;                 (mu4e-trash-folder  . "/gmibm/trash"))),
+;;        (make-mu4e-context
+;;         :name "Work"
+;;         :match-func
+;;           (lambda (msg)
+;;             (when msg
+;;               (string-prefix-p "/gmeb2" (mu4e-message-field msg :maildir))))
+;;         :vars '((user-mail-address . "ebeem2@gmail.com")
+;;                 (user-full-name    . "Ibraheem Almarhoon")
+;;                 (mu4e-drafts-folder  . "/gmeb2/drafts")
+;;                 (mu4e-sent-folder  . "/gmeb2/[Gmail]/Sent Mail")
+;;                 (mu4e-refile-folder  . "/gmeb2/[Gmail]/All Mail")
+;;                 (mu4e-trash-folder  . "/gmeb2/trash")))
+;;        ))
 
 
 ;; assumed Maildir layout
