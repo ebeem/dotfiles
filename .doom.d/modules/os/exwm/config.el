@@ -85,15 +85,17 @@
 
   ;; Setup screen layout
   (require 'exwm-randr)
-  (setq exwm-randr-workspace-monitor-plist '(0 "DP-4"
-            1 "DP-2"
-            2 "HDMI-0"))
+  (setq exwm-randr-workspace-monitor-plist '(1 "DP-4"
+            0 "HDMI-0"
+            2 "DP-2"))
   (add-hook 'exwm-randr-screen-change-hook
             (lambda ()
 	      (start-process-shell-command
-	       "xrandr" nil "xrandr --output DP-4 --left-of DP-2 --output DP-2 --left-of HDMI-0")))
+	       "xrandr" nil "xrandr --output HDMI-0 --right-of DP-4 --output DP-2 --left-of DP-4")
+        (start-process-shell-command
+	       "exec" nil "exec ~/.config/polybar/cuts/launch.sh")))
   (exwm-randr-enable)
-
+  
   ;; (exwm-input-set-key (kbd "<s-return>") '+eshell/toggle)
 
   (setq exwm-input-global-keys

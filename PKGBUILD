@@ -172,7 +172,6 @@ depends=(
     # media
     'blanket'
     'ymuse-bin'
-    'celluloid'
     'mpc'
     'mpd'
     'ncmpcpp'
@@ -201,6 +200,7 @@ depends=(
     'nerd-fonts-jetbrains-mono'
     'plymouth'
     'noto-fonts'
+    'ttf-weather-icons'
 
     # desktop environment
     #   GNOME
