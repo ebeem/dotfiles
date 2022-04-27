@@ -18,12 +18,12 @@ xsetroot -cursor_name left_ptr
 xset r rate 200 60
 
 # Uncomment the following block to use the exwm-xim module.
-#export XMODIFIERS=@im=exwm-xim
-#export GTK_IM_MODULE=xim
-#export QT_IM_MODULE=xim
-#export CLUTTER_IM_MODULE=xim
+export XMODIFIERS=@im=exwm-xim
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+export CLUTTER_IM_MODULE=xim
 
-picom -b --experimental-backends --dbus
-~/.fehbg
-emacs -mm --with-exwm
-~/.config/polybar/cuts/launch.sh
+xsettingsd &
+picom -b --experimental-backends --dbus &
+~/.fehbg &
+exec emacs -mm --with-exwm

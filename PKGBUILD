@@ -34,6 +34,7 @@ depends=(
     'editorconfig-core-c'
     'pass'
     'thunar'
+    'searchmonkey-gtk'
     'flameshot'
 
     # office suite
@@ -133,7 +134,8 @@ depends=(
     'ghidra'
     'r2ghidra'
     'radare2'
-    'clutter'
+    'rz-cutter'
+    'rz-ghidra'
     'hexedit'
     'nmap'
     'metasploit'

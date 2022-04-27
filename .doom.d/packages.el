@@ -59,3 +59,11 @@
   :recipe (:host github :repo "alphapapa/plz.el"))
 (package! ement
   :recipe (:host github :repo "alphapapa/ement.el"))
+
+;; visual fill column
+(package! visual-fill-column)
+(package! burly)
+(package! org-pretty-table
+  :recipe (:host github :repo "Fuco1/org-pretty-table"))
+(package! org-modern
+  :recipe (:host github :repo "minad/org-modern"))

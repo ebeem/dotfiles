@@ -20,11 +20,11 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company           ; the ultimate code completion backend
+       company             ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy                 ; a search engine for love and life
-       (vertico +icons)           ; the search engine of the future
+       ;;ivy               ; a search engine for love and life
+       (vertico +icons)    ; the search engine of the future
 
        :ui
        ;;deft                                           ; notational velocity for Emacs
@@ -48,7 +48,7 @@
        vi-tilde-fringe                                  ; fringe tildes to mark beyond EOB
        (window-select +switch-window +numbers)          ; visually switch
        workspaces                                       ; tab emulation, persistence & separate workspaces
-       ;;zen                                            ; distraction-free coding or writing
+       zen                                              ; distraction-free coding or writing
 
        :editor
        ;;(emacs +everywhere)
@@ -56,7 +56,6 @@
        file-templates                                   ; auto-snippets for empty files
        fold                                             ; (nigh) universal code folding
        (format +onsave)                                 ; automated prettiness
-       ;;format                                         ; automated prettiness
        ;;god                                            ; run Emacs commands without modifier keys
        ;;lispy                                          ; vim for lisp, for people who don't like vim
        multiple-cursors                                 ; editing in many places at once
@@ -86,14 +85,14 @@
 
        :completion
        company                                          ; the ultimate code completion backend
-       helm                                             ; the *other* search engine for love and life
+       ;;helm                                           ; the *other* search engine for love and life
        ;;ido                                            ; the other *other* search engine...
        ;;ivy                                            ; a search engine for love and life
-       ;;(vertico +icons)                               ; the search engine of the future
+       (vertico +icons)                                 ; the search engine of the future
 
       :tools
        ;;ansible
-       ;;biblio            ; Writes a PhD for you (citation needed)
+       ;;biblio                                         ; Writes a PhD for you (citation needed)
        (debugger +lsp)                                  ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
@@ -189,9 +188,9 @@
 
        :app
        calendar
-       ;;emms
+       ;; emms
        mingus
-       ;;everywhere        ; *leave* Emacs!? You must be joking
+       everywhere        ; *leave* Emacs!? You must be joking
        irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
        twitter           ; twitter client https://twitter.com/vnought
