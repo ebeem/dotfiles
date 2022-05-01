@@ -29,7 +29,7 @@ install() {
     # install dependencies
     cd $dir_path/..
     # makepkg --noconfirm -sifcC
-    paru -Ui --noconfirm
+    paru -Ui --noconfirm --cleanafter --rebuild
 }
 
 # $1 is the name of the service
