@@ -153,7 +153,7 @@ Set to nil to disable the warning."
 ;; (setq bidi-paragraph-direction 'right-to-left)
 
 (setq projectile-project-search-path '(("~/workspace/" . 3) ("~/" . 2)))
-(setq projectile-enable-caching t)
+(setq projectile-enable-caching nil)
 (setq projectile-auto-discover t)
 
 ;; (setq lsp-csharp-server-path "/usr/bin/omnisharp")
@@ -179,16 +179,17 @@ Set to nil to disable the warning."
 ;;(require 'emms-setup)
 ;;(emms-all)
 ;;(emms-default-players)
-;; (setq emms-player-mpd-server-name "localhost"
-;;       emms-player-mpd-server-port "6600"
-;;       emms-player-mpd-music-directory "~/Music"
-;;       emms-player-list '(emms-player-mpd))
+(setq emms-player-mpd-server-name "localhost"
+      emms-player-mpd-server-port "6600"
+      emms-player-mpd-music-directory "~/Music"
+      emms-player-list '(emms-player-mpd))
 
 ;; Load cover images
 ;; (add-to-list 'emms-info-functions 'emms-info-mpd)
-;; (add-to-list 'emms-player-list 'emms-player-mpd)
 ;; (setq emms-browser-covers 'emms-browser-emaccache-thumbnail-async)
-;; (emms-player-mpd-connect)
+(emms-player-mpd-connect)
+(emms-cache-set-from-mpd-all)
+(emms-mode-line-disable)
 
 (setq mingus-mpd-port 6600
       mingus-mpd-host "localhost")
@@ -540,3 +541,41 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 
 
 (global-org-modern-mode)
+
+
+;; neotree
+(setq frameset-filter-alist '((treemacs-workspace . :never)
+        (treemacs-id . :never)
+        (tabs . frameset-filter-tabs)
+        (background-color . frameset-filter-sanitize-color)
+        (buffer-list . :never)
+        (buffer-predicate . :never)
+        (buried-buffer-list . :never)
+        (client . :never)
+        (delete-before . :never)
+        (font . frameset-filter-font-param)
+        (font-backend . :never)
+        (foreground-color . frameset-filter-sanitize-color)
+        (frameset--text-pixel-height . :save)
+        (frameset--text-pixel-width . :save)
+        (fullscreen . frameset-filter-shelve-param)
+        (GUI:font . frameset-filter-unshelve-param)
+        (GUI:fullscreen . frameset-filter-unshelve-param)
+        (GUI:height . frameset-filter-unshelve-param)
+        (GUI:width . frameset-filter-unshelve-param)
+        (height . frameset-filter-shelve-param)
+        (outer-window-id . :never)
+        (parent-frame . :never)
+        (parent-id . :never)
+        (posframe-parent-buffer . :never)
+        (mouse-wheel-frame . :never)
+        (tty . frameset-filter-tty-to-GUI)
+        (tty-type . frameset-filter-tty-to-GUI)
+        (width . frameset-filter-shelve-param)
+        (window-id . :never)
+        (window-system . :never)
+        (name . :never)
+        (left . frameset-filter-iconified)
+        (minibuffer . frameset-filter-minibuffer)
+        (top . frameset-filter-iconified))
+)

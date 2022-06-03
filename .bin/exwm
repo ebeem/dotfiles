@@ -26,4 +26,4 @@ export CLUTTER_IM_MODULE=xim
 xsettingsd &
 picom -b --experimental-backends --dbus &
 ~/.fehbg &
-exec emacs -mm --with-exwm
+exec emacs -mm --with-exwm --debug-init

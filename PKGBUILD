@@ -42,7 +42,7 @@ depends=(
 
     #   browser
     'firefox'
-    'firefox-developer-edition'
+    # 'firefox-developer-edition'
     'qutebrowser'
 
     #   arch specific
@@ -56,11 +56,8 @@ depends=(
     #   dotnet
     'dotnet-host'
     'dotnet-runtime'
-    'dotnet-runtime-3.1'
     'dotnet-sdk'
-    'dotnet-sdk-3.1'
     'dotnet-targeting-pack'
-    'dotnet-targeting-pack-3.1'
     'mono'
     'omnisharp-roslyn'
 
@@ -239,9 +236,6 @@ depends=(
     'i-nex'
     'ckb-next'
     'openrgb'
-    'nvidia'
-    'cuda'
-    'tensorflow-cuda'
 
     # communication
     'isync'
