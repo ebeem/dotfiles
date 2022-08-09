@@ -16,7 +16,7 @@
  "MAIL=/var/spool/mail/ebeem"
  "GDMSESSION=gnome"
  "PATH=/home/ebeem/.emacs.d/bin:/home/ebeem/.bin:/home/ebeem/.dotnet/tools:/home/ebeem/workspace/git/flutter/bin:/home/ebeem/.dotnet/tools:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
- "BROWSER=/usr/bin/firefox-developer-edition"
+ "BROWSER=/usr/bin/firefox"
  "XDG_DATA_DIRS=/home/ebeem/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/"
  "JOURNAL_STREAM=8:27158"
  "P9K_SSH=0"

@@ -64,7 +64,7 @@ post_install() {
     enable_system_service "ckb-next-daemon.service"
     enable_system_service "NetworkManager.service"
     enable_system_service "bluetooth.service"
-    enable_user_service "mpd.service"
+    # enable_user_service "mpd.service"
     enable_user_service "mopidy.service"
     enable_user_service "emacs.service"
     mail_setup

@@ -1,2 +1,4 @@
 PKGBUILD
 ebeem-dotfiles-.*
+.git
+.gitignore

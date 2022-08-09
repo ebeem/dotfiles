@@ -1180,6 +1180,10 @@ combobox > .linked:not(.vertical) > button:not(:only-child) {
   border-radius: 6px;
 }
 
+combobox > .linked > button.combo {
+  padding: 6px 10px;
+}
+
 .linked:not(.vertical) > combobox:not(:first-child) > box > button.combo {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -1720,7 +1724,6 @@ headerbar.windowhandle viewswitchertitle > squeezer > viewswitcher > box.horizon
 treeview.view {
   border-left-color: rgba(255, 255, 255, 0.3);
   border-top-color: rgba(255, 255, 255, 0.12);
-  padding: 3px;
 }
 
 * {
@@ -1944,7 +1947,7 @@ menu,
   background-color: #333a47;
   background-clip: border-box;
   border-radius: 12px;
-  border: 1px solid #3e4656;
+  border: 1px solid #3e434b;
 }
 
 .csd menu, .csd .menu, .csd .context-menu {
@@ -2153,7 +2156,7 @@ popover.background button.model {
 }
 
 popover.background separator {
-  margin: 4px 0;
+  margin: 3px 0;
 }
 
 popover.background list separator {
@@ -4085,7 +4088,7 @@ messagedialog.csd decoration {
   border-radius: 0;
   box-shadow: none;
   background-color: #1e222a;
-  border: 1px solid #3e4656;
+  border: 1px solid #3e434b;
 }
 
 .solid-csd decoration:backdrop {
@@ -4228,7 +4231,6 @@ cursor-handle.insertion-cursor:dir(ltr), cursor-handle.insertion-cursor:dir(rtl)
 stackswitcher {
   min-height: 0;
   padding: 3px;
-  margin: 6px 0;
   border-radius: 9px;
   background-color: rgba(255, 255, 255, 0.04);
   border: none;
@@ -4497,6 +4499,26 @@ popover.emoji-completion .emoji:hover {
 .path-bar-box .linked.nautilus-path-bar button:not(.suggested-action):not(.destructive-action):last-child:dir(ltr):disabled, .path-bar-box .linked.nautilus-path-bar button:not(.suggested-action):not(.destructive-action):first-child:dir(rtl):disabled {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.5);
+}
+
+.windowhandle .linked.nautilus-path-bar {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  margin: 6px 0;
+}
+
+.windowhandle .linked.nautilus-path-bar button:not(.suggested-action):not(.destructive-action) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.windowhandle .linked.nautilus-path-bar button:not(.suggested-action):not(.destructive-action).current-dir {
+  color: #ffffff;
+}
+
+.windowhandle .linked.nautilus-path-bar button:not(.suggested-action):not(.destructive-action).current-dir:hover, .windowhandle .linked.nautilus-path-bar button:not(.suggested-action):not(.destructive-action).current-dir:active {
+  background: none;
+  box-shadow: none;
 }
 
 .disk-space-display.unknown {
@@ -4920,14 +4942,12 @@ window.background.csd scrolledwindow.contacts-contact-form {
  * Epiphany (Gnome Web) *
  ************************/
 tabbox {
-  background-color: #242932;
-  box-shadow: inset 0 -1px rgba(255, 255, 255, 0.12);
-  padding: 3px 3px 0;
-}
-
-tabbox > tab {
-  border-radius: 6px 6px 0 0;
-  border-bottom: none;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 0;
+  margin: 0;
+  padding: 3px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background-clip: border-box;
 }
 
 tabbox > tab button {
@@ -5984,7 +6004,7 @@ window.background.chromium {
 
 window.background.chromium entry,
 window.background.chromium > button {
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid #3e434b;
 }
 
 window.background.chromium > button {
@@ -6047,7 +6067,7 @@ tooltip.background.chromium {
 }
 
 #MozillaGtkWidget > widget > separator {
-  color: #3e4656;
+  color: #3e434b;
 }
 
 #MozillaGtkWidget > widget > scrollbar {
@@ -6055,12 +6075,12 @@ tooltip.background.chromium {
 }
 
 #MozillaGtkWidget > widget > frame > border {
-  border-color: #3e4656;
+  border-color: #3e434b;
 }
 
 #MozillaGtkWidget > widget > entry,
 #MozillaGtkWidget > widget > button > button {
-  border: 1px solid #3e4656;
+  border: 1px solid #3e434b;
   border-radius: 6px;
   box-shadow: none;
 }
@@ -6136,11 +6156,11 @@ tooltip.background.chromium {
 }
 
 #MozillaGtkWidget > widget > frame {
-  color: #3e4656;
+  color: #3e434b;
 }
 
 #MozillaGtkWidget menu > separator {
-  color: #3e4656;
+  color: #3e434b;
 }
 
 window.background:not(.csd) > window > menu menuitem {

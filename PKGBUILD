@@ -27,7 +27,7 @@ depends=(
     'cronie'
     'nextcloud'
     'nextcloud-client'
-    'grive'
+    # 'grive'
     'aspell'
     'aspell-en'
     'fd'
@@ -42,12 +42,12 @@ depends=(
 
     #   browser
     'firefox'
-    # 'firefox-developer-edition'
     'qutebrowser'
+    'chromium'
 
     #   arch specific
     'arch-install-scripts'
-    'archey3'
+    'neofetch'
 
     # development
     #   android
@@ -68,6 +68,7 @@ depends=(
     'python-scikit-learn'
     'python-seaborn'
     'python-tensorflow'
+    'python-dbus-next'
     'dejagnu'
     'jupyter-notebook'
     'cython'
@@ -114,9 +115,7 @@ depends=(
 
     #   text editors/IDEs
     'emacs'
-    'aspell'
     'arduino'
-    'atom'
     'visual-studio-code-bin'
     'godot'
     'godot-mono-bin'
@@ -170,9 +169,6 @@ depends=(
 
     # media
     'blanket'
-    'ymuse-bin'
-    'mpc'
-    'mpd'
     'ncmpcpp'
     'mopidy'
     'mopidy-spotify'
@@ -216,6 +212,7 @@ depends=(
     'python-pywal'
     'rofi'
     'polybar'
+    'dunst'
     'networkmanager-dmenu-git'
     'picom'
     'xorg-xrandr'
@@ -227,10 +224,8 @@ depends=(
     'upower'
     'tlp'
     'playerctl'
+    'pulseaudio-nextsink'
     'xsettingsd'
-
-    # browsers
-    'chromium'
 
     # hardware
     'i-nex'

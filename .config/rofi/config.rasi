@@ -2,5 +2,161 @@
 
 configuration {
   show-icons:         true;
-  icon-theme:         "Papirus";
+  icon-theme:         "Colloid-dark";
+
+  kb-row-up: "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
+  kb-row-down: "Down,Control+j";
+  kb-accept-entry: "Control+m,Return,KP_Enter";
+  terminal: "mate-terminal";
+  kb-remove-to-eol: "Control+Shift+e";
+  kb-mode-previous: "Shift+Left,Control+Shift+Tab,Control+h";
+  kb-remove-char-back: "BackSpace";
+}
+
+/*
+ * ROFI color theme
+ *
+ * Based on Something Found in the Internet
+ *
+ * User: Contributors
+ * Copyright: *!
+ */
+
+configuration {
+  font: "Iosevka Bold 11";
+
+  drun {
+    display-name: "";
+  }
+
+  run {
+    display-name: "";
+  }
+
+  window {
+    display-name: "";
+  }
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  bg: #282c34;
+  bg-alt: #3B4252;
+  fg: #bbc2cf;
+  fg-alt: #46D9FF;
+
+  background-color: @bg;
+  text-color: @fg;
+}
+
+window {
+  border-radius: 8px;
+  background-color: @fg-alt;
+}
+
+mainbox {
+  children: [inputbar, listview];
+  border-radius: 8px;
+}
+
+inputbar {
+  background-color: @bg;
+  children: [prompt, entry];
+}
+
+entry {
+  text-color: @fg;
+  background-color: inherit;
+  padding: 12px 3px;
+}
+
+prompt {
+  background-color: inherit;
+  padding: 12px;
+}
+
+listview {
+  lines: 8;
+  background-color: inherit;
+}
+
+element {
+  background-color: inherit;
+  children: [element-icon, element-text];
+}
+element {
+    border:  0;
+    padding: 1px ;
+}
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+element.normal.normal {
+    background-color: @bg;
+    text-color:       @fg;
+}
+element.normal.urgent {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
+}
+element.normal.active {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
+}
+element.selected.normal {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
+}
+element.selected.urgent {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
+}
+element.selected.active {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
+}
+element.alternate.normal {
+    background-color: @bg;
+    text-color:       @fg;
+}
+element.alternate.urgent {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
+}
+element.alternate.active {
+    background-color: @bg-alt;
+    text-color:       @fg-alt;
+}
+
+element-text.normal {
+  text-color: @fg;
+}
+
+element-text.normal.active {
+  text-color: @fg;
+}
+
+element-icon {
+  padding: 10px 10px;
+}
+
+element-text {
+  padding: 10px 0;
+}
+
+element-text.selected {
+  text-color: @fg-alt;
+}
+
+scrollbar {
+    width:        4px ;
+    border:       0;
+    handle-color: @fg-alt;
+    handle-width: 8px ;
+    padding:      0;
 }

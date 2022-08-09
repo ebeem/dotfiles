@@ -11,6 +11,6 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch the bar
-polybar -q top -c "$DIR"/config.ini &
+polybar -r top -c "$DIR"/config.ini &
 # polybar -q bottom -c "$DIR"/config.ini &
-"$DIR"/scripts/pywal.sh ~/.wallpaper.png
+# "$DIR"/scripts/pywal.sh ~/.wallpaper.png

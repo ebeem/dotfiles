@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name[en_US]=Rofi Bluetooth
+GenericName=Rofi Bluetooth (Bluetooth Manager)
+Exec=~/.config/rofi/bin/bluetooth
+Terminal=false
+Icon=rofi
+Type=Application
+Categories=Application;Rofi;Bluetooth;Settings;

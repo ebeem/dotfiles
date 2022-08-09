@@ -188,7 +188,7 @@
 
        :app
        calendar
-       emms
+       ;; emms
        mingus
        everywhere        ; *leave* Emacs!? You must be joking
        irc               ; how neckbeards socialize

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# options to be displayed
+option0="English (US)"
+option1="Arabic (SA)"
+
+# options passed into variable
+options="$option0\n$option1"
+
+chosen="$(echo -e "$options" | rofi -lines 2 -dmenu -p "language")"
+case $chosen in
+    $option0)
+        setxkbmap -layout "us";;
+    $option1)
+        setxkbmap -layout "ara";;
+esac

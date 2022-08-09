@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name[en_US]=Emacs Dired
+GenericName=Emacs Dired (File Explorer)
+Exec=emacsclient -c -e '(dired-jump)'
+Terminal=false
+Icon=emacs
+Type=Application
+Categories=Application;Emacs;Files;

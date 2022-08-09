@@ -40,7 +40,7 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
-export BROWSER=/usr/bin/firefox-developer-edition
+export BROWSER=/usr/bin/firefox
 export EDITOR=/usr/bin/emacs
 export ANDROID_HOME=/mnt/storage/android
 export ANDROID_SDK_ROOT=$ANDROID_HOME
@@ -50,7 +50,10 @@ export PATH=~/.emacs.d/bin:~/.bin:$PATH
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/ebeem/.steam
 export XDG_CONFIG_HOME=~/.config
 source $ZSH/oh-my-zsh.sh
-archey3
+
+alias em="/usr/bin/emacsclient -nw"
+# archey3
+neofetch
 
 source $HOME/.aliases
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
