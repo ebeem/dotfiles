@@ -153,5 +153,10 @@ SPAWN_KEYS = HARDWARE_KEYS + APPS + CUSTOM_SPAWN_KEYS
 
 SPAWN_CMD_KEYS = [
     # Takes full screenshot and creates a file on the screenshot folder
-    ([SHIFT], "Print", f"xfce4-screenshooter -f -s {HOME}/Pictures/Screenshots/"),
+    # ([SHIFT], "Print", f"xfce4-screenshooter -f -s {HOME}/Pictures/Screenshots/"),
+    (
+        [MOD, CONTROL],
+        "space",
+        ".config/qtile/scripts/switch_keyboard_layout.sh",
+    ),
 ]

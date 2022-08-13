@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-Name[en_US]=Emacs Vterm
+Name=Emacs Vterm
 GenericName=Emacs Vterm (Terminal)
 Exec=emacsclient -c -e "(+vterm/here nil)"
 Terminal=false

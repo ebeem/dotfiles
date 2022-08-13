@@ -230,7 +230,7 @@ class CreateGroups:
                 "07-1",
                 # matches=[Match(wm_class=["Liferea"])],
                 exclusive=False,
-                spawn=["liferea"],
+                spawn=["gtk-launch 'elfeed'"],
                 layout="bsp",
                 persist=True,
                 init=True,

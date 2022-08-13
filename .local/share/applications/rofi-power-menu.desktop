@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Rofi Power 
+GenericName=Rofi Power (Power Manager)
+Exec=.config/rofi/bin/powermenu
+Terminal=false
+Icon=settings
+Type=Application
+Categories=Application;Rofi;Power;Settings;

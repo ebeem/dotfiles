@@ -626,3 +626,7 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
         (minibuffer . frameset-filter-minibuffer)
         (top . frameset-filter-iconified))
 )
+
+
+;; dired
+(setq delete-by-moving-to-trash t)

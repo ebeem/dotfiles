@@ -50,6 +50,8 @@
 ;(unpin! t)
 ;; install stack-overflow searching tool
 (package! howdoyou)
+(package! dash)
+(package! dired-hacks-utils)
 
 ;; highlight symbols under the curse
 (package! highlight-symbol)

@@ -1,10 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-Name[en_US]=Rofi Sound
+Name=Rofi Sound
 GenericName=Rofi Sound (Sound Manager)
-Exec=$HOME/.config/rofi/bin/sound_output
+Exec=.config/rofi/bin/sound_output
 Terminal=false
-Icon=rofi
+Icon=settings
 Type=Application
 Categories=Application;Rofi;Sound;Settings;

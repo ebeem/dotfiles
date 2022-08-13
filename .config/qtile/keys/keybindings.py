@@ -4,6 +4,7 @@ from libqtile.lazy import lazy
 # Import the function that move the window to the next and prev group
 from functions import Functions
 import config_keybindings as ck
+from libqtile import qtile as q
 
 
 class Keybindings:
@@ -124,7 +125,7 @@ class Keybindings:
     def create_cmd_keys(self):
         for cmd_key in self.cmd_keys:
             modifier, key, command = cmd_key
-            keybinding = Key(modifier, key, lazy.spawncmd(command))
+            keybinding = Key(modifier, key, lazy.spawn(command))
             self.keys.append(keybinding)
 
     def init_keys_groups(self, group_names):
@@ -158,7 +159,7 @@ class Keybindings:
         self.create_floating_keys()
         self.create_groups_keys()
 
-        # self.create_cmd_keys()
+        self.create_cmd_keys()
         self.create_spawn_keys()
 
         return self.keys

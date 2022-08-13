@@ -15,10 +15,10 @@ function run {
 }
 
 # Set keyboard repeat rate.
-xset r rate 200 60
+xset r rate 200 90
 run xsettingsd
 run picom -b --experimental-backends --dbus
-#~/.fehbg
+~/.fehbg
 # run picom -CGb &
 # run nitrogen --restore &
 # run xfce4-clipman
