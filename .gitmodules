@@ -1,0 +1,6 @@
+[submodule ".modules/colloid-gtk-theme"]
+	path = .modules/colloid-gtk-theme
+	url = https://github.com/vinceliuice/Colloid-gtk-theme
+[submodule ".modules/colloid-icon-theme"]
+	path = .modules/colloid-icon-theme
+	url = https://github.com/vinceliuice/Colloid-icon-theme

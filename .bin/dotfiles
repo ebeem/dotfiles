@@ -56,6 +56,11 @@ mail_setup() {
     fi
 }
 
+enable_theme() {
+    $dir_path/../.modules/colloid-gtk-theme/install.sh -c dark --tweaks nord
+    $dir_path/../.modules/colloid-icon-theme/install.sh -s nord
+}
+
 load_gnome_config() {
     dconf load /org/gnome/ < ../.gnome
 }
@@ -74,6 +79,7 @@ pre_install
 install
 post_install
 load_gnome_config
+enable_theme
 
 cd $dir_path/../
 stow ./
