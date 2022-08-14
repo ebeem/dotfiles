@@ -151,7 +151,8 @@ depends=(
     'powerline-fonts'
     'awesome-terminal-fonts'
     'ttf-meslo-nerd-font-powerlevel10k'
-    'tilix'
+    'alacritty'
+    # 'tilix'
 
     # video editing/recording
     'blender'
@@ -199,14 +200,22 @@ depends=(
 
     # desktop environment
     #   GNOME
-    'menulibre'
-    'chrome-gnome-shell'
-    'colloid-gtk-theme-git'
-    'colloid-icon-theme-git'
-    'dconf'
-    'dconf-editor'
-    'gdm'
-    'gnome-system-monitor'
+    # 'menulibre'
+    # 'chrome-gnome-shell'
+    # 'colloid-gtk-theme-git'
+    # 'colloid-icon-theme-git'
+    # 'dconf'
+    # 'dconf-editor'
+    # 'gdm'
+    # 'gnome-system-monitor'
+    'gnome-keyring'
+    'gvfs'
+    'gvfs-goa'
+    'gvfs-google'
+    'gvfs-nfs'
+    'gvfs-mtp'
+    'gvfs-smb'
+    'evince'
 
     # window-manager
     'python-pywal'

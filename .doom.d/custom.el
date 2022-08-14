@@ -18,6 +18,8 @@
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(objed-cursor-color "#ff6c6b")
+ '(org-safe-remote-resources
+   '("\\`https://fniessen\\.github\\.io/org-html-themes/org/theme-readtheorg\\.setup\\'"))
  '(package-selected-packages
    '(dired-hacks-utils simple-mpc burly visual-fill-column highlight-symbol quelpa-use-package ement))
  '(pdf-view-midnight-colors (cons "#bbc2cf" "#282c34"))

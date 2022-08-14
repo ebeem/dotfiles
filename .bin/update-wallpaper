@@ -1,1 +1,1 @@
-~/dotfiles/.bin/dwall -s $(sed -nr "/^\[wallpaper\]/ { :l /^name[ ]*=/ { s/.*=[ ]*//; p; q;}; n; b l;}" ~/.config/dynamic-wallpaper/dwall.conf)
+~/dotfiles/.bin/dwall -p -s $(sed -nr "/^\[wallpaper\]/ { :l /^name[ ]*=/ { s/.*=[ ]*//; p; q;}; n; b l;}" ~/.config/dynamic-wallpaper/dwall.conf)
