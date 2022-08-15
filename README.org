@@ -1,0 +1,30 @@
+#+title: Readme
+#+STARTUP: inlineimages
+
+* Specifications
+#+BEGIN_SRC
+                   -`                    ebeem@ebeem
+                  .o+`                   -----------
+                 `ooo/                   OS: arch linux
+                `+oooo:                  Shell: zsh
+               `+oooooo:                 WM: qtile
+               -+oooooo+:                Theme: colloid-dark-nord [GTK2/3]
+             `/:-:++oooo+:               Icons: colloid-dark [GTK2/3]
+            `/++++/+++++++:              Terminal: emacs (vterm)
+           `/++++++++++++++:             Files: emacs (dired)
+          `/+++ooooooooooooo/`           Launcher: rofi
+         ./ooosssso++osssssso+`          bar: polybar
+        .oossssso-````/ossssss+`
+       -osssssso.      :ssssssso.
+      :osssssss/        osssso+++.
+     /ossssssss/        +ssssooo/-
+   `/ossssso+/:-        -:/+osssso+-
+  `+sso+:-`                 `.-/+oso:
+ `++:.                           `-/+/
+ .`                                 `/
+#+END_SRC
+
+* Screenshots
+[[./.screenshots/2022-08-13_17-37.png]]
+
+[[./.screenshots/2022-08-13_17-39.png]]
