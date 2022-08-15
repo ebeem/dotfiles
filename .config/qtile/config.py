@@ -95,7 +95,7 @@ focus_on_window_activation = "smart"
 respect_minimize_requests = True
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-wmname = "LG3D"
+wmname = "qtile"
 
 
 @hook.subscribe.startup_once

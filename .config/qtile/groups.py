@@ -204,7 +204,7 @@ class CreateGroups:
             ),
             Group(
                 "06-2",
-                # matches=[Match(wm_class=["Steam"])],
+                matches=[Match(wm_class=["Steam"])],
                 exclusive=False,
                 spawn=["steam-runtime"],
                 layout="bsp",

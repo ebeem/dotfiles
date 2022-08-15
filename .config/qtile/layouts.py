@@ -17,7 +17,7 @@ class Layouts:
         layouts = [
             layout.Max(**self.default),
             layout.Bsp(
-                margin=3,
+                margin=2,
                 border_width=3,
                 border_focus="46D9FF",
                 border_normal="004254",
