@@ -3,7 +3,7 @@
 
 * Specifications
 #+BEGIN_SRC
-                   -`                    ebeem@ebeem
+                   -`
                   .o+`                   -----------
                  `ooo/                   OS: arch linux
                 `+oooo:                  Shell: zsh
@@ -25,6 +25,13 @@
 #+END_SRC
 
 * Screenshots
-[[./.screenshots/2022-08-13_17-37.png]]
+[[./.screenshots/desktop.png]]
+[[./.screenshots/emacs.png]]
+[[./.screenshots/dired-terminal.png]]
+[[./.screenshots/rss-feed.png]]
 
-[[./.screenshots/2022-08-13_17-39.png]]
+* Features
+** totally keyboard driven workflow
+** great multi-monitor support
+** workspaces span displays
+** uses emacs as alternative to most tools (files, rss, email, terminal, text editor, simple browser)

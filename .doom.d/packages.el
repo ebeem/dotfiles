@@ -52,6 +52,8 @@
 (package! howdoyou)
 (package! dash)
 (package! dired-hacks-utils)
+(package! bluetooth)
+(package! disk-usage)
 
 ;; highlight symbols under the curse
 (package! highlight-symbol)
