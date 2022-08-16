@@ -50,12 +50,12 @@ the script *dotfiles* in *.bin* will perform all tasks needed to configure the s
 + install dependencies (all dependencies are stored and versioned in a *PKGBUILD*)
 + link the dotfiles to your home directory (using symbolic links)
 
-#+begin_src :lang bash
+#+begin_src bash
 git clone https://github.com/ebeem/dotfiles ~/dotfiles
 ~/.dotfiles/.bin/dotfiles
 #+end_src
 
 to update your system in the future to install extra packages added in *PKGBUILD* or to upgrade installed packages or to link files from your dotfiles directory to your home directory, simply run
-#+begin_src
+#+begin_src bash
 dotfiles
 #+end_src
