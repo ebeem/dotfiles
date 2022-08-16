@@ -38,13 +38,13 @@
 [[./.screenshots/rss-feed.png]]
 
 ** Features
-**** totally keyboard driven workflow
-**** great multi-monitor support
-**** workspaces span displays
-**** uses emacs as alternative to most tools (files, rss, email, terminal, text editor, simple browser)
++ totally keyboard driven workflow
++ great multi-monitor support
++ workspaces span displays
++ uses emacs as alternative to most tools (files, rss, email, terminal, text editor, simple browser)
 
 ** Setup
 the script *dotfiles* in *.bin* will perform all tasks needed to configure the system to use these configuration in any Arch Linux based distro. These tasks include:
-**** installing paru (AUR helper)
-**** enabling/activating systemctl services
-**** install dependencies (all dependencies are stored and versioned in a *PKGBUILD*)
++  installing paru (AUR helper)
++ enabling/activating systemctl services
++  install dependencies (all dependencies are stored and versioned in a *PKGBUILD*)
