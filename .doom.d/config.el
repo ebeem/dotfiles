@@ -23,8 +23,11 @@
 ;;
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+      ;; doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 17 :weight 'bold))
+
 (setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 16))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 17))
+      ;; doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 17 :weight 'bold))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -39,7 +42,7 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
-
+;; (setq completion-styles `(orderless usbstring))
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/cloud/org/")
@@ -47,10 +50,11 @@
 ;; Make sure org-indent face is available
 (require 'org-indent)
 
-;; Ensure that anything that should be fixed-pitch in Org files appears that way
+;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
 (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
 (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
 (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
 (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
@@ -144,17 +148,12 @@
        :desc "Create frame"               "f" #'make-frame)
       )
 
-(defcustom lsp-file-watch-threshold 100000
-  "Show warning if the files to watch are more than.
-Set to nil to disable the warning."
-  :type 'number
-  :group 'lsp-mode)
-
+(setq lsp-file-watch-threshold nil)
 ;; (setq bidi-paragraph-direction 'right-to-left)
 
 (setq projectile-project-search-path '(("~/workspace/" . 3) ("~/" . 2)))
-(setq projectile-enable-caching nil)
-(setq projectile-auto-discover t)
+;; (setq projectile-enable-caching nil)
+;; (setq projectile-auto-discover t)
 
 ;; (setq lsp-csharp-server-path "/usr/bin/omnisharp")
 
@@ -163,13 +162,13 @@ Set to nil to disable the warning."
 
 ;; org-mode configuration
 ;; add time stamp and note on task done
-(setq org-log-done 'note)
+(setq org-log-done 'time)
 
 
 ;; elfeed
 (setq rmh-elfeed-org-files (list "~/.doom.d/elfeed.org"))
 (setq elfeed-goodies/entry-pane-position 'bottom)
-(elfeed-goodies/setup)
+;; (elfeed-goodies/setup)
 
 ;; (projectile-register-project-type 'godot '("project.godot")
 ;;                                   :project-file "project.godot"
@@ -204,7 +203,7 @@ Set to nil to disable the warning."
 ;;(desktop-save-mode 1)
 
 (setq company-minimum-prefix-length 1   ; Show suggestions after entering one character.
-      company-idle-delay 0              ; No delay in showing suggestions.
+      company-idle-delay 1              ; 1 second delay before showing suggestions.
       company-selection-wrap-around t)
 
 
@@ -216,8 +215,8 @@ Set to nil to disable the warning."
 
 (eval-after-load "howdoyou"
   '(progn
-     (define-key howdoyou-mode-map (kbd "C-c k") #'howdoyou-previous-link)
-     (define-key howdoyou-mode-map (kbd "C-c j") #'howdoyou-next-link)))
+     (define-key howdoyou-mode-map (kbd "C-k") #'howdoyou-previous-link)
+     (define-key howdoyou-mode-map (kbd "C-j") #'howdoyou-next-link)))
 
 ;; modeline
 (setq doom-modeline-buffer-file-name-style 'truncate-with-project
@@ -237,11 +236,14 @@ Set to nil to disable the warning."
 (doom-load-envvars-file "~/.doom.d/env")
 
 ;; mu4e
-(setq mu4e-update-interval (* 60 2)
-      mu4e-maildir "~/.mail"
-      mu4e-change-filenames-when-moving t
-      mu4e-get-mail-command "mbsync -a"
-      mu4e-display-update-status-in-modeline t)
+
+(after! mu4e
+  (setq mu4e-alert-email-notification-types '(count))
+  (setq mu4e-update-interval (* 60 3)
+        mu4e-maildir "~/.mail"
+        mu4e-change-filenames-when-moving t
+        mu4e-get-mail-command "mbsync -a"
+        mu4e-display-update-status-in-modeline t))
 
 (with-eval-after-load "mm-decode"
   (add-to-list 'mm-discouraged-alternatives "text/html")
@@ -269,8 +271,7 @@ Set to nil to disable the warning."
 ;;             (when msg
 ;;               (string-prefix-p "/gmeb2" (mu4e-message-field msg :maildir))))
 ;;         :vars '((user-mail-address . "ebeem2@gmail.com")
-;;                 (user-full-name    . "Ibraheem Almarhoon")
-;;                 (mu4e-drafts-folder  . "/gmeb2/drafts")
+;;                 (user-full-name    . "Ibraheem Almarhoon") (mu4e-drafts-folder  . "/gmeb2/drafts")
 ;;                 (mu4e-sent-folder  . "/gmeb2/[Gmail]/Sent Mail")
 ;;                 (mu4e-refile-folder  . "/gmeb2/[Gmail]/All Mail")
 ;;                 (mu4e-trash-folder  . "/gmeb2/trash")))
@@ -281,7 +282,7 @@ Set to nil to disable the warning."
 ;; ~/Maildir/Account0/{Inbox,Sent,Trash}
 ;; ~/Maildir/Account1/{Inbox,Sent,Trash}
 ;; where Account0 is context name
-(defun def-mu4e-context (context-name full-name mail-address signature)
+(defun def-mu4e-context (context-name full-name mail-address smtp-server signature)
   "Return a mu4e context named CONTEXT-NAME with :match-func matching
    folder name CONTEXT-NAME in Maildir. The context's `user-mail-address',
    `user-full-name' and `mu4e-compose-signature' is set to MAIL-ADDRESS
@@ -301,17 +302,17 @@ Set to nil to disable the warning."
      :vars
      `((user-mail-address    . ,mail-address)
        (user-full-name       . ,full-name)
+       (smtpmail-smtp-server . ,smtp-server)
+       (smtpmail-smtp-service . , 465)
+       (smtpmail-stream-type . , ssl)
        (mu4e-sent-folder     . ,(concat dir-name "/sent"))
        (mu4e-drafts-folder   . ,(concat dir-name "/drafts"))
        (mu4e-trash-folder    . ,(concat dir-name "/trash"))
        (mu4e-compose-signature . ,signature)))))
+
 ;;Fixing duplicate UID errors when using mbsync and mu4e
 (setq mu4e-change-filenames-when-moving t)
-
-;; (setq mu4e-contexts
-;;       `(,(def-mu4e-context "gmibm" "Ibraheem Almarhoon" "ibraheem.marhoon@gmail.com" "emacs")
-;;         (def-mu4e-context "gmeb2" "Ibraheem Almarhoon" "ebeem2@gmail.com" "emacs")))
-
+(setq mu4e-dashboard-file "~/.doom.d/mu4e-dashboard.org")
 ;; TODO: mu4e bookmarks
 ;;
 
@@ -320,8 +321,8 @@ Set to nil to disable the warning."
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
 
 ;; custom vim keybindings
-(global-set-key (kbd "<C-k>") 'drag-stuff-up)
-(global-set-key (kbd "<C-j>") 'drag-stuff-down)
+;; (global-set-key (kbd "<C-k>") 'drag-stuff-up)
+;; (global-set-key (kbd "<C-j>") 'drag-stuff-down)
 
 ;; desktop-environment
 (setq desktop-environment-volume-get-command "pamixer --get-volume"
@@ -514,7 +515,7 @@ Set to nil to disable the warning."
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 
-(defvar mixed-pitch-modes '(org-mode LaTeX-mode markdown-mode gfm-mode Info-mode)
+(defvar mixed-pitch-modes '(org-mode zen-mode LaTeX-mode markdown-mode gfm-mode Info-mode)
   "Modes that `mixed-pitch-mode' should be enabled in, but only after UI initialisation.")
 (defun init-mixed-pitch-h ()
   "Hook `mixed-pitch-mode' into each mode in `mixed-pitch-modes'.
@@ -540,12 +541,12 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
     (let ((mixed-pitch-face 'variable-pitch-serif))
       (mixed-pitch-mode (or arg 'toggle)))))
 
-(defvar +zen-serif-p t
+(defvar +zen-serif-p nil
   "Whether to use a serifed font with `mixed-pitch-mode'.")
 (after! writeroom-mode
-  (defvar-local +zen--original-org-indent-mode-p nil)
-  (defvar-local +zen--original-mixed-pitch-mode-p nil)
-  (defvar-local +zen--original-org-pretty-table-mode-p nil)
+  (defvar-local +zen--original-org-indent-mode-p t)
+  (defvar-local +zen--original-mixed-pitch-mode-p t)
+  (defvar-local +zen--original-org-pretty-table-mode-p t)
   (defun +zen-enable-mixed-pitch-mode-h ()
     "Enable `mixed-pitch-mode' when in `+zen-mixed-pitch-modes'."
     (when (apply #'derived-mode-p +zen-mixed-pitch-modes)
@@ -574,7 +575,7 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
                 (setq
                  +zen--original-org-indent-mode-p org-indent-mode
                  +zen--original-org-pretty-table-mode-p (bound-and-true-p org-pretty-table-mode))
-                (org-indent-mode -1)
+                ;; (org-indent-mode -1)
                 (org-pretty-table-mode 1))))
   (add-hook 'writeroom-mode-disable-hook
             (defun +zen-nonprose-org-h ()
@@ -589,6 +590,51 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 
 (global-org-modern-mode)
 
+(setq visual-fill-column-width 120
+        visual-fill-column-center-text t
+        default-text-properties '(line-height 1.1))
+;; org-present
+(defun my/org-present-prepare-slide (buffer-name heading)
+  ;; Show only top-level headlines
+  (org-overview)
+
+  ;; Unfold the current entry
+  (org-show-entry)
+
+  ;; Show only direct subheadings of the slide but don't expand them
+  (org-show-children))
+
+(defun my/org-present-start ()
+  ;; Tweak font sizes
+  (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
+                                     (header-line (:height 4.0) variable-pitch)
+                                     (org-document-title (:height 1.75) org-document-title)
+                                     (org-code (:height 1.55) org-code)
+                                     (org-verbatim (:height 1.55) org-verbatim)
+                                     (org-block (:height 1.25) org-block)
+                                     (org-block-begin-line (:height 0.7) org-block)))
+  (setq header-line-format " ")
+  (setq display-line-numbers nil)
+  (org-present-read-only)
+  ;; Center the presentation and wrap lines
+  (visual-fill-column-mode 1))
+
+(defun my/org-present-end ()
+  ;; Reset font customizations
+  (setq-local face-remapping-alist '((default variable-pitch default)))
+  (setq display-line-numbers t)
+
+  (org-present-read-write)
+  ;; Stop centering the document
+  (visual-fill-column-mode 0))
+
+;; Turn on variable pitch fonts in Org Mode buffers
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+
+;; Register hooks with org-present
+(add-hook 'org-present-mode-hook 'my/org-present-start)
+(add-hook 'org-present-mode-quit-hook 'my/org-present-end)
+(add-hook 'org-present-after-navigate-functions 'my/org-present-prepare-slide)
 
 ;; neotree
 (setq frameset-filter-alist '((treemacs-workspace . :never)
@@ -630,3 +676,359 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 
 ;; dired
 (setq delete-by-moving-to-trash t)
+
+;; enable midnight (dark-mode) in pdf viewer by default
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+
+
+
+
+
+;;; mu4e-dashboard.el --- Dashboards for mu4e   -*- lexical-binding: t -*-
+
+;; Copyright (C) 2020-2021 Nicolas P. Rougier
+
+;; Author: Nicolas P. Rougier <Nicolas.Rougier@inria.fr>
+;; Homepage: https://github.com/rougier/mu4e-dashboard
+;; Keywords: convenience
+;; Version: 0.1.1
+
+;; Package-Requires: ((emacs "26.1"))
+
+;; This file is not part of GNU Emacs.
+
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+
+;; This file is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; For a full copy of the GNU General Public License
+;; see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+;;
+;; mu4e-dashboard provides enhanced org-mode links that allow you to
+;; define custom dashboards that link back to the mu4e email client.
+;;
+
+
+(require 'subr-x)
+(require 'ob-shell)
+(require 'org)
+(require 'mu4e-headers)
+
+;;; Code:
+
+(defconst mu4e-dashboard-version "0.1.1")
+
+;; Install the mu4e link type
+(defgroup mu4e-dashboard nil
+  "Provides a new Org mode link type for mu4e queries."
+  :group 'comm)
+
+(defcustom mu4e-dashboard-file "~/.emacs.d/mu4e-dashboard.org"
+  "Path to the dashboard org file."
+  :type 'string)
+
+(defcustom mu4e-dashboard-link-name "mu"
+  "Default link name."
+  :type 'string)
+
+(defcustom mu4e-dashboard-mu-program "mu"
+  "Default name of the mu command."
+  :type 'string)
+
+(defcustom mu4e-dashboard-lighter " mu4ed"
+  "Minor mode lighter indicating that this mode is active."
+  :type 'string)
+
+(defcustom mu4e-dashboard-propagate-keymap t
+  "Propagate dashboard defined keymap to mu4e header view"
+  :type 'boolean)
+
+(org-link-set-parameters
+ mu4e-dashboard-link-name
+ :follow #'mu4e-dashboard-follow-mu4e-link)
+
+(defvar mu4e-dashboard--prev-local-keymap nil
+  "Buffer-local variable to save the prior keymap.")
+
+(make-variable-buffer-local 'mu4e-dashboard--prev-local-keymap)
+
+(defvar mu4e-dashboard--async-update-in-progress nil
+  "Set tot if an async update is in progress.
+This is a buffer-local variable that will be t if the current
+buffer is in the process of being updated asynchronously.")
+
+(make-variable-buffer-local 'mu4e-dashboard--async-update-in-progress)
+
+;;;###autoload
+(define-minor-mode mu4e-dashboard-mode
+  "Minor mode for \"live\" mu4e dashboards."
+  :lighter mu4e-dashboard-lighter
+  :init-value nil
+  (if mu4e-dashboard-mode
+      (progn
+        (setq buffer-read-only t)
+        ;; Make a copy of the current local keymap (this will, in
+        ;; general, have been setup by org-mode, but I don't want to
+        ;; assume that)
+        (setq mu4e-dashboard--prev-local-keymap (current-local-map))
+	(use-local-map (make-composed-keymap (mu4e-dashboard-parse-keymap) (current-local-map)))
+	;; If buffer corresponds to the dashboard, add a special key (buffer-name is harcoded). Dashboard should be open with a special function naming a defcustom buffer name  and then install the minor mode. 
+	;; install the keymap as local with current map as parent (this might generate some problem?)
+	(if (string= (buffer-file-name) (expand-file-name mu4e-dashboard-file))
+	    (local-set-key (kbd "<return>") #'org-open-at-point))
+	(add-hook 'mu4e-index-updated-hook #'mu4e-dashboard-update)
+	(if mu4e-dashboard-propagate-keymap
+	;; install minor mode to mu4e headers view when called (should it be to message hook too?) 
+	(add-hook 'mu4e-headers-found-hook #'mu4e-dashboard-mode))
+        (mu4e-dashboard-update))
+    (if mu4e-dashboard--async-update-in-progress
+        (user-error "Update in progress; try again when it is complete"))
+    (remove-hook 'mu4e-index-updated-hook #'mu4e-dashboard-update)
+    ;; clear hook when dashboard disable
+    (remove-hook 'mu4e-headers-found-hook #'mu4e-dashboard-mode)
+    (use-local-map mu4e-dashboard--prev-local-keymap)
+    (setq buffer-read-only nil)))
+
+(defun mu4e-dashboard ()
+  "If the dashboard file exists, switch to it and run mu4e-dashboard-mode on it"
+  (interactive)
+  (if (file-exists-p mu4e-dashboard-file)
+      (progn
+        (find-file mu4e-dashboard-file)
+        (mu4e-dashboard-mode))
+    (message (concat mu4e-dashboard-file " does not exist"))
+    ))
+
+
+(defun mu4e-dashboard-follow-mu4e-link (path)
+  "Process a mu4e link with path PATH.
+PATH shall be of the form [[mu4e:query|fmt|limit][(---------)]].
+If FMT is not specified or is nil, clicking on the link calls
+mu4e with the specified QUERY (with or without the given
+LIMIT).  If FMT is specified, the description of the link is
+updated with the QUERY count formatted using the provided
+format (for example \"%4d\")."
+
+  (let* ((link    (org-element-context))
+         (query   (string-trim (nth 0 (split-string path "[]|]"))))
+         (fmt     (nth 1 (split-string path "[]|]")))
+         (count   (nth 2 (split-string path "[]|]"))))
+    (cond
+     ;; Regular query without limit
+     ((and (not fmt) (not count))
+      (progn
+        (if (get-buffer-window "*mu4e-headers*" t)
+            (switch-to-buffer"*mu4e-headers*"))
+        (mu4e-headers-search query)))
+     
+     ;; Regular query with limit
+     ((and count (> (length count) 0))
+      (progn
+        (if (get-buffer-window "*mu4e-headers*" t)
+            (switch-to-buffer"*mu4e-headers*"))
+        (let ((mu4e-headers-results-limit (string-to-number count)))
+          (mu4e-headers-search query))))
+
+     ;; Query count and link description update
+     ((and fmt (> (length fmt) 0))
+       (mu4e-dashboard-update-link link)))))
+
+(defun mu4e-dashboard-update-link (link)
+  "Update content of a formatted mu4e LINK.
+A formatted link is a link of the form
+[[mu4e:query|limit|fmt][(---------)]] where fmt is a non nil
+string describing the format.  When a link is cleared, the
+description is replaced by a string for the form \"(---)\" and
+have the same size as the current description. If the given
+format is too big for the current description, description is
+replaced with + signs."
+
+  (let* ((path  (org-element-property :path link))
+         (query (string-trim (nth 0 (split-string path "|"))))
+         (fmt   (nth 1 (split-string path "|")))
+         (beg   (org-element-property :contents-begin link))
+         (end   (org-element-property :contents-end link))
+         (size  (- end beg)))
+    (if (and fmt (> (length fmt) 0))
+        (let* ((command (format "%s find %s 2> /dev/null | wc -l" mu4e-dashboard-mu-program query))
+               (output (string-to-number (shell-command-to-string command)))
+               (output  (format fmt output)))
+          (let ((modified (buffer-modified-p))
+                (inhibit-read-only t))
+            (save-excursion
+              (delete-region beg end)
+              (goto-char beg)
+              (insert (if (<= (length output) size) output
+                        (make-string size ?+))))
+            (set-buffer-modified-p modified))))))
+
+(defun mu4e-dashboard--async-shell-command-to-string (command callback)
+  "Run COMMAND asynchronously; call CALLBACK on completion.
+Run a shell command in an asynchronous way.  Once the call
+terminates, callback is called with the result."
+
+  (let* ((display-buffer-alist (list (cons "\\*Async Shell Command\\*.*"
+                                       (cons #'display-buffer-no-window nil))))
+         (output-buffer (generate-new-buffer "*Async Shell Command*"))
+         (proc (progn
+                 (async-shell-command command output-buffer)
+                 (get-buffer-process output-buffer))))
+    (if (process-live-p proc)
+        (set-process-sentinel proc
+                              (lambda (process _signal)
+                                (when (memq (process-status process) '(exit signal))
+                                  (with-current-buffer output-buffer
+                                    (funcall callback (buffer-string)))
+                                  (kill-buffer output-buffer))))
+      (message "No process running."))))
+
+(defun mu4e-dashboard-update-all-async ()
+  "Update content of all formatted mu4e links in an asynchronous way.
+A formatted link is a link of the form
+[[mu4e:query|limit|fmt][(---------)]] where fmt is a non nil
+string describing the format.  When a link is cleared, the
+description is replaced by a string for the form \"(---)\" and
+have the same size as the current description."
+
+  (if mu4e-dashboard--async-update-in-progress
+      (user-error "Cannot update while an update is in progress!"))
+  (setq mu4e-dashboard--async-update-in-progress t)
+  (let ((buffer (current-buffer)))
+    (org-element-map (org-element-parse-buffer) 'link
+      (lambda (link)
+        (when (string= (org-element-property :type link) mu4e-dashboard-link-name)
+          (let* ((path  (org-element-property :path link))
+                 (query (string-trim (nth 0 (split-string path "|"))))
+                 (fmt   (nth 1 (split-string path "|")))
+                 (beg   (org-element-property :contents-begin link))
+                 (end   (org-element-property :contents-end link))
+                 (size  (if (and beg end) (- end beg) 0)))
+            (when (and fmt (> (length fmt) 0))
+                ;; The rest of this function will execute successfully with a
+                ;; `size' of zero, but since there would be no reason to
+                ;; proceed with no output, we signal an error.
+                (if (eq size 0)
+                    (error "The link ``%s'' has a format clause, but no output width" path))
+                (let ((command (format "%s find '%s' 2> /dev/null | wc -l" mu4e-dashboard-mu-program query)))
+                  (mu4e-dashboard--async-shell-command-to-string command
+                      (lambda (output)
+                        (with-current-buffer buffer
+                          (let ((modified (buffer-modified-p))
+                                (inhibit-read-only t)
+                                (output (format fmt (string-to-number output))))
+                            (save-excursion
+                              (delete-region beg end)
+                              (goto-char beg)
+                              (insert (if (<= (length output) size) output
+                                        (make-string size ?+))))
+                            (set-buffer-modified-p modified))))))))))))
+  (setq mu4e-dashboard--async-update-in-progress nil))
+
+(defun mu4e-dashboard-update-all-sync ()
+  "Update content of all mu4e formatted links in a synchronous way.
+A formatted link is a link of the form
+[[mu4e:query|limit|fmt][(---------)]] where fmt is a non nil
+string describing the format.  When a link is cleared, the
+description is replaced by a string for the form \"(---)\" and
+have the same size as the current description."
+
+  (mu4e-dashboard-clear-all)
+  (org-element-map (org-element-parse-buffer) 'link
+    (lambda (link)
+      (when (string= (org-element-property :type link) mu4e-dashboard-link-name)
+        (mu4e-dashboard-update-link link)
+        (redisplay t)))))
+
+(defun mu4e-dashboard-clear-link (link)
+  "Clear a formatted mu4e link LINK.
+A formatted link is a link of the form
+[[mu4e:query|limit|fmt][(---------)]] where fmt is a non nil
+string describing the format.  When a link is cleared, the
+description is replaced by a string for the form \"(---)\" and
+having the same size as the current description."
+
+  (let* ((path (org-element-property :path link))
+         (fmt  (nth 1 (split-string path "|")))
+         (beg  (org-element-property :contents-begin link))
+         (end  (org-element-property :contents-end link))
+         (size (- end beg)))
+    (if (and fmt (> (length fmt) 0))
+        (let ((modified (buffer-modified-p))
+              (inhibit-read-only t))
+          (save-excursion
+            (delete-region beg end)
+            (goto-char beg)
+            (insert (format "(%s)" (make-string (- size 2) ?-))))
+          (set-buffer-modified-p modified)))))
+
+(defun mu4e-dashboard-clear-all ()
+  "Clear all formatted mu4e links.
+A formatted link is a link of the form
+[[mu4e:query|limit|fmt][(---------)]] where fmt is a non nil
+string describing the format.  When a link is cleared, the
+description is replaced by a string for the form \"(---)\" and
+have the same size as the current description."
+
+  (org-element-map (org-element-parse-buffer) 'link
+    (lambda (link)
+      (when (string= (org-element-property :type link) mu4e-dashboard-link-name)
+        (mu4e-dashboard-clear-link link))))
+  (redisplay t))
+
+(defun mu4e-dashboard-update ()
+  "Update the current dashboard."
+  (interactive)
+  (message
+   (concat "[" (propertize "mu4e dashboard" 'face 'bold) "] "
+           (format-time-string "Update (%H:%M)")))
+  (dolist (buffer (buffer-list (current-buffer)))
+    (with-current-buffer buffer
+      (if (bound-and-true-p mu4e-dashboard-mode)
+          (mu4e-dashboard-update-all-async)))))
+
+(defun mu4e-dashboard-parse-keymap ()
+  "Parse the current buffer file for keybindings.
+Keybindings are defined by keywords of type KEYMAP:VALUE and
+install the corresponding key bindings in the mu4e-dashboard
+minor mode keymap.  The previous keymap (if any) is erased.
+VALUE is composed of \"keybinding | function-call\" with
+keybinding begin a string describing a key sequence and a call to
+an existing function. For example, to have 'q' to kill the
+current buffer, the syntax would be:
+#+KEYMAP: q | kill-current-buffer
+This can be placed anywhere in the org file even though I advised
+to group keymaps at the same place."
+
+  (let ((map (make-sparse-keymap)))
+    (org-element-map (org-element-parse-buffer) 'keyword
+      (lambda (keyword)
+	(when (string= (org-element-property :key keyword) "KEYMAP")
+          (let* ((value (org-element-property :value keyword))
+		 (key   (string-trim (nth 0 (split-string value "|"))))
+		 (call  (string-trim (nth 1 (split-string value "|")))))
+            (define-key map
+	      (kbd key)
+	      `(lambda () (interactive) ,(car (read-from-string (format "(%s)" call)))))
+            (message "mu4e-dashboard: binding %s to %s"
+		     key
+		     (format "(lambda () (interactive) (%s))" call))))))
+    map))
+
+(provide 'mu4e-dashboard)
+
+;;; mu4e-dashboard.el ends here
+
+
+
+(setq ement-save-sessions t)
+
+;; evil mode
+(setq evil-kill-on-visual-paste nil)

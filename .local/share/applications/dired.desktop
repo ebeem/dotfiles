@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0                                     # version of an app.
 Name=Emacs Dired                         # name of an app.
-GenericName=Emacs Dired (File Explorer)         # longer name of an app.
+GenericName=File Explorer         # longer name of an app.
 Exec="emacsclient -c -e '(dired-jump)'"         # command used to launch an app.
 Terminal=false                                  # whether an app requires to be run in a terminal.
 Icon=emacs

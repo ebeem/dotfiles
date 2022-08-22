@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Name=Emacs Vterm
-GenericName=Emacs Vterm (Terminal)
+GenericName=Terminal
 Exec=emacsclient -c -e "(+vterm/here nil)"
 Terminal=false
 Icon=emacs

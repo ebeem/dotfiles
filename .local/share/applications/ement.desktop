@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Emacs Ement
+GenericName=Matrix Client
+Exec=emacsclient -c -e "(ement-connect)"
+Terminal=false
+Icon=emacs
+Type=Application
+Categories=Application;;Chat;Emacs;Matrix;

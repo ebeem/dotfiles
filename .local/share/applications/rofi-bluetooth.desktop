@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Name=Rofi Bluetooth
-GenericName=Rofi Bluetooth (Bluetooth Manager)
+GenericName=Bluetooth Manager
 Exec=.config/rofi/bin/bluetooth
 Terminal=false
 Icon=settings

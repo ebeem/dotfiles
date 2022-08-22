@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Emacs Mu4e
+GenericName=Email Client
+Exec=emacsclient -c -e "(mu4e)"
+Terminal=false
+Icon=emacs
+Type=Application
+Categories=Application;Emacs;Email;

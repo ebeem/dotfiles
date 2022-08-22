@@ -20,7 +20,7 @@ depends=(
     # utils
     'hostapd'
     'etcher-bin'
-    'htop'
+    'htop-vim'
     'ocs-url'
     'deluge-gtk'
     'stow'
@@ -36,6 +36,9 @@ depends=(
     'thunar'
     'searchmonkey-gtk'
     'flameshot'
+    'ristretto'
+    'xfce4-taskmanager'
+    'xclip'
 
     # office suite
     'libreoffice-fresh'
@@ -83,7 +86,7 @@ depends=(
     'go-tools'
 
     #   gtk
-    'glade'
+    # 'glade'
 
     #   java
     'gradle'
@@ -113,12 +116,14 @@ depends=(
     'npm'
     'filezilla'
 
+    #   game development
+    'godot'
+    'godot-mono-bin'
+
     #   text editors/IDEs
     'emacs'
     'arduino'
     'visual-studio-code-bin'
-    'godot'
-    'godot-mono-bin'
     'jetbrains-toolbox'
     'vi'
     'vim'
@@ -126,7 +131,7 @@ depends=(
 
     #   reverse engineering
     'gdb'
-    'ghex'
+    # 'ghex'
     'ghidra'
     'r2ghidra'
     'radare2'
@@ -149,7 +154,7 @@ depends=(
     'zsh-syntax-highlighting'
     'zsh-theme-powerlevel10k'
     'powerline-fonts'
-    'awesome-terminal-fonts'
+    # 'awesome-terminal-fonts'
     'ttf-meslo-nerd-font-powerlevel10k'
     'alacritty'
     # 'tilix'
@@ -172,7 +177,7 @@ depends=(
     'blanket'
     'ncmpcpp'
     'mopidy'
-    'mopidy-spotify'
+    # 'mopidy-spotify'
     'mopidy-local'
     # 'mopidy-soundcloud'
     'mopidy-youtube'
@@ -191,7 +196,8 @@ depends=(
     'ttf-fira-code'
     'ttc-iosevka'
     'ttc-iosevka-aile'
-    'ttf-ubuntu-font-family'
+    'ttc-iosevka-etoile'
+    # 'ttf-ubuntu-font-family'
     'ttf-jetbrains-mono'
     'nerd-fonts-jetbrains-mono'
     'plymouth'
@@ -208,14 +214,14 @@ depends=(
     # 'dconf-editor'
     # 'gdm'
     # 'gnome-system-monitor'
-    'gnome-keyring'
-    'gvfs'
-    'gvfs-goa'
-    'gvfs-google'
-    'gvfs-nfs'
-    'gvfs-mtp'
-    'gvfs-smb'
-    'evince'
+    # 'gnome-keyring'
+    # 'gvfs'
+    # 'gvfs-goa'
+    # 'gvfs-google'
+    # 'gvfs-nfs'
+    # 'gvfs-mtp'
+    # 'gvfs-smb'
+    # 'evince'
 
     # window-manager
     'python-pywal'
@@ -247,7 +253,7 @@ depends=(
     'element-desktop'
     'element-web'
     'discord'
-    'liferea'
+    # 'liferea'
     'slack-desktop'
     'thunderbird'
     'mattermost'

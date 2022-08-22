@@ -21,17 +21,17 @@ do
     options="${options}$(echo "$x"|xargs)\n"
 done
 options="${options}quit"
-selected="$(echo -e "$options" | rofi -dmenu -p "Sink Device")"
+selected="$(echo -e "$options" | rofi -dmenu -i -p "Sink Device")"
 
 # Figure out what the device name is based on the description passed
 device=$(pactl list sinks|grep -C2 "Description: $selected"|grep Name|cut -d: -f2|xargs)
 # Try to set the default to the device chosen
 echo "$selected"
-if pactl set-default-sink "$device"
+
+if [ -n "$selected" ];
 then
-    # if it worked, alert the user
-    dunstify -t 2000 -r 2 -u low "Activated: $selected"
-else
-    # didn't work, critically alert the user
-    dunstify -t 2000 -r 2 -u critical "Error activating $selected"
+    if pactl set-default-sink "$device"
+        then
+            dunstify -t 2000 -r 2 -u low "Activated: $selected"
+        fi
 fi

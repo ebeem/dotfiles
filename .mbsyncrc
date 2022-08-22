@@ -45,3 +45,148 @@ Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 Create Both
 Expunge Both
 SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount gmozb
+Host imap.gmail.com
+UserCmd "sed -n 3p ~/.secret/mails"
+PassCmd "sed -n 3p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmozb-remote
+Account gmozb
+
+MaildirStore gmozb-local
+SubFolders Verbatim
+Path ~/.mail/gmozb/
+Inbox ~/.mail/gmozb/Inbox
+
+Channel gmozb
+Far :gmozb-remote:
+Near :gmozb-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount gmtwi
+Host imap.gmail.com
+UserCmd "sed -n 4p ~/.secret/mails"
+PassCmd "sed -n 4p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmtwi-remote
+Account gmtwi
+
+MaildirStore gmtwi-local
+SubFolders Verbatim
+Path ~/.mail/gmtwi/
+Inbox ~/.mail/gmtwi/Inbox
+
+Channel gmtwi
+Far :gmtwi-remote:
+Near :gmtwi-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount gmblm
+Host imap.gmail.com
+UserCmd "sed -n 5p ~/.secret/mails"
+PassCmd "sed -n 5p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmblm-remote
+Account gmblm
+
+MaildirStore gmblm-local
+SubFolders Verbatim
+Path ~/.mail/gmblm/
+Inbox ~/.mail/gmblm/Inbox
+
+Channel gmblm
+Far :gmblm-remote:
+Near :gmblm-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount rsibm
+Host restec.com
+UserCmd "sed -n 7p ~/.secret/mails"
+PassCmd "sed -n 7p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore rsibm-remote
+Account rsibm
+
+MaildirStore rsibm-local
+SubFolders Verbatim
+Path ~/.mail/rsibm/
+Inbox ~/.mail/rsibm/Inbox
+
+Channel rsibm
+Far :rsibm-remote:
+Near :rsibm-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+
+# ============================== EMAIL ============================== #
+IMAPAccount otibm
+Host imap-mail.outlook.com
+UserCmd "sed -n 8p ~/.secret/mails"
+PassCmd "sed -n 8p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore otibm-remote
+Account otibm
+
+MaildirStore otibm-local
+SubFolders Verbatim
+Path ~/.mail/otibm/
+Inbox ~/.mail/otibm/Inbox
+
+Channel otibm
+Far :otibm-remote:
+Near :otibm-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount ottwi
+Host imap-mail.outlook.com
+UserCmd "sed -n 9p ~/.secret/mails"
+PassCmd "sed -n 9p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore ottwi-remote
+Account ottwi
+
+MaildirStore ottwi-local
+SubFolders Verbatim
+Path ~/.mail/ottwi/
+Inbox ~/.mail/ottwi/Inbox
+
+Channel ottwi
+Far :ottwi-remote:
+Near :ottwi-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *

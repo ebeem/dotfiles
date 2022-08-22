@@ -54,6 +54,8 @@
 (package! dired-hacks-utils)
 (package! bluetooth)
 (package! disk-usage)
+(package! mpdel)
+(package! org-present)
 
 ;; highlight symbols under the curse
 (package! highlight-symbol)

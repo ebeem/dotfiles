@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Name=Rofi Power 
-GenericName=Rofi Power (Power Manager)
+GenericName=Power Manager
 Exec=.config/rofi/bin/powermenu
 Terminal=false
 Icon=settings

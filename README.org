@@ -41,7 +41,15 @@
 + totally keyboard driven workflow
 + great multi-monitor support
 + workspaces span displays
-+ uses emacs as alternative to most tools (files, rss, email, terminal, text editor, simple browser)
++ uses emacs as alternative to most tools
+  + file manager (dired)
+  + rss reader (elfeed)
+  + email client (mu4e)
+  + terminal emulator (vterm)
+  + text editor (+lsp for IDE capabilities)
+  + simple browser (eww)
+  + pdf viewer (pdf-tools)
+  + word processor (org-mode)
 
 ** Setup
 the script *dotfiles* in *.bin* will perform all tasks needed to configure the system to use these configuration in any Arch Linux based distro. These tasks include:

@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Name=Emacs Elfeed
-GenericName=Emacs Elfeed (RSS Reader)
+GenericName=RSS Reader
 Exec=emacsclient -c -e "(elfeed)"
 Terminal=false
 Icon=emacs

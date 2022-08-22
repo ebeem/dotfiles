@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Name=Rofi Sound
-GenericName=Rofi Sound (Sound Manager)
+GenericName=Sound Manager
 Exec=.config/rofi/bin/sound_output
 Terminal=false
 Icon=settings
