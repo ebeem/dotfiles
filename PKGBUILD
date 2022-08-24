@@ -37,7 +37,7 @@ depends=(
     'searchmonkey-gtk'
     'flameshot'
     'ristretto'
-    'xfce4-taskmanager'
+    # 'xfce4-taskmanager'
     'xclip'
 
     # office suite
@@ -250,7 +250,7 @@ depends=(
     # communication
     'isync'
     'mu'
-    'element-desktop'
+    # 'element-desktop'
     'element-web'
     'discord'
     # 'liferea'
