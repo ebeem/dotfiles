@@ -606,7 +606,7 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
                 (org-level-8 . 1.1))))
 
 ;; org-present
-(defun my/org-present-prepare-slide (buffer-name heading)
+(defun org-present-prepare-slide (buffer-name heading)
   ;; Show only top-level headlines
   (org-overview)
 
@@ -616,30 +616,61 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
   ;; Show only direct subheadings of the slide but don't expand them
   (org-show-children))
 
-(defun my/org-present-start ()
+
+  (evil-define-key 'normal 'org-present-mode-keymap
+    "j" 'evil-next-line
+    "k" 'evil-previous-line
+    "q" 'org-present-quit
+    "\C-j" 'org-present-next
+    "\C-k" 'org-present-prev)
+
+
+(map! :leader
+      (:prefix-map ("t" . "toggle")
+       :desc "Org Present"    "p" #'org-present))
+
+(defun org-present-start ()
   ;; Tweak font sizes
-  (setq-local face-remapping-alist '((header-line (:height 3.0) variable-pitch)
+  (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
+                                     (header-line (:height 3.0) variable-pitch)
                                      (org-document-title (:height 1.75) org-document-title)
-                                     (org-level-1 (:height 1.4) org-level-1)
-                                     (org-level-2 (:height 1.35) org-level-2)
-                                     (org-level-3 (:height 1.3) org-level-3)
-                                     (org-code (:height 1.25) fixed-patch)
-                                     (org-verbatim (:height 1.25) org-verbatim)
-                                     (org-block (:height 1.25) fixed-patch)
-                                     (org-block-begin-line (:height 0.7) fixed-patch)))
+                                     (org-code (:height 1.55) org-code)
+                                     (org-level-1 (:height 1.30) org-level-1)
+                                     (org-level-2 (:height 1.25) org-level-2)
+                                     (org-level-3 (:height 1.10) org-level-3)
+                                     (org-level-4 (:height 1.10) org-level-4)
+                                     (org-level-5 (:height 1.10) org-level-5)
+                                     (org-level-6 (:height 1.10) org-level-6)
+                                     (org-level-7 (:height 1.10) org-level-7)
+                                     (org-verbatim (:height 1.55) org-verbatim)
+                                     (org-block (:height 1.35) org-block)
+                                     (org-block-begin-line (:height 0.9) org-block)))
+
+    ;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
+    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
 
   (setq header-line-format " ")
   (setq display-line-numbers nil)
-  (org-present-read-only)
   ;; Center the presentation and wrap lines
   (visual-fill-column-mode 1))
 
-(defun my/org-present-end ()
+(defun org-present-end ()
   ;; Reset font customizations
   (setq-local face-remapping-alist '((default variable-pitch default)))
   (setq display-line-numbers t)
 
-  (org-present-read-write)
+  (evil-define-key 'normal 'org-present-mode-keymap
+    "q" nil
+    "\C-j" nil
+    "\C-k" nil)
+
   ;; Stop centering the document
   (visual-fill-column-mode 0))
 
@@ -647,9 +678,9 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 
 ;; Register hooks with org-present
-(add-hook 'org-present-mode-hook 'my/org-present-start)
-(add-hook 'org-present-mode-quit-hook 'my/org-present-end)
-(add-hook 'org-present-after-navigate-functions 'my/org-present-prepare-slide)
+(add-hook 'org-present-mode-hook 'org-present-start)
+(add-hook 'org-present-mode-quit-hook 'org-present-end)
+(add-hook 'org-present-after-navigate-functions 'org-present-prepare-slide)
 
 ;; neotree
 (setq frameset-filter-alist '((treemacs-workspace . :never)
@@ -710,6 +741,7 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
   (let* ((file (dired-get-filename nil t)))
     (call-process "xdg-open" nil 0 nil file)))
 
-
 (evil-collection-define-key 'normal 'dired-mode-map
   "o" `dired-open-file)
+
+(setq pop-up-frames t)

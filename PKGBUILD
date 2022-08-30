@@ -224,6 +224,8 @@ depends=(
     # 'evince'
 
     # window-manager
+    'qtile'
+    'stumpwm'
     'python-pywal'
     'rofi'
     'polybar'

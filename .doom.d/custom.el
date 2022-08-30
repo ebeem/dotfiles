@@ -21,7 +21,7 @@
  '(org-safe-remote-resources
    '("\\`https://fniessen\\.github\\.io/org-html-themes/org/theme-readtheorg\\.setup\\'"))
  '(package-selected-packages
-   '(evil-collection exwm org-present mpdel disk-usage bluetooth dired-hacks-utils simple-mpc burly visual-fill-column highlight-symbol quelpa-use-package ement))
+   '(lsp-mode mingus emms evil-collection exwm org-present mpdel disk-usage bluetooth dired-hacks-utils simple-mpc burly visual-fill-column highlight-symbol quelpa-use-package ement))
  '(pdf-view-midnight-colors (cons "#bbc2cf" "#282c34"))
  '(rustic-ansi-faces
    ["#282c34" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#bbc2cf"])
@@ -68,4 +68,5 @@
  '(treemacs-header-face ((t (:inherit default))))
  '(treemacs-on-failure-pulse-face ((t (:inherit default))))
  '(treemacs-on-success-pulse-face ((t (:inherit default))))
- '(treemacs-root-face ((t (:inherit default :inherit default)))))
+ '(treemacs-root-face ((t (:inherit default :inherit default))))
+ '(ts-fold-replacement-face ((t (:foreground nil :box nil :inherit font-lock-comment-face :weight light)))))

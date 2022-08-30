@@ -54,8 +54,8 @@
 (package! dired-hacks-utils)
 (package! bluetooth)
 (package! disk-usage)
-(package! mpdel)
 (package! org-present)
+(package! mingus)
 
 ;; highlight symbols under the curse
 (package! highlight-symbol)
@@ -73,3 +73,5 @@
   :recipe (:host github :repo "Fuco1/org-pretty-table"))
 (package! org-modern
   :recipe (:host github :repo "minad/org-modern"))
+
+(package! elfeed-goodies :disable t)

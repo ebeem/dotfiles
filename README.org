@@ -49,7 +49,9 @@
   + text editor (+lsp for IDE capabilities)
   + simple browser (eww)
   + pdf viewer (pdf-tools)
-  + word processor (org-mode)
+  + word processor (org-mode + latex)
+  + presentations (org-mode + org-present)
+  + simple spreadsheets (org-mode)
 
 ** Setup
 the script *dotfiles* in *.bin* will perform all tasks needed to configure the system to use these configuration in any Arch Linux based distro. These tasks include:
