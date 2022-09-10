@@ -39,6 +39,11 @@ depends=(
     'ristretto'
     # 'xfce4-taskmanager'
     'xclip'
+    'gvfs'
+    'gvfs-smb'
+    'gvfs-mtp'
+    'gvfs-nfs'
+    'gvfs-google'
 
     # office suite
     'libreoffice-fresh'

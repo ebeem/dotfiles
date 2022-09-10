@@ -741,7 +741,6 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
   (let* ((file (dired-get-filename nil t)))
     (call-process "xdg-open" nil 0 nil file)))
 
-(evil-collection-define-key 'normal 'dired-mode-map
-  "o" `dired-open-file)
-
-(setq pop-up-frames t)
+;; (evil-define-key 'normal dired-mode-map
+;;   "o" 'dired-open-file)
+;; (setq pop-up-frames t)
