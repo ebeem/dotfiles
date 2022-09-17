@@ -45,12 +45,13 @@
   + file manager (dired)
   + rss reader (elfeed)
   + email client (mu4e)
-  + terminal emulator (vterm)
+  + music (mingus)
+  + terminal emulator (vterm + eshell)
   + text editor (+lsp for IDE capabilities)
   + simple browser (eww)
   + pdf viewer (pdf-tools)
   + word processor (org-mode + latex)
-  + presentations (org-mode + org-present)
+  + presentations (org-mode + org-present + beamer)
   + simple spreadsheets (org-mode)
 
 ** Setup
