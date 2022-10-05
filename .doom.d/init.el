@@ -117,7 +117,7 @@
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
-       exwm
+       ;;exwm
 
        :lang
        ;;agda                                           ; types of types of types of types...
@@ -190,7 +190,7 @@
        :app
        calendar
        ;; emms
-       mingus
+       ;;mingus
        everywhere        ; *leave* Emacs!? You must be joking
        irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader

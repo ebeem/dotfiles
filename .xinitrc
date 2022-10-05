@@ -32,4 +32,5 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # exwm
-xrandr --output DP-1 --mode 1920x1080 --rate 144.00 --output DP-2 --mode 1920x1080 --rate 144.00 --left-of DP-1 --output HDMI-2 --mode 1920x1080 --rate 120.00 --right-of DP-1
+xrandr --output DP-2 --mode 1920x1080 --rate 144.00 --output DP-1 --mode 1920x1080 --rate 144.00 --left-of DP-2 --output HDMI-2 --mode 1920x1080 --rate 120.00 --right-of DP-2
+/home/ebeem/.config/polybar/launch.sh

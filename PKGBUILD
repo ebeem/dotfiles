@@ -20,6 +20,7 @@ depends=(
     # utils
     'hostapd'
     'etcher-bin'
+    'btop'
     'htop-vim'
     'ocs-url'
     'deluge-gtk'
@@ -80,7 +81,6 @@ depends=(
     'dejagnu'
     'jupyter-notebook'
     'cython'
-    'cython2'
     'spyder'
 
     #   dart
@@ -232,6 +232,7 @@ depends=(
     # window-manager
     'qtile'
     'stumpwm'
+    'cl-swank'
     'python-pywal'
     'rofi'
     'polybar'

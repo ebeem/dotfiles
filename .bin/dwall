@@ -107,7 +107,7 @@ pywal_set() {
 	get_img "$1"
 	if [[ -x `command -v wal` ]]; then
 		wal -s -t -i "$image.$FORMAT"
-		"$HOME"/.config/polybar/cuts/scripts/pywal.sh "$HOME/.wallpapers/"$(sed -nr "/^\[wallpaper\]/ { :l /^name[ ]*=/ { s/.*=[ ]*//; p; q;}; n; b l;}" ~/.config/dynamic-wallpaper/dwall.conf)
+		"$HOME"/.config/polybar/scripts/pywal.sh "$HOME/.wallpapers/"$(sed -nr "/^\[wallpaper\]/ { :l /^name[ ]*=/ { s/.*=[ ]*//; p; q;}; n; b l;}" ~/.config/dynamic-wallpaper/dwall.conf)
 	else
 		echo -e ${RED}"[!] pywal is not installed on your system, exiting..."
 		{ reset_color; exit 1; }

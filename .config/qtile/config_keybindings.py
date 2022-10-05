@@ -78,7 +78,7 @@ TOOGLE_LAYOUT = "Tab"
 
 # Define constants here
 # TERMINAL = "alacritty"
-TERMINAL = "emacsclient -c -e '(+vterm/here nil)')"
+TERMINAL = "emacsclient -c -e '(+eshell/here nil)')"
 # Basic window manager movements
 # Qtile shutdown/restart keys
 SHUTDOWN_MODIFIER = [MOD, CONTROL]

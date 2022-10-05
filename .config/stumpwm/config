@@ -1,0 +1,17 @@
+;; -*- lisp -*-
+;; groups are arranged in a grid, 3x3 in my configuration
+(setf stumpwm::*groups-rows* 3)
+(setf stumpwm::*groups-columns* 3)
+(setf stumpwm::*groups-names* '("1-browser" "2-development" "3-databases"
+                               "4-communication" "5-development" "6-gaming"
+                               "7-mail" "8-development" "9-media"))
+
+(setf stumpwm::*debug-level* 0)
+(stumpwm::redirect-all-output "~/.cache/stumpwm.log")
+
+;; loading keybindings first will allow avoiding the default keybindings most of the time
+(stumpwm::load "~/.config/stumpwm/keybindings.lisp")
+(stumpwm::load "~/.config/stumpwm/init.lisp")
+(stumpwm::load "~/.config/stumpwm/groups.lisp")
+(stumpwm::load "~/.config/stumpwm/look-and-feel.lisp")
+(stumpwm::load "~/.config/stumpwm/autostart.lisp")

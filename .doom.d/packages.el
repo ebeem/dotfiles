@@ -56,6 +56,7 @@
 (package! disk-usage)
 (package! org-present)
 (package! mingus)
+(package! stumpwm-mode)
 
 ;; highlight symbols under the curse
 (package! highlight-symbol)
