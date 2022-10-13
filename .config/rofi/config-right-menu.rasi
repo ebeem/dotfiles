@@ -1,0 +1,8 @@
+@import                          "config.rasi"
+
+/*****----- Configuration -----*****/
+/*****----- Main Window -----*****/
+window {
+    /* properties for window widget */
+    x-offset:                    1570px;
+}

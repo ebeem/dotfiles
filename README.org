@@ -1,5 +1,7 @@
 #+title: Readme
 #+STARTUP: inlineimages
+#+OPTIONS: toc:3 ^:nil
+
 
 ** Specifications
 #+BEGIN_SRC
@@ -7,10 +9,10 @@
                   .o+`                   -----------
                  `ooo/                   OS: arch linux
                 `+oooo:                  Shell: zsh
-               `+oooooo:                 WM: qtile
+               `+oooooo:                 WM: stumpwm
                -+oooooo+:                Theme: colloid-dark-nord [GTK2/3]
              `/:-:++oooo+:               Icons: colloid-dark [GTK2/3]
-            `/++++/+++++++:              Terminal: emacs (vterm)
+            `/++++/+++++++:              Terminal: emacs (eshell)
            `/++++++++++++++:             Files: emacs (dired)
           `/+++ooooooooooooo/`           Launcher: rofi
          ./ooosssso++osssssso+`          bar: polybar
@@ -26,15 +28,19 @@
 
 ** Screenshots
 
+#+ATTR_ORG: :width 900
 [[./.screenshots/desktop.png]]
 
 
 
 
+#+ATTR_ORG: :width 900
 [[./.screenshots/emacs.png]]
 
+#+ATTR_ORG: :width 900
 [[./.screenshots/dired-terminal.png]]
 
+#+ATTR_ORG: :width 900
 [[./.screenshots/rss-feed.png]]
 
 ** Features
@@ -46,8 +52,8 @@
   + rss reader (elfeed)
   + email client (mu4e)
   + music (mingus)
-  + terminal emulator (vterm + eshell)
-  + text editor (+lsp for IDE capabilities)
+  + terminal emulator (eshell + vterm)
+  + text editor (emacs +lsp for IDE capabilities)
   + simple browser (eww)
   + pdf viewer (pdf-tools)
   + word processor (org-mode + latex)

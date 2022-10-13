@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/usr/bin/env sh
 get_icon() {
     case $1 in
         # Icons for weather-icons

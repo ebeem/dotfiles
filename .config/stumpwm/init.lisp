@@ -9,9 +9,8 @@
 (which-key-mode)
 
 ;;; Emacs integration
-(defcommand emacs () () ; override default emacs command
-  "Start emacs if emacsclient is not running and focus emacs if it is
-running in the current group"
+(defcommand emacsclient () () ; override default emacs command
+  "Start emacsclient"
   (run-or-raise "emacsclient -c -a 'emacs'" '(:class "Emacs")))
 
 (load-module "swm-emacs")
@@ -22,7 +21,6 @@ running in the current group"
                  (format nil "timeout --signal=9 1m emacsclient --eval \"~a\""
                          elisp)
                  collect-output-p)))
-    (message result)
     (handler-case (read-from-string result)
       ;; Pass back a string when we can't read from the string
       (error () result))))
@@ -40,12 +38,23 @@ running in the current group"
 (defcommand improved-move-focus (dir) ((:direction "Direction: "))
   "Similar to move-focus but also treats emacs windows as Xorg windows"
   (declare (type (member :up :down :left :right) dir))
-  (if (is-emacs-p (current-window))
-    (when ;; There is not emacs window in that direction
-      (length= (emacs-winmove (string-downcase (string-trim ":" (string dir)))) 1)
-        (move-focus dir))
-    (move-focus dir)))
+  (move-focus dir))
+  ;; (if (is-emacs-p (current-window))
+  ;;   (when ;; There is not emacs window in that direction
+  ;;     (length= (emacs-winmove (string-downcase (string-trim ":" (string dir)))) 1)
+  ;;       (move-focus dir))
+  ;;   (move-focus dir)))
 
 ;; behavior
 (setf *mouse-focus-policy* :click)
 (setf *run-or-raise-all-groups* nil)
+
+(ql:quickload :slynk)
+
+(stumpwm:defcommand sly-start-server () ()
+  "Start a slynk server for sly."
+  (sb-thread:make-thread (lambda () (slynk:create-server :dont-close t))))
+
+(stumpwm:defcommand sly-stop-server () ()
+  "Stop current slynk server for sly."
+  (sb-thread:make-thread (lambda () (slynk:stop-server 4005))))

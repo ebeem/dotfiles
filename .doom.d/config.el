@@ -25,7 +25,7 @@
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
       ;; doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 17 :weight 'bold))
 
-(setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 17 :weight 'bold)
       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 17))
       ;; doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 17 :weight 'bold))
 
@@ -225,14 +225,14 @@
 (after! mu4e
   (setq mu4e-alert-email-notification-types '(count))
   (setq mu4e-update-interval (* 60 3)
-        mu4e-maildir "~/.mail"
+        mu4e-root-maildir "~/.mail"
         mu4e-change-filenames-when-moving t
         mu4e-get-mail-command "mbsync -a"
         mu4e-display-update-status-in-modeline t))
 
-(with-eval-after-load "mm-decode"
-  (add-to-list 'mm-discouraged-alternatives "text/html")
-  (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+   (with-eval-after-load "mm-decode"
+        (add-to-list 'mm-discouraged-alternatives "text/html")
+        (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
 ;; (setq mu4e-contexts
 ;;       (list
@@ -337,7 +337,6 @@
       :nm "Y" #'elfeed-show-yank)
       
 (after! elfeed
-
   (elfeed-org)
   (use-package! elfeed-link)
 
@@ -577,6 +576,35 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
         visual-fill-column-center-text t
         default-text-properties '(line-height 1.1))
 
+;; mu4e
+(add-hook! 'mu4e-view-mode-hook (defun mu4e-view-mode-enter ()
+                                        (hide-mode-line-mode 1)
+                                        (setq-local truncate-lines nil
+                                                        shr-width 120
+                                                        visual-fill-column-center-text t
+                                                        default-text-properties '(line-height 1.1))
+                                        (let ((inhibit-read-only t)
+                                                (inhibit-modification-hooks t))
+                                        (visual-fill-column-mode)
+                                        (variable-pitch-mode t)
+                                        (set-buffer-modified-p nil))))
+
+(add-hook! 'mu4e-headers-mode-hook (defun mu4e-headers-enter ()
+              (hide-mode-line-mode 1)
+              (mu4e-column-faces-mode)))
+
+(setq mu4e-headers-field
+  '( (:human-date    .   17)
+     (:flags         .    10)
+     ;; (:mailing-list  .   30)
+     (:from          .   30)
+     (:subject       .   nil))
+      +mu4e-min-header-frame-width 142
+      mu4e-headers-date-format "%d/%m/%y %H:%M:%S"
+      mu4e-headers-time-format "⧖ %H:%M"
+      mu4e-headers-results-limit 1000
+      mu4e-index-cleanup t)
+
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -683,6 +711,13 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 (add-hook 'org-present-after-navigate-functions 'org-present-prepare-slide)
 
 ;; neotree
+;; (setq doom-themes-neotree-line-spacing 2
+;;       doom-themes-neotree-project-size 1.2
+;;       doom-themes-neotree-folder-size 0.9
+;;       doom-themes-neotree-chevron-size 0.9
+;;       doom-themes-neotree-file-icons 'simple
+;;       doom-themes-neotree-enable-variable-pitch t)
+
 (setq frameset-filter-alist '((treemacs-workspace . :never)
         (treemacs-id . :never)
         (tabs . frameset-filter-tabs)
@@ -731,9 +766,9 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 
 ;; evil mode
 (setq evil-kill-on-visual-paste nil)
+(setq pop-up-frames t)
 
 ;; dired
-
 ;;; file opening procedures
 (defun dired-open-file ()
   "In dired, open the file named on this line."
@@ -741,6 +776,9 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
   (let* ((file (dired-get-filename nil t)))
     (call-process "xdg-open" nil 0 nil file)))
 
-;; (evil-define-key 'normal dired-mode-map
-;;   "o" 'dired-open-file)
-;; (setq pop-up-frames t)
+(defun eb/evil-keybindings-hook (mode mode-keymaps &rest _rest)
+  (when (equal mode 'dired)
+    (evil-define-key 'normal dired-mode-map
+      "o" 'dired-open-file)))
+
+(add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)

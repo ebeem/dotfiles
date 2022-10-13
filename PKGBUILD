@@ -190,7 +190,7 @@ depends=(
     # 'mopidy-mpris'
     # 'mopidy-notifier'
     # 'mopidy-mpd'
-    'mopidy-iris'
+    # 'mopidy-iris'
     'vlc'
     'kodi'
     'yt-dlp'
@@ -230,6 +230,10 @@ depends=(
     # 'evince'
 
     # window-manager
+    'lightdm'
+    'light-locker'
+    'lightdm-webkit2-greeter'
+    'lightdm-webkit2-theme-glorious'
     'qtile'
     'stumpwm'
     'cl-swank'

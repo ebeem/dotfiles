@@ -13,6 +13,10 @@ if [[ -f "${IMAGE}.png" ]]; then
     FORMAT="png"
 elif [[ -f "${IMAGE}.jpg" ]]; then
     FORMAT="jpg"
+elif [[ -f "$DIR/fixed/$STYLE" ]]; then
+    # allows setting a fixed wallpaper
+    IMAGE="$DIR/fixed/${STYLE%%.*}"
+    FORMAT=${STYLE##*.}
 else
     echo -e ${RED}"[!] Invalid image file $IMAGE, Exiting..."
     exit 1;

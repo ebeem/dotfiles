@@ -1,17 +1,29 @@
 ;; -*- lisp -*-
 ;; groups are arranged in a grid, 3x3 in my configuration
-(setf stumpwm::*groups-rows* 3)
-(setf stumpwm::*groups-columns* 3)
-(setf stumpwm::*groups-names* '("1-browser" "2-development" "3-databases"
-                               "4-communication" "5-development" "6-gaming"
-                               "7-mail" "8-development" "9-media"))
+(in-package :stumpwm)
 
-(setf stumpwm::*debug-level* 0)
-(stumpwm::redirect-all-output "~/.cache/stumpwm.log")
+(export '(*groups-rows*
+          *groups-columns*
+          *groups-names*))
+
+(defvar *groups-rows* 3
+  "The number of group rows we have in our grid")
+
+(defvar *groups-columns* 3
+  "The number of group columns we have in our grid")
+
+(defvar *groups-names* '("1-browser" "2-development" "3-databases"
+                               "4-communication" "5-development" "6-gaming"
+                               "7-mail" "8-development" "9-media")
+  "The names of the groups we have in our grid, the length of these groups.lisp
+must be equal to (* *groups-rows* *groups-columns*)")
+
+(setf *debug-level* 0)
+(redirect-all-output "~/.cache/stumpwm.log")
 
 ;; loading keybindings first will allow avoiding the default keybindings most of the time
-(stumpwm::load "~/.config/stumpwm/keybindings.lisp")
-(stumpwm::load "~/.config/stumpwm/init.lisp")
-(stumpwm::load "~/.config/stumpwm/groups.lisp")
-(stumpwm::load "~/.config/stumpwm/look-and-feel.lisp")
-(stumpwm::load "~/.config/stumpwm/autostart.lisp")
+(load "~/.config/stumpwm/keybindings.lisp")
+(load "~/.config/stumpwm/init.lisp")
+(load "~/.config/stumpwm/groups.lisp")
+(load "~/.config/stumpwm/look-and-feel.lisp")
+(load "~/.config/stumpwm/autostart.lisp")

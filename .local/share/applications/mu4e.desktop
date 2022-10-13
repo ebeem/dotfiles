@@ -2,8 +2,9 @@
 Encoding=UTF-8
 Version=1.0
 Name=Emacs Mu4e
+Class=mu4e
 GenericName=Email Client
-Exec=emacsclient -c -e "(mu4e)"
+Exec=emacsclient -F "'(title . \"mu4e\")" -c -e "(mu4e)"
 Terminal=false
 Icon=emacs
 Type=Application

@@ -76,3 +76,4 @@
   :recipe (:host github :repo "minad/org-modern"))
 
 (package! elfeed-goodies :disable t)
+(package! mu4e-column-faces)

@@ -11,7 +11,7 @@ fi
 
 # An option was passed, so let's check it
 # the output from the selection will be the desciption.  Save that for alerts
-rofi_command="rofi -dmenu"
+rofi_command="rofi -dmenu -config '~/.config/rofi/config-right-menu.rasi'"
 options=""
 # Get the list of outputs based on the description, which is what makes sense to a human
 # and is what we want to show in the menu
@@ -21,7 +21,8 @@ do
     options="${options}$(echo "$x"|xargs)\n"
 done
 options="${options}quit"
-selected="$(echo -e "$options" | rofi -dmenu -i -p "Source Device")"
+selected="$(echo -e "$options" | rofi -dmenu -i -p "Source Device" -config "~/.config/rofi/config-right-menu.rasi")"
+
 
 # Figure out what the device name is based on the description passed
 device=$(pactl list sources|grep -C2 "Description: $selected"|grep Name|cut -d: -f2|xargs)

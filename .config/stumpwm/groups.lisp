@@ -1,8 +1,8 @@
 (in-package :stumpwm)
 
 (defun gget-direction (dir)
-  ;; get the group index based on the current group and a direction
-  ;; the direction must be a member of :up :down :left :right
+  "Get the group index based on the current group and a direction
+the direction must be a member of :up :down :left :right"
   (declare (type (member :up :down :left :right) dir))
   (let ((c-row (floor (- (group-number (current-group)) 1) *groups-columns*))
         (c-col (mod (- (group-number (current-group)) 1) *groups-columns*)))
@@ -14,24 +14,35 @@
     (+ 1 (+ c-col (* c-row *groups-columns*)))))
 
 (defcommand gselect-direction (dir) ((:direction "Direction: "))
-  ;; select the group based on a direction
+  ; select the group based on a direction
   (gselect (write-to-string (gget-direction dir))))
 
 (defcommand gmove-direction (dir) ((:direction "Direction: "))
   ;; moves the current window and follows a group based on a direction
   (gmove-and-follow (select-group (current-screen) (write-to-string (gget-direction dir)))))
 
-(grename (car stumpwm::*groups-names*))
-(dolist (g (cdr stumpwm::*groups-names*))
+(grename (car *groups-names*))
+(dolist (g (cdr *groups-names*))
   (gnewbg g))
 
 ;; default windows placement
 (clear-window-placement-rules)
 
+(define-frame-preference "1-browser"
+  (1 nil   t   :class "firefox"))
+
 (define-frame-preference "4-communication"
-  (0 nil   t   :instance "chromium" :type :normal)
-  (1 nil   t   :instance "Discord")
+  (0 nil   t   :instance "chromium")
+  (1 nil   t   :class "discord")
   (2 nil   t   :instance "slack"))
 
 (define-frame-preference "6-gaming"
-  (0 nil   t   :instance "steam" :type :normal))
+  (0 nil   t   :class "obs")
+  (0 nil   t   :title "Steam")
+  (2 nil   t   :title "Friends List")
+  (1 nil   t   :instance "dota2"))
+
+(define-frame-preference "7-mail"
+  (0 nil   t   :title "mu4e")
+  (1 nil   t   :title "elfeed")
+  (2 nil   t   :title "ement"))
