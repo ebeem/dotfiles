@@ -1,17 +1,17 @@
-;;; doom-one-theme.el --- inspired by Atom One Dark -*- lexical-binding: t; no-byte-compile: t; -*-
+;;; doom-tron-theme.el --- inspired by Tron Legacy -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;
-;; Copyright (C) 2016-2021 Henrik Lissner
+;; Copyright (C) 2021-2022 Ibraheem Almarhoon
 ;;
-;; Author: Henrik Lissner <https://github.com/hlissner>
-;; Created: December 6, 2020
-;; Version: 2.0.0
+;; Author: Ibraheem Almarhoon <https://github.com/ebeem>
+;; Created: October 13, 2022
+;; Version: 1.0.0
 ;; Keywords: custom themes, faces
 ;; Homepage: https://github.com/hlissner/emacs-doom-themes
 ;; Package-Requires: ((emacs "25.1") (cl-lib "0.5") (doom-themes "2.2.1"))
 ;;
 ;;; Commentary:
 ;;
-;; Inspired by Atom's One Dark color scheme.
+;; Inspired by Tron Legacy's color scheme.
 ;;
 ;;; Code:
 
@@ -63,14 +63,14 @@ Can be an integer to determine the exact padding."
    ;; bg and base8 is a starker fg. For example, if bg is light grey and fg is
    ;; dark grey, base0 should be white and base8 should be black.
    (base0      '("#0C141F" "black"       "black"        ))
-   (base1      '("#0C141F" "#1e1e1e"     "brightblack"  ))
-   (base2      '("#132032" "#2e2e2e"     "brightblack"  ))
-   (base3      '("#132032" "#262626"     "brightblack"  ))
-   (base4      '("#cfffff" "#3f3f3f"     "brightblack"  ))
-   (base5      '("#cfffff" "#525252"     "brightblack"  ))
-   (base6      '("#cfffff" "#6b6b6b"     "brightblack"  ))
-   (base7      '("#E6FFFF" "#979797"     "brightblack"  ))
-   (base8      '("#E6FFFF" "#dfdfdf"     "white"        ))
+   (base1      '("#0B1724" "#1e1e1e"     "brightblack"  ))
+   (base2      '("#0F1B28" "#2e2e2e"     "brightblack"  ))
+   (base3      '("#121F2E" "#262626"     "brightblack"  ))
+   (base4      '("#2E3C4A" "#3f3f3f"     "brightblack"  ))
+   (base5      '("#4A5A68" "#525252"     "brightblack"  ))
+   (base6      '("#62717E" "#6b6b6b"     "brightblack"  ))
+   (base7      '("#8B98A4" "#979797"     "brightblack"  ))
+   (base8      '("#D3E0EC" "#dfdfdf"     "white"        ))
 
    (grey       base4)
    (red        '("#B62D66" "#DF740C" "red"          ))
@@ -177,5 +177,4 @@ Can be an integer to determine the exact padding."
 
   ;;;; Base theme variable overrides-
   ())
-
 ;;; doom-tron-theme.el ends here
