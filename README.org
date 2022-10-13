@@ -28,18 +28,28 @@
 
 ** Screenshots
 
+*** Desktop (stumpwm)
 #+ATTR_ORG: :width 900
 [[./.screenshots/desktop.png]]
 
+#+ATTR_ORG: :width 900
+[[./.screenshots/stumpwm.png]]
 
-
-
+*** Editor (emacs)
 #+ATTR_ORG: :width 900
 [[./.screenshots/emacs.png]]
 
+*** System Monitor (btop)
+*** File Manager (dired)
+*** Terminal Emulator (eshell)
 #+ATTR_ORG: :width 900
 [[./.screenshots/dired-terminal.png]]
 
+*** Email Client (mu4e)
+#+ATTR_ORG: :width 900
+[[./.screenshots/mu4e.png]]
+
+*** RSS reader (elfeed)
 #+ATTR_ORG: :width 900
 [[./.screenshots/rss-feed.png]]
 
