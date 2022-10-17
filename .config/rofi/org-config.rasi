@@ -24,25 +24,25 @@ configuration {
 }
 
 configuration {
-    icon-theme:       "Colloid-nord-dark";
-    font:             "JetBrainsMono Nerd Font Bold 10";
-    terminal:         "alacritty";
+    icon-theme:     'icons';
+    font:           'JetBrainsMono Nerd Font Bold 10';
+    terminal:       'alacritty';
 }
 
  * {
-    background:       #282c34;
-    background-alt:   #282B31;
-    foreground:       #bbc2cf;
-    selected:         #61AFEF;
-    active:           #61AFEF;
-    urgent:           #ff6c6b;
-    border-color:     #61AFEF;
-    border-width:     2px solid;
-    border-radius:    8px;
+    background:     #282c34;
+    background-alt: #282B31;
+    foreground:     #bbc2cf;
+    selected:       #61AFEF;
+    active:         #61AFEF;
+    urgent:         #ff6c6b;
+}
 
-    handle-color:                var(selected);
-    background-color:            var(background);
-    foreground-color:            var(foreground);
+ * {
+    border-colour:               var(selected);
+    handle-colour:               var(selected);
+    background-colour:           var(background);
+    foreground-colour:           var(foreground);
     alternate-background:        var(background-alt);
     normal-background:           var(background);
     normal-foreground:           var(foreground);
@@ -62,7 +62,8 @@ configuration {
     alternate-urgent-foreground: var(background);
     alternate-active-background: var(active);
     alternate-active-foreground: var(background);
-    background-color:            var(background-color);
+    border-color:                @border-colour;
+    background-color:            @background-colour;
 }
 
 window {
@@ -77,8 +78,8 @@ window {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      var(border-width);
-    border-radius:               var(border-radius);
+    border:                      3px solid;
+    border-radius:               8px;
     cursor:                      "default";
 }
 
@@ -87,9 +88,9 @@ mainbox {
     spacing:                     10px;
     margin:                      0px;
     padding:                     40px;
-    border:                      var(border-width);
-    border-radius:               var(border-radius);
-    border-color:                var(border-color);
+    border:                      0px solid;
+    border-radius:               0px 0px 0px 0px;
+    border-color:                @border-colour;
     background-color:            transparent;
     children:                    [ "inputbar", "message", "listview", "mode-switcher" ];
 }
@@ -99,8 +100,11 @@ inputbar {
     spacing:                     10px;
     margin:                      0px;
     padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  var(foreground-color);
+    text-color:                  @foreground-colour;
     children:                    [ "prompt", "entry" ];
 }
 
@@ -108,7 +112,6 @@ prompt {
     enabled:                     true;
     background-color:            inherit;
     text-color:                  inherit;
-    text-color:                  var(selected);
 }
 
 textbox-prompt-colon {
@@ -167,18 +170,22 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
+
     spacing:                     5px;
     margin:                      0px;
     padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  var(foreground-color);
+    text-color:                  @foreground-colour;
     cursor:                      "default";
-    border:                      0;
 }
 scrollbar {
-    handle-width:                var(border-width);
-    handle-color:                var(handle-color);
-    background-color:            var(alternate-background);
+    handle-width:                5px ;
+    handle-color:                @handle-colour;
+    border-radius:               8px;
+    background-color:            @alternate-background;
 }
 
 element {
@@ -186,8 +193,11 @@ element {
     spacing:                     8px;
     margin:                      0px;
     padding:                     8px;
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  var(foreground-color);
+    text-color:                  @foreground-colour;
     cursor:                      pointer;
 }
 element normal.normal {
@@ -246,12 +256,18 @@ mode-switcher{
     spacing:                     10px;
     margin:                      0px;
     padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  var(foreground-color);
+    text-color:                  @foreground-colour;
 }
 button {
     padding:                     8px;
-    background-color:            var(alternate-background);
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @border-colour;
+    background-color:            @alternate-background;
     text-color:                  inherit;
     cursor:                      pointer;
 }
@@ -264,32 +280,33 @@ message {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      var(border-width);
-    border-radius:               var(border-radius);
-    border-color:                var(border-color);
+    border:                      0px solid;
+    border-radius:               0px 0px 0px 0px;
+    border-color:                @border-colour;
     background-color:            transparent;
-    text-color:                  var(foreground-color);
+    text-color:                  @foreground-colour;
 }
 
 textbox {
     padding:                     8px;
-    border:                      var(border-width);
-    border-radius:               var(border-radius);
-    border-color:                var(border-color);
-    background-color:            var(alternate-background);
-    text-color:                  var(foreground-color);
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @border-colour;
+    background-color:            @alternate-background;
+    text-color:                  @foreground-colour;
     vertical-align:              0.5;
     horizontal-align:            0.0;
     highlight:                   none;
-    placeholder-color:           var(foreground-color);
+    placeholder-color:           @foreground-colour;
     blink:                       true;
     markup:                      true;
 }
 
 error-message {
     padding:                     10px;
-    border:                      var(border-width);
-    border-radius:               var(border-radius);
-    border-color:                var(border-color);
-    text-color:                  var(foreground-color);
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @border-colour;
+    background-color:            @background-colour;
+    text-color:                  @foreground-colour;
 }

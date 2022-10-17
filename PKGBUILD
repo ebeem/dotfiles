@@ -161,7 +161,8 @@ depends=(
     'powerline-fonts'
     # 'awesome-terminal-fonts'
     'ttf-meslo-nerd-font-powerlevel10k'
-    'alacritty'
+    'kitty'
+    # 'alacritty'
     # 'tilix'
 
     # video editing/recording

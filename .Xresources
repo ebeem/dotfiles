@@ -1,1 +1,78 @@
-Xcursor.theme: Breeze_Snow
+! defined variables, the only variables themes need to adjust unless there is
+! specific custom change to one of software or tools used
+#define v_background #282c34
+#define v_background_alt #282B31
+#define v_foreground #bbc2cf
+#define v_foreground_alt #5B6268
+#define v_primary #61AFEF
+
+#define v_base0 #1B2229
+#define v_base1 #1c1f24
+#define v_base2 #202328
+#define v_base3 #23272e
+#define v_base4 #3f444a
+#define v_base5 #5B6268
+#define v_base6 #73797e
+#define v_base7 #9ca0a4
+#define v_base8 #DFDFDF
+
+#define v_red #ff6c6b
+#define v_orange #da8548
+#define v_green #98be65
+#define v_teal #4db5bd
+#define v_yellow #ECBE7B
+#define v_blue #51afef
+#define v_dark_blue #2257A0
+#define v_magenta #c678dd
+#define v_violet #a9a1e1
+#define v_cyan #46D9FF
+#define v_dark_cyan #5699AF
+
+#define v_border_width 2
+#define v_border_radius 8
+
+#define v_icons_theme Colloid-nord-dark
+#define v_cursor_theme Breeze_Snow
+
+*.icons.theme: v_icons_theme
+*.cursor.theme: v_cursor_theme
+*.icon-theme: v_icons_theme
+*.font: JetBrainsMono Nerd Font Bold 10
+*.terminal: alacritty
+
+! default colors for all software inherited from the defined variables
+*.background: v_background
+*.background-alt: v_background_alt
+*.foreground: v_foreground
+*.foreground-alt: v_foreground_alt
+*.cursorColor: v_foreground
+*.primary: v_primary
+*.base0: v_base0
+*.base1: v_base1
+*.base2: v_base2
+*.base3: v_base3
+*.base4: v_base4
+*.base5: v_base5
+*.base6: v_base6
+*.base7: v_base7
+*.base8: v_base8
+*.red: v_red
+*.orange: v_orange
+*.green: v_green
+*.teal: v_teal
+*.yellow: v_yellow
+*.blue: v_blue
+*.dark-blue: v_dark_blue
+*.magenta: v_magenta
+*.violet: v_violet
+*.cyan: v_cyan
+*.dark-cyan: v_dark_cyan
+
+*.border-color: v_primary
+*.border-width: v_border_width
+*.border-radius: v_border_radius
+
+! custom variables to adjust the colors of some tools
+polybar.background-alt: #352B3122
+rofi.primary: v_primary
+Xcursor.theme: v_cursor_theme

@@ -782,3 +782,19 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
       "o" 'dired-open-file)))
 
 (add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)
+
+;; custom functions to get properties from Xresources
+(defun xresources-value (app var)
+  "Returns the app and variable values from Xresources"
+  (string-trim (shell-command-to-string (concat "xrdb -get " app "." var))))
+
+(defun xresources-preprocessor (app code)
+  "Replace placeholders {xrdb:VARIABLE} with values from Xresources."
+  (loop
+   (when (null (string-match "\$\{xrdb:\\(.+\\)\}" code)) (return code))
+   (setq code (string-replace (match-string 0 code)
+                              (xresources-value app (match-string 1 code))
+                              code))))
+
+;; (xresources-value "rofi" "red")
+;; (xresources-preprocessor "rofi" "Rest here ${xrdb:red}")

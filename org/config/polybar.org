@@ -1,44 +1,202 @@
-configuration {
-  dpi:                        100;
-  monitor:                    1;
-  modi:                       "drun,run,filebrowser,window";
-  show-icons:                 true;
-  display-drun:               "";
-  display-run:                "";
-  display-filebrowser:        "";
-  display-window:             "";
-  drun-display-format:        "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
-  window-format:              "{w} · {c} · {t}";
-  case-sensitive:             false;
-}
+#+title: Polybar Configuration
+#+SETUPFILE: ../styles/read-the-org.org
+#+OPTIONS: auto-id:t
+#+HTML_HEAD_EXTRA: <meta name="description" content="ebeem’s Polybar Configuration" />
+#+HTML_HEAD_EXTRA: <meta property="og:title" content="ebeem’s Polybar Configuration" />
+#+HTML_HEAD_EXTRA: <meta property="og:description" content="Description of the Polybar configuration of ebeem" />
+#+PROPERTY: header-args:conf :exports code :mkdirp yes
 
-configuration {
-  kb-mode-complete:     "";
-  kb-row-up:            "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
-  kb-row-down:          "Down,Control+j";
-  kb-accept-entry:      "Control+m,Return,KP_Enter";
-  kb-remove-to-eol:     "Control+Shift+e";
-  kb-mode-previous:     "Shift+Left,Control+Shift+Tab,Control+h";
-  kb-mode-next:         "Shift+Right,Control+Tab,Control+l";
-  kb-remove-char-back:  "BackSpace";
-}
+* Introduction
+The main purpose of ~Polybar~ is to help users create awesome status bars. It has built-in functionality to display information about the most commonly used services. Some of the services included so far:
+    - Systray icons
+    - Window title
+    - Playback controls and status display for MPD using libmpdclient
+    - ALSA and PulseAudio volume controls
+    - Workspace and desktop panel for bspwm and i3
+    - Workspace module for EWMH compliant window managers
+    - Keyboard layout and indicator status
+    - CPU and memory load indicator
+    - Battery display
+    - Network connection details
+    - Backlight level
+    - Date and time label
+    - Time-based shell script execution
+    - Command output tailing
+    - User-defined menu tree
+    - Inter-process messaging
+    - And more...
+https://github.com/polybar/polybar
 
+* Colors
+This section defines the color variables that can be used in the rest of the configuration. All the colors are inherited from ~Xresources~ with the help of ~xrdb~.
+
+#+BEGIN_SRC conf :tangle ~/.config/polybar/colors.ini
+[color]
+background= ${xrdb:polybar.background}
+background-alt= ${xrdb:polybar.background-alt}
+foreground= ${xrdb:polybar.foreground}
+foreground-alt= ${xrdb:polybar.foreground-alt}
+primary= ${xrdb:polybar.primary}
+
+base0= ${xrdb:polybar.base0}
+base1= ${xrdb:polybar.base1}
+base2= ${xrdb:polybar.base2}
+base3= ${xrdb:polybar.base3}
+base4= ${xrdb:polybar.base4}
+base5= ${xrdb:polybar.base5}
+base6= ${xrdb:polybar.base6}
+base7= ${xrdb:polybar.base7}
+base8= ${xrdb:polybar.base8}
+
+red= ${xrdb:polybar.red}
+orange= ${xrdb:polybar.orange}
+green= ${xrdb:polybar.green}
+teal= ${xrdb:polybar.teal}
+yellow= ${xrdb:polybar.yellow}
+blue= ${xrdb:polybar.blue}
+dark-blue= ${xrdb:polybar.dark-blue}
+magenta= ${xrdb:polybar.magenta}
+violet= ${xrdb:polybar.violet}
+cyan= ${xrdb:polybar.cyan}
+dark-cyan= ${xrdb:polybar.dark-cyan}
+#+END_SRC
+
+* Modules
+This section defines the modules that can be later used in polybar to display information about the system.
+** Sound Modules
+*** Alsa
+#+BEGIN_SRC conf :tangle ~/.config/polybar/modules.ini
+[module/alsa]
+type = internal/alsa
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+master-mixer = Master
+interval = 5
+format-volume = <ramp-volume> <label-volume>
+format-volume-background = ${color.background}
+format-volume-padding = 1
+format-muted = <label-muted>
+format-muted-prefix = 
+format-muted-background = ${color.background}
+format-muted-padding = 1
+label-volume = %percentage%%
+label-muted = " Muted"
+label-muted-foreground = ${color.foreground}
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
+ramp-headphones-0 = 
+#+END_SRC
+
+*** Brightness
+card must be fixed with the available card for each machine, probably a good idea is to get it from xresources and fallback to the first card from the command.
+#+BEGIN_SRC sh
+ls -1 /sys/class/backlight/
+#+END_SRC
+
+#+BEGIN_SRC conf :tangle ~/.config/polybar/modules.ini
+[module/backlight]
+type = internal/backlight
+card = amdgpu_bl0
+format = <ramp> <label>
+format-background = ${color.background}
+format-padding = 1
+label = %percentage%%
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+#+END_SRC
+
+* Main Configuration
+** Display Configuration
+#+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini
+[global/wm]
+include-file = ~/.config/polybar/bars.ini
+include-file = ~/.config/polybar/colors.ini
+include-file = ~/.config/polybar/modules.ini
+include-file = ~/.config/polybar/user_modules.ini
+#+END_SRC
+
+** Main Bar
+*** Monitor
+The available monitors can be listed with the help of ~xrandr~
+By default, ~polybar~ will pick the first screen it finds from
+
+#+BEGIN_SRC sh
+polybar -m | cut -d ':' -f 1
+xrandr -q | grep " connected" | cut -d ' ' -f1
+#+END_SRC
+
+In my own configuration, I only want one instance of polybar to be placed in the middle screen. Since it's not always straight forward to know the middle screen due to configuration applied
+
+#+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini
+[bar/main]
+monitor = DP-2
+monitor-strict = false
+override-redirect = true
+wm-restack = generic
+fixed-center = true
+width = 100%
+height = 32
+#+END_SRC
+*** Colors
+These three colors represent the colors of ~polybar~ when no modules are placed into some areas of the bar (empty). All the colors are referenced from the ~colors.ini~ file which takes the colors from ~Xresources~ with help of ~xrdb~
+#+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini
+background = ${color.background-alt}
+foreground = ${color.foreground}
+line-color = ${color.primary}
+#+END_SRC
+
+*** Fonts
+These fonts are the only defined fonts that the rest of the ~polybar~ defined modules are allowed to use. Even though the font indexing starts from ~0~ in the definitions, for some compatibility cases with other software, the font indexing system within modules starts from ~1~ and not ~0~.
+
+#+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini
+font-0 = JetBrains Mono:style=Bold:size=9;3
+font-1 = waffle:size=12;3
+font-2 = Iosevka Nerd Font:style=Medium:size=22;3
+font-3 = Iosevka Nerd Font:style=Bold:size=10;4
+font-4 = Weather Icons:style=Bold:size=10;3
+font-5 = JetBrainsMono Nerd Font:style=Bold:size=9;3
+#+END_SRC
+
+*** Modules
+The modules for all of the ~left~, ~center~, and ~right~ side of the bar are referenced below. The definition of these modules exist in the ~modules~ section.
+
+#+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini
+modules-left = launcher workspaces decor1 decor2 mpd_bar decor1
+modules-center = decor2 date openweather decor3
+modules-right = decor4 network decor3 decor4 temperature cpu memory decor3 decor4 volume decor3 decor4 mail updates keyboard sysmenu
+enable-ipc = true
+#+END_SRC
+
+
+** Look and Feel
+All colors and other configuration related to the look and feel that can be retrieved from ~Xresources~ should be placed here. This section will help us automate loading themes from ~Xresources~ which was deprecated since version ~1.7.0~
+
+We provide a template that will be passed to an elisp to be processed
+
+#+name: colors-configs
+#+BEGIN_SRC conf :tangle no
 configuration {
-    icon-theme:       "Colloid-nord-dark";
-    font:             "JetBrainsMono Nerd Font Bold 10";
-    terminal:         "alacritty";
+    icon-theme:       \"${xrdb:icon-theme}\";
+    font:             \"${xrdb:rofi.font}\";
+    terminal:         \"${xrdb:rofi.terminal}\";
 }
 
  * {
-    background:       #282c34;
-    background-alt:   #282B31;
-    foreground:       #bbc2cf;
-    selected:         #61AFEF;
-    active:           #61AFEF;
-    urgent:           #ff6c6b;
-    border-color:     #61AFEF;
-    border-width:     2px solid;
-    border-radius:    8px;
+    background:       ${xrdb:rofi.background};
+    background-alt:   ${xrdb:rofi.background-alt};
+    foreground:       ${xrdb:rofi.foreground};
+    selected:         ${xrdb:rofi.primary};
+    active:           ${xrdb:rofi.primary};
+    urgent:           ${xrdb:rofi.red};
+    border-color:     ${xrdb:rofi.border-color};
+    border-width:     ${xrdb:rofi.border-width}px solid;
+    border-radius:    ${xrdb:rofi.border-radius}px;
 
     handle-color:                var(selected);
     background-color:            var(background);
@@ -64,7 +222,22 @@ configuration {
     alternate-active-foreground: var(background);
     background-color:            var(background-color);
 }
+#+END_SRC
 
+#+name: xrdb-preprocessor
+#+BEGIN_SRC emacs-lisp :tangle no :exports none :cache yes :noweb yes :mkdirp yes
+(xresources-preprocessor "rofi" "
+<<colors-configs>>
+")
+#+END_SRC
+
+
+#+BEGIN_SRC conf :noweb tangle :exports none
+<<xrdb-preprocessor()>>
+#+END_SRC
+
+** Main Window
+#+BEGIN_SRC conf
 window {
     transparency:                "real";
     location:                    northwest;
@@ -81,7 +254,10 @@ window {
     border-radius:               var(border-radius);
     cursor:                      "default";
 }
+#+END_SRC
 
+** Main box
+#+BEGIN_SRC conf
 mainbox {
     enabled:                     true;
     spacing:                     10px;
@@ -93,7 +269,10 @@ mainbox {
     background-color:            transparent;
     children:                    [ "inputbar", "message", "listview", "mode-switcher" ];
 }
+#+END_SRC
 
+** Prompt
+#+BEGIN_SRC conf
 inputbar {
     enabled:                     true;
     spacing:                     10px;
@@ -127,7 +306,10 @@ entry {
     placeholder:                 "search...";
     placeholder-color:           inherit;
 }
+#+END_SRC
 
+** Rows Filter
+#+BEGIN_SRC conf
 num-filtered-rows {
     enabled:                     true;
     expand:                      false;
@@ -155,7 +337,10 @@ case-indicator {
     background-color:            inherit;
     text-color:                  inherit;
 }
+#+END_SRC
 
+** Listview
+#+BEGIN_SRC conf
 listview {
     enabled:                     true;
     columns:                     1;
@@ -180,7 +365,10 @@ scrollbar {
     handle-color:                var(handle-color);
     background-color:            var(alternate-background);
 }
+#+END_SRC
 
+** Elements
+#+BEGIN_SRC conf
 element {
     enabled:                     true;
     spacing:                     8px;
@@ -240,7 +428,10 @@ element-text {
     vertical-align:              0.5;
     horizontal-align:            0.0;
 }
+#+END_SRC
 
+** Mode Switcher
+#+BEGIN_SRC conf
 mode-switcher{
     enabled:                     true;
     spacing:                     10px;
@@ -259,7 +450,10 @@ button selected {
     background-color:            var(selected-normal-background);
     text-color:                  var(selected-normal-foreground);
 }
+#+END_SRC
 
+** Message
+#+BEGIN_SRC conf
 message {
     enabled:                     true;
     margin:                      0px;
@@ -293,3 +487,18 @@ error-message {
     border-color:                var(border-color);
     text-color:                  var(foreground-color);
 }
+#+END_SRC
+
+* Right Menu Config
+
+This configuration is used for ~sound output~ and ~power menu~. In general, it should be used for any rofi menu that should be placed on the right side of the screen.
+
+#+BEGIN_SRC conf :tangle ~/.config/rofi/config-right-menu.rasi
+import                          "config.rasi"
+
+window {
+    location:                    northeast;
+    anchor:                      northeast;
+    x-offset:                    -10px;
+}
+#+END_SRC

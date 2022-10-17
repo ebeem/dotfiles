@@ -1,3 +1,19 @@
+#+title: Rofi Configuration
+#+SETUPFILE: ../styles/read-the-org.org
+#+OPTIONS: auto-id:t
+#+HTML_HEAD_EXTRA: <meta name="description" content="ebeem’s Rofi Configuration" />
+#+HTML_HEAD_EXTRA: <meta property="og:title" content="ebeem’s Rofi Configuration" />
+#+HTML_HEAD_EXTRA: <meta property="og:description" content="Description of the rofi configuration of ebeem" />
+#+PROPERTY: header-args:conf :exports code :mkdirp yes :tangle ~/.config/rofi/config.rasi
+
+* Introduction
+~Rofi~ started as a clone of ~simpleswitcher~, written by Sean Pringle - a popup window switcher roughly based on ~superswitcher~. ~Simpleswitcher~ laid the foundations, and therefore Sean Pringle deserves most of the credit for this tool. ~Rofi~ (renamed, as it lost the simple property) has been extended with extra features, like an application launcher and ssh-launcher, and can act as a drop-in dmenu replacement, making it a very versatile tool.
+
+~Rofi~, like ~dmenu~, will provide the user with a textual list of options where one or more can be selected. This can either be running an application, selecting a window, or options provided by an external script.
+https://github.com/davatorium/rofi
+
+* Display Configuration
+#+BEGIN_SRC conf
 configuration {
   dpi:                        100;
   monitor:                    1;
@@ -11,7 +27,12 @@ configuration {
   window-format:              "{w} · {c} · {t}";
   case-sensitive:             false;
 }
+#+END_SRC
 
+* Keybindings Configuration
+My ~rofi~ configuration uses ~VI~ keybindings
+
+#+BEGIN_SRC conf
 configuration {
   kb-mode-complete:     "";
   kb-row-up:            "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
@@ -22,23 +43,31 @@ configuration {
   kb-mode-next:         "Shift+Right,Control+Tab,Control+l";
   kb-remove-char-back:  "BackSpace";
 }
+#+END_SRC
 
+* Look and Feel
+All colors and other configuration related to the look and feel that can be retrieved from ~Xresources~ should be placed here. This section will help us automate loading themes from ~Xresources~ which was deprecated since version ~1.7.0~
+
+We provide a template that will be passed to an elisp to be processed
+
+#+name: colors-configs
+#+BEGIN_SRC conf :tangle no
 configuration {
-    icon-theme:       "Colloid-nord-dark";
-    font:             "JetBrainsMono Nerd Font Bold 10";
-    terminal:         "alacritty";
+    icon-theme:       \"${xrdb:icon-theme}\";
+    font:             \"${xrdb:rofi.font}\";
+    terminal:         \"${xrdb:rofi.terminal}\";
 }
 
  * {
-    background:       #282c34;
-    background-alt:   #282B31;
-    foreground:       #bbc2cf;
-    selected:         #61AFEF;
-    active:           #61AFEF;
-    urgent:           #ff6c6b;
-    border-color:     #61AFEF;
-    border-width:     2px solid;
-    border-radius:    8px;
+    background:       ${xrdb:rofi.background};
+    background-alt:   ${xrdb:rofi.background-alt};
+    foreground:       ${xrdb:rofi.foreground};
+    selected:         ${xrdb:rofi.primary};
+    active:           ${xrdb:rofi.primary};
+    urgent:           ${xrdb:rofi.red};
+    border-color:     ${xrdb:rofi.border-color};
+    border-width:     ${xrdb:rofi.border-width}px solid;
+    border-radius:    ${xrdb:rofi.border-radius}px;
 
     handle-color:                var(selected);
     background-color:            var(background);
@@ -64,7 +93,22 @@ configuration {
     alternate-active-foreground: var(background);
     background-color:            var(background-color);
 }
+#+END_SRC
 
+#+name: xrdb-preprocessor
+#+BEGIN_SRC emacs-lisp :tangle no :exports none :cache yes :noweb yes :mkdirp yes
+(xresources-preprocessor "rofi" "
+<<colors-configs>>
+")
+#+END_SRC
+
+
+#+BEGIN_SRC conf :noweb tangle :exports none
+<<xrdb-preprocessor()>>
+#+END_SRC
+
+* Main Window
+#+BEGIN_SRC conf
 window {
     transparency:                "real";
     location:                    northwest;
@@ -81,7 +125,10 @@ window {
     border-radius:               var(border-radius);
     cursor:                      "default";
 }
+#+END_SRC
 
+* Main box
+#+BEGIN_SRC conf
 mainbox {
     enabled:                     true;
     spacing:                     10px;
@@ -93,7 +140,10 @@ mainbox {
     background-color:            transparent;
     children:                    [ "inputbar", "message", "listview", "mode-switcher" ];
 }
+#+END_SRC
 
+* Prompt
+#+BEGIN_SRC conf
 inputbar {
     enabled:                     true;
     spacing:                     10px;
@@ -127,7 +177,10 @@ entry {
     placeholder:                 "search...";
     placeholder-color:           inherit;
 }
+#+END_SRC
 
+* Rows Filter
+#+BEGIN_SRC conf
 num-filtered-rows {
     enabled:                     true;
     expand:                      false;
@@ -155,7 +208,10 @@ case-indicator {
     background-color:            inherit;
     text-color:                  inherit;
 }
+#+END_SRC
 
+* Listview
+#+BEGIN_SRC conf
 listview {
     enabled:                     true;
     columns:                     1;
@@ -180,7 +236,10 @@ scrollbar {
     handle-color:                var(handle-color);
     background-color:            var(alternate-background);
 }
+#+END_SRC
 
+* Elements
+#+BEGIN_SRC conf
 element {
     enabled:                     true;
     spacing:                     8px;
@@ -240,7 +299,10 @@ element-text {
     vertical-align:              0.5;
     horizontal-align:            0.0;
 }
+#+END_SRC
 
+* Mode Switcher
+#+BEGIN_SRC conf
 mode-switcher{
     enabled:                     true;
     spacing:                     10px;
@@ -259,7 +321,10 @@ button selected {
     background-color:            var(selected-normal-background);
     text-color:                  var(selected-normal-foreground);
 }
+#+END_SRC
 
+* Message
+#+BEGIN_SRC conf
 message {
     enabled:                     true;
     margin:                      0px;
@@ -293,3 +358,18 @@ error-message {
     border-color:                var(border-color);
     text-color:                  var(foreground-color);
 }
+#+END_SRC
+
+* Right Menu Config
+
+This configuration is used for ~sound output~ and ~power menu~. In general, it should be used for any rofi menu that should be placed on the right side of the screen.
+
+#+BEGIN_SRC conf :tangle ~/.config/rofi/config-right-menu.rasi
+@import                          "config.rasi"
+
+window {
+    location:                    northeast;
+    anchor:                      northeast;
+    x-offset:                    -10px;
+}
+#+END_SRC

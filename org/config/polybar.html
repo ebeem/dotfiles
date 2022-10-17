@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-10-15 Sat 13:57 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Polybar Configuration read-the-org ReadTheOrg style</title>
+<meta name="author" content="Fabrice Niessen" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<meta name="description" content="ebeem’s Polybar Configuration" />
+<meta property="og:title" content="ebeem’s Polybar Configuration" />
+<meta property="og:description" content="Description of the Polybar configuration of ebeem" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Polybar Configuration read-the-org ReadTheOrg style</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org92ce856">1. Introduction</a></li>
+<li><a href="#orgb422756">2. Default Menu Configuration</a>
+<ul>
+<li><a href="#orgfe14836">2.1. Display Configuration</a></li>
+<li><a href="#org69add90">2.2. Keybindings Configuration</a></li>
+<li><a href="#orgb0a4ea2">2.3. Look and Feel</a></li>
+<li><a href="#org026323c">2.4. Main Window</a></li>
+<li><a href="#org62dda3d">2.5. Main box</a></li>
+<li><a href="#org568cba4">2.6. Prompt</a></li>
+<li><a href="#orgab29ad7">2.7. Rows Filter</a></li>
+<li><a href="#orgabc81d5">2.8. Listview</a></li>
+<li><a href="#orge9c0bbd">2.9. Elements</a></li>
+<li><a href="#orga089f8c">2.10. Mode Switcher</a></li>
+<li><a href="#orgac39ab8">2.11. Message</a></li>
+</ul>
+</li>
+<li><a href="#org4e8b4e7">3. Right Menu Config</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org92ce856" class="outline-2">
+<h2 id="org92ce856"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<code>Rofi</code> started as a clone of <code>simpleswitcher</code>, written by Sean Pringle - a popup window switcher roughly based on <code>superswitcher</code>. <code>Simpleswitcher</code> laid the foundations, and therefore Sean Pringle deserves most of the credit for this tool. <code>Rofi</code> (renamed, as it lost the simple property) has been extended with extra features, like an application launcher and ssh-launcher, and can act as a drop-in dmenu replacement, making it a very versatile tool.
+</p>
+
+<p>
+<code>Rofi</code>, like <code>dmenu</code>, will provide the user with a textual list of options where one or more can be selected. This can either be running an application, selecting a window, or options provided by an external script.
+<a href="https://github.com/davatorium/rofi">https://github.com/davatorium/rofi</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb422756" class="outline-2">
+<h2 id="orgb422756"><span class="section-number-2">2.</span> Default Menu Configuration</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgfe14836" class="outline-3">
+<h3 id="orgfe14836"><span class="section-number-3">2.1.</span> Display Configuration</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">configuration</span> {
+  dpi:                        <span style="color: #da8548; font-weight: bold;">100</span>;
+  monitor:                    <span style="color: #da8548; font-weight: bold;">1</span>;
+  modi:                       <span style="color: #98be65;">"drun,run,filebrowser,window"</span>;
+  show-icons:                 true;
+  display-drun:               <span style="color: #98be65;">"&#62211;"</span>;
+  display-run:                <span style="color: #98be65;">"&#61728;"</span>;
+  display-filebrowser:        <span style="color: #98be65;">"&#61564;"</span>;
+  display-window:             <span style="color: #98be65;">"&#62160;"</span>;
+  drun-display-format:        <span style="color: #98be65;">"{name} [&lt;span weight='light' size='small'&gt;&lt;i&gt;({generic})&lt;/i&gt;&lt;/span&gt;]"</span>;
+  window-format:              <span style="color: #98be65;">"{w} &#183; {c} &#183; {t}"</span>;
+  case-sensitive:             false;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org69add90" class="outline-3">
+<h3 id="org69add90"><span class="section-number-3">2.2.</span> Keybindings Configuration</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+My <code>rofi</code> configuration uses <code>VI</code> keybindings
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">configuration</span> {
+  kb-mode-complete:     <span style="color: #98be65;">""</span>;
+  kb-row-up:            <span style="color: #98be65;">"Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab"</span>;
+  kb-row-down:          <span style="color: #98be65;">"Down,Control+j"</span>;
+  kb-accept-entry:      <span style="color: #98be65;">"Control+m,Return,KP_Enter"</span>;
+  kb-remove-to-eol:     <span style="color: #98be65;">"Control+Shift+e"</span>;
+  kb-mode-previous:     <span style="color: #98be65;">"Shift+Left,Control+Shift+Tab,Control+h"</span>;
+  kb-mode-next:         <span style="color: #98be65;">"Shift+Right,Control+Tab,Control+l"</span>;
+  kb-remove-char-back:  <span style="color: #98be65;">"BackSpace"</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb0a4ea2" class="outline-3">
+<h3 id="orgb0a4ea2"><span class="section-number-3">2.3.</span> Look and Feel</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+All colors and other configuration related to the look and feel that can be retrieved from <code>Xresources</code> should be placed here. This section will help us automate loading themes from <code>Xresources</code> which was deprecated since version <code>1.7.0</code>
+</p>
+
+<p>
+We provide a template that will be passed to an elisp to be processed
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf" id="orga9878ce"><span style="color: #ECBE7B;">configuration</span> {
+    icon-theme:       \"${xrdb:icon-theme}\";
+    font:             \"${xrdb:rofi.font}\";
+    terminal:         \"${xrdb:rofi.terminal}\";
+}
+
+ <span style="color: #ECBE7B;">*</span> {
+    background:       ${xrdb:rofi.background};
+    background-alt:   ${xrdb:rofi.background-alt};
+    foreground:       ${xrdb:rofi.foreground};
+    selected:         ${xrdb:rofi.primary};
+    active:           ${xrdb:rofi.primary};
+    urgent:           ${xrdb:rofi.red};
+    border-color:     ${xrdb:rofi.border-color};
+    border-width:     ${xrdb:rofi.border-width}px solid;
+    border-radius:    ${xrdb:rofi.border-radius}px;
+
+    handle-color:                var(selected);
+    background-color:            var(background);
+    foreground-color:            var(foreground);
+    alternate-background:        var(background-alt);
+    normal-background:           var(background);
+    normal-foreground:           var(foreground);
+    urgent-background:           var(urgent);
+    urgent-foreground:           var(background);
+    active-background:           var(active);
+    active-foreground:           var(background);
+    selected-normal-background:  var(selected);
+    selected-normal-foreground:  var(background);
+    selected-urgent-background:  var(active);
+    selected-urgent-foreground:  var(background);
+    selected-active-background:  var(urgent);
+    selected-active-foreground:  var(background);
+    alternate-normal-background: var(background);
+    alternate-normal-foreground: var(foreground);
+    alternate-urgent-background: var(urgent);
+    alternate-urgent-foreground: var(background);
+    alternate-active-background: var(active);
+    alternate-active-foreground: var(background);
+    background-color:            var(background-color);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org026323c" class="outline-3">
+<h3 id="org026323c"><span class="section-number-3">2.4.</span> Main Window</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">window</span> {
+    transparency:                <span style="color: #98be65;">"real"</span>;
+    location:                    northwest;
+    anchor:                      northwest;
+    fullscreen:                  false;
+    width:                       350px;
+    x-offset:                    10px;
+    y-offset:                    40px;
+
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      var(border-width);
+    border-radius:               var(border-radius);
+    cursor:                      <span style="color: #98be65;">"default"</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org62dda3d" class="outline-3">
+<h3 id="org62dda3d"><span class="section-number-3">2.5.</span> Main box</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">mainbox</span> {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     40px;
+    border:                      var(border-width);
+    border-radius:               var(border-radius);
+    border-color:                var(border-color);
+    background-color:            transparent;
+    children:                    [ <span style="color: #98be65;">"inputbar"</span>, <span style="color: #98be65;">"message"</span>, <span style="color: #98be65;">"listview"</span>, <span style="color: #98be65;">"mode-switcher"</span> ];
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org568cba4" class="outline-3">
+<h3 id="org568cba4"><span class="section-number-3">2.6.</span> Prompt</h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">inputbar</span> {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     0px;
+    background-color:            transparent;
+    text-color:                  var(foreground-color);
+    children:                    [ <span style="color: #98be65;">"prompt"</span>, <span style="color: #98be65;">"entry"</span> ];
+}
+
+<span style="color: #ECBE7B;">prompt</span> {
+    enabled:                     true;
+    background-color:            inherit;
+    text-color:                  inherit;
+    text-color:                  var(selected);
+}
+
+<span style="color: #ECBE7B;">textbox-prompt-colon</span> {
+    enabled:                     true;
+    expand:                      false;
+    str:                         <span style="color: #98be65;">"::"</span>;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+<span style="color: #ECBE7B;">entry</span> {
+    enabled:                     true;
+    background-color:            inherit;
+    text-color:                  inherit;
+    cursor:                      text;
+    placeholder:                 <span style="color: #98be65;">"search..."</span>;
+    placeholder-color:           inherit;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgab29ad7" class="outline-3">
+<h3 id="orgab29ad7"><span class="section-number-3">2.7.</span> Rows Filter</h3>
+<div class="outline-text-3" id="text-2-7">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">num-filtered-rows</span> {
+    enabled:                     true;
+    expand:                      false;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+<span style="color: #ECBE7B;">textbox-num-sep</span> {
+    enabled:                     true;
+    expand:                      false;
+    str:                         <span style="color: #98be65;">"/"</span>;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+<span style="color: #ECBE7B;">num-rows</span> {
+    enabled:                     true;
+    expand:                      false;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+<span style="color: #ECBE7B;">case-indicator</span> {
+    enabled:                     true;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgabc81d5" class="outline-3">
+<h3 id="orgabc81d5"><span class="section-number-3">2.8.</span> Listview</h3>
+<div class="outline-text-3" id="text-2-8">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">listview</span> {
+    enabled:                     true;
+    columns:                     <span style="color: #da8548; font-weight: bold;">1</span>;
+    lines:                       <span style="color: #da8548; font-weight: bold;">12</span>;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   true;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    spacing:                     5px;
+    margin:                      0px;
+    padding:                     0px;
+    background-color:            transparent;
+    text-color:                  var(foreground-color);
+    cursor:                      <span style="color: #98be65;">"default"</span>;
+    border:                      <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+<span style="color: #ECBE7B;">scrollbar</span> {
+    handle-width:                var(border-width);
+    handle-color:                var(handle-color);
+    background-color:            var(alternate-background);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge9c0bbd" class="outline-3">
+<h3 id="orge9c0bbd"><span class="section-number-3">2.9.</span> Elements</h3>
+<div class="outline-text-3" id="text-2-9">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">element</span> {
+    enabled:                     true;
+    spacing:                     8px;
+    margin:                      0px;
+    padding:                     8px;
+    background-color:            transparent;
+    text-color:                  var(foreground-color);
+    cursor:                      pointer;
+}
+<span style="color: #ECBE7B;">element normal.normal</span> {
+    background-color:            var(normal-background);
+    text-color:                  var(normal-foreground);
+}
+<span style="color: #ECBE7B;">element normal.urgent</span> {
+    background-color:            var(urgent-background);
+    text-color:                  var(urgent-foreground);
+}
+<span style="color: #ECBE7B;">element normal.active</span> {
+    background-color:            var(active-background);
+    text-color:                  var(active-foreground);
+}
+<span style="color: #ECBE7B;">element selected.normal</span> {
+    background-color:            var(selected-normal-background);
+    text-color:                  var(normal-background);
+}
+<span style="color: #ECBE7B;">element selected.urgent</span> {
+    background-color:            var(selected-urgent-background);
+    text-color:                  var(selected-urgent-foreground);
+}
+<span style="color: #ECBE7B;">element selected.active</span> {
+    background-color:            var(selected-active-background);
+    text-color:                  var(selected-active-foreground);
+}
+<span style="color: #ECBE7B;">element alternate.normal</span> {
+    background-color:            var(alternate-normal-background);
+    text-color:                  var(alternate-normal-foreground);
+}
+<span style="color: #ECBE7B;">element alternate.urgent</span> {
+    background-color:            var(alternate-urgent-background);
+    text-color:                  var(alternate-urgent-foreground);
+}
+<span style="color: #ECBE7B;">element alternate.active</span> {
+    background-color:            var(alternate-active-background);
+    text-color:                  var(alternate-active-foreground);
+}
+<span style="color: #ECBE7B;">element-icon</span> {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        24px;
+    cursor:                      inherit;
+}
+<span style="color: #ECBE7B;">element-text</span> {
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              <span style="color: #da8548; font-weight: bold;">0.5</span>;
+    horizontal-align:            <span style="color: #da8548; font-weight: bold;">0.0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga089f8c" class="outline-3">
+<h3 id="orga089f8c"><span class="section-number-3">2.10.</span> Mode Switcher</h3>
+<div class="outline-text-3" id="text-2-10">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">mode-switcher</span>{
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     0px;
+    background-color:            transparent;
+    text-color:                  var(foreground-color);
+}
+<span style="color: #ECBE7B;">button</span> {
+    padding:                     8px;
+    background-color:            var(alternate-background);
+    text-color:                  inherit;
+    cursor:                      pointer;
+}
+<span style="color: #ECBE7B;">button selected</span> {
+    background-color:            var(selected-normal-background);
+    text-color:                  var(selected-normal-foreground);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgac39ab8" class="outline-3">
+<h3 id="orgac39ab8"><span class="section-number-3">2.11.</span> Message</h3>
+<div class="outline-text-3" id="text-2-11">
+<div class="org-src-container">
+<pre class="src src-conf"><span style="color: #ECBE7B;">message</span> {
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      var(border-width);
+    border-radius:               var(border-radius);
+    border-color:                var(border-color);
+    background-color:            transparent;
+    text-color:                  var(foreground-color);
+}
+
+<span style="color: #ECBE7B;">textbox</span> {
+    padding:                     8px;
+    border:                      var(border-width);
+    border-radius:               var(border-radius);
+    border-color:                var(border-color);
+    background-color:            var(alternate-background);
+    text-color:                  var(foreground-color);
+    vertical-align:              <span style="color: #da8548; font-weight: bold;">0.5</span>;
+    horizontal-align:            <span style="color: #da8548; font-weight: bold;">0.0</span>;
+    highlight:                   none;
+    placeholder-color:           var(foreground-color);
+    blink:                       true;
+    markup:                      true;
+}
+
+<span style="color: #ECBE7B;">error-message</span> {
+    padding:                     10px;
+    border:                      var(border-width);
+    border-radius:               var(border-radius);
+    border-color:                var(border-color);
+    text-color:                  var(foreground-color);
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4e8b4e7" class="outline-2">
+<h2 id="org4e8b4e7"><span class="section-number-2">3.</span> Right Menu Config</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This configuration is used for <code>sound output</code> and <code>power menu</code>. In general, it should be used for any rofi menu that should be placed on the right side of the screen.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">import                          <span style="color: #98be65;">"config.rasi"</span>
+
+<span style="color: #ECBE7B;">window</span> {
+    location:                    northeast;
+    anchor:                      northeast;
+    x-offset:                    -10px;
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Fabrice Niessen</p>
+<p class="date">Created: 2022-10-15 Sat 13:57</p>
+</div>
+</body>
+</html>
