@@ -302,8 +302,8 @@
 ;;
 
 ;; automatically highlight symbols under the curse
-(setq highlight-symbol-idle-delay 0)
-(add-hook 'prog-mode-hook 'highlight-symbol-mode)
+(setq highlight-symbol-idle-delay 0.2)
+(add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; custom vim keybindings
 ;; (global-set-key (kbd "<C-k>") 'drag-stuff-up)
@@ -798,3 +798,30 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 
 ;; (xresources-value "rofi" "red")
 ;; (xresources-preprocessor "rofi" "Rest here ${xrdb:red}")
+
+(setq evil-mc-custom-known-commands
+'((custom/evil-mc-evil-escape-move-back-fake-cursors
+        (:default . evil-mc-execute-default-call))))
+
+(defun custom/evil-mc-evil-escape-move-back-fake-cursors ()
+    "Move the fake cursors to the left once,
+unless they already are at the beginning of the line."
+  (unless (bolp) (backward-char)))
+
+  (defun custom/evil-mc-evil-escape-fix ()
+    "Prevent the first evil-escape-key-sequence key (default: j),
+from being typed at all of the fake cursors.
+And move back the fake cursors when the real insert state cursor is at the end
+of a line."
+    (when (evil-mc-has-cursors-p)
+      (evil-mc-pause-cursors)
+      (run-with-idle-timer
+       0 nil '(lambda ()
+                (evil-mc-resume-cursors)
+                (let ((evil-mc-command '((:name . custom/evil-mc-evil-escape-move-back-fake-cursors))))
+                  (evil-mc-execute-for-all))))))
+
+(advice-add 'evil-escape-func :before 'custom/evil-mc-evil-escape-fix)
+;; (advice-remove 'evil-escape-func 'custom/evil-mc-evil-escape-fix)
+
+(setq evil-escape-delay 1.0)

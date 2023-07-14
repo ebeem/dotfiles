@@ -52,8 +52,8 @@ export XDG_CONFIG_HOME=~/.config
 source $ZSH/oh-my-zsh.sh
 
 alias em="/usr/bin/emacsclient -nw"
-# archey3
-neofetch
+archey3
+# neofetch
 
 source $HOME/.aliases
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

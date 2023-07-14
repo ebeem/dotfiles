@@ -29,20 +29,20 @@ the direction must be a member of :up :down :left :right"
 (clear-window-placement-rules)
 
 (define-frame-preference "1-browser"
-  (1 nil   t   :class "firefox"))
+  (0 nil   t   :class "firefox"))
 
 (define-frame-preference "4-communication"
-  (0 nil   t   :instance "chromium")
-  (1 nil   t   :class "discord")
+  (3 nil   t   :instance "chromium")
+  (0 nil   t   :class "discord")
   (2 nil   t   :instance "slack"))
 
 (define-frame-preference "6-gaming"
-  (0 nil   t   :class "obs")
-  (0 nil   t   :title "Steam")
-  (2 nil   t   :title "Friends List")
-  (1 nil   t   :instance "dota2"))
+  (3 nil   t   :class "obs")
+  (3 nil   t   :title "Steam")
+  (1 nil   t   :title "Friends List")
+  (0 nil   t   :instance "dota2"))
 
 (define-frame-preference "7-mail"
-  (0 nil   t   :title "mu4e")
-  (1 nil   t   :title "elfeed")
-  (2 nil   t   :title "ement"))
+  (3 nil   t   :title "mu4e")
+  (0 nil   t   :title "elfeed")
+  (1 nil   t   :title "ement"))

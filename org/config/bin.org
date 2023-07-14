@@ -1,6 +1,17 @@
+#+title: Scripts
+#+SETUPFILE: ../styles/read-the-org.org
+#+OPTIONS: auto-id:t
+#+HTML_HEAD_EXTRA: <meta name="description" content="ebeem’s Helper Scripts" />
+#+HTML_HEAD_EXTRA: <meta property="og:title" content="ebeem’s Helper Scripts" />
+#+HTML_HEAD_EXTRA: <meta property="og:description" content="Description of the helper scripts of ebeem" />
+
+* Introduction
+
+* Dotfiles
+#+BEGIN_SRC sh :tangle ~/.bin/dotfiles :exports code :mkdirp yes
 #!/bin/bash
 full_path=$(realpath $0)
-dir_path=$(dirname $full_path)
+dir_path=~/dotfiles
 
 pre_install() {
     # enable multilib (only needed for gaming machines, steam + wine)
@@ -27,7 +38,7 @@ install() {
     paru -Syu --noconfirm
 
     # install dependencies
-    cd $dir_path/..
+    cd $dir_path/
     # makepkg --noconfirm -sifcC
     paru -Ui --noconfirm --cleanafter --rebuild
 }
@@ -57,8 +68,8 @@ mail_setup() {
 }
 
 enable_theme() {
-    $dir_path/../.modules/colloid-gtk-theme/install.sh -c dark --tweaks nord
-    $dir_path/../.modules/colloid-icon-theme/install.sh -s nord
+    $dir_path/.modules/colloid-gtk-theme/install.sh -c dark --tweaks nord
+    $dir_path/.modules/colloid-icon-theme/install.sh -s nord
 }
 
 load_gnome_config() {
@@ -77,8 +88,44 @@ post_install() {
 pre_install
 install
 post_install
-load_gnome_config
-enable_theme
+# load_gnome_config
+# enable_theme
 
-cd $dir_path/../
+cd $dir_path/
 stow ./
+#+END_SRC
+
+* Update Wallpaper
+#+BEGIN_SRC sh :tangle ~/.bin/update-wallpaper :exports code :mkdirp yes
+#!/usr/bin/env bash
+
+RED="$(printf '\033[31m')"  GREEN="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
+
+DIR="~/.wallpapers"
+HOUR=$(($(date +%k)))
+STYLE=$(sed -nr "/^\[wallpaper\]/ { :l /^name[ ]*=/ { s/.*=[ ]*//; p; q;}; n; b l;}" ~/.config/dynamic-wallpaper/dwall.conf)
+
+IMAGE="$DIR/$STYLE/$HOUR"
+
+# get image format
+if [[ -f "${IMAGE}.png" ]]; then
+    FORMAT="png"
+elif [[ -f "${IMAGE}.jpg" ]]; then
+    FORMAT="jpg"
+elif [[ -f "$DIR/fixed/$STYLE" ]]; then
+    # allows setting a fixed wallpaper
+    IMAGE="$DIR/fixed/${STYLE%%.*}"
+    FORMAT=${STYLE##*.}
+else
+    echo -e ${RED}"[!] Invalid image file $IMAGE, Exiting..."
+    exit 1;
+fi
+
+feh --bg-fill "$IMAGE.$FORMAT"
+#+END_SRC
+
+* Switch Keyboard Layout
+#+BEGIN_SRC sh :tangle ~/.bin/switch-keyboard-layout :exports code :mkdirp yes
+#!/usr/bin/env bash
+(setxkbmap -query | grep -q 'layout:\s\+us') && setxkbmap ara || setxkbmap us
+#+END_SRC

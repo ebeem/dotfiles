@@ -6,9 +6,9 @@
 
 ;; include local fonts
 (pushnew (concat (getenv "HOME")
-                 "/.local/share/fonts/")
-         xft:*font-dirs* :test #'string=)
-;; (xft:cache-fonts) ;; NOTE: needs to be executed once, better to map it to one keybinding
+                "/.local/share/fonts/")
+        xft:*font-dirs* :test #'string=)
+(xft:cache-fonts) ;; NOTE: needs to be executed once, better to map it to one keybinding
 (set-font `(,(make-instance 'xft:font :family "JetBrainsMono Nerd Font" :subfamily "Bold" :size 11 :antialias t)))
 
 ;; setting colors
@@ -37,7 +37,7 @@
 (setf *which-key-format* (concat *key-seq-color* "*~4a^n ~a"))
 
 ;; module to create gaps between frames
-(load-module "swm-gaps")
+(load-module :swm-gaps)
 (refresh-heads)
 (setf swm-gaps:*head-gaps-size* 0
       swm-gaps:*inner-gaps-size* 5

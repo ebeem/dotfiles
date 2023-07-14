@@ -59,7 +59,7 @@
 (package! stumpwm-mode)
 
 ;; highlight symbols under the curse
-(package! highlight-symbol)
+(package! idle-highlight-mode)
 
 ;; install matrix client
 (package! plz
@@ -68,7 +68,9 @@
   :recipe (:host github :repo "alphapapa/ement.el"))
 
 ;; visual fill column
-(package! visual-fill-column)
+;; (package! visual-fill-column)
+(package! visual-fill-column
+  :recipe (:host github :repo "basaran/visual-fill-column"))
 (package! burly)
 (package! org-pretty-table
   :recipe (:host github :repo "Fuco1/org-pretty-table"))
@@ -77,3 +79,6 @@
 
 (package! elfeed-goodies :disable t)
 (package! mu4e-column-faces)
+(unpin! evil-collection)
+(package! evil-collection
+  :recipe (:host github :repo "emacs-evil/evil-collection" :branch "master"))

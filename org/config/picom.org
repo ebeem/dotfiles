@@ -1,32 +1,19 @@
-#+title: Polybar Configuration
+#+title: Picom Configuration
 #+SETUPFILE: ../styles/read-the-org.org
 #+OPTIONS: auto-id:t
-#+HTML_HEAD_EXTRA: <meta name="description" content="ebeem’s Polybar Configuration" />
-#+HTML_HEAD_EXTRA: <meta property="og:title" content="ebeem’s Polybar Configuration" />
-#+HTML_HEAD_EXTRA: <meta property="og:description" content="Description of the Polybar configuration of ebeem" />
+#+HTML_HEAD_EXTRA: <meta name="description" content="ebeem’s Picom Configuration" />
+#+HTML_HEAD_EXTRA: <meta property="og:title" content="ebeem’s Picom Configuration" />
+#+HTML_HEAD_EXTRA: <meta property="og:description" content="Description of the Picom configuration of ebeem" />
 #+PROPERTY: header-args:conf :exports code :mkdirp yes
 #+PROPERTY: header-args:sh :exports code :mkdirp yes
 
 * Introduction
-The main purpose of ~Polybar~ is to help users create awesome status bars. It has built-in functionality to display information about the most commonly used services. Some of the services included so far:
-    - Systray icons
-    - Window title
-    - Playback controls and status display for MPD using libmpdclient
-    - ALSA and PulseAudio volume controls
-    - Workspace and desktop panel for bspwm and i3
-    - Workspace module for EWMH compliant window managers
-    - Keyboard layout and indicator status
-    - CPU and memory load indicator
-    - Battery display
-    - Network connection details
-    - Backlight level
-    - Date and time label
-    - Time-based shell script execution
-    - Command output tailing
-    - User-defined menu tree
-    - Inter-process messaging
-    - And more...
-https://github.com/polybar/polybar
+~Picom~ was forked in 2016 from the original Compton because it seemed to have become unmaintained.
+
+The battle plan of the fork was to refactor it to make the code possible to maintain, so potential contributors won't be scared away when they take a look at the code.
+
+And also to try to fix bugs.
+https://github.com/yshui/picom
 
 * Colors
 This section defines the color variables that can be used in the rest of the configuration. All the colors are inherited from ~Xresources~ with the help of ~xrdb~.
@@ -364,15 +351,15 @@ type = internal/xworkspaces
 pin-workspaces = false
 enable-click = false
 enable-scroll = true
-icon-0 = 1-browser;
-icon-1 = 2-development;
-icon-2 = 3-databases;
-icon-3 = 4-communication;甆
-icon-4 = 5-development;
-icon-5 = 6-gaming;
-icon-6 = 7-mail;
-icon-7 = 8-development;
-icon-8 = 9-media;
+icon-0 = 1-browser
+icon-1 = 2-development
+icon-2 = 3-databases
+icon-3 = 4-communication
+icon-4 = 5-development
+icon-5 = 6-gaming
+icon-6 = 7-mail
+icon-7 = 8-development
+icon-8 = 9-media
 format = <label-state>
 format-background = ${color.background}
 format-padding = 0
@@ -561,7 +548,7 @@ bar-progress-empty-foreground = ${color.foreground-alt}
 #+BEGIN_SRC conf :tangle ~/.config/polybar/modules.ini :exports code :mkdirp yes
 [module/mail]
 type = custom/script
-exec = ~/.bin/polybar-mail
+exec = polybar-mail
 interval = 20
 label-font = 6
 format-background = ${color.background}
@@ -585,8 +572,8 @@ echo "$mails"
 #+BEGIN_SRC conf :tangle ~/.config/polybar/modules.ini :exports code :mkdirp yes
 [module/updates]
 type = custom/script
-exec = ~/.bin/polybar-updates
-interval = 400
+exec = polybar-updates
+interval = 20
 label-font = 6
 format-background = ${color.background}
 format-foreground = ${color.foreground}
@@ -665,14 +652,13 @@ content = "%{T3}%{T-}"
 #+BEGIN_SRC conf :tangle ~/.config/polybar/modules.ini :exports code :mkdirp yes
 [module/openweather]
 type = custom/script
-exec = ~/.bin/polybar-openweather
+exec = polybar-openweather
 interval = 600
 label-font = 5
 format-background = ${color.background}
 label-open-foreground = ${color.primary}
 label-close-foreground = ${color.primary}
 #+END_SRC
-
 
 #+BEGIN_SRC sh :tangle ~/.bin/polybar-openweather :exports code :mkdirp yes
 #!/usr/bin/env sh
@@ -811,7 +797,7 @@ In my own configuration, I only want one instance of polybar to be placed in the
 
 #+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini :exports code :mkdirp yes
 [bar/main]
-monitor = DP-1
+monitor = DP-2
 monitor-strict = false
 override-redirect = true
 wm-restack = generic
@@ -1175,7 +1161,7 @@ DIR="$HOME/.config/polybar"
 killall -q polybar
 
 # Wait until the processes have been shut down
-sleep 2
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch the bar
 polybar -r &

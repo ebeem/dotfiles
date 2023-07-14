@@ -37,7 +37,8 @@
 *.icons.theme: v_icons_theme
 *.cursor.theme: v_cursor_theme
 *.icon-theme: v_icons_theme
-*.font: JetBrainsMono Nerd Font Bold 10
+! *.font: JetBrainsMono Nerd Font Bold 10
+*.font: Ubuntu Bold 10
 *.terminal: alacritty
 
 ! default colors for all software inherited from the defined variables
@@ -73,6 +74,6 @@
 *.border-radius: v_border_radius
 
 ! custom variables to adjust the colors of some tools
-polybar.background-alt: #352B3122
+polybar.background-alt: #352B3152
 rofi.primary: v_primary
 Xcursor.theme: v_cursor_theme

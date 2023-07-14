@@ -1,7 +1,7 @@
 (in-package :stumpwm)
 (set-prefix-key (kbd "s-SPC"))
 (setf *group-root-map* (make-sparse-keymap)
-      *float-group-root-root* (make-sparse-keymap)
+      ;; *float-group-root-root* (make-sparse-keymap)
       *tile-group-root-map* (make-sparse-keymap)
       *root-map* (make-sparse-keymap)
       *top-map* (make-sparse-keymap))
@@ -10,6 +10,8 @@
 ;; media-keys
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "exec pactl set-sink-volume @DEFAULT_SINK@ -5%")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec pactl set-sink-volume @DEFAULT_SINK@ +5%")
+(define-key *top-map* (kbd "s-[") "exec pactl set-sink-volume @DEFAULT_SINK@ -5%")
+(define-key *top-map* (kbd "s-]") "exec pactl set-sink-volume @DEFAULT_SINK@ +5%")
 (define-key *top-map* (kbd "XF86AudioMute") "exec pactl set-sink-mute @DEFAULT_SINK@ toggle")
 (define-key *top-map* (kbd "XF86AudioNext") "exec mpc next")
 (define-key *top-map* (kbd "XF86AudioPrev") "exec mpc prev")

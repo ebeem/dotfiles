@@ -18,8 +18,8 @@
   "The names of the groups we have in our grid, the length of these groups.lisp
 must be equal to (* *groups-rows* *groups-columns*)")
 
-(setf *debug-level* 0)
-(redirect-all-output "~/.cache/stumpwm.log")
+;; (setf *debug-level* 0)
+(redirect-all-output (concatenate 'string "~/.cache/stumpwm." (write-to-string (get-universal-time)) ".log"))
 
 ;; loading keybindings first will allow avoiding the default keybindings most of the time
 (load "~/.config/stumpwm/keybindings.lisp")
