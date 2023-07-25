@@ -1,0 +1,2 @@
+(specifications->manifest
+ '("nix"))

@@ -1,0 +1,9 @@
+(specifications->manifest
+ '("hostapd"
+   "deluge"
+   "icecat"
+   "qutebrowser"
+   "ungoogled-chromium"
+   "nyxt"
+   "openvpn"
+   "yt-dlp"))

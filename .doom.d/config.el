@@ -302,7 +302,7 @@
 ;;
 
 ;; automatically highlight symbols under the curse
-(setq highlight-symbol-idle-delay 0.2)
+(setq highlight-symbol-idle-delay 0.4)
 (add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; custom vim keybindings
@@ -825,3 +825,10 @@ of a line."
 ;; (advice-remove 'evil-escape-func 'custom/evil-mc-evil-escape-fix)
 
 (setq evil-escape-delay 1.0)
+(setq lsp-idle-delay 0.6)
+
+
+
+(add-to-list 'load-path "~/.doom.d/modules/")
+(require 'evil-collection-mingus)
+(evil-collection-mingus-setup)
