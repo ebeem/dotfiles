@@ -59,7 +59,7 @@
 (package! stumpwm-mode)
 
 ;; highlight symbols under the curse
-(package! idle-highlight-mode)
+;; (package! idle-highlight-mode)
 
 ;; install matrix client
 (package! plz

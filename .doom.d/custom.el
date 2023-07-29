@@ -50,24 +50,3 @@
     (cons 360 "#5B6268")))
  '(vc-annotate-very-old-color nil)
  '(warning-suppress-log-types '((+doom-dashboard-mode-hook))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(treemacs-directory-collapsed-face ((t (:inherit default))))
- '(treemacs-directory-face ((t (:inherit default))))
- '(treemacs-file-face ((t (:inherit default))))
- '(treemacs-fringe-indicator-face ((t (:inherit default))))
- '(treemacs-git-added-face ((t (:inherit default))))
- '(treemacs-git-conflict-face ((t (:inherit default))))
- '(treemacs-git-ignored-face ((t (:inherit default))))
- '(treemacs-git-modified-face ((t (:inherit default))))
- '(treemacs-git-renamed-face ((t (:inherit default))))
- '(treemacs-git-unmodified-face ((t (:inherit default))))
- '(treemacs-git-untracked-face ((t (:inherit default))))
- '(treemacs-header-face ((t (:inherit default))))
- '(treemacs-on-failure-pulse-face ((t (:inherit default))))
- '(treemacs-on-success-pulse-face ((t (:inherit default))))
- '(treemacs-root-face ((t (:inherit default :inherit default))))
- '(ts-fold-replacement-face ((t (:foreground nil :box nil :inherit font-lock-comment-face :weight light)))))

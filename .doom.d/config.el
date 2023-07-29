@@ -302,8 +302,8 @@
 ;;
 
 ;; automatically highlight symbols under the curse
-(setq highlight-symbol-idle-delay 0.4)
-(add-hook 'prog-mode-hook 'idle-highlight-mode)
+;; (setq highlight-symbol-idle-delay 0.4)
+;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; custom vim keybindings
 ;; (global-set-key (kbd "<C-k>") 'drag-stuff-up)
@@ -718,9 +718,7 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 ;;       doom-themes-neotree-file-icons 'simple
 ;;       doom-themes-neotree-enable-variable-pitch t)
 
-(setq frameset-filter-alist '((treemacs-workspace . :never)
-        (treemacs-id . :never)
-        (tabs . frameset-filter-tabs)
+(setq frameset-filter-alist '((tabs . frameset-filter-tabs)
         (background-color . frameset-filter-sanitize-color)
         (buffer-list . :never)
         (buffer-predicate . :never)
