@@ -25,10 +25,10 @@
 (define-key *top-map* (kbd "s-f") "float-this")
 (define-key *top-map* (kbd "s-F") "unfloat-this")
 
-(define-key *top-map* (kbd "s-h") "improved-move-focus left")
-(define-key *top-map* (kbd "s-j") "improved-move-focus down")
-(define-key *top-map* (kbd "s-k") "improved-move-focus up")
-(define-key *top-map* (kbd "s-l") "improved-move-focus right")
+(define-key *top-map* (kbd "s-h") "move-focus left")
+(define-key *top-map* (kbd "s-j") "move-focus down")
+(define-key *top-map* (kbd "s-k") "move-focus up")
+(define-key *top-map* (kbd "s-l") "move-focus right")
 
 (define-key *top-map* (kbd "s-H") "move-window left")
 (define-key *top-map* (kbd "s-J") "move-window down")
@@ -137,9 +137,8 @@
   "create a new frame below and focus it."
   (vsplit)
   (move-focus :down))
--
+
 ;; window-management
-(load-module "globalwindows")
 (defvar *menu-windows-keymap*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "v") "hsplit-and-focus")
