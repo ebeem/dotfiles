@@ -14,7 +14,7 @@
   (run-shell-command "xsetroot -cursor_name left_ptr")
   (run-shell-command "picom -b --dbus")
   (run-shell-command "nitrogen --restore")
-  (run-shell-command "sleep 10 && polybar -r")
+  (run-shell-command "sleep 5 && polybar -r")
   ;; (run-shell-command "xrandr --output DP-1 --mode 1920x1080 --rate 144.00 --output DP-2 --mode 1920x1080 --rate 144.00 --right-of DP-1 --output HDMI-2 --mode 1920x1080 --rate 120.00 --left-of DP-1")
 
   ;; (run-shell-command "~/.fehbg")
