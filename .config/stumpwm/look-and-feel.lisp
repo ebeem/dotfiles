@@ -49,8 +49,8 @@
     (progn
         (refresh-heads)
         (setf swm-gaps:*head-gaps-size* 0
-              swm-gaps:*inner-gaps-size* 5
-              swm-gaps:*outer-gaps-size* 5)
+              swm-gaps:*inner-gaps-size* 3
+              swm-gaps:*outer-gaps-size* 3)
         (swm-gaps:toggle-gaps-on)))
 
 ;; configuration to create gaps between top-bar and frames (if the swm-external-panel module exist)
