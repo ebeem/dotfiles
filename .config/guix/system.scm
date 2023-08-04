@@ -24,11 +24,15 @@
   ;; Packages installed system-wide.  Users can also install packages
   ;; under their own account: use 'guix search KEYWORD' to search
   ;; for packages and 'guix install PACKAGE' to install a package.
-  (packages (append (list (map specification->package
-                               '("nss-certs" "vim"
-                                "openbox"
-                                "stumpwm" "sbcl" "sbcl-stumpwm-globalwindows"
-                                "sbcl-stumpwm-ttf-fonts" "plymouth")))
+  (packages (append (map specification->package
+                               '("nss-certs"
+                                 "vim"
+                                 "openbox"
+                                 "stumpwm"
+                                 "sbcl"
+                                 "sbcl-stumpwm-globalwindows"
+                                 "sbcl-stumpwm-ttf-fonts"
+                                 "plymouth"))
                     %base-packages))
 
   ;; Below is the list of system services.  To search for available
@@ -52,7 +56,7 @@
                 (keyboard-layout keyboard-layout)))
   (swap-devices (list (swap-space
                         (target (uuid
-                                 "99df73eb-a055-4fe2-bf81-bc9386f9a5ef")))))
+                                 "b6a9cf39-2caf-4855-afd0-7bca0ec3127e")))))
 
   ;; The list of file systems that get "mounted".  The unique
   ;; file system identifiers there ("UUIDs") can be obtained
@@ -60,6 +64,6 @@
   (file-systems (cons* (file-system
                          (mount-point "/")
                          (device (uuid
-                                  "073607d6-64cf-4b23-8e09-8660d363a382"
+                                  "1ee0f807-0008-4932-b870-004d8cd49cee"
                                   'ext4))
                          (type "ext4")) %base-file-systems)))
