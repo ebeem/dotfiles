@@ -28,8 +28,8 @@
 #define v_cyan #46D9FF
 #define v_dark_cyan #5699AF
 
-#define v_border_width 2
-#define v_border_radius 8
+#define v_border_width 1
+#define v_border_radius 0
 
 #define v_icons_theme Colloid-nord-dark
 #define v_cursor_theme Breeze_Snow
