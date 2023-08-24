@@ -10,6 +10,7 @@
 
 ;; (set-module-dir "/usr/share/stumpwm/contrib/")
 (init-load-path "~/.config/stumpwm/modules")
+(init-load-path "~/.guix-home/profile/share/common-lisp/sbcl")
 
 ;; load required modules if they exist
 (loop for module in '("globalwindows" "ttf-fonts" "swm-gaps" "swm-external-panel")

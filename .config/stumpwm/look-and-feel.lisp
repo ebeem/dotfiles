@@ -4,8 +4,12 @@
 (pushnew (concat (getenv "HOME")
             "/.local/share/fonts/")
     xft:*font-dirs* :test #'string= )
-    (xft:cache-fonts) ;; NOTE: needs to be executed once, better to map it to one keybinding
-    (set-font `(,(make-instance 'xft:font :family "JetBrainsMono Nerd Font" :subfamily "Bold" :size 11 :antialias t)))
+(pushnew "/run/current-system/profile/share/fonts/"
+    xft:*font-dirs* :test #'string= )
+
+;; (setf clx-truetype:+font-cache-filename+ (concat (getenv "HOME") "/.fonts/font-cache.sexp"))
+(xft:cache-fonts) ;; NOTE: needs to be executed once, better to map it to one keybinding
+(set-font `(,(make-instance 'xft:font :family "JetBrainsMono Nerd Font" :subfamily "Bold" :size 11 :antialias t)))
 
 ;; setting colors
 (setf *colors*
