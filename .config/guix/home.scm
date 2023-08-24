@@ -144,6 +144,8 @@
             "stow"
             "vim"
             "emacs"
+            "make"
+            "cmake"
 
             ;; "gvfs"
             "neofetch"
