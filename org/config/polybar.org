@@ -6,6 +6,7 @@
 #+HTML_HEAD_EXTRA: <meta property="og:description" content="Description of the Polybar configuration of ebeem" />
 #+PROPERTY: header-args:conf :exports code :mkdirp yes
 #+PROPERTY: header-args:sh :exports code :mkdirp yes
+#+auto_tangle: t
 
 * Introduction
 The main purpose of ~Polybar~ is to help users create awesome status bars. It has built-in functionality to display information about the most commonly used services. Some of the services included so far:
