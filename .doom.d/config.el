@@ -25,10 +25,12 @@
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
       ;; doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 17 :weight 'bold))
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 17 :weight 'bold)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 17))
+;; (setq doom-font (font-spec :family "Iosevka Fixed" :size 20 :height 110 :weight 'extra-bold)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
+      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 17 :height 110)
+      +bidi-arabic-font (font-spec :family "Noto Sans Arabic Black" :size 17 :height 110))
+      ;; doom-variable-pitch-font (font-spec :family "Noto Sans Arabic Black" :size 22 :height 110))
       ;; doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 17 :weight 'bold))
-
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
@@ -81,7 +83,6 @@
 ;; they are implemented.
 
 ;; keybindings
-;;
 (map! (:when (featurep! :ui window-select)
        :g "M-1"   #'winum-select-window-1
        :g "M-2"   #'winum-select-window-2
@@ -234,38 +235,6 @@
         (add-to-list 'mm-discouraged-alternatives "text/html")
         (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
-;; (setq mu4e-contexts
-;;       (list
-;;        ;; Work account
-;;        (make-mu4e-context
-;;         :name "Work"
-;;         :match-func
-;;           (lambda (msg)
-;;             (when msg
-;;               (string-prefix-p "/gmibm" (mu4e-message-field msg :maildir))))
-;;         :vars '((user-mail-address . "ibraheem.marhoon@gmail.com")
-;;                 (user-full-name    . "Ibraheem Almarhoon")
-;;                 (mu4e-drafts-folder  . "/gmibm/drafts")
-;;                 (mu4e-sent-folder  . "/gmibm/[Gmail]/Sent Mail")
-;;                 (mu4e-refile-folder  . "/gmibm/[Gmail]/All Mail")
-;;                 (mu4e-trash-folder  . "/gmibm/trash"))),
-;;        (make-mu4e-context
-;;         :name "Work"
-;;         :match-func
-;;           (lambda (msg)
-;;             (when msg
-;;               (string-prefix-p "/gmeb2" (mu4e-message-field msg :maildir))))
-;;         :vars '((user-mail-address . "ebeem2@gmail.com")
-;;                 (user-full-name    . "Ibraheem Almarhoon") (mu4e-drafts-folder  . "/gmeb2/drafts")
-;;                 (mu4e-sent-folder  . "/gmeb2/[Gmail]/Sent Mail")
-;;                 (mu4e-refile-folder  . "/gmeb2/[Gmail]/All Mail")
-;;                 (mu4e-trash-folder  . "/gmeb2/trash")))
-;;        ))
-
-
-;; assumed Maildir layout
-;; ~/Maildir/Account0/{Inbox,Sent,Trash}
-;; ~/Maildir/Account1/{Inbox,Sent,Trash}
 ;; where Account0 is context name
 (defun def-mu4e-context (context-name full-name mail-address smtp-server signature)
   "Return a mu4e context named CONTEXT-NAME with :match-func matching
@@ -299,27 +268,10 @@
 (setq mu4e-change-filenames-when-moving t)
 (setq mu4e-dashboard-file "~/.doom.d/mu4e-dashboard.org")
 ;; TODO: mu4e bookmarks
-;;
 
 ;; automatically highlight symbols under the curse
 ;; (setq highlight-symbol-idle-delay 0.4)
 ;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
-
-;; custom vim keybindings
-;; (global-set-key (kbd "<C-k>") 'drag-stuff-up)
-;; (global-set-key (kbd "<C-j>") 'drag-stuff-down)
-
-;; desktop-environment
-(setq desktop-environment-volume-get-command "pamixer --get-volume"
-      desktop-environment-volume-set-command "pamixer %s"
-      desktop-environment-volume-toggle-command "pamixer -t"
-      desktop-environment-volume-toggle-microphone-command "pamixer -t"
-      desktop-environment-volume-get-regexp "\\([0-9]+\\)"
-      desktop-environment-volume-normal-increment "-i 5"
-      desktop-environment-volume-normal-decrement "-d 5"
-      desktop-environment-volume-small-increment "-i 1"
-      desktop-environment-volume-small-decrement "-d 1")
-
 
 (map! :map elfeed-search-mode-map
       :after elfeed-search
@@ -493,84 +445,11 @@
 
   )
 
-
-(use-package! org-pretty-table
-  :commands (org-pretty-table-mode global-org-pretty-table-mode))
-
-(defvar mixed-pitch-modes '(org-mode zen-mode LaTeX-mode markdown-mode gfm-mode Info-mode)
-  "Modes that `mixed-pitch-mode' should be enabled in, but only after UI initialisation.")
-(defun init-mixed-pitch-h ()
-  "Hook `mixed-pitch-mode' into each mode in `mixed-pitch-modes'.
-Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
-  (when (memq major-mode mixed-pitch-modes)
-    (mixed-pitch-mode 1))
-  (dolist (hook mixed-pitch-modes)
-    (add-hook (intern (concat (symbol-name hook) "-hook")) #'mixed-pitch-mode)))
-(add-hook 'doom-init-ui-hook #'init-mixed-pitch-h)
-
-(autoload #'mixed-pitch-serif-mode "mixed-pitch"
-  "Change the default face of the current buffer to a serifed variable pitch, while keeping some faces fixed pitch." t)
-
-(after! mixed-pitch
-  (defface variable-pitch-serif
-    '((t (:family "serif")))
-    "A variable-pitch face with serifs."
-    :group 'basic-faces)
-  (setq mixed-pitch-set-height t)
-  (defun mixed-pitch-serif-mode (&optional arg)
-    "Change the default face of the current buffer to a serifed variable pitch, while keeping some faces fixed pitch."
-    (interactive)
-    (let ((mixed-pitch-face 'variable-pitch-serif))
-      (mixed-pitch-mode (or arg 'toggle)))))
-
-(defvar +zen-serif-p nil
-  "Whether to use a serifed font with `mixed-pitch-mode'.")
-(after! writeroom-mode
-  (defvar-local +zen--original-org-indent-mode-p t)
-  (defvar-local +zen--original-mixed-pitch-mode-p t)
-  (defvar-local +zen--original-org-pretty-table-mode-p t)
-  (defun +zen-enable-mixed-pitch-mode-h ()
-    "Enable `mixed-pitch-mode' when in `+zen-mixed-pitch-modes'."
-    (when (apply #'derived-mode-p +zen-mixed-pitch-modes)
-      (if writeroom-mode
-          (progn
-            (setq +zen--original-mixed-pitch-mode-p mixed-pitch-mode)
-            (funcall (if +zen-serif-p #'mixed-pitch-serif-mode #'mixed-pitch-mode) 1))
-        (funcall #'mixed-pitch-mode (if +zen--original-mixed-pitch-mode-p 1 -1)))))
-  (pushnew! writeroom--local-variables
-            'display-line-numbers
-            'visual-fill-column-width
-            'org-adapt-indentation
-            'org-superstar-headline-bullets-list
-            'org-superstar-remove-leading-stars)
-  (add-hook 'writeroom-mode-enable-hook
-            (defun +zen-prose-org-h ()
-              "Reformat the current Org buffer appearance for prose."
-              (when (eq major-mode 'org-mode)
-                (setq display-line-numbers nil
-                      visual-fill-column-width 60
-                      org-adapt-indentation nil)
-                (when (featurep 'org-superstar)
-                  (setq-local org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")                              ;; org-superstar-headline-bullets-list '("🙐" "🙑" "🙒" "🙓" "🙔" "🙕" "🙖" "🙗")
-                              org-superstar-remove-leading-stars nil)
-                  (org-superstar-restart))
-                (setq
-                 +zen--original-org-indent-mode-p org-indent-mode
-                 +zen--original-org-pretty-table-mode-p (bound-and-true-p org-pretty-table-mode))
-                ;; (org-indent-mode -1)
-                (org-pretty-table-mode 1))))
-  (add-hook 'writeroom-mode-disable-hook
-            (defun +zen-nonprose-org-h ()
-              "Reverse the effect of `+zen-prose-org'."
-              (when (eq major-mode 'org-mode)
-                (when (featurep 'org-superstar)
-                  (org-superstar-restart))
-                (when +zen--original-org-indent-mode-p (org-indent-mode 1))
-                ;; (unless +zen--original-org-pretty-table-mode-p (org-pretty-table-mode -1))
-                ))))
-
-
-(global-org-modern-mode)
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
 
 (setq visual-fill-column-width 120
         visual-fill-column-center-text t
@@ -610,113 +489,12 @@ Also immediately enables `mixed-pitch-modes' if currently in one of the modes."
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/cloud/org/")
 
-;; Make sure org-indent face is available
-(require 'org-indent)
-
-;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
-(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-
-;; Resize Org headings
-(dolist (face '((org-level-1 . 1.3)
-                (org-level-2 . 1.2)
-                (org-level-3 . 1.15)
-                (org-level-4 . 1.1)
-                (org-level-5 . 1.1)
-                (org-level-6 . 1.1)
-                (org-level-7 . 1.1)
-                (org-level-8 . 1.1))))
-
-;; org-present
-(defun org-present-prepare-slide (buffer-name heading)
-  ;; Show only top-level headlines
-  (org-overview)
-
-  ;; Unfold the current entry
-  (org-show-entry)
-
-  ;; Show only direct subheadings of the slide but don't expand them
-  (org-show-children))
-
-
-  (evil-define-key 'normal 'org-present-mode-keymap
-    "j" 'evil-next-line
-    "k" 'evil-previous-line
-    "q" 'org-present-quit
-    "\C-j" 'org-present-next
-    "\C-k" 'org-present-prev)
-
-
-(map! :leader
-      (:prefix-map ("t" . "toggle")
-       :desc "Org Present"    "p" #'org-present))
-
-(defun org-present-start ()
-  ;; Tweak font sizes
-  (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
-                                     (header-line (:height 3.0) variable-pitch)
-                                     (org-document-title (:height 1.75) org-document-title)
-                                     (org-code (:height 1.55) org-code)
-                                     (org-level-1 (:height 1.30) org-level-1)
-                                     (org-level-2 (:height 1.25) org-level-2)
-                                     (org-level-3 (:height 1.10) org-level-3)
-                                     (org-level-4 (:height 1.10) org-level-4)
-                                     (org-level-5 (:height 1.10) org-level-5)
-                                     (org-level-6 (:height 1.10) org-level-6)
-                                     (org-level-7 (:height 1.10) org-level-7)
-                                     (org-verbatim (:height 1.55) org-verbatim)
-                                     (org-block (:height 1.35) org-block)
-                                     (org-block-begin-line (:height 0.9) org-block)))
-
-    ;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
-    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-    (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-    (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
-    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-
-  (setq header-line-format " ")
-  (setq display-line-numbers nil)
-  ;; Center the presentation and wrap lines
-  (visual-fill-column-mode 1))
-
-(defun org-present-end ()
-  ;; Reset font customizations
-  (setq-local face-remapping-alist '((default variable-pitch default)))
-  (setq display-line-numbers t)
-
-  (evil-define-key 'normal 'org-present-mode-keymap
-    "q" nil
-    "\C-j" nil
-    "\C-k" nil)
-
-  ;; Stop centering the document
-  (visual-fill-column-mode 0))
-
-;; Turn on variable pitch fonts in Org Mode buffers
-(add-hook 'org-mode-hook 'variable-pitch-mode)
-
-;; Register hooks with org-present
-(add-hook 'org-present-mode-hook 'org-present-start)
-(add-hook 'org-present-mode-quit-hook 'org-present-end)
-(add-hook 'org-present-after-navigate-functions 'org-present-prepare-slide)
-
-;; neotree
-;; (setq doom-themes-neotree-line-spacing 2
-;;       doom-themes-neotree-project-size 1.2
-;;       doom-themes-neotree-folder-size 0.9
-;;       doom-themes-neotree-chevron-size 0.9
-;;       doom-themes-neotree-file-icons 'simple
-;;       doom-themes-neotree-enable-variable-pitch t)
+(setq doom-themes-neotree-line-spacing 2
+      doom-themes-neotree-project-size 1.2
+      doom-themes-neotree-folder-size 1.1
+      doom-themes-neotree-chevron-size 0.95
+      doom-themes-neotree-file-icons 'simple
+      doom-themes-neotree-enable-variable-pitch t)
 
 (setq frameset-filter-alist '((tabs . frameset-filter-tabs)
         (background-color . frameset-filter-sanitize-color)
@@ -823,10 +601,20 @@ of a line."
 ;; (advice-remove 'evil-escape-func 'custom/evil-mc-evil-escape-fix)
 
 (setq evil-escape-delay 1.0)
-(setq lsp-idle-delay 0.6)
-
-
+(setq lsp-idle-delay 0.04)
+(setq company-idle-delay nil)
+(setq company-minimum-prefix-length 0)
 
 (add-to-list 'load-path "~/.doom.d/modules/")
 (require 'evil-collection-mingus)
 (evil-collection-mingus-setup)
+
+;; org mode bidi support
+(defun set-bidi-env ()
+  "interactive"
+  (setq bidi-paragraph-direction 'nil))
+(add-hook 'org-mode-hook 'set-bidi-env)
+
+(setq org-startup-truncated nil)
+(with-eval-after-load "org"
+  (require 'org-phscroll))

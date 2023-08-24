@@ -55,6 +55,7 @@
 (package! bluetooth)
 (package! disk-usage)
 (package! org-present)
+(package! org-auto-tangle)
 (package! mingus)
 (package! stumpwm-mode)
 
@@ -72,13 +73,7 @@
 (package! visual-fill-column
   :recipe (:host github :repo "basaran/visual-fill-column"))
 (package! burly)
-(package! org-pretty-table
-  :recipe (:host github :repo "Fuco1/org-pretty-table"))
-(package! org-modern
-  :recipe (:host github :repo "minad/org-modern"))
-
 (package! elfeed-goodies :disable t)
 (package! mu4e-column-faces)
-(unpin! evil-collection)
-(package! evil-collection
-  :recipe (:host github :repo "emacs-evil/evil-collection" :branch "master"))
+(package! phscroll
+  :recipe (:host github :repo "misohena/phscroll" :branch "master"))
