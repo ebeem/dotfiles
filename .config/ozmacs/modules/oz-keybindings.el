@@ -3,8 +3,34 @@
 
 ;;; Code:
 (use-package general
+  :after evil-collection
   :config
   (general-evil-setup)
+
+  (evil-define-key '(normal visual) 'global
+    "gc" 'evilnc-comment-or-uncomment-lines)
+
+  (evil-collection-define-key 'normal 'emacs-lisp-mode-map
+    "gz" nil)
+
+  (evil-define-key '(normal) 'global
+    "gzd" 'evil-mc-make-and-goto-next-match
+    "gzD" 'evil-mc-make-and-goto-prev-match
+    "gzs" 'evil-mc-skip-and-goto-next-match
+    "gzS" 'evil-mc-skip-and-goto-prev-match
+    "gzc" 'evil-mc-skip-and-goto-next-cursor
+    "gzC" 'evil-mc-skip-and-goto-prev-cursor
+    "gzj" 'evil-mc-make-cursor-move-next-line
+    "gzk" 'evil-mc-make-cursor-move-prev-line
+    "gzm" 'evil-mc-make-all-cursors
+    "gzn" 'evil-mc-make-and-goto-next-cursor
+    "gzN" 'evil-mc-make-and-goto-last-cursor
+    "gzp" 'evil-mc-make-and-goto-prev-cursor
+    "gzP" 'evil-mc-make-and-goto-first-cursor
+    "gzq" 'evil-mc-undo-all-cursors
+    "gzt" '+multiple-cursors/evil-mc-toggle-cursors
+    "gzu" '+multiple-cursors/evil-mc-undo-cursor
+    "gzz" '+multiple-cursors/evil-mc-toggle-cursor-here)
 
   ;; set up 'SPC' as the global leader key
   (general-create-definer eb/leader-keys
@@ -32,6 +58,27 @@
     "b M" '(bookmark-delete :wk "Delete bookmark"))
 
   (eb/leader-keys
+    "c" '(:ignore t :wk "LSP Code")
+    "c a" '('eglot-code-actions :wk "LSP Execute code action")
+    "c r" '('eglot-rename :wk "LSP Rename")
+    "c j" '('eglot-find-declaration :wk "LSP Find declaration")
+    "c j" '('consult-eglot-symbols :wk "Jump to symbol in current workspace")
+    "c c" '('compile :wk "Compile")
+    "c C" '('recompile :wk "Recompile")
+    "c d" '('+lookup/definition :wk "Jump to definition")
+    "c D" '('+lookup/references :wk "Jump to references")
+    "c e" '('+eval/buffer-or-region :wk "Evaluate buffer/region")
+    "c E" '('+eval:replace-region :wk "Evaluate & replace region")
+    "c f" '('+format/region-or-buffer :wk "Format buffer/region")
+    "c i" '('+lookup/implementations :wk "Find implementations")
+    "c k" '('+lookup/documentation :wk "Jump to documentation")
+    "c s" '('+eval/send-region-to-repl :wk "Send to repl")
+    "c t" '('+lookup/type-definition :wk "Find type definition")
+    "c w" '('delete-trailing-whitespace :wk "Delete trailing whitespace")
+    "c W" '('doom/delete-trailing-newlines :wk "Delete trailing newlines")
+    "c x" '('+default/diagnostics :wk "List errors"))
+
+  (eb/leader-keys
     "d" '(:ignore t :wk "Dired")
     "d d" '(dired :wk "Open dired")
     "d j" '(dired-jump :wk "Dired jump to current")
@@ -49,7 +96,7 @@
     "e s" '(eshell :which-key "Eshell"))
 
   ;; files
-(eb/leader-keys
+  (eb/leader-keys
     "f" '(:ignore t :wk "Files")
     "f u" '(sudo-edit :wk "Sudo edit current file")
     "f U" '(sudo-edit-find-file :wk "Sudo find file")
@@ -57,12 +104,56 @@
     "f c" '(copy-this-file :wk "Copy file")
     "f r" '(counsel-recentf :wk "Find recent files"))
 
-  ;; files
-(eb/leader-keys
-    "g" '(:ignore t :wk "Files")
-    "g g" '(magit-status :wk "Magit status"))
+  ;; git
+  (eb/leader-keys
+    "g" '(:ignore t :wk "Git")
+    "g R" '(vc-revert :wk "Revert file")
+    "g /" '(magit-dispatch :wk "Magit dispatch")
+    "g ." '(magit-file-dispatch :wk "Magit file dispatch")
+    "g '" '(forge-dispatch :wk "Forge dispatch")
+    "g b" '(magit-branch-checkout :wk "Magit switch branch")
+    "g g" '(magit-status :wk "Magit status")
+    "g G" '(magit-status-here :wk "Magit status here")
+    "g D" '(magit-file-delete :wk "Magit file delete")
+    "g B" '(magit-blame-addition :wk "Magit blame")
+    "g C" '(magit-clone :wk "Magit clone")
+    "g F" '(magit-fetch :wk "Magit fetch")
+    "g L" '(magit-log-buffer-file :wk "Magit buffer log")
+    "g S" '(magit-stage-file :wk "Git stage file")
+    "g U" '(magit-unstage-file :wk "Git unstage file")
 
- (eb/leader-keys
+    "g f" '(:ignore t :wk "Git files")
+    "g f f" '(magit-find-file :wk "Find file")
+    "g f g" '(magit-find-git-config-file :wk "Find gitconfig file")
+    "g f c" '(magit-show-commit :wk "Find commit")
+    "g f i" '(forge-visit-issue :wk "Find issue")
+    "g f p" '(forge-visit-pullreq :wk "Find pull request")
+
+    "g i" '(:ignore t :wk "Git browse")
+    "g i r" '(forge-browse-remote :wk "Browse remote")
+    "g i c" '(forge-browse-commit :wk "Browse commit")
+    "g i i" '(forge-browse-issue :wk "Browse an issue")
+    "g i p" '(forge-browse-pullreq :wk "Browse a pull request")
+    "g i I" '(forge-browse-issues :wk "Browse issues")
+    "g i P" '(forge-browse-pullreqs :wk "Browse pull requests")
+
+    "g l r" '(magit-list-repositories :wk "List repositories")
+    "g l s" '(magit-list-submodules :wk "List submodules")
+    "g l i" '(forge-list-issues :wk "List issues")
+    "g l p" '(forge-list-pullreqs :wk "List pull requests")
+    "g l n" '(forge-list-notifications :wk "List notifications")
+
+    "g c" '(:ignore t :wk "Git create")
+    "g c r" '(magit-init :wk "Initialize repo")
+    "g c R" '(magit-clone :wk "Clone repo")
+    "g c c" '(magit-commit-create :wk "Commit")
+    "g c f" '(magit-commit-fixup :wk "Fixup")
+    "g c b" '(magit-branch-and-checkout :wk "Branch")
+    "g c i" '(forge-create-issue :wk "Issue")
+    "g c p" '(forge-create-pullreq :wk "Pull request"))
+
+
+  (eb/leader-keys
     "h" '(:ignore t :wk "Help")
     "h a" '(counsel-apropos :wk "Apropos")
     "h b" '(describe-bindings :wk "Describe bindings")
@@ -171,16 +262,17 @@
     "w k" '(evil-window-up :wk "Window up")
     "w l" '(evil-window-right :wk "Window right")))
 
-(defun complete-code ()
-  (interactive)
-  (if company-mode (company-complete-common)
-    (lsp-bridge-popup-complete-menu)))
+;(defun complete-code ()
+;  (interactive)
+;  (if company-mode (company-complete-common)
+;    (lsp-bridge-popup-complete-menu)))
 
-(global-set-key (kbd "C-SPC") 'complete-code)
+(global-set-key (kbd "C-SPC") 'company-complete-common)
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+(global-set-key (kbd "TAB") 'self-insert-command)
 
 (provide 'oz-keybindings)
 ;;; oz-keybindings.el ends here

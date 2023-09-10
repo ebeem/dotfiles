@@ -2,6 +2,7 @@
 
 ;;; Code:
 (use-package elfeed
+  :commands (elfeed);
   :hook ((elfeed-show-mode . (lambda () (display-line-numbers-mode -1)))
 	 (elfeed-search-update . (lambda () (display-line-numbers-mode -1))))
   :config

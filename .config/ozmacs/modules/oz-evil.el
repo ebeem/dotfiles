@@ -35,9 +35,7 @@
   (use-package evil-collection
     :after evil
     :config
-    (evil-collection-init)
-    (evil-collection-define-key 'normal 'evil-mc-mode-map
-      "gzmj" 'evil-mc-make-cursor-move-next-line))
+    (evil-collection-init))
 
   (use-package evil-escape
     :after evil
@@ -52,6 +50,10 @@
   :config
   (global-evil-mc-mode 1))
 
+
+(use-package evil-nerd-commenter
+  :after evil)
+
 ;; file opening procedures
 (defun dired-open-file ()
   "In dired, open the file named on this line."
@@ -65,8 +67,33 @@
     (evil-define-key 'normal dired-mode-map
       "o" 'dired-open-file)))
 
-(add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)
+;; doom's escape hook
+(defun eb/escape (&optional interactive)
+  (interactive (list 'interactive))
+  (cond ((minibuffer-window-active-p (minibuffer-window))
+	  ;; quit the minibuffer if open.
+	  (when interactive
+	    (setq this-command 'abort-recursive-edit))
+	  (abort-recursive-edit))
+	  ;; Run all escape hooks. If any returns non-nil, then stop there.
+	  ((run-hook-with-args-until-success 'keyboard-escape-hook))
+	  ;; don't abort macros
+	  ((or defining-kbd-macro executing-kbd-macro) nil)
+	  ;; Back to the default
+	  ((unwind-protect (keyboard-quit)
+	    (when interactive
+	      (setq this-command 'keyboard-quit))))))
 
+(add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)
+(global-set-key [remap keyboard-quit] #'eb/escape)
+
+(defun eb/escape-multiple-cursors ()
+   "Clear evil-mc cursors and restore state."
+   (when (evil-mc-has-cursors-p)
+   	(evil-mc-undo-all-cursors)
+   	(evil-mc-resume-cursors)
+        t))
+(add-hook 'keyboard-escape-hook 'eb/escape-multiple-cursors)
 
 (provide 'oz-evil)
 ;;; oz-evil.el ends here

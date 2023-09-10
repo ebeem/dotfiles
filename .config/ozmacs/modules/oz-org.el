@@ -36,7 +36,12 @@
   :after org)
 
 (use-package org-roam
-  :ensure t
+  :hook (org-load)
+  :commands (org-roam-buffer-toggle-display
+             org-roam-dailies-find-date
+             org-roam-dailies-find-today
+             org-roam-dailies-find-tomorrow
+             org-roam-dailies-find-yesterday)
   :custom
   (org-roam-directory (file-truename "~/cloud/"))
   (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))

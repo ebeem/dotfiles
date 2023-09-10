@@ -34,36 +34,51 @@
 
 (use-package yasnippet)
 
-(use-package
-  :elpaca nil
-  :init (global-tree-sitter-mode))
-
-(use-package lsp-bridge
-  :elpaca (:host github :repo "manateelazycat/lsp-bridge"
-            :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
+(use-package treesit-auto
+  :demand t
   :init
-  (global-lsp-bridge-mode)
-  :hook (acm-mode . (lambda () (company-mode -1)))
+  (setq treesit-auto-install 'prompt)
   :config
-  (add-to-list 'lsp-bridge-completion-stop-commands #'evil-escape)
-  :bind
-  (:map acm-mode-map
-      ("C-j" . acm-select-next)
-      ("C-k" . acm-select-prev)
-      ("C-M-j" . acm-select-next-page)
-      ("C-M-k" . acm-select-prev-page))))
+  (global-treesit-auto-mode))
+
+(use-package eglot
+  :elpaca nil)
 
 ;; programming langauges major modes
-;;(use-package elisp-mode)
-;;(use-package csharp-mode)
 
-(use-package rjsx-mode)
-(use-package typescript-mode)
-(use-package lsp-java)
-(use-package dart-mode)
-(use-package flutter)
-(use-package csv-mode)
-(use-package gdscript-mode)
+(use-package rjsx-mode
+  :mode ("\\.jsx\\'" . rjsx-mode)
+  :hook (rjsx-mode . eglot))
+
+(use-package typescript-mode
+  :after tree-sitter
+  :mode ("\\.tsx\\'" . typescript-ts-mode)
+  :config
+  (define-derived-mode typescriptreact-mode typescript-mode "TypeScript TSX")
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
+
+(use-package dart-mode
+  :mode ("\\.dart\\'" . dart-mode)
+  :hook (dart-mode . eglot))
+
+(use-package flutter
+  :mode ("\\.dart\\'" . dart-mode))
+
+(use-package csv-mode
+  :mode ("\\.csv\\'" . csv-mode))
+
+(use-package gdscript-mode
+  :mode ("\\.gd\\'" . gdscript-mode)
+  :hook (dart-mode . eglot))
+
+(use-package php-mode
+  :mode ("\\.php\\'" . php-mode)
+  :hook (dart-mode . eglot))
+
+(use-package lua-mode
+  :mode ("\\.lua\\'" . lua-mode)
+  :hook (dart-mode . eglot))
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

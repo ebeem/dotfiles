@@ -10,7 +10,9 @@
 
 (with-eval-after-load "elpaca-log"
   (setf (alist-get 'utils-reload-init elpaca-log-command-queries) 'silent))
-
+(setq url-configuration-directory (expand-file-name ".cache/url" user-emacs-directory)
+      transient-history-file (expand-file-name ".cache/transient/history" user-emacs-directory)
+      treesit-extra-load-path '((expand-file-name ".cache/tree-sitter" user-emacs-directory)))
 ;; delete current file
 (defun delete-current-file ()
   "Delete current buffer/file and close the buffer"

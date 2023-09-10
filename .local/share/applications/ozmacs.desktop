@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Ozmacs
+GenericName=Ozmacs
+Exec=emacs --init-dir=~/.config/ozmacs
+Terminal=false
+Icon=emacs
+Type=Application
+Categories=Application;Emacs;Music;MPD;

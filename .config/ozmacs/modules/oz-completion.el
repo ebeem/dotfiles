@@ -6,7 +6,7 @@
   :custom
   (company-begin-commands '(self-insert-command))
   (company-idle-delay .1)
-  (company-minimum-prefix-length 2)
+  (company-minimum-prefix-length 0)
   (company-show-numbers t)
   (company-tooltip-align-annotations 't)
   (global-company-mode t))

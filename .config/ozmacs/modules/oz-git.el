@@ -3,6 +3,7 @@
 
 ;;; Code:
 (use-package magit
+  :defer 5
   :init
   ;; Must be set early to prevent ~/.config/emacs/transient from being created
   (setq transient-levels-file  (expand-file-name ".cache/transient/levels" user-emacs-directory)
@@ -12,6 +13,8 @@
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
 (use-package forge
+  :after magit
+  :commands (forge-create-pullreq forge-create-issue)
   :custom (forge-database-file (expand-file-name ".cache/forge-database.sqlite" user-emacs-directory)))
 
 (provide 'oz-git)

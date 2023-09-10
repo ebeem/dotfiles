@@ -18,7 +18,9 @@
 (global-display-line-numbers-mode 1)
 (global-visual-line-mode t)
 (setq inhibit-startup-message t
-      display-line-numbers-type `relative)
+      display-line-numbers-type `relative
+      truncate-lines t
+      confirm-kill-processes nil)
 
 
 (use-package dashboard
