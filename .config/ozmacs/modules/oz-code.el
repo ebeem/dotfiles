@@ -1,5 +1,3 @@
-
-
 ;;; Code:
 
 ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
@@ -22,6 +20,11 @@
   :diminish
   :init (global-flycheck-mode))
 
+(use-package editorconfig
+  :diminish
+  :hook (prog-mode . editorconfig-mode)
+  :init)
+
 ;; colorize color names / color hex code in buffers. (red) (#ff0000)
 (use-package rainbow-mode
   :diminish
@@ -32,7 +35,19 @@
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package yasnippet)
+;; insert some pre-made code by just typing a few characters
+(use-package yasnippet
+  :hook ((prog-mode . yas-minor-mode)
+         (text-mode . yas-minor-mode))
+  :config
+  (setq yas-snippet-dirs (expand-file-name ".cache/snippets" user-emacs-directory)
+        yas--default-user-snippets-dir (expand-file-name ".cache/snippets" user-emacs-directory)))
+
+(use-package yasnippet-snippets
+  :after yasnippet)
+
+(use-package yatemplate
+  :after yasnippet)
 
 (use-package treesit-auto
   :demand t
@@ -42,7 +57,15 @@
   (global-treesit-auto-mode))
 
 (use-package eglot
-  :elpaca nil)
+  :elpaca nil
+  :hook (before-save . eglot-format-buffer)
+  :config
+  (setq eglot-confirm-server-initiated-edits nil))
+
+(use-package eldoc-box
+  :config
+  (setq eldoc-echo-area-use-multiline-p nil))
+
 
 ;; programming langauges major modes
 
@@ -52,11 +75,7 @@
 
 (use-package typescript-mode
   :after tree-sitter
-  :mode ("\\.tsx\\'" . typescript-ts-mode)
-  :config
-  (define-derived-mode typescriptreact-mode typescript-mode "TypeScript TSX")
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
+  :mode ("\\.tsx\\'" . tsx-ts-mode))
 
 (use-package dart-mode
   :mode ("\\.dart\\'" . dart-mode)

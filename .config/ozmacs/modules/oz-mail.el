@@ -12,10 +12,10 @@
         mu4e-change-filenames-when-moving t
         mu4e-get-mail-command "mbsync -a"
         mu4e-display-update-status-in-modeline t
-	mu4e-view-show-addresses t
-	mu4e-view-show-images t
-	mu4e-view-image-max-width 800
-	mu4e-view-use-gnus t
+        mu4e-view-show-addresses t
+        mu4e-view-show-images t
+        mu4e-view-image-max-width 800
+        mu4e-view-use-gnus t
         mu4e-sent-messages-behavior 'sent
         mu4e-hide-index-messages t
         mu4e-context-policy 'pick-first
@@ -28,22 +28,32 @@
         mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
         mu4e-headers-thread-child-prefix         '("├>" . "├▶")
         mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
-	mu4e-headers-date-format "%d/%m/%y %H:%M:%S"
-	mu4e-headers-time-format "⧖ %H:%M"
-	mu4e-headers-results-limit 1000
-	mu4e-index-cleanup t
-	mu4e-headers-field
-	  '((:human-date    .   17)
-	    (:flags         .    10)
-	    ;; (:mailing-list  .   30)
-	    (:from          .   30)
-	    (:subject       .   nil)))
-  (setq message-send-mail-function #'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        message-kill-buffer-on-exit t)
+        mu4e-headers-date-format "%d/%m/%y %H:%M:%S"
+        mu4e-headers-time-format "⧖ %H:%M"
+        mu4e-headers-results-limit 1000
+        mu4e-index-cleanup t
+        mu4e-headers-field
+          '((:human-date    .   17)
+            (:flags         .    10)
+            ;; (:mailing-list  .   30)
+            (:from          .   30)
+            (:subject       .   nil))
+  		message-send-mail-function #'smtpmail-send-it
+      	smtpmail-stream-type 'starttls
+      	message-kill-buffer-on-exit t)
   (with-eval-after-load "mm-decode"
-    (add-to-list 'mm-discouraged-alternatives "text/html")
-    (add-to-list 'mm-discouraged-alternatives "text/richtext")))
+      (add-to-list 'mm-discouraged-alternatives "text/html")
+      (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+  (defun mu4e-view-mode-enhanced ()
+    (display-line-numbers-mode -1)
+    (setq-local truncate-lines nil
+            visual-fill-column-width 120
+            visual-fill-column-center-text t
+            default-text-properties '(line-height 1.1))
+    (let ((inhibit-read-only t)
+      (inhibit-modification-hooks t))
+    (visual-fill-column-mode)
+    (set-buffer-modified-p nil))))
 
 (use-package mu4e-column-faces
   :hook (mu4e-headers-mode . mu4e-column-faces-mode))
@@ -51,18 +61,9 @@
 (use-package mu4e-alert
   :after mu4e
   :config
-  (setq mu4e-alert-email-notification-types '(count)))
+  (setq mu4e-alert-set-default-style 'libnotify)
+  (mu4e-alert-enable-notifications))
 
-(defun mu4e-view-mode-enhanced ()
-  (display-line-numbers-mode -1)
-  (setq-local truncate-lines nil
-	      visual-fill-column-width 120
-	      visual-fill-column-center-text t
-	      default-text-properties '(line-height 1.1))
-  (let ((inhibit-read-only t)
-	(inhibit-modification-hooks t))
-  (visual-fill-column-mode)
-  (set-buffer-modified-p nil)))
 
 (provide 'oz-mail)
 ;;; oz-mail.el ends here

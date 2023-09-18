@@ -4,6 +4,8 @@
 ;;; Code:
 (use-package general
   :after evil-collection
+  :init
+  (general-auto-unbind-keys)
   :config
   (general-evil-setup)
 
@@ -39,8 +41,12 @@
     :prefix "SPC"
     :global-prefix "M-SPC")
 
+  ;; (eb/leader-keys
+  ;;   "SPC" '(embark :wk "Embark"))
+
   (eb/leader-keys
-    "SPC" '(counsel-M-x :wk "Counsel M-x"))
+    ":" '(eval-expression :wk "Evaluate")
+    ";" '(execute-extended-command :wk "Commands"))
 
   (eb/leader-keys
     "b" '(:ignore t :wk "Bookmarks/Buffers")
@@ -59,24 +65,21 @@
 
   (eb/leader-keys
     "c" '(:ignore t :wk "LSP Code")
-    "c a" '('eglot-code-actions :wk "LSP Execute code action")
-    "c r" '('eglot-rename :wk "LSP Rename")
-    "c j" '('eglot-find-declaration :wk "LSP Find declaration")
-    "c j" '('consult-eglot-symbols :wk "Jump to symbol in current workspace")
-    "c c" '('compile :wk "Compile")
-    "c C" '('recompile :wk "Recompile")
-    "c d" '('+lookup/definition :wk "Jump to definition")
-    "c D" '('+lookup/references :wk "Jump to references")
-    "c e" '('+eval/buffer-or-region :wk "Evaluate buffer/region")
-    "c E" '('+eval:replace-region :wk "Evaluate & replace region")
-    "c f" '('+format/region-or-buffer :wk "Format buffer/region")
-    "c i" '('+lookup/implementations :wk "Find implementations")
-    "c k" '('+lookup/documentation :wk "Jump to documentation")
-    "c s" '('+eval/send-region-to-repl :wk "Send to repl")
-    "c t" '('+lookup/type-definition :wk "Find type definition")
-    "c w" '('delete-trailing-whitespace :wk "Delete trailing whitespace")
-    "c W" '('doom/delete-trailing-newlines :wk "Delete trailing newlines")
-    "c x" '('+default/diagnostics :wk "List errors"))
+    "c a" '(eglot-code-actions :wk "LSP Execute code action")
+    "c r" '(eglot-rename :wk "LSP Rename")
+    "c j" '(eglot-find-declaration :wk "LSP Find declaration")
+    "c j" '(consult-eglot-symbols :wk "Jump to symbol in current workspace")
+    "c c" '(compile :wk "Compile")
+    "c C" '(recompile :wk "Recompile")
+    "c d" '(eglot-find-typeDefinition :wk "Jump to definition")
+    "c D" '(eglot-find-implementation :wk "Jump to references")
+    "c f" '(eglot-format-buffer :wk "Format buffer/region")
+    "c i" '(imenu :wk "Imenu")
+    "c I" '(eglot-find-implementation :wk "Find implementations")
+    "c k" '(eldoc-box-help-at-point :wk "Jump to documentation")
+    "c K" '(eldoc :wk "Jump to documentation")
+    "c t" '(eglot-find-typeDefinition :wk "Find type definition")
+    "c x" '(flycheck-list-errors :wk "List errors"))
 
   (eb/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -101,6 +104,7 @@
     "f u" '(sudo-edit :wk "Sudo edit current file")
     "f U" '(sudo-edit-find-file :wk "Sudo find file")
     "f d" '(delete-current-file :wk "Delete current file")
+    "f f" '(find-file :wk "File file")
     "f c" '(copy-this-file :wk "Copy file")
     "f r" '(counsel-recentf :wk "Find recent files"))
 
@@ -229,6 +233,7 @@
     "p p" '(project-switch-project :wk "Switch project")
     "p r" '(project-query-replace-regexp :wk "Replace query")
     "p s" '(consult-ripgrep :wk "Search project files")
+    "p S" '(project-find-regexp :wk "Search project files")
     "p v" '(project-vc-dir :wk "VC directory")
     "p x" '(project-execute-extended-command :wk "Execute command"))
 

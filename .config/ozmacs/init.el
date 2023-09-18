@@ -11,18 +11,16 @@
 ;; add modules and themes to load paths
 (add-to-list 'load-path
   (expand-file-name "modules" user-emacs-directory))
-(add-to-list 'custom-theme-load-path 
+(add-to-list 'custom-theme-load-path
   (expand-file-name "themes" user-emacs-directory))
 
 (setq user-full-name "Ibraheem Almarhoon"
       user-mail-address "ibraheem.marhoon@gmail.com"
       backup-directory-alist '((".*" . "~/.Trash")))
 
-;; avoid storing custom lines in 'init.el' file
-(setq custom-file (expand-file-name ".cache/custom.el" user-emacs-directory))
-(load custom-file)
 
 (require 'oz-package-manager) ;; ('elpaca')
+(require 'oz-settings)        ;;
 (require 'oz-utilities)       ;; ('sudo-edit')
 (require 'oz-terminal)        ;; ('vterm', 'eshell')
 (require 'oz-completion)      ;; ('compeny', 'vertico', 'which-key')
@@ -34,4 +32,5 @@
 (require 'oz-mail)            ;; ('mu4e')
 (require 'oz-matrix)          ;; ('ement')
 (require 'oz-news)            ;; ('elfeed')
+(require 'oz-media)           ;; ('mingus')
 (require 'oz-keybindings)     ;; ('general')
