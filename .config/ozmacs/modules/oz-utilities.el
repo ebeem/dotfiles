@@ -148,6 +148,17 @@ between 0 and 1)."
     (message "File copied to %S"
              (abbreviate-file-name new-path))))
 
+(defun yank-buffer ()
+  "Yank current buffer's content"
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max)))
+
+(defun paste-buffer ()
+  "Paste current buffer's content"
+  (interactive)
+  (delete-region (point-min) (point-max))
+  (yank))
+
 ;; https://gitlab.com/tsc25/undo-tree
 ;; recover any past state of a buffer. To do this, Emacs treats “undo” itself
 ;; as just another editing action that can be undone

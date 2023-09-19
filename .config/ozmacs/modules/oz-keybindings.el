@@ -46,29 +46,35 @@
 
   (eb/leader-keys
     ":" '(eval-expression :wk "Evaluate")
-    ";" '(execute-extended-command :wk "Commands"))
+    ";" '(execute-extended-command :wk "Commands")
+    "x" '(scratch-buffer :wk "Scratch Buffer")
+    "C" '(org-capture :wk "Org Capture")
+    ">" '(next-buffer :wk "Next buffer")
+    "<" '(previous-buffer :wk "Previous buffer"))
 
   (eb/leader-keys
     "b" '(:ignore t :wk "Bookmarks/Buffers")
     "b b" '(project-switch-to-buffer :wk "Project switch buffer")
-    "b d" '(kill-this-buffer :wk "Delete buffer")
     "b B" '(switch-to-buffer :wk "Switch buffer")
     "b c" '(clone-indirect-buffer :wk "Clone buffer")
+    "b d" '(kill-this-buffer :wk "Kill buffer")
+    "b h" '(previous-buffer :wk "Previous buffer")
+    "b k" '(kill-this-buffer :wk "Kill buffer")
+    "b l" '(next-buffer :wk "Next buffer")
+    "b m" '(bookmark-set :wk "Set bookmark")
+    "b M" '(bookmark-delete :wk "Delete bookmark")
     "b n" '(evil-buffer-new :wk "New buffer")
+    "b p" '(paste-buffer :wk "Paste buffer")
     "b r" '(revert-buffer :wk "Revert buffer")
     "b R" '(rename-buffer :wk "Rename buffer")
     "b s" '(save-buffer :wk "Save buffer")
     "b S" '(save-all-buffers :wk "Save all buffers")
-    "b y" '(yank-buffer :wk "Yank buffer")
-    "b m" '(bookmark-set :wk "Set bookmark")
-    "b M" '(bookmark-delete :wk "Delete bookmark"))
+    "b x" '(scratch-buffer :wk "Scratch Buffer")
+    "b y" '(yank-buffer :wk "Yank buffer"))
 
   (eb/leader-keys
     "c" '(:ignore t :wk "LSP Code")
     "c a" '(eglot-code-actions :wk "LSP Execute code action")
-    "c r" '(eglot-rename :wk "LSP Rename")
-    "c j" '(eglot-find-declaration :wk "LSP Find declaration")
-    "c j" '(consult-eglot-symbols :wk "Jump to symbol in current workspace")
     "c c" '(compile :wk "Compile")
     "c C" '(recompile :wk "Recompile")
     "c d" '(eglot-find-typeDefinition :wk "Jump to definition")
@@ -76,8 +82,11 @@
     "c f" '(eglot-format-buffer :wk "Format buffer/region")
     "c i" '(imenu :wk "Imenu")
     "c I" '(eglot-find-implementation :wk "Find implementations")
+    "c j" '(eglot-find-declaration :wk "LSP Find declaration")
+    "c J" '(consult-eglot-symbols :wk "Jump to symbol in current workspace")
     "c k" '(eldoc-box-help-at-point :wk "Jump to documentation")
     "c K" '(eldoc :wk "Jump to documentation")
+    "c r" '(eglot-rename :wk "LSP Rename")
     "c t" '(eglot-find-typeDefinition :wk "Find type definition")
     "c x" '(flycheck-list-errors :wk "List errors"))
 
@@ -101,11 +110,12 @@
   ;; files
   (eb/leader-keys
     "f" '(:ignore t :wk "Files")
+    "f c" '(editorconfig-find-current-editorconfig :wk "Editor config")
+    "f c" '(copy-this-file :wk "Copy file")
     "f u" '(sudo-edit :wk "Sudo edit current file")
     "f U" '(sudo-edit-find-file :wk "Sudo find file")
     "f d" '(delete-current-file :wk "Delete current file")
     "f f" '(find-file :wk "File file")
-    "f c" '(copy-this-file :wk "Copy file")
     "f r" '(counsel-recentf :wk "Find recent files"))
 
   ;; git
@@ -256,6 +266,7 @@
     "w" '(:ignore t :wk "Windows")
     "w f" '(make-frame :wk "Create new frame")
 
+    ;; TODO: extend from 'evil-window-map'
     ;; Window splits
     "w d" '(evil-window-delete :wk "Close window")
     "w s" '(evil-window-split :wk "Horizontal split window")
