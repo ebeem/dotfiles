@@ -6,6 +6,26 @@
   (load-file (locate-user-emacs-file "init.el"))
   (ignore (elpaca-process-queues)))
 
+;; cache and dlc paths
+(with-eval-after-load "elpaca-log"
+  (setf (alist-get 'utils-reload-init elpaca-log-command-queries) 'silent))
+
+;;;###autoload
+(defun evil-interactive-shift-right ()
+  "vnoremap < <gv"
+  (interactive)
+  (call-interactively #'evil-shift-right)
+  (evil-normal-state)
+  (evil-visual-restore))
+
+;;;###autoload
+(defun evil-interactive-shift-left ()
+  "vnoremap > >gv"
+  (interactive)
+  (call-interactively #'evil-shift-left)
+  (evil-normal-state)
+  (evil-visual-restore))
+
 ;; file opening procedures
 (defun dired-open-file ()
   "In dired, open the file named on this line."
@@ -29,6 +49,26 @@
       ((unwind-protect (keyboard-quit)
         (when interactive
           (setq this-command 'keyboard-quit))))))
+
+;; custom functions to get properties from Xresources
+(defun xresources-preprocessor (code)
+  "Replace placeholders {xrdb:VARIABLE} with values from Xresources."
+	(if (null (string-match "\$\{xrdb:\\(.+\\)\}" code))
+        code
+      (xresources-preprocessor
+       (string-replace (match-string 0 code)
+                       (xresources-value (match-string 1 code))
+                       code))))
+
+;; custom functions to get properties from Xresources
+(defun xresources-value (var)
+  "Returns the variable value from Xresources"
+  (string-trim (shell-command-to-string (concat "xrdb -get " var))))
+
+
+;; (xresources-value "rofi" "red")
+;; (xresources-preprocessor "rofi" "Rest here ${xrdb:red}")
+
 
 (add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)
 (global-set-key [remap keyboard-quit] #'eb/escape)
@@ -206,6 +246,11 @@ between 0 and 1)."
 
 (use-package project
   :elpaca nil
+  :config
+  (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory)))
+
+
+(use-package burly
   :config
   (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory)))
 

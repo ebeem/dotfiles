@@ -1,15 +1,17 @@
-* RSS                                                                :elfeed:
-*** LINUX                                                          :Linux:
+* RSS                                                             :elfeed:
+*** LINUX                                                           :Linux:
 **** https://archlinux.org/feeds/news/
 **** https://itsfoss.com/feed/
 **** https://www.cyberciti.com/faq/feed/
 *** DATA SCIENCE                                                    :DataScience:
 **** http://feeds.feedburner.com/FeaturedBlogPosts-DataScienceCentral
 **** https://towardsdatascience.com/feed
-*** GNOME                                                          :gnome:
+*** GNOME                                                           :gnome:
 **** https://www.gnome.org/feed/
 *** GODOT                                                           :godot:
 **** https://godotengine.org/rss.xml
 *** HACKING                                                         :hacking:
 **** https://latesthackingnews.com/feed/
 **** http://feeds.feedburner.com/TheHackersNews
+*** EMACS                                                           :emacs:
+**** https://systemcrafters.net/rss/news.xml

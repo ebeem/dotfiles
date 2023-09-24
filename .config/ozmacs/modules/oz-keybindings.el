@@ -34,6 +34,11 @@
     "gzu" '+multiple-cursors/evil-mc-undo-cursor
     "gzz" '+multiple-cursors/evil-mc-toggle-cursor-here)
 
+  (evil-define-key '(visual) 'global
+    ">" 'evil-interactive-shift-right
+    "<" 'evil-interactive-shift-left)
+
+
   ;; set up 'SPC' as the global leader key
   (general-create-definer eb/leader-keys
     :states '(normal insert visual emacs)
@@ -213,6 +218,8 @@
     "m b -" '(org-table-insert-hline :wk "Insert hline in table"))
 
   (eb/leader-keys
+    "m r" '(:ignore t :wk "Org Roam")
+    "m r c" '(org-roam-capture :wk "Org roam capture")
     "m d" '(:ignore t :wk "Date/deadline")
     "m d t" '(org-time-stamp :wk "Org time stamp"))
 

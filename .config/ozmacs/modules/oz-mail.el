@@ -43,6 +43,8 @@
       	message-kill-buffer-on-exit t)
 
   (custom-set-faces '(mu4e-header-highlight-face ((t (:inherit hl-line :extend t :underline t)))))
+  (custom-set-faces '(mu4e-unread-face ((t (:inherit font-lock-keyword-face :extend t)))))
+
   (with-eval-after-load "mm-decode"
       (add-to-list 'mm-discouraged-alternatives "text/html")
       (add-to-list 'mm-discouraged-alternatives "text/richtext"))

@@ -6,7 +6,7 @@
   (setq toc-org-hrefify-default "gh"))
 
 (use-package org-modern ; modern org
-  :hook (org-mode . org-modern-mode)
+  :hook (org-mode . +org-mode-enhanced-view)
   :config
   (setq org-auto-align-tags nil
     org-tags-column 0
@@ -29,6 +29,15 @@
     org-agenda-current-time-string
     "⭠ now ─────────────────────────────────────────────────"))
 
+
+(use-package org-mode
+  :elpaca nil
+  :hook (org-mode . +org-mode-enhanced-view))
+
+(defun +org-mode-enhanced-view ()
+  (setq-local truncate-lines nil)
+  (org-modern-mode))
+
 ;; Org-transclusion lets you insert a copy of text content via a file
 ;; link or ID link within an Org file. It lets you have the same content
 ;; present in different buffers at the same time without copy-and-pasting it.
@@ -42,8 +51,10 @@
              org-roam-dailies-find-today
              org-roam-dailies-find-tomorrow
              org-roam-dailies-find-yesterday)
+  :init
+  (require 'org-roam-export)
   :custom
-  (org-roam-directory (file-truename "~/cloud/"))
+  (org-roam-directory (file-truename "~/cloud/org/roam"))
   (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
@@ -64,7 +75,6 @@
   (setq org-startup-truncated nil)
   (with-eval-after-load "org"
     (require 'org-phscroll)))
-
 
 ;; org mode presentations
 (use-package org-present

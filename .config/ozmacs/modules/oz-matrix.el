@@ -10,6 +10,18 @@
   :elpaca (:host github :repo "alphapapa/ement.el")
   :hook (ement-room-view . (lambda (room session) (ement-view-mode-enhanced)))
   :init
+  (with-eval-after-load 'savehist
+      (defun ement--savehist-save-hook ()
+        "Remove all `ement-' commands from `command-history'.
+    Because when `savehist' saves `command-history', it includes the
+    interactive arguments passed to the command, which in our case
+    includes large data structures that should never be persisted!"
+        (setf command-history
+              (cl-remove-if (pcase-lambda (`(,command . ,_))
+                              (string-match-p (rx bos "ement-") (symbol-name command)))
+                            command-history)))
+      (add-hook 'begining-of-buffer-hook (lambda () (ement-room-mwheel-scroll)))
+      (cl-pushnew 'ement--savehist-save-hook savehist-save-hook))
   (setq ement-save-sessions t)
   :config
   (defun ement-view-mode-enhanced ()

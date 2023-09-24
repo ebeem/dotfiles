@@ -63,6 +63,8 @@
   (setq eglot-confirm-server-initiated-edits nil))
 
 (use-package eldoc-box
+  :bind
+  ([remap eldoc-doc-buffer] . eldoc-box-help-at-point)
   :config
   (setq eldoc-echo-area-use-multiline-p nil))
 

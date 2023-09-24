@@ -37,10 +37,6 @@
 (global-auto-revert-mode 1)							;; auto revert unchanged buffers
 (column-number-mode)								;; modeline column indicator
 
-;; cache and dlc paths
-(with-eval-after-load "elpaca-log"
-  (setf (alist-get 'utils-reload-init elpaca-log-command-queries) 'silent))
-
 ;; auto-save-mode doesn't create the path automatically!
 (make-directory (expand-file-name ".cache" user-emacs-directory) t)
 (make-directory (expand-file-name ".cache/auto-saves/" user-emacs-directory) t)
@@ -64,8 +60,8 @@
   (load custom-file))
 
 ;; transparency
-(set-frame-parameter nil 'alpha-background 95)
-(add-to-list 'default-frame-alist '(alpha-background . 95))
+(set-frame-parameter nil 'alpha-background 85)
+(add-to-list 'default-frame-alist '(alpha-background . 85))
 
 ;; use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
