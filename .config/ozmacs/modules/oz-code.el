@@ -63,11 +63,15 @@
   (setq eglot-confirm-server-initiated-edits nil))
 
 (use-package eldoc-box
+  :init
+  (setq eldoc-echo-area-use-multiline-p nil)
   :bind
-  ([remap eldoc-doc-buffer] . eldoc-box-help-at-point)
-  :config
-  (setq eldoc-echo-area-use-multiline-p nil))
-
+  ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
+  
+;; rest client
+(use-package restclient)
+;; import postman requests if needed
+(use-package impostman)
 
 ;; programming langauges major modes
 

@@ -65,9 +65,22 @@
   "Returns the variable value from Xresources"
   (string-trim (shell-command-to-string (concat "xrdb -get " var))))
 
-
 ;; (xresources-value "rofi" "red")
 ;; (xresources-preprocessor "rofi" "Rest here ${xrdb:red}")
+
+(defun read-env-variable (filename var)
+  "Returns the value of from the provided environment variable"
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (let* ((target-pos (re-search-forward (concat "SERVER_HOST" "\=") nil t 1)))
+      (when target-pos
+            (end-of-line)
+            (message (buffer-substring target-pos (point)))))))
+
+(let* ((target-pos (re-search-forward (concat "SERVER_HOST" "\=") nil t 1)))
+  (when target-pos
+		(end-of-line)
+    	(message (buffer-substring target-pos (point)))))
 
 
 (add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)
