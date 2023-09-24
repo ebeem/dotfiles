@@ -38,8 +38,8 @@
 *.cursor.theme: v_cursor_theme
 *.icon-theme: v_icons_theme
 ! *.font: JetBrainsMono Nerd Font Bold 10
-*.font: Iosevka Aile 11
-*.font-fixed: Iosevka SS14 11
+*.font: Iosevka Aile 12
+*.font-fixed: Iosevka SS14 12
 *.terminal: alacritty
 
 ! default colors for all software inherited from the defined variables

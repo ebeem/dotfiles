@@ -111,10 +111,10 @@ configuration {
 #+BEGIN_SRC conf
 window {
     transparency:                "real";
-    location:                    northwest;
-    anchor:                      northwest;
+    location:                    center;
+    anchor:                      center;
     fullscreen:                  false;
-    width:                       350px;
+    width:                       50%;
     x-offset:                    10px;
     y-offset:                    40px;
 
@@ -367,11 +367,6 @@ This configuration is used for ~sound output~ and ~power menu~. In general, it s
 #+BEGIN_SRC conf :tangle ~/.config/rofi/config-right-menu.rasi
 @import                          "config.rasi"
 
-window {
-    location:                    northeast;
-    anchor:                      northeast;
-    x-offset:                    -10px;
-}
 #+END_SRC
 
 * Scripts
