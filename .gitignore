@@ -6,3 +6,5 @@ tmp/
 !.arch_pkgs/PKGBUILD
 *.zst
 .wallpapers/ignored
+*.pyc
+__pycache__
