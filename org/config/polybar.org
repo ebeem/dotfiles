@@ -241,7 +241,7 @@ toggle-on-foreground = ${color.green}
 toggle-off-foreground = ${color.red}
 #+END_SRC
 
-***  Wired Network
+*** Wired Network
 #+BEGIN_SRC conf :tangle ~/.config/polybar/modules.ini :exports code :mkdirp yes
 [module/wired-network]
 type = internal/network
@@ -674,7 +674,6 @@ label-open-foreground = ${color.primary}
 label-close-foreground = ${color.primary}
 #+END_SRC
 
-
 #+BEGIN_SRC sh :tangle ~/.bin/polybar-openweather :exports code :mkdirp yes
 #!/usr/bin/env sh
 get_icon() {
@@ -832,7 +831,7 @@ line-color = ${color.primary}
 These fonts are the only defined fonts that the rest of the ~polybar~ defined modules are allowed to use. Even though the font indexing starts from ~0~ in the definitions, for some compatibility cases with other software, the font indexing system within modules starts from ~1~ and not ~0~.
 
 #+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini :exports code :mkdirp yes
-font-0 = JetBrains Mono:style=Bold:size=9;3
+font-0 = Iosevka SS14:style=Bold:size=10;3
 font-1 = waffle:size=12;3
 font-2 = Iosevka Nerd Font:style=Medium:size=22;3
 font-3 = Iosevka Nerd Font:style=Bold:size=10;4

@@ -54,7 +54,7 @@ We provide a template that will be passed to an elisp to be processed
 #+BEGIN_SRC conf :tangle no
 configuration {
     icon-theme:       \"${xrdb:icon-theme}\";
-    font:             \"${xrdb:rofi.font}\";
+    font:             \"${xrdb:rofi.font-fixed}\";
     terminal:         \"${xrdb:rofi.terminal}\";
 }
 
@@ -97,7 +97,7 @@ configuration {
 
 #+name: xrdb-preprocessor
 #+BEGIN_SRC emacs-lisp :tangle no :exports none :cache yes :noweb yes :mkdirp yes
-(xresources-preprocessor "rofi" "
+(xresources-preprocessor "
 <<colors-configs>>
 ")
 #+END_SRC
