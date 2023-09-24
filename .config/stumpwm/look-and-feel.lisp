@@ -13,14 +13,14 @@
 
 ;; setting colors
 (setf *colors*
-      '("#1E2127"  ; bg
-        "#FFFFFF"  ; fg
-        "#98C379"  ; green
-        "#46D9FF"  ; cyan
-        "#61AFEF"  ; blue
-        "#E06C75"  ; red
-        "#c678dd"  ; magenta
-        "#ffffff"  ; yellow
+      '("#292D3E"  ; bg
+        "#EEFFFF"  ; fg
+        "#c3e88d"  ; green
+        "#89DDFF"  ; cyan
+        "#82aaff"  ; blue
+        "#ff5370"  ; red
+        "#c792ea"  ; magenta
+        "#ffcb6b"  ; yellow
         ))
 
 (update-color-map (current-screen))
@@ -50,12 +50,12 @@
 
 ;; configuration to create gaps between frames (if the swm-gaps module exist)
 (when (find-module "swm-gaps")
-    (progn
-        (refresh-heads)
-        (setf swm-gaps:*head-gaps-size* 0
-              swm-gaps:*inner-gaps-size* 3
-              swm-gaps:*outer-gaps-size* 3)
-        (swm-gaps:toggle-gaps-on)))
+   (progn
+       (refresh-heads)
+       (setf swm-gaps:*head-gaps-size* 0
+             swm-gaps:*inner-gaps-size* 3
+             swm-gaps:*outer-gaps-size* 3)
+       (swm-gaps:toggle-gaps-on)))
 
 ;; configuration to create gaps between top-bar and frames (if the swm-external-panel module exist)
 (when (find-module "swm-external-panel")

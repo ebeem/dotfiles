@@ -20,7 +20,7 @@
   ;; (run-shell-command "~/.fehbg")
   ;; initialize modeline/polybar
 
-  (dolist (app (list "sleep 10 && emacsclient -c" "firefox" "sleep 10 && emacsclient -c -e '(+eshell/here nil)')"
-                      "chromium 'https://web.whatsapp.com/'" "discord" "sleep 10 && slack" "obs" "sleep 10"
-                      "ckb-next -b" "sleep 10 && gtk-launch 'elfeed'" "sleep 10 && gtk-launch 'mu4e'" "sleep 10 && gtk-launch 'ement'"))
-    (run-shell-command app)))
+ (dolist (app (list "sleep 10 && emacsclient -c" "firefox" "sleep 10 && emacsclient -c -e '(+eshell/here nil)')"
+                     "chromium 'https://web.whatsapp.com/'" "discord" "sleep 10 && slack" "obs" "sleep 10"
+                     "ckb-next -b" "sleep 10 && gtk-launch 'elfeed'" "sleep 10 && gtk-launch 'mu4e'" "sleep 10 && gtk-launch 'ement'"))
+   (run-shell-command app)))
