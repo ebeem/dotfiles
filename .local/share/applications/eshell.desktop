@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-Name=Emacs Vterm
+Name=Emacs EShell
 GenericName=Terminal
-Exec=emacsclient -c -e "(vterm)"
+Exec=emacsclient -c -e "(eshell)"
 Terminal=false
 Icon=emacs
 Type=Application

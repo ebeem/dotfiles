@@ -23,7 +23,7 @@
  '(org-safe-remote-resources
    '("\\`https://fniessen\\.github\\.io/org-html-themes/org/theme-readtheorg\\.setup\\'"))
  '(package-selected-packages
-   '(eglot org-auto-tangle nano-theme bongo plz dired-du command-log-mode mu4e-column-faces stumpwm-mode lsp-mode mingus emms evil-collection exwm org-present mpdel disk-usage bluetooth dired-hacks-utils simple-mpc burly visual-fill-column highlight-symbol quelpa-use-package ement))
+   '(all-the-icons eglot org-auto-tangle nano-theme bongo plz dired-du command-log-mode mu4e-column-faces stumpwm-mode lsp-mode mingus emms evil-collection exwm org-present mpdel disk-usage bluetooth dired-hacks-utils simple-mpc burly visual-fill-column highlight-symbol quelpa-use-package ement))
  '(pdf-view-midnight-colors (cons "#bbc2cf" "#282c34"))
  '(rustic-ansi-faces
    ["#282c34" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#bbc2cf"])

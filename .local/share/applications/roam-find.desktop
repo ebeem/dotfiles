@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Roam Find
+GenericName=Roam Find
+Exec=emacsclient -c -e "(org-roam-node-find)"
+Terminal=false
+Icon=emacs
+Type=Application
+Categories=Application;Emacs;Terminal;Notes;Roam;

@@ -79,20 +79,20 @@
 
   (eb/leader-keys
     "c" '(:ignore t :wk "LSP Code")
-    "c a" '(eglot-code-actions :wk "LSP Execute code action")
+    "c a" '(lsp-execute-code-action :wk "LSP Execute code action")
     "c c" '(compile :wk "Compile")
     "c C" '(recompile :wk "Recompile")
-    "c d" '(eglot-find-typeDefinition :wk "Jump to definition")
-    "c D" '(eglot-find-implementation :wk "Jump to references")
-    "c f" '(eglot-format-buffer :wk "Format buffer/region")
+    "c d" '(lsp-find-type-definition :wk "Jump to definition")
+    "c D" '(lsp-find-implementation :wk "Jump to references")
+    "c F" '(lsp-format-buffer :wk "Format buffer/region")
+    "c f" '(lsp-format-region :wk "Format buffer/region")
     "c i" '(imenu :wk "Imenu")
-    "c I" '(eglot-find-implementation :wk "Find implementations")
-    "c j" '(eglot-find-declaration :wk "LSP Find declaration")
-    "c J" '(consult-eglot-symbols :wk "Jump to symbol in current workspace")
+    "c I" '(lsp-find-implementation :wk "Find implementations")
+    "c j" '(lsp-find-declaration :wk "LSP Find declaration")
     "c k" '(eldoc-box-help-at-point :wk "Jump to documentation")
     "c K" '(eldoc :wk "Jump to documentation")
-    "c r" '(eglot-rename :wk "LSP Rename")
-    "c t" '(eglot-find-typeDefinition :wk "Find type definition")
+    "c r" '(lsp-rename :wk "LSP Rename")
+    "c t" '(lsp-find-type-definition :wk "Find type definition")
     "c x" '(flycheck-list-errors :wk "List errors"))
 
   (eb/leader-keys
@@ -205,23 +205,19 @@
     "h x" '(describe-command :wk "Display full documentation for command"))
 
   (eb/leader-keys
-    "m" '(:ignore t :wk "Org")
-    "m a" '(org-agenda :wk "Org agenda")
-    "m e" '(org-export-dispatch :wk "Org export dispatch")
-    "m i" '(org-toggle-item :wk "Org toggle item")
-    "m t" '(org-todo :wk "Org todo")
-    "m B" '(org-babel-tangle :wk "Org babel tangle")
-    "m T" '(org-todo-list :wk "Org todo list"))
-
-  (eb/leader-keys
-    "m b" '(:ignore t :wk "Tables")
-    "m b -" '(org-table-insert-hline :wk "Insert hline in table"))
-
-  (eb/leader-keys
-    "m r" '(:ignore t :wk "Org Roam")
-    "m r c" '(org-roam-capture :wk "Org roam capture")
-    "m d" '(:ignore t :wk "Date/deadline")
-    "m d t" '(org-time-stamp :wk "Org time stamp"))
+    "n" '(:ignore t :wk "Org")
+    "n a" '(org-agenda :wk "Org agenda")
+    "n e" '(org-export-dispatch :wk "Org export dispatch")
+    "n i" '(org-toggle-item :wk "Org toggle item")
+    "n t" '(org-todo :wk "Org todo")
+    "n B" '(org-babel-tangle :wk "Org babel tangle")
+    "n T" '(org-todo-list :wk "Org todo list")
+    "n b" '(:ignore t :wk "Tables")
+    "n b -" '(org-table-insert-hline :wk "Insert hline in table")
+    "n r" '(:ignore t :wk "Org Roam")
+    "n r c" '(org-roam-capture :wk "Org roam capture")
+    "n d" '(:ignore t :wk "Date/deadline")
+    "n d t" '(org-time-stamp :wk "Org time stamp"))
 
   (eb/leader-keys
     "o" '(:ignore t :wk "Open")

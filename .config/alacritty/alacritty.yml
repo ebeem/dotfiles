@@ -23,7 +23,7 @@
 # available, otherwise `xterm-256color` is used.
 #TERM: alacritty
 
-#window:
+window:
 # Window dimensions (changes require restart)
 #
 # Number of lines/columns (not pixels) in the terminal. Both lines and columns
@@ -68,7 +68,7 @@
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-#opacity: 1.0
+  opacity: 0.85
 
 # Startup Mode (changes require restart)
 #
@@ -101,10 +101,10 @@
 # the default theme variant.
 #decorations_theme_variant: None
 
-#scrolling:
+scrolling:
 # Maximum number of lines in the scrollback buffer.
 # Specifying '0' will disable scrolling.
-#history: 10000
+  history: 100000
 
 # Scrolling distance multiplier.
 #multiplier: 3
@@ -112,27 +112,26 @@
 # Font configuration
 font:
   normal:
-    family: JetBrains Mono
-    style: Bold
+    family: Iosevka SS14
 
   bold:
-    family: JetBrains Mono
+    family: Iosevka SS14
     style: Bold
 
   italic:
-    family: JetBrains Mono
+    family: Iosevka SS14
     style: Italic
 
   bold_italic:
-    family: JetBrains Mono
+    family: Iosevka SS14
     style: Bold Italic
 
-  size: 13
+  size: 15
 colors:
   # Default colors
   primary:
-    background: "0x1e2127"
-    foreground: "0xabb2bf"
+    background: "#292D3E"
+    foreground: "#EEFFFF"
 
     # Bright and dim foreground colors
     #
@@ -140,7 +139,7 @@ colors:
     # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
     # is `false`, the normal foreground color will be used.
     #dim_foreground: '0x9a9a9a'
-    bright_foreground: "0xe6efff"
+    bright_foreground: "#EEFFFF"
 
   # Cursor colors
   #
@@ -153,38 +152,38 @@ colors:
   # Normal colors
   normal:
     black: "0x1e2127"
-    red: "0xe06c75"
-    green: "0x98c379"
-    yellow: "0xd19a66"
-    blue: "0x61afef"
-    magenta: "0xc678dd"
-    cyan: "0x56b6c2"
-    white: "0x828791"
+    red: "#ff5370"
+    green: "#c3e88d"
+    yellow: "#ffcb6b"
+    blue: "#82aaff"
+    magenta: "#c792ea"
+    cyan: "#89DDFF"
+    white: "#EEFFFF"
 
   # Bright colors
-  bright:
-    black: "0x5c6370"
-    red: "0xe06c75"
-    green: "0x98c379"
-    yellow: "0xd19a66"
-    blue: "0x61afef"
-    magenta: "0xc678dd"
-    cyan: "0x56b6c2"
-    white: "0xe6efff"
+  # bright:
+  #   black: "0x5c6370"
+  #   red: "0xe06c75"
+  #   green: "0x98c379"
+  #   yellow: "0xd19a66"
+  #   blue: "0x61afef"
+  #   magenta: "0xc678dd"
+  #   cyan: "0x56b6c2"
+  #   white: "0xe6efff"
 
   # Dim colors
   #
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
-  dim:
-    black: "0x1e2127"
-    red: "0xe06c75"
-    green: "0x98c379"
-    yellow: "0xd19a66"
-    blue: "0x61afef"
-    magenta: "0xc678dd"
-    cyan: "0x56b6c2"
-    white: "0x828791"
+  # dim:
+  #   black: "0x1e2127"
+  #   red: "0xe06c75"
+  #   green: "0x98c379"
+  #   yellow: "0xd19a66"
+  #   blue: "0x61afef"
+  #   magenta: "0xc678dd"
+  #   cyan: "0x56b6c2"
+  #   white: "0x828791"
 #font:
 # Normal (roman) font face
 #normal:

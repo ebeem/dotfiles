@@ -56,11 +56,23 @@
   :config
   (global-treesit-auto-mode))
 
-(use-package eglot
-  :elpaca nil
-  :hook (before-save . eglot-format-buffer)
-  :config
-  (setq eglot-confirm-server-initiated-edits nil))
+;; (use-package eglot
+;;   :elpaca nil
+;;   ;; :hook (before-save . eglot-format-buffer)
+;;   :config
+;;   (setq eglot-confirm-server-initiated-edits nil)
+;;   (add-to-list 'eglot-server-programs
+;;                   `(csharp-ts-mode . ("omnisharp" "-lsp")))
+;;   (add-to-list 'eglot-server-programs
+;;                   `(csharp-mode . ("omnisharp" "-lsp"))))
+
+(use-package lsp-mode
+  :init
+  (setq lsp-session-file (expand-file-name ".cache/lsp-sessions" user-emacs-directory)
+        lsp-server-install-dir (expand-file-name ".cache/lsp-servers" user-emacs-directory))
+  :hook (
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
 
 (use-package eldoc-box
   :init
@@ -74,36 +86,45 @@
 (use-package impostman)
 
 ;; programming langauges major modes
-
 (use-package rjsx-mode
   :mode ("\\.jsx\\'" . rjsx-mode)
-  :hook (rjsx-mode . eglot))
+  :hook (rjsx-mode . lsp))
+
+(use-package python-mode
+  :mode ("\\.py\\'" . python-ts-mode)
+  :hook (python-ts-mode . lsp))
 
 (use-package typescript-mode
-  :after tree-sitter
-  :mode ("\\.tsx\\'" . tsx-ts-mode))
+  :mode ("\\.tsx\\'" . tsx-ts-mode)
+  :hook (tsx-ts-mode . lsp))
 
 (use-package dart-mode
   :mode ("\\.dart\\'" . dart-mode)
-  :hook (dart-mode . eglot))
+  :hook (dart-mode . lsp))
 
 (use-package flutter
-  :mode ("\\.dart\\'" . dart-mode))
+  :mode ("\\.dart\\'" . dart-mode)
+  :hook (dart-mode . lsp))
 
 (use-package csv-mode
-  :mode ("\\.csv\\'" . csv-mode))
+  :mode ("\\.csv\\'" . csv-mode)
+  :hook (csv-mode . lsp))
 
 (use-package gdscript-mode
   :mode ("\\.gd\\'" . gdscript-mode)
-  :hook (dart-mode . eglot))
+  :hook (gdscript-mode . lsp))
 
 (use-package php-mode
   :mode ("\\.php\\'" . php-mode)
-  :hook (dart-mode . eglot))
+  :hook (php-mode . lsp))
 
 (use-package lua-mode
   :mode ("\\.lua\\'" . lua-mode)
-  :hook (dart-mode . eglot))
+  :hook (lua-mode . lsp))
+
+(use-package csproj-mode
+  :mode ("\\.csproj\\'" . csproj-mode)
+  :hook (csproj-mode . lsp))
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

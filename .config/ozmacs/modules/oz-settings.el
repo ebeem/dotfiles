@@ -22,6 +22,8 @@
               confirm-kill-processes nil
               fill-column 80
               indent-tabs-mode t
+              standard-indent 4
+			  typescript-ts-mode-indent-offset 4
               tab-width 4
               undo-limit 9999999999
               auto-save-default t
@@ -32,7 +34,7 @@
               indent-tabs-mode nil)
 (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
-(add-hook 'before-save-hook #'whitespace-cleanup)	;; cleanup whitespaces
+;; (add-hook 'before-save-hook #'whitespace-cleanup)	;; cleanup whitespaces
 
 (global-auto-revert-mode 1)							;; auto revert unchanged buffers
 (column-number-mode)								;; modeline column indicator

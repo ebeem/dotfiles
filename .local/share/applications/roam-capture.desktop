@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Roam Capture
+GenericName=Roam Capture
+Exec=emacsclient -c -e "(org-roam-capture)"
+Terminal=false
+Icon=emacs
+Type=Application
+Categories=Application;Emacs;Terminal;Notes;Roam;

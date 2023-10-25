@@ -75,5 +75,7 @@
 (package! burly)
 (package! elfeed-goodies :disable t)
 (package! mu4e-column-faces)
+(package! mu4e-dashboard
+  :recipe (:host github :repo "rougier/mu4e-dashboard" :branch "main"))
 (package! phscroll
   :recipe (:host github :repo "misohena/phscroll" :branch "master"))

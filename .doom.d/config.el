@@ -28,7 +28,7 @@
 ;; (setq doom-font (font-spec :family "Iosevka Fixed" :size 20 :height 110 :weight 'extra-bold)
 (setq doom-font (font-spec :family "JetBrains Mono" :size 17 :weight 'bold)
       doom-variable-pitch-font (font-spec :family "Noto Sans" :size 17 :height 110)
-      +bidi-arabic-font (font-spec :family "Noto Sans Arabic Black" :size 17 :height 110))
+      +bidi-arabic-font (font-spec :family "Noto Sans Arabic Black" :size 16 :height 110))
       ;; doom-variable-pitch-font (font-spec :family "Noto Sans Arabic Black" :size 22 :height 110))
       ;; doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 17 :weight 'bold))
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -205,15 +205,7 @@
      (define-key howdoyou-mode-map (kbd "C-j") #'howdoyou-next-link)))
 
 ;; modeline
-(setq doom-modeline-buffer-file-name-style 'truncate-with-project
-      doom-modeline-icon (display-graphic-p)
-      doom-modeline-major-mode-icon t
-      doom-modeline-major-mode-color-icon t
-      doom-modeline-persp-name t
-      doom-modeline-persp-icon t
-      doom-modeline-github t
-      doom-modeline-mu4e t
-      doom-modeline-height 1)
+(setq doom-modeline-buffer-file-name-style 'truncate-with-project)
 
 ;; vterm
 (add-hook 'vterm-mode-hook (lambda () (hide-mode-line-mode -1)))
@@ -222,7 +214,6 @@
 (doom-load-envvars-file "~/.doom.d/env")
 
 ;; mu4e
-
 (after! mu4e
   (setq mu4e-alert-email-notification-types '(count))
   (setq mu4e-update-interval (* 60 3)
@@ -272,6 +263,7 @@
 ;; automatically highlight symbols under the curse
 ;; (setq highlight-symbol-idle-delay 0.4)
 ;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
+;; red :TODO :FIXME #ff0000 
 
 (map! :map elfeed-search-mode-map
       :after elfeed-search
@@ -287,7 +279,7 @@
       [remap kill-buffer] "q"
       :n doom-leader-key nil
       :nm "Y" #'elfeed-show-yank)
-      
+
 (after! elfeed
   (elfeed-org)
   (use-package! elfeed-link)
@@ -618,3 +610,7 @@ of a line."
 (setq org-startup-truncated nil)
 (with-eval-after-load "org"
   (require 'org-phscroll))
+
+;; transparency
+(set-frame-parameter nil 'alpha-background 87)
+(add-to-list 'default-frame-alist '(alpha-background . 87))

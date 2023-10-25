@@ -8,7 +8,10 @@
   ;; Must be set early to prevent ~/.config/emacs/transient from being created
   (setq transient-levels-file  (expand-file-name ".cache/transient/levels" user-emacs-directory)
         transient-values-file  (expand-file-name ".cache/transient/values" user-emacs-directory)
-        transient-history-file (expand-file-name ".cache/transient/history" user-emacs-directory))
+        transient-history-file (expand-file-name ".cache/transient/history" user-emacs-directory)
+  		transient-display-buffer-action '(display-buffer-below-selected)
+        magit-display-buffer-function #'+magit-display-buffer-fn
+        magit-bury-buffer-function #'magit-mode-quit-window)
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
