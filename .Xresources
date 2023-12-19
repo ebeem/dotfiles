@@ -34,12 +34,15 @@
 #define v_icons_theme Colloid-nord-dark
 #define v_cursor_theme Breeze_Snow
 
+#define v_pitch_font Iosevka Aile 12
+#define v_fixed_font Iosevka SS14 12
+
 *.icons.theme: v_icons_theme
 *.cursor.theme: v_cursor_theme
 *.icon-theme: v_icons_theme
 ! *.font: JetBrainsMono Nerd Font Bold 10
-*.font: Iosevka Aile 12
-*.font-fixed: Iosevka SS14 12
+*.font: v_pitch_font
+*.font-fixed: v_fixed_font
 *.terminal: alacritty
 
 ! default colors for all software inherited from the defined variables
@@ -78,3 +81,5 @@
 polybar.background-alt: #352B3152
 rofi.primary: v_primary
 Xcursor.theme: v_cursor_theme
+
+emacs.font: v_fixed_font

@@ -12,6 +12,7 @@
           evil-want-C-u-scroll t
           evil-want-C-i-jump nil
           evil-respect-visual-line-mode t
+          evil-kill-on-visual-paste nil
           evil-undo-system 'undo-tree)
     :config
     (evil-mode 1)

@@ -9,8 +9,13 @@
   :config
   (general-evil-setup)
 
-  (evil-define-key '(normal visual) 'global
+  (evil-define-key '(visual) 'global
     "gc" 'evilnc-comment-or-uncomment-lines)
+
+  (evil-define-key '(normal) 'global
+    "gcc" 'evilnc-comment-or-uncomment-lines
+    "gcn" 'flycheck-next-error
+    "gcp" 'flycheck-previous-error)
 
   (evil-collection-define-key 'normal 'emacs-lisp-mode-map
     "gz" nil)

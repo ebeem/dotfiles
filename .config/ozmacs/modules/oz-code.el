@@ -94,6 +94,14 @@
   :mode ("\\.py\\'" . python-ts-mode)
   :hook (python-ts-mode . lsp))
 
+(use-package geiser)
+(use-package geiser-guile)
+
+(use-package csharp-mode
+  :elpaca nil
+  :mode ("\\.cs\\'" . csharp-ts-mode)
+  :hook (csharp-ts-mode . lsp))
+
 (use-package typescript-mode
   :mode ("\\.tsx\\'" . tsx-ts-mode)
   :hook (tsx-ts-mode . lsp))

@@ -8,9 +8,9 @@
       frame-resize-pixelwise      t     ; fine resize
       native-comp-jit-compilation t
       max-lisp-eval-depth		  10000
+      warning-minimum-level 	  :emergency
       native-comp-eln-load-path   (list (expand-file-name ".cache/eln-cache/" user-emacs-directory))
       package-native-compile      t)    ; native compile packages
-
 (scroll-bar-mode -1)                ; disable scrollbar
 (tool-bar-mode -1)                  ; disable toolbar
 (tooltip-mode -1)                   ; disable tooltips

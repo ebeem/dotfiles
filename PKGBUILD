@@ -67,7 +67,6 @@ depends=(
     'dotnet-runtime'
     'dotnet-sdk'
     'dotnet-targeting-pack'
-    'mono'
     'omnisharp-roslyn'
 
     #   python
@@ -94,8 +93,8 @@ depends=(
     # 'glade'
 
     #   java
-    'gradle'
-    'jdk-openjdk'
+    # 'gradle'
+    # 'jdk-openjdk'
 
     #   databases
     'postgresql'
@@ -123,7 +122,6 @@ depends=(
 
     #   game development
     'godot'
-    'godot-mono-bin'
 
     #   text editors/IDEs
     'emacs'
@@ -137,7 +135,7 @@ depends=(
     #   reverse engineering
     'gdb'
     # 'ghex'
-    'ghidra'
+    # 'ghidra'
     'r2ghidra'
     'radare2'
     'rz-cutter'

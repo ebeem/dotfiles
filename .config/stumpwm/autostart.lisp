@@ -7,11 +7,12 @@
 
   ;; (run-shell-command "sleep 5000 && polybar-launcher")
   (run-shell-command "xrdb -merge /home/ebeem/.Xresources")
-  (run-shell-command "xset r rate 400 50")
+  (run-shell-command "xset r rate 300 50")
   (run-shell-command "xset -dpms")
   (run-shell-command "xset s off")
   (run-shell-command "xsettingsd")
   (run-shell-command "xsetroot -cursor_name left_ptr")
+  (run-shell-command "setxkbmap -option ctrl:nocaps")
   (run-shell-command "picom -b --dbus")
   (run-shell-command "nitrogen --restore")
   (run-shell-command "polybar -r")
