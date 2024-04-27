@@ -158,7 +158,7 @@ animation-charging-framerate = 750
 type = internal/cpu
 interval = 1
 format = <label>
-format-prefix = 
+format-prefix =  
 format-background = ${color.background}
 format-padding = 1
 label = " %percentage%%"
@@ -169,7 +169,7 @@ label = " %percentage%%"
 [module/date]
 type = internal/date
 interval = 1.0
-time = " %A, %d %B  %r"
+time = " %A, %d %B  %r"
 format = <label>
 format-background = ${color.background}
 format-padding = 1
@@ -201,7 +201,7 @@ label-unmounted = " %mountpoint%: not mounted"
 type = internal/memory
 interval = 1
 format = <label>
-format-prefix = 
+format-prefix =  
 format-background = ${color.background}
 format-padding = 1
 label = " %percentage_used%%"
@@ -213,11 +213,11 @@ label = " %percentage_used%%"
 type = internal/mpd
 interval = 1
 format-online = <label-song> <icon-prev> <toggle> <icon-next>
-format-online-prefix = 
+format-online-prefix = 󰎈
 format-online-background = ${color.background}
 format-online-padding = 1
 format-offline = <label-offline>
-format-offline-prefix = 
+format-offline-prefix = 
 format-offline-background = ${color.background}
 format-offline-padding = 1
 label-song =  " %artist% - %title%"
@@ -226,11 +226,11 @@ label-song-padding = 2
 label-song-ellipsis = true
 label-time = %elapsed% / %total%
 label-offline = " Offline"
-icon-play = 
-icon-pause = 
-icon-stop = 
-icon-next = 
-icon-prev = 
+icon-play = 
+icon-pause = 
+icon-stop = 
+icon-next = 
+icon-prev = 
 icon-seekf =
 icon-seekb =
 icon-random =
@@ -268,15 +268,15 @@ format-connected = <ramp-signal> <label-connected>
 format-connected-background = ${color.background}
 format-connected-padding = 1
 format-disconnected = <label-disconnected>
-format-disconnected-prefix = 
+format-disconnected-prefix = 
 format-disconnected-background = ${color.background}
 format-disconnected-padding = 1
 label-font = 6
-label-connected = "%{A1:networkmanager_dmenu &:}  %downspeed:8:...% %upspeed:8:...%%{A}"
+label-connected = "%{A1:networkmanager_dmenu &:}  %downspeed:8:...% %upspeed:8:...%%{A}"
 label-disconnected = "%{A1:networkmanager_dmenu &:} Offline%{A}"
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
 #+END_SRC
 
 *** PulseAudio
@@ -296,11 +296,11 @@ format-muted-padding = 1
 label-volume = %percentage%%
 label-muted = " Muted"
 label-muted-foreground = ${color.foreground}
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-volume-3 = 
-ramp-volume-4 = 
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
 #+END_SRC
 
 *** Temperature
@@ -322,11 +322,11 @@ label-font = 6
 label = %temperature-c%
 label-warn = "%temperature-c%"
 label-warn-foreground = ${color.red}
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
+ramp-0 =  
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
 #+END_SRC
 
 *** Keyboard
@@ -339,7 +339,7 @@ scroll-down = ~/.bin/rofi-switch-keyboard-layout
 blacklist-0 = num lock
 blacklist-1 = scroll lock
 format = <label-layout> <label-indicator>
-format-prefix = 
+format-prefix = 
 format-padding = 1
 format-background = ${color.background}
 label-layout = " %layout:0:2%"
@@ -421,17 +421,17 @@ format-volume = <ramp-volume> <bar-volume>
 format-volume-background = ${color.background}
 format-volume-padding = 1
 format-muted = <label-muted>
-format-muted-prefix = 
+format-muted-prefix = 
 format-muted-background = ${color.background}
 format-muted-padding = 1
 label-volume = %percentage%%
 label-muted = " Muted"
 label-muted-foreground = ${color.foreground}
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-volume-3 = 
-ramp-volume-4 = 
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
 bar-volume-format = ${bar.format}
 bar-volume-width = ${bar.width}
 bar-volume-gradient = false
@@ -445,7 +445,7 @@ bar-volume-foreground-3 = ${color.yellow}
 bar-volume-foreground-4 = ${color.red}
 bar-volume-empty = ${bar.empty}
 bar-volume-empty-foreground = ${color.foreground-alt}
-ramp-headphones-0 = 
+ramp-headphones-0 = 
 #+END_SRC
 
 *** Brightness
@@ -522,11 +522,11 @@ bar-capacity-empty-foreground = ${color.foreground-alt}
   type = internal/mpd
   interval = 1
   format-online = <label-song> <bar-progress> <label-time>
-  format-online-prefix = 
+  format-online-prefix = 
   format-online-background = ${color.background}
   format-online-padding = 1
   format-offline = <label-offline>
-  format-offline-prefix = 
+  format-offline-prefix = 
   format-offline-background = ${color.background}
   format-offline-padding = 1
   label-song =  "%title%"
@@ -538,11 +538,11 @@ bar-capacity-empty-foreground = ${color.foreground-alt}
   label-song-alignment = center
   label-time = %elapsed% / %total%
   label-offline = " Offline"
-  icon-play = 
-  icon-pause = 
-  icon-stop = 
-  icon-next = 
-  icon-prev = 
+  icon-play = 
+  icon-pause = 
+  icon-stop = 
+  icon-next = 
+  icon-prev = 
   icon-seekf =
   icon-seekb =
   icon-random =
@@ -841,7 +841,7 @@ These fonts are the only defined fonts that the rest of the ~polybar~ defined mo
 
 #+BEGIN_SRC conf :tangle ~/.config/polybar/config.ini :exports code :mkdirp yes
 font-0 = Iosevka SS14:style=Bold:size=10;3
-font-1 = waffle:size=12;3
+font-1 = Iosevka Nerd Font:size=10;3
 font-2 = Iosevka Nerd Font:style=Medium:size=22;3
 font-3 = Iosevka Nerd Font:style=Bold:size=10;4
 font-4 = Weather Icons:style=Bold:size=10;3

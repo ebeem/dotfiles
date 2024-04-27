@@ -1,0 +1,38 @@
+[colors.normal]
+black = "0x1e2127"
+blue = "#82aaff"
+cyan = "#89DDFF"
+green = "#c3e88d"
+magenta = "#c792ea"
+red = "#ff5370"
+white = "#EEFFFF"
+yellow = "#ffcb6b"
+
+[colors.primary]
+background = "#292D3E"
+bright_foreground = "#EEFFFF"
+foreground = "#EEFFFF"
+
+[font]
+size = 15
+
+[font.bold]
+family = "Iosevka SS14"
+style = "Bold"
+
+[font.bold_italic]
+family = "Iosevka SS14"
+style = "Bold Italic"
+
+[font.italic]
+family = "Iosevka SS14"
+style = "Italic"
+
+[font.normal]
+family = "Iosevka SS14"
+
+[scrolling]
+history = 100000
+
+[window]
+opacity = 0.85

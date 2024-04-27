@@ -42,10 +42,11 @@ fi
 
 export BROWSER=/usr/bin/firefox
 export EDITOR=/usr/bin/emacs
-export ANDROID_HOME=/mnt/storage/android
-export ANDROID_SDK_ROOT=$ANDROID_HOME
-export PATH=/home/ebeem/workspace/git/flutter/bin:/home/ebeem/.dotnet/tools:$PATH
-export PATH=/home/ebeem/.dotnet/tools:$PATH
+#export ANDROID_HOME=/mnt/storage/android
+#export ANDROID_SDK_ROOT=$ANDROID_HOME
+#export PATH=/home/ebeem/workspace/git/flutter/bin::$PATH
+export PATH=home/ebeem/.dotnet/tools:$PATH
+export PATH=/opt/android-sdk/tools/bin:$PATH
 export PATH=~/.emacs.d/bin:~/.bin:$PATH
 export PATH=~/.config/emacs/bin:~/.bin:$PATH
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/ebeem/.steam
@@ -59,3 +60,6 @@ archey3
 source $HOME/.aliases
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Created by `pipx` on 2024-04-20 09:45:54
+export PATH="$PATH:/home/ebeem/.local/bin"

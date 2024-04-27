@@ -28,8 +28,8 @@ the direction must be a member of :up :down :left :right"
 ;; default windows placement
 (clear-window-placement-rules)
 
-(define-frame-preference "1-browser"
-  (0 nil   t   :class "firefox"))
+;; (define-frame-preference "1-browser"
+;;   (0 nil   t   :class "firefox"))
 
 (define-frame-preference "4-communication"
   (3 nil   t   :instance "chromium")

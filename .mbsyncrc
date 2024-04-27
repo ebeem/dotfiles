@@ -120,7 +120,7 @@ SyncState *
 
 # ============================== EMAIL ============================== #
 IMAPAccount rsibm
-Host imap.mail.ovh.ca
+Host imap.mail.ovh.ca:993
 UserCmd "sed -n 7p ~/.secret/mails"
 PassCmd "sed -n 7p ~/.secret/mailsp"
 SSLType IMAPS

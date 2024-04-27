@@ -1,5 +1,3 @@
-;;; Code:
-
 ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
 (use-package hl-todo
   :config
@@ -74,6 +72,38 @@
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
+(use-package with-venv)
+(use-package dap-mode
+  :init
+  (dap-ui-mode 1)
+  ;; enables mouse hover support
+  (dap-tooltip-mode 1)
+  ;; use tooltips for mouse hover
+  ;; if it is not enabled `dap-mode' will use the minibuffer.
+  (tooltip-mode 1)
+  ;; displays floating panel with debug buttons
+  ;; requies emacs 26+
+  (dap-ui-controls-mode 1)
+  (dap-mode 1)
+
+  (require 'dap-python)
+  (defun dap-python--pyenv-executable-find (command)
+    (with-venv (executable-find "python")))
+  (dap-register-debug-template
+    "Python Venv :: Run file (buffer)"
+    (list :type "python"
+          :args ""
+          :cwd "${workspaceFolder/.venv/bin/python}"
+          :module nil
+          :program nil
+          :request "launch"
+          :name "Python Venv :: Run file (buffer)"))
+  (setq dap-python-debugger 'debugpy)
+
+  (require 'dap-netcore))
+
+(use-package hydra)
+
 (use-package eldoc-box
   :init
   (setq eldoc-echo-area-use-multiline-p nil)
@@ -91,20 +121,20 @@
   :hook (rjsx-mode . lsp))
 
 (use-package python-mode
-  :mode ("\\.py\\'" . python-ts-mode)
-  :hook (python-ts-mode . lsp))
+  :mode ("\\.py\\'" . python-mode)
+  :hook (python-mode . lsp))
 
 (use-package geiser)
 (use-package geiser-guile)
 
 (use-package csharp-mode
   :elpaca nil
-  :mode ("\\.cs\\'" . csharp-ts-mode)
-  :hook (csharp-ts-mode . lsp))
+  :mode ("\\.cs\\'" . csharp-mode)
+  :hook (csharp-mode . lsp))
 
 (use-package typescript-mode
-  :mode ("\\.tsx\\'" . tsx-ts-mode)
-  :hook (tsx-ts-mode . lsp))
+  :mode ("\\.tsx\\'" . tsx-mode)
+  :hook (tsx-mode . lsp))
 
 (use-package dart-mode
   :mode ("\\.dart\\'" . dart-mode)

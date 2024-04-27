@@ -155,7 +155,7 @@ depends=(
     'zsh-autosuggestions'
     'zsh-completions'
     'zsh-syntax-highlighting'
-    'zsh-theme-powerlevel10k'
+    # 'zsh-theme-powerlevel10k'
     'powerline-fonts'
     # 'awesome-terminal-fonts'
     'ttf-meslo-nerd-font-powerlevel10k'
