@@ -115,7 +115,7 @@ depends=(
     #   web
     'apache'
     'composer'
-    'insomnia-bin'
+    'insomnium-bin'
     'nodejs'
     'npm'
     'filezilla'

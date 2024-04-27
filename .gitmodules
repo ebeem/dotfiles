@@ -4,6 +4,3 @@
 [submodule ".modules/colloid-icon-theme"]
 	path = .modules/colloid-icon-theme
 	url = https://github.com/vinceliuice/Colloid-icon-theme
-[submodule ".modules/tokyo-night-gtk-theme"]
-	path = .modules/tokyo-night-gtk-theme
-	url = https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme
