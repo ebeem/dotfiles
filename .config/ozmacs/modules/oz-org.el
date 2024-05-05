@@ -51,14 +51,13 @@
              org-roam-dailies-find-today
              org-roam-dailies-find-tomorrow
              org-roam-dailies-find-yesterday)
-  :init
-  (require 'org-roam-export)
   :custom
   (org-roam-directory (file-truename "~/cloud/org/roam"))
   (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
+  (require 'org-roam-export)
   (require 'org-roam-protocol))
 
 ;; TODO
