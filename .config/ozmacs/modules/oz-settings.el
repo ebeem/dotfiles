@@ -25,7 +25,7 @@
               standard-indent 4
 			  typescript-ts-mode-indent-offset 4
               tab-width 4
-              undo-limit 9999999999
+              undo-limit 1000
               auto-save-default t
               tab-always-indent t
               sentence-end-double-space nil			;; avoid whitespaces

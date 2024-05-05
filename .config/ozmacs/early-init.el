@@ -18,6 +18,6 @@
 (menu-bar-mode -1)                  ; disable menubar
 (blink-cursor-mode 0)               ; disable blinking cursor
 
-(setq gc-cons-threshold (* 1024 1024 1024))
+(setq gc-cons-threshold (* 1024 1024 100))
 
 ;;; early-init.el ends here
