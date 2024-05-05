@@ -147,6 +147,7 @@ params: none"
   "closes a specified window
 params: window"
   (dispatch "closewindow" window))
+
 (define (workspace)
   "Changes the workspace	workspace"
   (dispatch "workspace"))
