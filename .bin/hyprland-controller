@@ -6,7 +6,9 @@
 
 (define (main args)
   (cond ((equal? (list-ref args 1) "gotoworkspace")
-         (hyprctl-focus-workspace-direction (list-ref args 2)))))
+         (hyprctl-focus-workspace-direction (list-ref args 2)))
+        ((equal? (list-ref args 1) "movetoworkspace")
+         (hyprctl-move-to-workspace-direction (list-ref args 2)))))
 
 ;; (hyprctl-focus-workspace-direction (list-ref args 2))
 
@@ -51,6 +53,9 @@
 (define (hyprctl-focus-workspace id)
   (system* "hyprctl" "dispatch" "workspace" (number->string id)))
 
+(define (hyprctl-move-workspace id)
+  (system* "hyprctl" "dispatch" "movetoworkspace" (number->string id)))
+
 (define* (hyprctl-get-grid-direction direction #:optional (current-workspace (hyprctl-get-active-workspace-id)))
   (let* ((current-workspace-group (floor (/ current-workspace WORKSPACES-FORMAT)))
          (current-workspace-index (modulo current-workspace WORKSPACES-FORMAT))
@@ -69,8 +74,12 @@
           (modulo target-column COLUMNS)))))
 
 (define (hyprctl-focus-workspace-direction direction)
-  "moves the current workspace to "
+  "switch current workspace"
   (hyprctl-focus-workspace (hyprctl-get-grid-direction direction)))
+
+(define (hyprctl-move-to-workspace-direction direction)
+  "moves window to workspace"
+  (hyprctl-move-workspace (hyprctl-get-grid-direction direction)))
 
 ;; (display (hyprctl-get-active-workspace))
 

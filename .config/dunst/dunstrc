@@ -4,7 +4,7 @@
     ### Display ###
 
     # Which monitor should the notifications be displayed on.
-    monitor = 0
+    monitor = 1
 
     # Display notification on focused monitor.  Possible modes are:
     #   mouse: follow mouse pointer
@@ -90,7 +90,8 @@
     frame_width = 3
 
     # Defines color of the frame around the notification window.
-    frame_color = "#1E2127FF"
+    # frame_color = "#1E2127FF"
+    frame_color = "#c6a0f6"
 
     # Size of gap to display between notifications - requires a compositor.
     # If value is greater than 0, separator_height will be ignored and a border
@@ -300,27 +301,25 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#1E2127FF"
-    foreground = "#FFFFFFFF"
-    frame_color = "#61AFEFFF"
+    background = "#24273a"
+    foreground = "#cad3f5"
     timeout = 10
     script = ~/.config/dunst/sounds/notifications-normal.sh
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#1E2127FF"
-    foreground = "#FFFFFFFF"
-    frame_color = "#61AFEFFF"
+    background = "#24273a"
+    foreground = "#cad3f5"
     timeout = 10
     script = ~/.scripts/dunst/sound-normal.sh
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_critical]
-    background = "#1E2127FF"
-    foreground = "#FFFFFFFF"
-    frame_color = "#E06C75FF"
+    background = "#24273a"
+    foreground = "#cad3f5"
+    frame_color = "#f5a97f"
     timeout = 0
     script = ~/.scripts/dunst/sound-critical.sh
     # Icon for notifications with critical urgency, uncomment to enable

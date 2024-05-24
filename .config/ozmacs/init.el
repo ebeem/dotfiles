@@ -26,7 +26,7 @@
 (require 'oz-evil)            ;; ('evil', 'evil-collection', 'evil-escape')
 (require 'oz-ui)              ;; ('dashboard', 'faces', 'doom-themes', 'doom-modeline', 'diredfl', 'diminish')
 (require 'oz-code)            ;; ('flycheck') ;; TODO: optimize
-(require 'oz-org)             ;; ('org-mode', 'toc-org', 'org-modern', 'org-transclusion', 'org-roam', 'org-phscroll') ;; TODO: optimize
+(require 'oz-org)             ;; ('org-mode', 'toc-org', 'org-modern', 'org-transclusion', 'org-roam', 'org-phscroll')
 (require 'oz-git)             ;; ('magit', 'forge')
 (require 'oz-mail)            ;; ('mu4e')
 (require 'oz-matrix)          ;; ('ement')

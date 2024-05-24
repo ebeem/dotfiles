@@ -51,23 +51,22 @@ All colors and other configuration related to the look and feel that can be retr
 We provide a template that will be passed to an elisp to be processed
 
 #+name: colors-configs
-#+BEGIN_SRC conf :tangle no
+#+BEGIN_SRC conf
 configuration {
-    icon-theme:       \"${xrdb:icon-theme}\";
-    font:             \"${xrdb:rofi.font-fixed}\";
-    terminal:         \"${xrdb:rofi.terminal}\";
+    font:             "Iosevka SS14 Bold 12";
+    terminal:         "alacritty";
 }
 
  * {
-    background:       ${xrdb:rofi.background};
-    background-alt:   ${xrdb:rofi.background-alt};
-    foreground:       ${xrdb:rofi.foreground};
-    selected:         ${xrdb:rofi.primary};
-    active:           ${xrdb:rofi.primary};
-    urgent:           ${xrdb:rofi.red};
-    border-color:     ${xrdb:rofi.border-color};
-    border-width:     ${xrdb:rofi.border-width}px solid;
-    border-radius:    ${xrdb:rofi.border-radius}px;
+    background:       #24273a;
+    background-alt:   #494d64;
+    foreground:       #cad3f5;
+    selected:         #c6a0f6;
+    active:           #c6a0f6;
+    urgent:           #ed8796;
+    border-color:     #c6a0f6;
+    border-width:     2px solid;
+    border-radius:    4px;
 
     handle-color:                var(selected);
     background-color:            var(background);
@@ -104,7 +103,7 @@ configuration {
 
 
 #+BEGIN_SRC conf :noweb tangle :exports none
-<<xrdb-preprocessor()>>
+// <<xrdb-preprocessor()>>
 #+END_SRC
 
 * Main Window

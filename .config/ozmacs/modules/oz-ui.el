@@ -34,7 +34,7 @@
         doom-modeline-buffer-file-name-style 'buffer-name
         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
 
-(use-package modus-themes)
+;; (use-package modus-themes)
   ;; :config
   ;; (load-theme 'modus-atom-one-dark t))
 
@@ -43,9 +43,16 @@
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   ;; Sets the default theme to load!!!
-  (load-theme 'doom-palenight t)
+  (setq doom-catppuccin-dark-variant "macchiato")
+  (load-theme 'doom-catppuccin t)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+
+;; (use-package catppuccin-theme
+;;   :config
+;;   (setq catppuccin-flavor 'macchiato)
+;;   (load-theme 'catppuccin t)
+;;   (catppuccin-reload))
 
 (use-package nerd-icons-completion
   :after marginalia

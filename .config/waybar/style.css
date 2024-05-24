@@ -1,0 +1,159 @@
+
+@import "macchiato.css";
+
+* {
+  /* reference the color by using @color-name */
+  color: @text;
+  font-family: "Iosevka SS14", "Iosevka Nerd Font", sans-serif;
+  font-size: 15;
+  font-weight: bold;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+#workspaces {
+  border-radius: 1rem;
+  background-color: @surface0;
+  margin: 3px 5px 3px 5px;
+  padding: 0px 25px 0px 15px;
+
+  /* margin: 3px 5px 3px 5px; */
+  /* padding: 5px 8px 5px 15px; */
+}
+
+#workspaces label {
+  font-size: 15px;
+}
+
+#workspaces button.active label {
+  color: @mauve;
+}
+
+#workspaces button {
+  color: @pink;
+  border-radius: 1rem;
+  padding-left: 2px;
+  margin: 2px 0;
+  box-shadow: inset 0 -3px transparent;
+  transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.68);
+  background-color: transparent;
+}
+
+#workspaces button.persistent {
+  font-size: 1;
+}
+
+#workspaces button.active {
+  color: @flamingo;
+  border-radius: 1rem;
+}
+
+#workspaces button:hover {
+  color: @rosewater;
+  border-radius: 1rem;
+}
+
+#tray,
+#network,
+#backlight,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#language,
+#battery,
+#pulseaudio,
+#custom-lock,
+#custom-power {
+  background-color: @surface0;
+  margin: 3px 0px 3px 0px;
+  padding: 5px 8px 5px 8px;
+}
+
+#clock {
+  margin: 3px 5px 3px 5px;
+  padding: 5px 8px 5px 15px;
+  border-radius: 1rem;
+}
+
+#language {
+  margin: 3px -15px 3px 0px;
+  padding: 5px 25px 5px 15px;
+  border-radius: 1rem;
+}
+
+#custom-power {
+  margin: 3px 5px 3px -10px;
+  padding: 5px 15px 5px 15px;
+  border-radius: 1rem;
+}
+
+#clock {
+  color: @lavender;
+}
+
+#mpd {
+  background-color: @surface0;
+  margin: 3px 5px 3px -25px;
+  padding: 5px 18px 5px 15px;
+  border-radius: 1rem;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+#battery.warning:not(.charging) {
+  color: @red;
+}
+
+#network {
+    color: @flamingo;
+}
+
+#cpu {
+    color: @rosewater;
+}
+
+#memory {
+    color: @teal;
+}
+
+#temperature {
+    color: @peach;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#pulseaudio {
+  color: @pink;
+}
+
+#pulseaudio.muted {
+    color: @red;
+}
+
+#custom-power {
+    color: @red;
+}
+
+#tray {
+  border-radius: 1rem;
+}
+
+tooltip {
+    background: @base;
+    border: 1px solid @pink;
+}
+
+tooltip label {
+    color: @text;
+}

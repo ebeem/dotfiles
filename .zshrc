@@ -49,6 +49,7 @@ export PATH=home/ebeem/.dotnet/tools:$PATH
 export PATH=/opt/android-sdk/tools/bin:$PATH
 export PATH=~/.emacs.d/bin:~/.bin:$PATH
 export PATH=~/.config/emacs/bin:~/.bin:$PATH
+export PATH=~/.dotnet/tools:$PATH
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/ebeem/.steam
 export XDG_CONFIG_HOME=~/.config
 source $ZSH/oh-my-zsh.sh

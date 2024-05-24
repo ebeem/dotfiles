@@ -42,6 +42,7 @@
 ;; auto-save-mode doesn't create the path automatically!
 (make-directory (expand-file-name ".cache" user-emacs-directory) t)
 (make-directory (expand-file-name ".cache/auto-saves/" user-emacs-directory) t)
+(setq read-process-output-max (* 1024 1024))
 
 (setq url-configuration-directory (expand-file-name ".cache/url" user-emacs-directory)
       transient-history-file (expand-file-name ".cache/transient/history" user-emacs-directory)
@@ -62,8 +63,8 @@
   (load custom-file))
 
 ;; transparency
-(set-frame-parameter nil 'alpha-background 85)
-(add-to-list 'default-frame-alist '(alpha-background . 85))
+(set-frame-parameter nil 'alpha-background 88)
+(add-to-list 'default-frame-alist '(alpha-background . 88))
 
 ;; use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)

@@ -121,20 +121,20 @@
   :hook (rjsx-mode . lsp))
 
 (use-package python-mode
-  :mode ("\\.py\\'" . python-mode)
-  :hook (python-mode . lsp))
+  :mode ("\\.py\\'" . python-ts-mode)
+  :hook (python-ts-mode . lsp))
 
 (use-package geiser)
 (use-package geiser-guile)
 
 (use-package csharp-mode
   :elpaca nil
-  :mode ("\\.cs\\'" . csharp-mode)
-  :hook (csharp-mode . lsp))
+  :mode ("\\.cs\\'" . csharp-ts-mode)
+  :hook (csharp-ts-mode . lsp))
 
 (use-package typescript-mode
-  :mode ("\\.tsx\\'" . tsx-mode)
-  :hook (tsx-mode . lsp))
+  :mode ("\\.tsx\\'" . tsx-ts-mode)
+  :hook (tsx-ts-mode . lsp))
 
 (use-package dart-mode
   :mode ("\\.dart\\'" . dart-mode)
@@ -149,8 +149,8 @@
   :hook (csv-mode . lsp))
 
 (use-package gdscript-mode
-  :mode ("\\.gd\\'" . gdscript-mode)
-  :hook (gdscript-mode . lsp))
+  :mode ("\\.gd\\'" . gdscript-ts-mode)
+  :hook (gdscript-ts-mode . lsp))
 
 (use-package php-mode
   :mode ("\\.php\\'" . php-mode)

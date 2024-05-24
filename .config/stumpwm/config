@@ -19,11 +19,11 @@
 must be equal to (* *groups-rows* *groups-columns*)")
 
 ;; (setf *debug-level* 0)
-(redirect-all-output (concatenate 'string "~/.cache/stumpwm." (write-to-string (get-universal-time)) ".log"))
+;; (redirect-all-output (concatenate 'string "~/.cache/stumpwm." (write-to-string (get-universal-time)) ".log"))
 
 ;; loading keybindings first will allow avoiding the default keybindings most of the time
-(load "~/.config/stumpwm/init.lisp")
-(load "~/.config/stumpwm/keybindings.lisp")
-(load "~/.config/stumpwm/groups.lisp")
-(load "~/.config/stumpwm/look-and-feel.lisp")
-(load "~/.config/stumpwm/autostart.lisp")
+;; (load "~/.config/stumpwm/init.lisp")
+;; (load "~/.config/stumpwm/keybindings.lisp")
+;; (load "~/.config/stumpwm/groups.lisp")
+;; (load "~/.config/stumpwm/look-and-feel.lisp")
+;; (load "~/.config/stumpwm/autostart.lisp")

@@ -1,32 +1,32 @@
 ! defined variables, the only variables themes need to adjust unless there is
 ! specific custom change to one of software or tools used
-#define v_background #292D3E
+#define v_background #24273A
 #define v_background_alt #242837
-#define v_foreground #EEFFFF
+#define v_foreground #CAD3F5
 #define v_foreground_alt #BFC7D5
 #define v_primary #51afef
 
-#define v_base0 #1c1f2b
-#define v_base1 #1e212e
-#define v_base2 #232635
-#define v_base3 #3C435E
-#define v_base4 #4E5579
-#define v_base5 #676E95
-#define v_base6 #697098
-#define v_base7 #717CB4
-#define v_base8 #A6Accd
+#define v_base0 #494D64
+#define v_base1 #ED8796
+#define v_base2 #A6DA95
+#define v_base3 #EED49F
+#define v_base4 #8AADF4
+#define v_base5 #F5BDE6
+#define v_base6 #8BD5CA
+#define v_base7 #B8C0E0
+#define v_base8 #5B6078
 
-#define v_red #ff5370
-#define v_orange #f78c6c
-#define v_green #c3e88d
-#define v_teal #44b9b1
-#define v_yellow #ffcb6b
-#define v_blue #82aaff
-#define v_dark_blue #7986E7
-#define v_magenta #c792ea
-#define v_violet #bb80b3
-#define v_cyan #89DDFF
-#define v_dark_cyan #80cbc4
+#define v_red #ED8796
+#define v_orange #EED49F
+#define v_green #A6DA95
+#define v_teal #8BD5CA
+#define v_yellow #EED49F
+#define v_blue #8AADF4
+#define v_dark_blue #8AADF4
+#define v_magenta #F5BDE6
+#define v_violet #F5BDE6
+#define v_cyan #8BD5CA
+#define v_dark_cyan #8BD5CA
 
 #define v_border_width 2
 #define v_border_radius 2

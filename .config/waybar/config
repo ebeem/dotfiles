@@ -1,35 +1,75 @@
 {
-    "modules-left": ["hyprland/workspaces", "hyprland/mode"],
-    "modules-center": ["clock", "idle_inhibitor"],
-    /* "modules-right": ["tray", "custom/scratchpad-indicator", "pulseaudio", "custom/power"], */
-    "modules-right": ["tray", "custom/scratchpad-indicator", "pulseaudio", "custom/power"],
-
+	"output": "DP-1",
+    "modules-left": ["hyprland/workspaces", "hyprland/mode", "mpd"],
+    "modules-center": ["clock"],
+    "modules-right": ["hyprland/language", "keyboard-state", "network", "temperature", "cpu", "memory", "pulseaudio", "battery", "custom/power"],
+    "mpd": {
+        "format": "{stateIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+        "format-disconnected": "Disconnected ",
+        "interval": 1,
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": {
+            "numlock": "N {icon}",
+            "capslock": "C {icon}"                                                                                                                                                       
+        },
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+    "hyprland/language": {
+        "format": "{}",
+        "keyboard-name": "at-translated-set-2-keyboard"
+    },
     "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
     "hyprland/workspaces": {
-      "format": "{name}: {icon}",
+      "active-only": true,
+      "format": "{icon}",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
       "format-icons": {
-          "21": "",
-          "22": "",
-          "23": "",
-          "24": "",
-          "25": "",
-          "active": "",
-          "default": ""
+          "20": "",
+          "21": "",
+          "22": "",
+          "23": "",
+          "24": "",
+          "25": "",
+          "26": "",
+          "27": "",
+          "28": "",
       },
       "persistent-workspaces": {
           "HDMI-A-2": [ 10, 11, 12, 13, 14, 15, 16, 17, 18 ], // workspace 1 shown on DP-3
           "DP-1": [ 20, 21, 22, 23, 24, 25, 26, 27, 28 ], // workspaces 2 and 3 shown on DP-1
           "DP-2": [ 30, 31, 32, 33, 34, 35, 36, 37, 38 ], // workspaces 2 and 3 shown on DP-1
-        }
+      }
     },
     "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname} ",
+        "format-wifi": "{bandwidthUpBytes} {bandwidthDownBytes} ({signalStrength}%) ",
+        "format-ethernet": " {bandwidthDownBytes} {bandwidthUpBytes}",
+        "interval": 1,
         "format-disconnected": "", 
         "max-length": 50,
-        "on-click": "kitty -e 'nmtui'"
+        "on-click": "alacritty -e 'nmtui'"
+    },
+    "temperature": {
+        "thermal-zone": 0,
+        "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input",
+        "interval": 1,
+        "critical-threshold": 80,
+        "format-critical": "{temperatureC}°C ",
+        "format": "{temperatureC}°C "
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -41,12 +81,11 @@
     },
     "tray": {
         "icon-size": 15,
-        "spacing": 10
+        "spacing": 10,
     },
     "clock": {
-        // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        // "format-alt": "{:%Y-%m-%d}"
-		"on-click": "gnome-calendar"
+        "format": "{:%A, %B %d, %r}  ",
+        "interval": 1
     },
     "pulseaudio": {
         "format": "{volume}% {icon} ",
@@ -70,13 +109,15 @@
 		"format": " ",
 		"on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#005566 --button-background=#009999 --button-border=#002b33 --border-bottom=#002b33"
 	},
-    "custom/scratchpad-indicator": {
-        "format-text": "{}hi",
-        "return-type": "json",
-        "interval": 3,
-        "exec": "~/.local/bin/scratchpad-indicator 2> /dev/null",
-        "exec-if": "exit 0",
-        "on-click": "swaymsg 'scratchpad show'",
-        "on-click-right": "swaymsg 'move scratchpad'"
-    }
+    "cpu": {
+        "interval": 1,
+        "format": "{}% ",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 1,
+        "format": "{}% ",
+        "max-length": 10
+    },
 }
+

@@ -20,7 +20,7 @@
   :commands (forge-create-pullreq forge-create-issue)
   :custom (forge-database-file (expand-file-name ".cache/forge-database.sqlite" user-emacs-directory)))
 
-(use-package seq)
+;; (use-package seq)
 
 (provide 'oz-git)
 ;;; oz-keybindings.el ends here
