@@ -1,58 +1,117 @@
 (define-module (swayipc connection)
-  ;; #:use-module (swayipc utility)
   #:use-module (ice-9 popen)
-  #:use-module (ice-9 rdelim)
-  #:use-module (ice-9 textual-ports)
-  #:use-module (ice-9 threads)
+  #:use-module (ice-9 binary-ports)
   #:use-module (rnrs bytevectors)
   #:use-module (rnrs io ports)
   #:use-module (oop goops)
+  #:use-module (srfi srfi-18)
   #:use-module (srfi srfi-9)
   #:use-module (srfi srfi-1)
 
-  #:export (SOCKET-PATH
+  #:export (RUN-COMMMAND-MSG-ID
+            GET-WORKSPACES-MSG-ID
+            SUBSCRIBE-MSG-ID
+            GET-OUTPUTS-MSG-ID
+            GET-TREE-MSG-ID
+            GET-MARKS-MSG-ID
+            GET-BAR-CONFIG-MSG-ID
+            GET-VERSION-MSG-ID
+            GET-BINDING-MODES-MSG-ID
+            GET-CONFIG-MSG-ID
+            SEND-TICK-MSG-ID
+            SYNC-MSG-ID
+            GET-BINDING-STATE-MSG-ID
+            GET-INPUTS-MSG-ID
+            GET-SEATS-MSG-ID
+
+            WORKSPACE-EVENT-REPLY
+            OUTPUT-EVENT-REPLY
+            MODE-EVENT-REPLY
+            WINDOW-EVENT-REPLY
+            BAR-CONFIG-UPDATE-EVENT-REPLY
+            BINDING-EVENT-REPLY
+            SHUTDOWN-EVENT-REPLY
+            TICK-EVENT-REPLY
+            BAR-STATE-UPDATE-EVENT-REPLY
+            INPUT-EVENT-REPLY
+
+            SOCKET-PATH
             COMMAND-SOCKET
+            LISTENER-SOCKET
+            LISTENER-THREAD
             MSG-MAGIC
             MSG-MAGIC-BV
+            start-event-listener-thread
+            start-event-listener
+            data-received-hook
+
+            SOCKET-COMMANDS-LISTENER-PATH
+            COMMANDS-LISTENER-SOCKET
+            COMMANDS-LISTENER-THREAD
+            start-commands-listener-thread
+            start-commands-listener
 
             write-msg
             read-msg
-            encode-msg
-            bytevector-concatenate))
+            encode-msg))
 
+;; sway messages and replies types
+;; man: sway-ipc(7): MESSAGES AND REPLIES
+(define RUN-COMMMAND-MSG-ID 0)
+(define GET-WORKSPACES-MSG-ID 1)
+(define SUBSCRIBE-MSG-ID 2)
+(define GET-OUTPUTS-MSG-ID 3)
+(define GET-TREE-MSG-ID 4)
+(define GET-MARKS-MSG-ID 5)
+(define GET-BAR-CONFIG-MSG-ID 6)
+(define GET-VERSION-MSG-ID 7)
+(define GET-BINDING-MODES-MSG-ID 8)
+(define GET-CONFIG-MSG-ID 9)
+(define SEND-TICK-MSG-ID 10)
+(define SYNC-MSG-ID 11)
+(define GET-BINDING-STATE-MSG-ID 12)
+(define GET-INPUTS-MSG-ID 100)
+(define GET-SEATS-MSG-ID 101)
+
+(define WORKSPACE-EVENT-REPLY 2147483648)
+(define OUTPUT-EVENT-REPLY 2147483649)
+(define MODE-EVENT-REPLY 2147483650)
+(define WINDOW-EVENT-REPLY 2147483651)
+(define BAR-CONFIG-UPDATE-EVENT-REPLY 2147483652)
+(define BINDING-EVENT-REPLY 2147483653)
+(define SHUTDOWN-EVENT-REPLY 2147483654)
+(define TICK-EVENT-REPLY 2147483655)
+(define BAR-STATE-UPDATE-EVENT-REPLY 2147483656)
+(define INPUT-EVENT-REPLY 2147483657)
+
+(define LISTENER-THREAD #:f)
+(define COMMANDS-LISTENER-THREAD #:f)
 (define MSG-MAGIC "i3-ipc")
 (define MSG-MAGIC-BV (string->utf8 MSG-MAGIC))
+
 ;; TODO: maybe also get from sway and i3 binaries
 (define SOCKET-PATH
   (and (getenv "SWAYSOCK")
        (getenv "I3SOCK")))
 
+(define SOCKET-COMMANDS-LISTENER-PATH
+  (string-append (dirname SOCKET-PATH) "/sway-commands-ipc.sock"))
+
 (define COMMAND-SOCKET (socket AF_UNIX SOCK_STREAM 0))
 (connect COMMAND-SOCKET (make-socket-address AF_UNIX SOCKET-PATH))
+(define LISTENER-SOCKET (socket AF_UNIX SOCK_STREAM 0))
+(connect LISTENER-SOCKET (make-socket-address AF_UNIX SOCKET-PATH))
+(define COMMANDS-LISTENER-SOCKET (socket AF_UNIX SOCK_STREAM 0))
 
-(define (bytevector-concatenate . bvs)
-  (let* ((len (apply + (map (lambda (bv) (bytevector-length bv)) bvs)))
-         (result (make-bytevector len))
-         (index 0))
-    (for-each
-     (lambda (bv)
-       (bytevector-copy! bv 0 result index (bytevector-length bv))
-       (set! index (+ index (bytevector-length bv))))
-     bvs)
-    result))
-
-;; The format for messages and replies is:
-;;     <magic-string> <payload-length> <payload-type> <payload>
-;; Where
-;;      <magic-string> is i3-ipc, for compatibility with i3
-;;      <payload-length> is a 32-bit integer in native byte order
-;;      <payload-type> is a 32-bit integer in native byte order
+;; <magic-string> is i3-ipc, for compatibility with i3
+;; <payload-length> is a 32-bit integer in native byte order
+;; <payload-type> is a 32-bit integer in native byte order
 (define (encode-msg command-id payload)
   (let* ((bv (make-bytevector (+ 14 (string-length payload)))))
     ;; <magic-string> <payload-length> <payload-type> <payload>
     (bytevector-copy! (string->utf8 "i3-ipc") 0 bv 0 6)
-    (bytevector-u32-set! bv 6 (string-length payload) (endianness little))
-    (bytevector-u32-set! bv 10 command-id (endianness little))
+    (bytevector-u32-set! bv 6 (string-length payload) (native-endianness))
+    (bytevector-u32-set! bv 10 command-id (native-endianness))
 
     ;; payload is optional
     (when (> (string-length payload) 0)
@@ -64,33 +123,81 @@
 
 (define (read-msg sock)
   (let* ((bv-header (get-bytevector-n sock 14))
-         (payload-length (bytevector-u32-ref bv-header 6 (endianness little)))
-         (command-id (bytevector-u32-ref bv-header 10 (endianness little)))
+         (payload-length (bytevector-u32-ref bv-header 6 (native-endianness)))
+         (command-id (bytevector-u32-ref bv-header 10 (native-endianness)))
          (payload (utf8->string (get-bytevector-n sock payload-length))))
-    command-id payload))
+    (list command-id (or payload ""))))
 
-;; (define (read-from-socket socket-path)
-;;   (let* ((sock (socket AF_UNIX SOCK_STREAM 0))
-;;          (socket-addr (make-socket-address AF_UNIX socket-path))
-;;          (bv (make-bytevector 14)))
+(define (read-from-socket sock)
+  (let loop ()
+      (let ((data (read-msg sock)))
+        (run-hook data-received-hook
+                  (list-ref data 0)
+                  (list-ref data 1))
+              (loop))))
 
-;;     (connect sock socket-addr)
-;;     (let loop ()
-;;       (let ((data (read-line sock)))
-;;         (if (eof-object? data)
-;;             (begin
-;;               (close-port sock)
-;;               (display "Connection closed\n"))
-;;             (begin
-;;               (display data)
-;;               (let* ((command-id (substring data 0 (string-index data #\>)))
-;;                      (params (string-split (substring data (+ 2 (string-index data #\>))) #\,)))
-;;                 (handle-event command-id params)
-;;                 (loop))))))))
+(define data-received-hook
+  ;; data received: emitted on new data received via ipc.
 
-;; (define (start-event-listener)
-;;   (read-from-socket SOCKET-PATH))
+  ;; Parameters:
+  ;;   - arg1: command-id.
+  ;;   - arg2: payload.
+  (make-hook 2))
 
-;; (define listener-thread (make-thread start-event-listener))
-;; (thread-start! listener-thread)
-;; (thread-join! listener-thread)
+(define command-received-hook
+  ;; data received: emitted on new command received via ipc.
+
+  ;; Parameters:
+  ;;   - arg1: command-id.
+  ;;   - arg2: payload.
+  (make-hook 2))
+
+(define (handle-client client)
+  (display "handle-client\n")
+  (display "client connected\n")
+  (let ((input-port (car client))
+        (output-port (car client)))
+    (let ((data (read-msg input-port)))
+      (display "recieved command: ")
+      (display data)
+      (newline)
+      (run-hook command-received-hook
+                (list-ref data 0)
+                (list-ref data 1))
+      (write-msg output-port
+                 RUN-COMMMAND-MSG-ID
+                 "received")
+      (force-output output-port))
+
+    ;; Close the connection
+    (close-port input-port)
+    (close-port output-port)))
+
+(define (start-server-socket sock)
+  (display (string-append "start-server-socket\n"))
+  (listen sock 15)
+  (display (string-append "listening 15\n"))
+  (let loop ()
+    (let ((client (accept sock)))
+      (thread-start!
+       (make-thread
+        (lambda () (handle-client client))))
+      (loop))))
+
+(define (start-event-listener)
+  (read-from-socket LISTENER-SOCKET))
+
+(define (start-event-listener-thread)
+  (set! LISTENER-THREAD (make-thread start-event-listener))
+  (thread-start! LISTENER-THREAD))
+
+(define (start-commands-listener)
+  (when (file-exists? SOCKET-COMMANDS-LISTENER-PATH)
+    (delete-file SOCKET-COMMANDS-LISTENER-PATH))
+
+  (bind COMMANDS-LISTENER-SOCKET (make-socket-address AF_UNIX SOCKET-COMMANDS-LISTENER-PATH))
+  (start-server-socket COMMANDS-LISTENER-SOCKET))
+
+(define (start-commands-listener-thread)
+  (set! COMMANDS-LISTENER-THREAD (make-thread start-commands-listener))
+  (thread-start! COMMANDS-LISTENER-THREAD))

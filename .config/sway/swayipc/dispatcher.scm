@@ -5,31 +5,209 @@
   #:use-module (srfi srfi-1)
   #:use-module (json)
 
-  #:export (RUN-COMMMAND-MSG-ID
-            GET-WORKSPACES-MSG-ID
-            SUBSCRIBE-MSG-ID
-            GET-OUTPUTS-MSG-ID
-            GET-TREE-MSG-ID
-            GET-MARKS-MSG-ID
-            GET-BAR-CONFIG-MSG-ID
-            GET-VERSION-MSG-ID
-            GET-BINDINGS-MODES-MSG-ID
-            GET-CONFIG-MSG-ID
-
-            dispatch-command
+  #:export (SWAY-ORIENTATION-HORIZONTAL
+            SWAY-ORIENTATION-VERTICAL
+            SWAY-ORIENTATION-AUTO
+            sway-default-orientation
+            sway-include
+            sway-swaybg-command
+            sway-swaynag-command
+            SWAY-LAYOUT-DEFAULT
+            SWAY-LAYOUT-STAKCING
+            SWAY-LAYOUT-TABBED
+            sway-workspace-layout
+            SWAY-XWAYLAND-ENABLE
+            SWAY-XWAYLAND-DISABLE
+            SWAY-XWAYLAND-FORCE
+            sway-xwayland
+            SWAY-BORDER-NONE
+            SWAY-BORDER-NORMAL
+            SWAY-BORDER-CSD
+            SWAY-BORDER-PIXEL
+            sway-border
+            sway-border-toggle
+            sway-exit
+            SWAY-FLOATING-ENABLED
+            SWAY-FLOATING-DISABLED
+            SWAY-FLOATING-TOGGLE
+            sway-floating
+            sway-focus-container-criteria
+            SWAY-DIRECTION-UP
+            SWAY-DIRECTION-RIGHT
+            SWAY-DIRECTION-DOWN
+            SWAY-DIRECTION-LEFT
+            SWAY-SIBLING-NEXT
+            SWAY-SIBLING-PREV
+            SWAY-HIERARCHY-CHILD
+            SWAY-HIERARCHY-PARENT
+            sway-focus-container
+            sway-focus-container-sibling
+            sway-focus-container-child
+            sway-focus-container-parent
+            sway-focus-output-direction
+            sway-focus-output-name
+            sway-focus-container-tiling
+            sway-focus-container-floating
+            SWAY-FULLSCREEN-ENABLED
+            SWAY-FULLSCREEN-DISABLED
+            SWAY-FULLSCREEN-TOGGLE
+            SWAY-GAPS-OPTION-INNER
+            SWAY-GAPS-OPTION-OUTER
+            SWAY-GAPS-OPTION-HORIZONTAL
+            SWAY-GAPS-OPTION-VERTICAL
+            SWAY-GAPS-OPTION-TOP
+            SWAY-GAPS-OPTION-RIGHT
+            SWAY-GAPS-OPTION-BOTTOM
+            SWAY-GAPS-OPTION-LEFT
+            SWAY-GAPS-WORKSPACE-ALL
+            SWAY-GAPS-WORKSPACE-CURRENT
+            SWAY-GAPS-WORKSPACE-SET
+            SWAY-GAPS-WORKSPACE-PLUS
+            SWAY-GAPS-WORKSPACE-MINUS
+            SWAY-GAPS-WORKSPACE-TOGGLE
+            sway-gaps
+            SWAY-INHIBIT-IDLE-FOCUS
+            SWAY-INHIBIT-IDLE-FULLSCREEN
+            SWAY-INHIBIT-IDLE-OPEN
+            SWAY-INHIBIT-IDLE-NONE
+            SWAY-INHIBIT-IDLE-VISIBLE
+            sway-inhibit-idle
+            SWAY-LAYOUT-SPLITH
+            SWAY-LAYOUT-SPLITV
+            SWAY-LAYOUT-STACKING
+            sway-layout
+            SWAY-LAYOUT-TOGGLE-ALL
+            SWAY-LAYOUT-TOGGLE-SPLIT
+            sway-move-container-absolute-position
+            sway-move-container-absolute-center
+            sway-move-container-cursor
+            sway-move-container-to-mark
+            SWAY-WORKSPACE-PREVIOUS
+            SWAY-WORKSPACE-NEXT
+            SWAY-WORKSPACE-CURRENT
+            SWAY-WORKSPACE-PREVIOUS-ON-OUTPUT
+            SWAY-WORKSPACE-NEXT-ON-OUTPUT
+            SWAY-WORKSPACE-BACK-AND-FORTH
+            sway-move-container-to-workspace
+            SWAY-OUTPUT-CURRENT
+            SWAY-OUTPUT-UP
+            SWAY-OUTPUT-RIGHT
+            SWAY-OUTPUT-DOWN
+            SWAY-OUTPUT-LEFT
+            sway-move-container-to-output
+            sway-move-container-to-scratchpad
+            sway-move-workspace-to-output
+            sway-reload
+            sway-rename-workspace
+            sway-rename-current-workspace
+            SWAY-RESIZE-TYPE-SHRINK
+            SWAY-RESIZE-TYPE-GROW-WIDTH
+            SWAY-RESIZE-TYPE-GROW-HEIGHT
+            SWAY-SIZE-UNIT-PX
+            SWAY-SIZE-UNIT-PPT
+            sway-show-scratchpad
+            sway-shortcuts-inhibitor
+            SWAY-SPLIT-VERTICAL
+            SWAY-SPLIT-HORIZONTAL
+            SWAY-SPLIT-NONE
+            SWAY-SPLIT-TOGGLE
+            sway-split-container
+            SWAY-STICKY-ENABLE
+            SWAY-STICKY-DISABLE
+            SWAY-STICKY-TOGGLE
+            sway-sticky
+            sway-title-format
+            sway-assign-to-workspace
+            sway-assign-to-output
+            bindings
+            sway-client-background
+            sway-client-focused-tab-title-color
+            SWAY-BORDER-STYLE-NONE
+            SWAY-BORDER-STYLE-NORMAL
+            SWAY-BORDER-STYLE-PIXEL
+            sway-exec
+            sway-exec-always
+            sway-floating-maximum-size
+            sway-floating-minimum-size
+            SWAY-FLOATING-MODIFIER-TYPE-NORMAL
+            SWAY-FLOATING-MODIFIER-TYPE-INVERSE
+            sway-floating-modifier
+            SWAY-FOCUS-FOLLOW-MOUSE-FLAG-YES
+            SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO
+            SWAY-FOCUS-FOLLOW-MOUSE-FLAG-ALWAYS
+            sway-focus-follow-mouse
+            SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-SMART
+            SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-URGENT
+            SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-FOCUS
+            SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-NONE
+            sway-focus-on-window-activation
+            SWAY-FOCUS-WRAPPING-FLAG-YES
+            SWAY-FOCUS-WRAPPING-FLAG-NO
+            SWAY-FOCUS-WRAPPING-FLAG-FORCE
+            SWAY-FOCUS-WRAPPING-FLAG-WORKSPACE
+            sway-focus-wrapping
+            sway-force-display-urgency-hint
+            sway-titlebar-border-thickness
+            sway-titlebar-padding
+            sway-for-window
+            sway-default-gaps
+            SWAY-EDGE-BORDER-TYPE-NONE
+            SWAY-EDGE-BORDER-TYPE-VERTICAL
+            SWAY-EDGE-BORDER-TYPE-HORIZONTAL
+            SWAY-EDGE-BORDER-TYPE-BOTH
+            SWAY-EDGE-BORDER-TYPE-SMART
+            SWAY-EDGE-BORDER-TYPE-SMART-NO-GAPS
+            sway-input
+            sway-seat
+            sway-kill
+            SWAY-SMART-BORDERS-ON
+            SWAY-SMART-BORDERS-OFF
+            SWAY-SMART-BORDERS-NO-GAPS
+            sway-smart-borders
+            SWAY-SMART-GAPS-ON
+            SWAY-SMART-GAPS-OFF
+            SWAY-SMART-GAPS-TOGGLE
+            SWAY-SMART-GAPS-INVERSE-OUTER
+            sway-smart-gaps
+            sway-mode
+            sway-mode-subcommand
+            SWAY-MOUSE-WARPING-OUTPUT
+            SWAY-MOUSE-WARPING-CONTAINER
+            SWAY-MOUSE-WARPING-NONE
+            sway-mouse-warping
+            sway-no-focus
+            sway-output
+            SWAY-POPUP-TYPE-OUTPUTSMART
+            SWAY-POPUP-TYPE-IGNORE
+            SWAY-POPUP-TYPE-LEAVE-FULLSCREEN
+            sway-popup-during-fullscreen
+            SWAY-PRIMARY-SELECTION-ENABLED
+            SWAY-PRIMARY-SELECTION-DISABLED
+            sway-primary-selection
+            SWAY-SHOW-MARKS-YES
+            SWAY-SHOW-MARKS-NO
+            sway-show-marks
+            SWAY-OPACITY-SET
+            SWAY-OPACITY-PLUS
+            SWAY-OPACITY-MINUS
+            sway-opacity
+            SWAY-TILING-DRAG-ENABLE
+            SWAY-TILING-DRAG-DISABLE
+            SWAY-TILING-DRAG-TOGGLE
+            sway-tiling-drag
+            sway-tiling-drag-threshold
+            SWAY-TILING-ALIGN-LEFT
+            SWAY-TILING-ALIGN-CENTER
+            SWAY-TILING-ALIGN-RIGHT
+            sway-tiling-align
+            sway-switch-workspace-on-output
+            sway-switch-workspace
+            SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-YES
+            SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-NO
+            sway-workspace-auto-back-and-forth
+            sway-workspace-gaps
             dispatch-commands
-            dispatch-switch-workspace))
-
-(define RUN-COMMMAND-MSG-ID 0)
-(define GET-WORKSPACES-MSG-ID 1)
-(define SUBSCRIBE-MSG-ID 2)
-(define GET-OUTPUTS-MSG-ID 3)
-(define GET-TREE-MSG-ID 4)
-(define GET-MARKS-MSG-ID 5)
-(define GET-BAR-CONFIG-MSG-ID 6)
-(define GET-VERSION-MSG-ID 7)
-(define GET-BINDINGS-MODES-MSG-ID 8)
-(define GET-CONFIG-MSG-ID 9)
+            dispatch-command))
 
 (define (dispatch-command command)
   "Parses and runs the payload as sway command.
@@ -47,16 +225,18 @@ Parameters:
 Response:
     An  array of objects corresponding to each command that was parsed. Each
     object has the property success."
+  (display "dispatching: ")
+  (display (string-join commands "\n"))
+  (newline)
   (write-msg COMMAND-SOCKET
              RUN-COMMMAND-MSG-ID
              (string-join commands " "))
   (map
       (lambda (res)
-        (scm->sway-success res))
+        (scm->sway-tick res))
       (vector->list
       (json-string->scm
-        (read-msg COMMAND-SOCKET)))))
-
+        (list-ref (read-msg COMMAND-SOCKET) 1)))))
 
 ;;        bar [<bar-id>] <bar-subcommands...>
 ;;            For details on bar subcommands, see sway-bar(5).
@@ -68,12 +248,12 @@ Response:
 (define (sway-default-orientation orientation)
   "Sets the default container layout for tiled containers.
   parameters:
-    - orientation: horizontal|vertical|auto"
+    - orientation: `SWAY-ORIENTATION-HORIZONTAL`, `SWAY-ORIENTATION-VERTICAL`, `SWAY-ORIENTATION-AUTO`"
   (dispatch-command
    (string-append "default_orientation " orientation)))
 
 (define (sway-include file-path)
-  "Includes another file from path.
+  "Includes another configuration file from path (not scheme file).
   parameters:
     - file-path: string"
   (dispatch-command
@@ -100,16 +280,23 @@ Response:
 (define (sway-workspace-layout layout)
   "Specifies the initial layout for new containers in  an  empty  workspace.
   parameters:
-    - layout: default|stacking|tabbed"
+    - layout: `SWAY-LAYOUT-DEFAULT`, `SWAY-LAYOUT-STAKCING`, `SWAY-LAYOUT-TABBED`"
   (dispatch-command
    (string-append "workspace_layout " layout)))
 
+(define SWAY-XWAYLAND-ENABLE "enable")
+(define SWAY-XWAYLAND-DISABLE "disable")
+(define SWAY-XWAYLAND-FORCE "force")
+
 (define (sway-xwayland option)
-  "Enables  or disables Xwayland support, which allows X11 applications to be used.
+  "Enables or disables Xwayland support, which allows X11 applications to be used.
   parameters:
-    - option: enable|disable|force"
+    - option: `SWAY-XWAYLAND-ENABLE`, `SWAY-XWAYLAND-DISABLE`, `SWAY-XWAYLAND-FORCE`"
   (dispatch-command
-   (string-append "xwayland " option)))
+   (string-append "xwayland " (cond
+                               ((equal? #t option) SWAY-XWAYLAND-ENABLE)
+                               ((equal? #f option) SWAY-XWAYLAND-DISABLE)
+                               (else option)))))
 
 (define SWAY-BORDER-NONE "none")
 (define SWAY-BORDER-NORMAL "normal")
@@ -119,7 +306,7 @@ Response:
 (define (sway-border option thickness)
   "Enables  or disables Xwayland support, which allows X11 applications to be used.
   parameters:
-    - option: none|normal|csd|pixel
+    - option: `SWAY-BORDER-NONE`, `SWAY-BORDER-NORMAL`, `SWAY-BORDER-CSD`, `SWAY-BORDER-PIXEL`
 	- thickness: int"
   (dispatch-command
    (string-append "border " option (number->string thickness))))
@@ -141,9 +328,12 @@ Response:
 (define (sway-floating option)
   "Make focused view floating, non-floating, or the opposite of what it is now.
   parameters:
-    - layout: default|stacking|tabbed"
+    - layout: `SWAY-FLOATING-ENABLED`, `SWAY-FLOATING-DISABLED`, `SWAY-FLOATING-TOGGLE`"
   (dispatch-command
-   (string-append "floating " option)))
+   (string-append "floating " (cond
+                               ((equal? #t option) SWAY-FLOATING-ENABLED)
+                               ((equal? #f option) SWAY-FLOATING-DISABLED)
+                               (else option)))))
 
 (define (sway-focus-container-criteria criteria)
   "Moves focus to the container that matches the specified criteria.
@@ -158,18 +348,20 @@ Response:
 (define SWAY-DIRECTION-LEFT "left")
 (define SWAY-SIBLING-NEXT "next")
 (define SWAY-SIBLING-PREV "prev")
+(define SWAY-HIERARCHY-CHILD "child")
+(define SWAY-HIERARCHY-PARENT "parent")
 
-(define (sway-focus-container-direction direction)
+(define (sway-focus-container direction)
   "Moves focus to the next container in the specified direction.
   parameters:
-    - direction: up|right|down|left"
+    - direction: `SWAY-DIRECTION-UP`, `SWAY-DIRECTION-RIGHT`, `SWAY-DIRECTION-DOWN`, `SWAY-DIRECTION-LEFT`"
   (dispatch-command
    (string-append "focus " direction)))
 
 (define (sway-focus-container-sibling sibling)
   "Moves focus to the previous or next container in the current layout.
   parameters:
-    - sibling: next|prev"
+    - sibling: `SWAY-SIBLING-NEXT`, `SWAY-SIBLING-PREV`"
   (dispatch-command
    (string-append "focus " sibling)))
 
@@ -186,7 +378,7 @@ Response:
 (define (sway-focus-output-direction direction)
   "Moves focus to the next output in the specified direction.
   parameters:
-    - direction: up|right|down|left"
+    - direction: `SWAY-DIRECTION-UP`, `SWAY-DIRECTION-RIGHT`, `SWAY-DIRECTION-DOWN`, `SWAY-DIRECTION-LEFT`"
   (dispatch-command
    (string-append "focus output " direction)))
 
@@ -211,10 +403,17 @@ Response:
 (define SWAY-FULLSCREEN-DISABLED "disabled")
 (define SWAY-FULLSCREEN-TOGGLE "toggle")
 
-(define (sway-fullscreen option global)
-  "Makes focused view fullscreen, non-fullscreen, or the opposite of current."
+(define* (sway-fullscreen option #:optional (global #f))
+  "Makes focused view fullscreen, non-fullscreen, or the opposite of current.
+  parameters:
+    - option: `SWAY-FULLSCREEN-ENABLED`, `SWAY-FULLSCREEN-DISABLED`, `SWAY-FULLSCREEN-TOGGLE`
+    - global: #t, #f"
   (dispatch-command
-   (string-append "fullscreen " option " " global)))
+   (string-append "fullscreen " (cond
+                                 ((equal? #t option) SWAY-FULLSCREEN-ENABLED)
+                                 ((equal? #f option) SWAY-FULLSCREEN-DISABLED)
+                                 (else option))
+                  (when global " global"))))
 
 (define SWAY-GAPS-OPTION-INNER "inner")
 (define SWAY-GAPS-OPTION-OUTER "outer")
@@ -225,62 +424,77 @@ Response:
 (define SWAY-GAPS-OPTION-BOTTOM "bottom")
 (define SWAY-GAPS-OPTION-LEFT "left")
 
-(define SWAY-GAPS-WORKSPACE-INNER "all")
-(define SWAY-GAPS-WORKSPACE-OUTER "current")
-(define SWAY-GAPS-WORKSPACE-HORIZONTAL "set")
-(define SWAY-GAPS-WORKSPACE-VERTICAL "plus")
-(define SWAY-GAPS-WORKSPACE-TOP "minus")
-(define SWAY-GAPS-WORKSPACE-RIGHT "toggle")
+(define SWAY-GAPS-WORKSPACE-ALL "all")
+(define SWAY-GAPS-WORKSPACE-CURRENT "current")
+(define SWAY-GAPS-WORKSPACE-SET "set")
+(define SWAY-GAPS-WORKSPACE-PLUS "plus")
+(define SWAY-GAPS-WORKSPACE-MINUS "minus")
+(define SWAY-GAPS-WORKSPACE-TOGGLE "toggle")
 
 (define (sway-gaps option workspace amount)
-  "Changes the inner or outer gaps for either all workspaces or the current workspace"
+  "Changes the inner or outer gaps for either all workspaces or the current workspace.
+  parameters:
+    - option: `SWAY-GAPS-OPTION-INNER`, `SWAY-GAPS-OPTION-OUTER`, `SWAY-GAPS-OPTION-HORIZONTAL`,
+              `SWAY-GAPS-OPTION-VERTICAL`, `SWAY-GAPS-OPTION-TOP`, `SWAY-GAPS-OPTION-RIGHT`,
+              `SWAY-GAPS-OPTION-BOTTOM`, `SWAY-GAPS-OPTION-LEFT`
+    - workspace: `SWAY-GAPS-WORKSPACE-ALL`, `SWAY-GAPS-WORKSPACE-CURRENT`, `SWAY-GAPS-WORKSPACE-SET`,
+                 `SWAY-GAPS-WORKSPACE-PLUS`, `SWAY-GAPS-WORKSPACE-MINUS`, `SWAY-GAPS-WORKSPACE-TOGGLE`
+    - amount: amount of gap (number)"
   (dispatch-command
-   (string-append "gaps " option " " workspace " " amount)))
+   (string-append "gaps " option " " workspace " " (number->string amount))))
 
-(define SWAY-INHIBIT-IDLE-FOCUS "all")
+(define SWAY-INHIBIT-IDLE-FOCUS "focus")
 (define SWAY-INHIBIT-IDLE-FULLSCREEN "fullscreen")
 (define SWAY-INHIBIT-IDLE-OPEN "open")
 (define SWAY-INHIBIT-IDLE-NONE "none")
 (define SWAY-INHIBIT-IDLE-VISIBLE "visible")
 
 (define (sway-inhibit-idle option)
-  "Set/unset an idle inhibitor for the view."
+  "Set/unset an idle inhibitor for the view.
+  parameters:
+    - option: `SWAY-INHIBIT-IDLE-FOCUS`, `SWAY-INHIBIT-IDLE-FULLSCREEN`, `SWAY-INHIBIT-IDLE-OPEN`,
+              `SWAY-INHIBIT-IDLE-NONE`, `SWAY-INHIBIT-IDLE-VISIBLE`"
   (dispatch-command
    (string-append "inhibit_idle " option)))
 
-(define SWAY-LAYOUT-DEFAULT "default")
 (define SWAY-LAYOUT-SPLITH "splith")
 (define SWAY-LAYOUT-SPLITV "splitv")
 (define SWAY-LAYOUT-STACKING "stacking")
-(define SWAY-LAYOUT-TABBED "tabbed")
 
 (define (sway-layout option)
-  "Set/unset an idle inhibitor for the view."
+  "Set/unset an idle inhibitor for the view.
+  parameters:
+    - option: `SWAY-LAYOUT-DEFAULT`, `SWAY-LAYOUT-SPLITH`, `SWAY-LAYOUT-SPLITV`,
+              `SWAY-LAYOUT-STACKING`, `SWAY-LAYOUT-TABBED`"
   (dispatch-command
    (string-append "layout " option)))
 
 (define SWAY-LAYOUT-TOGGLE-ALL "all")
 (define SWAY-LAYOUT-TOGGLE-SPLIT "split")
 
-(define (sway-layout-toggle)
-  "Cycles the layout mode of the focused container though a preset list of layouts."
+(define* (sway-layout-toggle #:optional (option #f))
+  "Cycles the layout mode of the focused container though a preset list of layouts.
+  parameters:
+    - option: `SWAY-LAYOUT-TOGGLE-ALL`, `SWAY-LAYOUT-TOGGLE-SPLIT`"
   (dispatch-command
-   (string-append "layout toggle")))
+   (string-append "layout toggle" (when option (string-append " " option)))))
 
-(define (sway-move-container direction)
-  "Moves the focused container in the direction specified."
+(define* (sway-move-container direction #:optional (amount #f))
+  "Moves the focused container in the direction specified.
+  parameters:
+    - direction: `SWAY-DIRECTION-UP`, `SWAY-DIRECTION-RIGHT`, `SWAY-DIRECTION-DOWN`, `SWAY-DIRECTION-LEFT`
+    - amount: int"
   (dispatch-command
-   (string-append "move " direction)))
-
-(define (sway-move-container-px direction px)
-  "Moves the focused container in the direction specified."
-  (dispatch-command
-   (string-append "move " direction " " px)))
+   (string-append "move " direction
+                  (when amount (string-append " " (number->string amount))))))
 
 (define (sway-move-container-absolute-position x y)
-  "Moves the focused container to the specified position in the workspace."
+  "Moves the focused container to the specified position in the workspace.
+  parameters:
+    - x: int
+    - y: int"
   (dispatch-command
-   (string-append "move absolute position " x " " y)))
+   (string-append "move absolute position " (number->string x) " " (number->string y))))
 
 (define (sway-move-container-absolute-center)
   "Moves the focused container to be centered on the workspace."
@@ -297,121 +511,148 @@ Response:
   (dispatch-command
    (string-append "move container to mark " mark)))
 
+(define SWAY-WORKSPACE-PREVIOUS "prev")
+(define SWAY-WORKSPACE-NEXT "next")
+(define SWAY-WORKSPACE-CURRENT "current")
+(define SWAY-WORKSPACE-PREVIOUS-ON-OUTPUT "prev_on_output")
+(define SWAY-WORKSPACE-NEXT-ON-OUTPUT "next_on_output")
+(define SWAY-WORKSPACE-BACK-AND-FORTH "back_and_forth")
+
 (define (sway-move-container-to-workspace workspace)
-  "Moves the focused container to the workspace number or (prev|next|current)"
+  "Moves the focused container to the workspace name
+  parameters:
+    - workspace: workspace name, `SWAY-WORKSPACE-PREVIOUS`, `SWAY-WORKSPACE-NEXT`, `SWAY-WORKSPACE-CURRENT`,
+                 `SWAY-WORKSPACE-PREVIOUS-ON-OUTPUT`, `SWAY-WORKSPACE-NEXT-ON-OUTPUT`, `SWAY-WORKSPACE-BACK-AND-FORTH`"
   (dispatch-command
    (string-append "move container to workspace " workspace)))
 
-;;        move [container|window] [to] workspace prev|next|current
-;;            Moves  the  focused container to the previous, next or current work‐
-;;            space on this output, or if no workspaces remain,  the  previous  or
-;;            next output.
+(define SWAY-OUTPUT-CURRENT "current")
+(define SWAY-OUTPUT-UP "up")
+(define SWAY-OUTPUT-RIGHT "right")
+(define SWAY-OUTPUT-DOWN "down")
+(define SWAY-OUTPUT-LEFT "left")
 
-;;        move [container|window] [to] workspace prev_on_output|next_on_output
-;;            Moves  the  focused  container  to the previous or next workspace on
-;;            this output, wrapping around if already at the first or  last  work‐
-;;            space.
+(define (sway-move-container-to-output output)
+  "Moves the focused container to the specified output id|name|direction.
+  parameters:
+    - workspace: output name, output id, `SWAY-OUTPUT-CURRENT`, `SWAY-OUTPUT-UP`,
+                 `SWAY-OUTPUT-RIGHT`, `SWAY-OUTPUT-DOWN`, `SWAY-OUTPUT-LEFT`"
+  (dispatch-command
+   (string-append "move container to output " (or (and (number? output)
+                                                          (number->string output))
+                                                     output))))
 
-;;        move [container|window] [to] workspace back_and_forth
-;;            Moves the focused container to previously focused workspace.
+(define (sway-move-container-to-scratchpad)
+  "Moves the focused container to the scratchpad."
+  (dispatch-command
+   (string-append "move container to scratchpad")))
 
-;;        move [container|window] [to] output <name-or-id>|current
-;;            Moves the focused container to the specified output.
+(define (sway-move-workspace-to-output output)
+  "Moves the focused workspace to the specified output id|name|direction.
+  parameters:
+    - workspace: output name, output id, `SWAY-OUTPUT-CURRENT`, `SWAY-OUTPUT-UP`,
+                 `SWAY-OUTPUT-RIGHT`, `SWAY-OUTPUT-DOWN`, `SWAY-OUTPUT-LEFT`"
+  (dispatch-command
+   (string-append "move workspace to output " (or (and (number? output)
+                                                          (number->string output))
+                                                     output))))
 
-;;        move [container|window] [to] output up|right|down|left
-;;            Moves  the  focused container to next output in the specified direc‐
-;;            tion.
+(define* (sway-nop #:optional (comment ""))
+  "A no operation command that can be used to override default behaviour.
+  parameters:
+    - comment: optional comment argument is ignored, but logged for debugging purposes."
+  (dispatch-command
+   (string-append "nop " comment)))
 
-;;        move [container|window] [to] scratchpad
-;;            Moves the focused container to the scratchpad.
+(define (sway-reload)
+  "Reloads the sway config file and applies any changes."
+  (dispatch-command
+   (string-append "reload")))
 
-;;        move workspace [to] output <name-or-id>|current
-;;            Moves the focused workspace to the specified output.
+(define (sway-rename-workspace old-name new-name)
+  "Rename workspace <old_name> to the <new_name>
+  parameters:
+    - old-name: old workspace name (str).
+    - new-name: new workspace name (str)."
+  (dispatch-command
+   (string-append "rename workspace " old-name " to " new-name)))
 
-;;        move workspace to [output] <name-or-id>|current
-;;            Moves the focused workspace to the specified output.
+(define (sway-rename-current-workspace new-name)
+  "Rename current workspace to the <new_name>
+  parameters:
+    - new-name: new workspace name (str)."
+  (dispatch-command
+   (string-append "rename workspace to " new-name)))
 
-;;        move workspace [to] output up|right|down|left
-;;            Moves the focused workspace to next output in the  specified  direc‐
-;;            tion.
+(define SWAY-RESIZE-TYPE-SHRINK "shrink")
+(define SWAY-RESIZE-TYPE-GROW-WIDTH "grow height")
+(define SWAY-RESIZE-TYPE-GROW-HEIGHT "grow width")
 
-;;        move workspace to [output] up|right|down|left
-;;            Moves  the  focused workspace to next output in the specified direc‐
-;;            tion.
+(define SWAY-SIZE-UNIT-PX "px")
+(define SWAY-SIZE-UNIT-PPT "ppt")
 
-;;        nop <comment>
-;;            A no operation command that can be used to override  default  behav‐
-;;            iour.  The  optional comment argument is ignored, but logged for de‐
-;;            bugging purposes.
+(define* (sway-resize type amount #:optional (unit #f))
+ "Resizes the currently focused container by amount, specified in pixels or percentage points.
+If the units are omitted, floating containers are resized in px and tiled containers by ppt.
+  parameters:
+    - type: `SWAY-RESIZE-TYPE-SHRINK`, `SWAY-RESIZE-TYPE-GROW-WIDTH`, `SWAY-RESIZE-TYPE-GROW-HEIGHT`
+    - amount: number
+    - unit: `SWAY-SIZE-UNIT-PX`, `SWAY-SIZE-UNIT-PPT`"
+  (dispatch-command
+   (string-append "resize " type " "
+                  (number->string amount)
+                  (when unit (string-append " " unit)))))
 
-;;        reload
-;;            Reloads the sway config file and applies  any  changes.  The  config
-;;            file is located at path specified by the command line arguments when
-;;            started, otherwise according to the priority stated in sway(1).
+(define* (sway-resize-height amount #:optional (unit #f))
+ "Sets the height of the container to height, specified in pixels or percentage points."
+  (dispatch-command
+   (string-append "resize height " (number->string amount)
+                  (when unit (string-append " " unit)))))
 
-;;        rename workspace [<old_name>] to <new_name>
-;;            Rename either <old_name> or the focused workspace to the <new_name>
+(define* (sway-resize-width amount #:optional (unit #f))
+ "Sets the width of the container to width, specified in pixels or percentage points."
+  (dispatch-command
+   (string-append "resize width " (number->string amount)
+                  (when unit (string-append " " unit)))))
 
-;;        resize shrink|grow width|height [<amount> [px|ppt]]
-;;            Resizes the currently focused container by amount, specified in pix‐
-;;            els  or  percentage  points. If the units are omitted, floating con‐
-;;            tainers are resized in px and tiled containers by ppt.  amount  will
-;;            default to 10 if omitted.
+(define (sway-show-scratchpad)
+ "Shows a window from the scratchpad."
+  (dispatch-command
+   (string-append "scratchpad show")))
 
-;;        resize set height <height> [px|ppt]
-;;            Sets  the  height of the container to height, specified in pixels or
-;;            percentage points. If the units are omitted, floating containers are
-;;            resized in px and tiled containers by ppt. If height is 0, the  con‐
-;;            tainer will not be resized.
+(define (sway-shortcuts-inhibitor flag)
+ "Enables or disables the ability of clients to inhibit keyboard shortcuts for a view."
+  (dispatch-command
+   (string-append "scratchpad " (if flag "enabled" "disabled"))))
 
-;;        resize set [width] <width> [px|ppt]
-;;            Sets  the  width  of  the container to width, specified in pixels or
-;;            percentage points. If the units are omitted, floating containers are
-;;            resized in px and tiled containers by ppt. If width is 0,  the  con‐
-;;            tainer will not be resized.
+(define SWAY-SPLIT-VERTICAL "vertical")
+(define SWAY-SPLIT-HORIZONTAL "horizontal")
+(define SWAY-SPLIT-NONE "none")
+(define SWAY-SPLIT-TOGGLE "toggle")
 
-;;        resize set [width] <width> [px|ppt] [height] <height> [px|ppt]
-;;            Sets  the  width  and  height  of the container to width and height,
-;;            specified in pixels or percentage points. If the units are  omitted,
-;;            floating  containers  are resized in px and tiled containers by ppt.
-;;            If width or height is 0, the container will not be resized  on  that
-;;            axis.
+(define (sway-split-container option)
+  "Splits the current container, vertically or horizontally. When none is specified,
+   the effect of a previous split is undone.
+  parameters:
+    - option: `SWAY-SPLIT-VERTICAL`, `SWAY-SPLIT-HORIZONTAL`, `SWAY-SPLIT-NONE`, `SWAY-SPLIT-TOGGLE`"
+  (dispatch-command
+   (string-append "split " option)))
 
-;;        scratchpad show
-;;            Shows  a  window  from the scratchpad. Repeatedly using this command
-;;            will cycle through the windows in the scratchpad.
+(define SWAY-STICKY-ENABLE "enable")
+(define SWAY-STICKY-DISABLE "disable")
+(define SWAY-STICKY-TOGGLE "toggle")
 
-;;        shortcuts_inhibitor enable|disable
-;;            Enables or disables the  ability  of  clients  to  inhibit  keyboard
-;;            shortcuts  for  a  view. This is primarily useful for virtualization
-;;            and remote desktop software. It affects either the currently focused
-;;            view or a set of views selected by criteria. Subcommand disable  ad‐
-;;            ditionally  deactivates any active inhibitors for the given view(s).
-;;            Criteria are particularly useful with the for_window command to con‐
-;;            figure a class of views differently from the per-seat  defaults  es‐
-;;            tablished by the seat subcommand of the same name. See sway-input(5)
-;;            for more ways to affect inhibitors.
+(define (sway-sticky flag)
+  "Sticks a floating window to the current output so that it shows up on all workspaces.
+  parameters:
+    - flag: `SWAY-STICKY-ENABLE`, `SWAY-STICKY-DISABLE`, `SWAY-STICKY-TOGGLE`"
+  (dispatch-command
+   (string-append "sticky " (cond
+                               ((equal? #t flag) SWAY-STICKY-ENABLE)
+                               ((equal? #f flag) SWAY-STICKY-DISABLE)
+                               (else flag)))))
 
-;;        split vertical|v|horizontal|h|none|n|toggle|t
-;;            Splits  the current container, vertically or horizontally. When none
-;;            is specified, the effect of a previous split is undone if  the  cur‐
-;;            rent  container  is the only child of a split parent. When toggle is
-;;            specified, the current container is split  opposite  to  the  parent
-;;            container's layout.
-
-;;        splith
-;;            Equivalent to split horizontal
-
-;;        splitv
-;;            Equivalent to split vertical
-
-;;        splitt
-;;            Equivalent to split toggle
-
-;;        sticky enable|disable|toggle
-;;            "Sticks" a floating window to the current output so that it shows up
-;;            on all workspaces.
-
+;; TODO
 ;;        swap container with id|con_id|mark <arg>
 ;;            Swaps  the position, geometry, and fullscreen status of two contain‐
 ;;            ers. The first container can be selected either by criteria  or  fo‐
@@ -422,46 +663,38 @@ Response:
 ;;            space  as  the first container. In either of those cases, the second
 ;;            container will gain focus.
 
-;;        title_format <format>
-;;            Sets the format of window titles. The following placeholders may  be
-;;            used:
 
-;;                %title - The title supplied by the window
-;;                          %app_id  -  The  wayland app ID (applicable to wayland
-;;                windows only)
-;;                          %class - The X11  classname  (applicable  to  xwayland
-;;                windows only)
-;;                          %instance  -  The X11 instance (applicable to xwayland
-;;                windows only)
-;;                          %shell - The protocol the window is  using  (typically
-;;                xwayland or
-;;                    xdg_shell)
+(define (sway-title-format format)
+  "Sets the format of window titles.
+  parameters:
+    - format: a string that can use some placehodlers to display windows title format
+        %title - The title supplied by the window
+        %app_id  -  The  wayland app ID (applicable to wayland windows only)
+        %class - The X11  classname  (applicable  to  xwayland windows only)
+        %instance  -  The X11 instance (applicable to xwayland windows only)
+        %shell - The protocol the window is  using  (typically xwayland or xdg_shell)"
 
-;;            This  command  is typically used with for_window criteria. For exam‐
-;;            ple:
+  (dispatch-command
+   (string-append "title_format " format)))
 
-;;                for_window [title="."] title_format "<b>%title</b> (%app_id)"
+(define (sway-assign-to-workspace criteria workspace)
+  "Assigns views matching criteria to workspace.
+  parameters:
+    - criteria: a criteria string, use (sway-criteria) to build a one
+    - workspace: workspace name"
+  (dispatch-command
+   (string-append "assign " criteria " workspace " (or (and (number? workspace)
+                                                          (number->string workspace))
+                                                     workspace))))
 
-;;            Note that markup requires pango to be enabled via the font command.
+(define (sway-assign-to-output criteria output)
+  "Assigns views matching criteria to output.
+  parameters:
+    - criteria: a criteria string, use (sway-criteria) to build a one
+    - output: output name"
+  (dispatch-command
+   (string-append "assign " criteria " output " output)))
 
-;;            The default format is "%title".
-
-;;        The following commands may be used either in the configuration  file  or
-;;        at runtime.
-
-;;        assign <criteria> [→] [workspace] [number] <workspace>
-;;            Assigns  views matching criteria (see CRITERIA for details) to work‐
-;;            space. The → (U+2192) is optional  and  cosmetic.  This  command  is
-;;            equivalent to:
-
-;;                for_window <criteria> move container to workspace <workspace>
-
-;;        assign <criteria> [→] output left|right|up|down|<name>
-;;            Assigns  views  matching  criteria (see CRITERIA for details) to the
-;;            specified output. The → (U+2192) is optional and cosmetic. This com‐
-;;            mand is equivalent to:
-
-;;                for_window <criteria> move container to output <output>
 
 ;;        bindsym  [--whole-window]  [--border]  [--exclude-titlebar]  [--release]
 ;;        [--locked]  [--to-code]  [--input-device=<device>] [--no-warn] [--no-re‐
@@ -616,214 +849,359 @@ Response:
 ;;                      bindgesture pinch:inward+left move left
 ;;                      bindgesture pinch:inward+right move right
 
-;;        client.background <color>
-;;            This command is ignored and is only present for i3 compatibility.
 
-;;        client.<class>  <border>  <background>  <text> [<indicator> [<child_bor‐
-;;        der>]]
-;;            Configures the color of window borders and  title  bars.  The  first
-;;            three  colors  are  required. When omitted indicator will use a sane
-;;            default and child_border will use the color set for background. Col‐
-;;            ors may be specified in hex, either as #RRGGBB or #RRGGBBAA.
+;; The meaning of each color is:
+;; border: The border around the title bar.
+;; background: The background of the title bar.
+;; text: The text color of the title bar.
+;; indicator: The  color  used  to  indicate  where a new view will open.
+;; child_border: The border around the view itself.
 
-;;            The available classes are:
+;; The default colors are:
+;; ┌───────────────┬─────────┬────────────┬─────────┬───────────┬────────────┐
+;; │     class     │ border  │ background │ text    │ indicator │ child_bor‐ │
+;; │               │         │            │         │           │ der        │
+;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
+;; │ background    │ n/a     │ #ffffff    │ n/a     │ n/a       │ n/a        │
+;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
+;; │ focused       │ #4c7899 │ #285577    │ #ffffff │ #2e9ef4   │ #285577    │
+;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
+;; │ focused_in‐   │ #333333 │ #5f676a    │ #ffffff │ #484e50   │ #5f676a    │
+;; │ active        │         │            │         │           │            │
+;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
+;; │ fo‐           │ #333333 │ #5f676a    │ #ffffff │ n/a       │ n/a        │
+;; │ cused_tab_ti‐ │         │            │         │           │            │
+;; │ tle           │         │            │         │           │            │
+;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
+;; │ unfocused     │ #333333 │ #222222    │ #888888 │ #292d2e   │ #222222    │
+;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
+;; │ urgent        │ #2f343a │ #900000    │ #ffffff │ #900000   │ #900000    │
+;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
+;; │ placeholder   │ #000000 │ #0c0c0c    │ #ffffff │ #000000   │ #0c0c0c    │
+;; └───────────────┴─────────┴────────────┴─────────┴───────────┴────────────┘
 
-;;            client.focused
-;;                The window that has focus.
+(define (sway-client-background color)
+  "This command is ignored and is only present for i3 compatibility.
+  parameters:
+    - color: color code to be used (str)"
+  (dispatch-command
+    (string-append "client.background " color)))
 
-;;            client.focused_inactive
-;;                The most recently focused view within a container which  is  not
-;;                focused.
+(define* (sway-client-focused-color border-color background-color text-color
+                                   #:optional (indictor-color #f)
+                                   (child-border-color #f))
+  "Configures the color of window borders and title bars of the window that has focus.
+  parameters:
+    - border-color: color code to be used for border (str)
+    - background-color: color code to be used for background (str)
+    - text-color: color code to be used for text (str)
+    - indictor-color: color code to be used for indicator (str)
+    - child-border-color: color code to be used for child border (str)"
+  (dispatch-command
+   (string-append "client.focused " border-color background-color text-color
+                  (when indictor-color (string-append " " indictor-color))
+                  (when child-border-color (string-append " " child-border-color)))))
 
-;;            client.focused_tab_title
-;;                A  view that has focused descendant container. Tab or stack con‐
-;;                tainer title that is the parent of the focused container but  is
-;;                not directly focused. Defaults to focused_inactive if not speci‐
-;;                fied and does not use the indicator and child_border colors.
+(define* (sway-client-focused-inactive-color border-color background-color text-color
+                                   #:optional (indictor-color #f)
+                                   (child-border-color #f))
+  "Configures the color of window borders and title bars of the most
+   recently focused view within a container which  is  not focused.
+  parameters:
+    - border-color: color code to be used for border (str)
+    - background-color: color code to be used for background (str)
+    - text-color: color code to be used for text (str)
+    - indictor-color: color code to be used for indicator (str)
+    - child-border-color: color code to be used for child border (str)"
+  (dispatch-command
+   (string-append "client.focused_inactive " border-color background-color text-color
+                  (when indictor-color (string-append " " indictor-color))
+                  (when child-border-color (string-append " " child-border-color)))))
 
-;;            client.placeholder
-;;                Ignored (present for i3 compatibility).
+(define (sway-client-focused-tab-title-color border-color background-color text-color)
+  "Configures the color of window borders and title bars of a
+   view that has focused descendant container.
+  parameters:
+    - border-color: color code to be used for border (str)
+    - background-color: color code to be used for background (str)
+    - text-color: color code to be used for text (str)
+    - indictor-color: color code to be used for indicator (str)
+    - child-border-color: color code to be used for child border (str)"
+  (dispatch-command
+   (string-append "client.focused_tab_title " border-color background-color text-color)))
 
-;;            client.unfocused
-;;                A view that does not have focus.
+(define* (sway-client-placeholder-color border-color background-color text-color
+                                   #:optional (indictor-color #f)
+                                   (child-border-color #f))
+  "Ignored (present for i3 compatibility).
+  parameters:
+    - border-color: color code to be used for border (str)
+    - background-color: color code to be used for background (str)
+    - text-color: color code to be used for text (str)
+    - indictor-color: color code to be used for indicator (str)
+    - child-border-color: color code to be used for child border (str)"
+  (dispatch-command
+   (string-append "client.placeholder " border-color background-color text-color
+                  (when indictor-color (string-append " " indictor-color))
+                  (when child-border-color (string-append " " child-border-color)))))
 
-;;            client.urgent
-;;                A view with an urgency hint. Note: Native Wayland windows do not
-;;                support urgency. Urgency only works for Xwayland windows.
+(define* (sway-client-unfocused-color border-color background-color text-color
+                                   #:optional (indictor-color #f)
+                                   (child-border-color #f))
+  "Configures the color of window borders and title bars of a
+   view that does not have focus.
+  parameters:
+    - border-color: color code to be used for border (str)
+    - background-color: color code to be used for background (str)
+    - text-color: color code to be used for text (str)
+    - indictor-color: color code to be used for indicator (str)
+    - child-border-color: color code to be used for child border (str)"
+  (dispatch-command
+   (string-append "client.unfocused " border-color background-color text-color
+                  (when indictor-color (string-append " " indictor-color))
+                  (when child-border-color (string-append " " child-border-color)))))
 
-;;            The meaning of each color is:
+(define* (sway-client-urgent-color border-color background-color text-color
+                                   #:optional (indictor-color #f)
+                                   (child-border-color #f))
+  "Configures the color of window borders and title bars of a
+   view with an urgency hint..
+  parameters:
+    - border-color: color code to be used for border (str)
+    - background-color: color code to be used for background (str)
+    - text-color: color code to be used for text (str)
+    - indictor-color: color code to be used for indicator (str)
+    - child-border-color: color code to be used for child border (str)"
+  (dispatch-command
+   (string-append "client.urgent " border-color background-color text-color
+                  (when indictor-color (string-append " " indictor-color))
+                  (when child-border-color (string-append " " child-border-color)))))
 
-;;            border
-;;                The border around the title bar.
+(define SWAY-BORDER-STYLE-NONE "none")
+(define SWAY-BORDER-STYLE-NORMAL "normal")
+(define SWAY-BORDER-STYLE-PIXEL "pixel")
 
-;;            background
-;;                The background of the title bar.
+(define* (sway-default-border-style type #:optional (n #f))
+  "Set default border style for new tiled windows.
+  parameters:
+    - type: color code to be used for border (str)
+    - n: units in case pixel is chosen (number)"
+  (dispatch-command
+   (string-append "default_border " type " " (when n (number->string n)))))
 
-;;            text
-;;                The text color of the title bar.
+(define* (sway-default-floating-border-style type #:optional (n #f))
+  "Set default border style for new tiled windows.
+  parameters:
+    - type: color code to be used for border (str)
+    - n: units in case pixel is chosen (number)"
+  (dispatch-command
+   (string-append "default_floating_border " type " " (when n (number->string n)))))
 
-;;            indicator
-;;                The  color  used  to  indicate  where a new view will open. In a
-;;                tiled container, this would paint the right border of  the  cur‐
-;;                rent view if a new view would be opened to the right.
+(define (sway-exec command)
+  "Executes shell command with sh.
+  parameters:
+    - command: command to be executed (str)"
+  (dispatch-command
+   (string-append "exec " command)))
 
-;;            child_border
-;;                The border around the view itself.
+(define (sway-exec-always command)
+  "Like exec, but the shell command will be executed again after reload.
+  parameters:
+    - command: command to be executed (str)"
+  (dispatch-command
+   (string-append "exec_always " command)))
 
-;;        The default colors are:
+(define (sway-floating-maximum-size width height)
+  "Specifies the maximum size of floating windows.
+  parameters:
+    - width: target size width (number)
+    - height: target size height (number)"
+  (dispatch-command
+   (string-append "floating_maximum_size "
+                  (number->string width) " x "
+                  (number->string height))))
 
-;;        ┌───────────────┬─────────┬────────────┬─────────┬───────────┬────────────┐
-;;        │     class     │ border  │ background │ text    │ indicator │ child_bor‐ │
-;;        │               │         │            │         │           │ der        │
-;;        ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;;        │ background    │ n/a     │ #ffffff    │ n/a     │ n/a       │ n/a        │
-;;        ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;;        │ focused       │ #4c7899 │ #285577    │ #ffffff │ #2e9ef4   │ #285577    │
-;;        ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;;        │ focused_in‐   │ #333333 │ #5f676a    │ #ffffff │ #484e50   │ #5f676a    │
-;;        │ active        │         │            │         │           │            │
-;;        ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;;        │ fo‐           │ #333333 │ #5f676a    │ #ffffff │ n/a       │ n/a        │
-;;        │ cused_tab_ti‐ │         │            │         │           │            │
-;;        │ tle           │         │            │         │           │            │
-;;        ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;;        │ unfocused     │ #333333 │ #222222    │ #888888 │ #292d2e   │ #222222    │
-;;        ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;;        │ urgent        │ #2f343a │ #900000    │ #ffffff │ #900000   │ #900000    │
-;;        ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;;        │ placeholder   │ #000000 │ #0c0c0c    │ #ffffff │ #000000   │ #0c0c0c    │
-;;        └───────────────┴─────────┴────────────┴─────────┴───────────┴────────────┘
+(define (sway-floating-minimum-size width height)
+  "Specifies the minimum size of floating windows.
+  parameters:
+    - width: target size width (number)
+    - height: target size height (number)"
+  (dispatch-command
+   (string-append "floating_minimum_size "
+                  (number->string width) " x "
+                  (number->string height))))
 
-;;        default_border normal|none|pixel [<n>]
-;;            Set  default border style for new tiled windows. Config reload won't
-;;            affect existing windows, only newly created ones after the reload.
+(define SWAY-FLOATING-MODIFIER-TYPE-NORMAL "normal")
+(define SWAY-FLOATING-MODIFIER-TYPE-INVERSE "inverse")
 
-;;        default_floating_border normal|none|pixel [<n>]
-;;            Set default border style for new floating windows. This only applies
-;;            to windows that are spawned in floating mode, not windows  that  be‐
-;;            come floating afterwards.
+(define (sway-floating-modifier modifier type)
+  "When the modifier key is held down, you may hold left click to move windows,
+   and right click to resize them.
+  parameters:
+    - modifier: the modifier key (str)
+    - type: `SWAY-FLOATING-MODIFIER-TYPE-NORMAL`, `SWAY-FLOATING-MODIFIER-TYPE-INVERSE`"
+  (dispatch-command
+   (string-append "floating_modifier" modifier " x " type)))
 
-;;        exec <shell command>
-;;            Executes shell command with sh.
+(define SWAY-FOCUS-FOLLOW-MOUSE-FLAG-YES "yes")
+(define SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO "no")
+(define SWAY-FOCUS-FOLLOW-MOUSE-FLAG-ALWAYS "always")
 
-;;        exec_always <shell command>
-;;            Like  exec,  but  the shell command will be executed again after re‐
-;;            load.
+(define (sway-focus-follow-mouse flag)
+  "If set to yes, moving your mouse over a window will focus that window.
+   If set to always, the window under the cursor will always be
+   focused, even after switching between workspaces.
+  parameters:
+    - flag: `SWAY-FOCUS-FOLLOW-MOUSE-FLAG-YES`, `SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO`,
+			`SWAY-FOCUS-FOLLOW-MOUSE-FLAG-ALWAYS`"
+  (dispatch-command
+   (string-append "focus_follows_mouse " flag)))
 
-;;        floating_maximum_size <width> x <height>
-;;            Specifies the maximum size of floating windows. -1 x -1 removes  the
-;;            upper  limit.  The  default  is  0 x 0, which will use the width and
-;;            height of the entire output layout as the maximums
+(define SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-SMART "smart")
+(define SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-URGENT "urgent")
+(define SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-FOCUS "focus")
+(define SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-NONE "none")
 
-;;        floating_minimum_size <width> x <height>
-;;            Specifies the minimum size of floating windows. The default is 75  x
-;;            50.
+(define (sway-focus-on-window-activation flag)
+  "This option determines what to do when a client requests window activation.
+  parameters:
+    - flag: `SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-SMART`, `SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-URGENT`,
+			`SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-FOCUS`, `SWAY-FOCUS-ON-WINDOW-ACTIVATION-FLAG-NONE`"
+  (dispatch-command
+   (string-append "focus_on_window_activation " flag)))
 
-;;        floating_modifier <modifier> [normal|inverse]
-;;            When  the modifier key is held down, you may hold left click to move
-;;            windows, and right click to resize them. Setting  modifier  to  none
-;;            disables  this  feature. If inverse is specified, left click is used
-;;            for resizing and right click for moving.
+(define SWAY-FOCUS-WRAPPING-FLAG-YES "yes")
+(define SWAY-FOCUS-WRAPPING-FLAG-NO "no")
+(define SWAY-FOCUS-WRAPPING-FLAG-FORCE "force")
+(define SWAY-FOCUS-WRAPPING-FLAG-WORKSPACE "workspace")
 
-;;        focus_follows_mouse yes|no|always
-;;            If set to yes, moving your mouse over a window will focus that  win‐
-;;            dow.  If  set  to always, the window under the cursor will always be
-;;            focused, even after switching between workspaces.
+(define (sway-focus-wrapping flag)
+  "This option determines what to do when a client requests window activation.
+  parameters:
+    - flag: `SWAY-FOCUS-WRAPPING-FLAG-YES`, `SWAY-FOCUS-WRAPPING-FLAG-NO`,
+			`SWAY-FOCUS-WRAPPING-FLAG-FORCE`, `SWAY-FOCUS-WRAPPING-FLAG-WORKSPACE`"
+  (dispatch-command
+   (string-append "focus_wrapping " flag)))
 
-;;        focus_on_window_activation smart|urgent|focus|none
-;;            This option determines what to do when a client requests window  ac‐
-;;            tivation.  If  set  to urgent, the urgent state will be set for that
-;;            window. If set to focus, the window will become focused. If  set  to
-;;            smart, the window will become focused only if it is already visible,
-;;            otherwise the urgent state will be set. Default is urgent.
+(define* (sway-font font #:optional (pango #f))
+  "Sets font to use for the title bars. To enable support for pango markup,
+   preface the font name with pango:
+  parameters:
+    - font: font name (str)
+    - pango: whether to use pango or not (boolean)"
+  (dispatch-command
+   (string-append "font " (when pango "pango:") font)))
 
-;;        focus_wrapping yes|no|force|workspace
-;;            This  option determines what to do when attempting to focus over the
-;;            edge of a container. If set to no, the focused container will retain
-;;            focus, if there are no other containers in the direction. If set  to
-;;            yes, focus will be wrapped to the opposite edge of the container, if
-;;            there are no other containers in the direction. If set to force, fo‐
-;;            cus  will  be wrapped to the opposite edge of the container, even if
-;;            there are other containers in the direction. If  set  to  workspace,
-;;            focus will wrap like in the yes case and additionally wrap when mov‐
-;;            ing outside of workspaces boundaries. Default is yes.
+(define (sway-force-display-urgency-hint timeout)
+  "If an application on another workspace sets an urgency hint.
+  parameters:
+    - timeout: urgency timeout (number)"
+  (dispatch-command
+   (string-append "force_display_urgency_hint " (number->string timeout))))
 
-;;        font [pango:]<font>
-;;            Sets  font  to  use  for the title bars. To enable support for pango
-;;            markup, preface the font name with pango:. For example, monospace 10
-;;            is the default font. To enable support for pango markup, pango:mono‐
-;;            space 10 should be used instead. Regardless of whether pango  markup
-;;            is  enabled,  font  should be specified as a pango font description.
-;;            For   more   information   on   pango   font    descriptions,    see
-;;            https://docs.gtk.org/Pango/type_func.FontDescrip‐
-;;            tion.from_string.html#description
+(define (sway-titlebar-border-thickness thickness)
+  "Thickness of the titlebar border in pixels.
+  parameters:
+    - thickness: thickness of border (number)"
+  (dispatch-command
+   (string-append "titlebar_border_thickness " (number->string thickness))))
 
-;;        force_display_urgency_hint <timeout> [ms]
-;;            If an application on another workspace sets an urgency hint, switch‐
-;;            ing  to  this  workspace may lead to immediate focus of the applica‐
-;;            tion, which also means the window decoration color would be  immedi‐
-;;            ately  reset  to client.focused. This may make it unnecessarily hard
-;;            to tell which window originally raised the event. This option allows
-;;            one to set a timeout in ms to delay the urgency hint reset.
+(define (sway-titlebar-padding horizontal vertical)
+  "Padding of the text in the titlebar.
+  parameters:
+    - horizontal: horizontal padding (number)
+    - vertical: vertical padding (number)"
+  (dispatch-command
+   (string-append "titlebar_padding " (number->string horizontal)
+                  " " (number->string vertical))))
 
-;;        titlebar_border_thickness <thickness>
-;;            Thickness of the titlebar border in pixels
+;; TODO: it should be possible to get commands as strings instead of dispatching them immediately
+(define (sway-for-window criteria commands)
+  "Whenever a window that matches criteria appears, run list of commands.
+  parameters:
+    - criteria: a criteria string, use (sway-criteria) to build a one
+    - command: list of commands to execute (string)"
+  (dispatch-command
+   (string-append "for_window " criteria " " commands)))
 
-;;        titlebar_padding <horizontal> [<vertical>]
-;;            Padding of the text in the titlebar. horizontal value affects  hori‐
-;;            zontal  padding  of  the  text while vertical value affects vertical
-;;            padding (space above and below text). Padding includes titlebar bor‐
-;;            ders so their value should be  greater  than  titlebar_border_thick‐
-;;            ness. If vertical value is not specified it is set to the horizontal
-;;            value.
+(define (sway-default-gaps option amount)
+  "Sets default amount pixels of inner or outer gap.
+  parameters:
+    - option: `SWAY-GAPS-OPTION-INNER`, `SWAY-GAPS-OPTION-OUTER`, `SWAY-GAPS-OPTION-HORIZONTAL`,
+              `SWAY-GAPS-OPTION-VERTICAL`, `SWAY-GAPS-OPTION-TOP`, `SWAY-GAPS-OPTION-RIGHT`,
+              `SWAY-GAPS-OPTION-BOTTOM`, `SWAY-GAPS-OPTION-LEFT`
+    - amount: amount of gap (number)"
+  (dispatch-command
+   (string-append "gaps " option " " (number->string amount))))
 
-;;        for_window <criteria> <command>
-;;            Whenever  a  window  that matches criteria appears, run list of com‐
-;;            mands. See CRITERIA for more details.
+(define SWAY-EDGE-BORDER-TYPE-NONE "none")
+(define SWAY-EDGE-BORDER-TYPE-VERTICAL "vertical")
+(define SWAY-EDGE-BORDER-TYPE-HORIZONTAL "horizontal")
+(define SWAY-EDGE-BORDER-TYPE-BOTH "both")
+(define SWAY-EDGE-BORDER-TYPE-SMART "smart")
+(define SWAY-EDGE-BORDER-TYPE-SMART-NO-GAPS "smart_no_gaps")
 
-;;        gaps inner|outer|horizontal|vertical|top|right|bottom|left <amount>
-;;            Sets default amount pixels of inner or outer gap,  where  the  inner
-;;            affects  spacing  around  each  view  and  outer affects the spacing
-;;            around each workspace. Outer gaps are in addition to inner gaps.  To
-;;            reduce  or  remove  outer  gaps, outer gaps can be set to a negative
-;;            value. outer gaps can also be specified per side  with  top,  right,
-;;            bottom, and left or per direction with horizontal and vertical.
+(define* (sway-hide-edge-borders type #:optional (i3 #f))
+  "Hides window borders adjacent to the screen edges.
+  parameters:
+    - type: `SWAY-EDGE-BORDER-TYPE-NONE`, `SWAY-EDGE-BORDER-TYPE-VERTICAL`, `SWAY-EDGE-BORDER-TYPE-HORIZONTAL`,
+              `SWAY-EDGE-BORDER-TYPE-BOTH`, `SWAY-EDGE-BORDER-TYPE-SMART`, `SWAY-EDGE-BORDER-TYPE-SMART-NO-GAPS`
+    - i3: enables i3-compatible behavior to hide the title bar on tabbed and stacked containers with one child"
+  (dispatch-command
+   (string-append "hide_edge_borders " (when i3 "--i3 ") type)))
 
-;;            This  affects  new  workspaces  only, and is used when the workspace
-;;            doesn't have its own gaps settings (see: workspace <ws> gaps ...).
+(define (sway-input device subcommands)
+  "For details on input subcommands, see sway-input(5).
+  parameters:
+    - device: the name of the target device
+    - subcommands: list of commands to execute (string)"
+  (dispatch-command
+   (string-append "input " device " " subcommands)))
 
-;;        hide_edge_borders             [--i3]              none|vertical|horizon‐
-;;        tal|both|smart|smart_no_gaps
-;;            Hides  window borders adjacent to the screen edges. Default is none.
-;;            The --i3 option enables i3-compatible behavior to hide the title bar
-;;            on   tabbed   and   stacked   containers   with   one   child.   The
-;;            smart|smart_no_gaps  options are equivalent to setting smart_borders
-;;            smart|no_gaps and hide_edge_borders none.
+(define (sway-seat seat subcommands)
+  "For details on input subcommands, see sway-input(5).
+  parameters:
+    - seat: the name of the seat device
+    - subcommands: list of commands to execute (string)"
+  (dispatch-command
+   (string-append "seat " seat " " subcommands)))
 
-;;        input <input_device> <input-subcommands...>
-;;            For details on input subcommands, see sway-input(5).
+(define (sway-kill)
+  "Kills (closes) the currently focused container and all of its children."
+  (dispatch-command
+   (string-append "kill")))
 
-;;            * may be used in lieu of a specific device name to configure all in‐
-;;            put devices. A list of  input  device  names  may  be  obtained  via
-;;            swaymsg -t get_inputs.
+(define SWAY-SMART-BORDERS-ON "on")
+(define SWAY-SMART-BORDERS-OFF "off")
+(define SWAY-SMART-BORDERS-NO-GAPS "no_gaps")
 
-;;        seat <seat> <seat-subcommands...>
-;;            For details on seat subcommands, see sway-input(5).
+(define (sway-smart-borders flag)
+  "If smart_borders are on, borders will only be enabled if the
+   workspace has more than one visible child.
+  parameters:
+    - flag: `SWAY-SMART-BORDERS-ON`, `SWAY-SMART-BORDERS-OFF`, `SWAY-SMART-BORDERS-NO-GAPS`"
+  (dispatch-command
+   (string-append "smart_borders " (cond
+                   ((equal? flag #t) SWAY-SMART-BORDERS-ON)
+                   ((equal? flag #f) SWAY-SMART-BORDERS-OFF)
+                   (else flag)))))
 
-;;        kill
-;;            Kills  (closes) the currently focused container and all of its chil‐
-;;            dren.
+(define SWAY-SMART-GAPS-ON "on")
+(define SWAY-SMART-GAPS-OFF "off")
+(define SWAY-SMART-GAPS-TOGGLE "toggle")
+(define SWAY-SMART-GAPS-INVERSE-OUTER "inverse_outer")
 
-;;        smart_borders on|no_gaps|off
-;;            If smart_borders are on, borders will only be enabled if  the  work‐
-;;            space  has  more  than one visible child. If smart_borders is set to
-;;            no_gaps, borders will only be enabled if the workspace has more than
-;;            one visible child and gaps equal to zero.
-
-;;        smart_gaps on|off|toggle|inverse_outer
-;;            If smart_gaps are on gaps will only be enabled if  a  workspace  has
-;;            more than one child. If smart_gaps are inverse_outer outer gaps will
-;;            only be enabled if a workspace has exactly one child.
+(define (sway-smart-gaps flag)
+  "If smart_gaps are on gaps will only be enabled if a
+   workspace has more than one child.
+  parameters:
+    - flag: `SWAY-SMART-GAPS-ON`, `SWAY-SMART-GAPS-OFF`,
+			`SWAY-SMART-GAPS-TOGGLE`, `SWAY-SMART-GAPS-INVERSE-OUTER`"
+  (dispatch-command
+   (string-append "smart_gaps " (cond
+                   ((equal? flag #t) SWAY-SMART-GAPS-ON)
+                   ((equal? flag #f) SWAY-SMART-GAPS-OFF)
+                   (else flag)))))
 
 ;;        mark --add|--replace [--toggle] <identifier>
 ;;            Marks are arbitrary labels that can be used to identify certain win‐
@@ -834,79 +1212,128 @@ Response:
 ;;            for  that  window. If --toggle is specified mark will remove identi‐
 ;;            fier if it is already marked.
 
-;;        mode <mode>
-;;            Switches to the specified mode. The default mode is default.
+(define (sway-mode mode)
+  "Switches to the specified mode. The default mode is default.
+  parameters:
+    - mode: name of the mode (str)"
+  (dispatch-command
+   (string-append "mode " mode)))
 
-;;        mode [--pango_markup] <mode> <mode-subcommands...>
-;;            The  only   valid   mode-subcommands...   are   bindsym,   bindcode,
-;;            bindswitch,  and  set. If --pango_markup is given, then mode will be
-;;            interpreted as pango markup.
+(define (sway-mode-subcommand mode subcommand)
+  "The only valid mode-subcommands are bindsym, bindcode, bindswitch, and set.
+  parameters:
+    - mode: name of the mode (str)
+    - subcommand: list of subcommands (str)"
+  (dispatch-command
+   (string-append "mode " mode " " subcommand)))
 
-;;        mouse_warping output|container|none
-;;            If output is specified, the mouse will be moved to  new  outputs  as
-;;            you  move  focus  between them. If container is specified, the mouse
-;;            will be moved to the middle of the container on switch.  Default  is
-;;            output.
+(define SWAY-MOUSE-WARPING-OUTPUT "output")
+(define SWAY-MOUSE-WARPING-CONTAINER "container")
+(define SWAY-MOUSE-WARPING-NONE "none")
 
-;;        no_focus <criteria>
-;;            Prevents  windows  matching  <criteria> from being focused automati‐
-;;            cally when they're created. This has no effect on the  first  window
-;;            in a workspace.
+(define (sway-mouse-warping mode)
+  "If output is specified, the mouse will be moved to new outputs as you move focus between them.
+   If container is specified, the mouse will be moved to the middle of the container on switch.
+  parameters:
+    - mode: `SWAY-MOUSE-WARPING-OUTPUT`, `SWAY-MOUSE-WARPING-CONTAINER`, `SWAY-MOUSE-WARPING-NONE`"
+  (dispatch-command
+   (string-append "mouse_warping " mode)))
 
-;;        output <output_name> <output-subcommands...>
-;;            For details on output subcommands, see sway-output(5).
+(define (sway-no-focus criteria)
+  "Prevents windows matching <criteria> from being focused automatically when they're created.
+  parameters:
+    - criteria: a criteria string, use (sway-criteria) to build a one"
+  (dispatch-command
+   (string-append "no_focus " criteria)))
 
-;;            *  may  be  used  in lieu of a specific output name to configure all
-;;            outputs. A list of output names  may  be  obtained  via  swaymsg  -t
-;;            get_outputs.
+(define (sway-output output subcommands)
+  "For details on output subcommands, see sway-output(5).
+  parameters:
+    - output: name of the output (str)
+    - subcommand: list of subcommands (str)"
+  (dispatch-command
+   (string-append "output " output " " subcommands)))
 
-;;        popup_during_fullscreen smart|ignore|leave_fullscreen
-;;            Determines  what  to  do  when  a fullscreen view opens a dialog. If
-;;            smart (the default), the dialog will be displayed.  If  ignore,  the
-;;            dialog will not be rendered. If leave_fullscreen, the view will exit
-;;            fullscreen mode and the dialog will be rendered.
+(define SWAY-POPUP-TYPE-OUTPUTSMART "outputsmart")
+(define SWAY-POPUP-TYPE-IGNORE "ignore")
+(define SWAY-POPUP-TYPE-LEAVE-FULLSCREEN "leave_fullscreen")
 
-;;        primary_selection enabled|disabled
-;;            Enable  or disable the primary selection clipboard. May only be con‐
-;;            figured at launch. Default is enabled.
+(define (sway-popup-during-fullscreen type)
+  "Determines what to do when a fullscreen view opens a dialog.
+  parameters:
+    - type: `SWAY-POPUP-TYPE-OUTPUTSMART`, `SWAY-POPUP-TYPE-IGNORE`, `SWAY-POPUP-TYPE-LEAVE-FULLSCREEN`"
+  (dispatch-command
+   (string-append "popup_during_fullscreen " type)))
 
-;;        set $<name> <value>
-;;            Sets variable $name to value. You can use the new  variable  in  the
-;;            arguments  of  future commands. When the variable is used, it can be
-;;            escaped with an additional $ (ie $$name)  to  have  the  replacement
-;;            happen  at  run time instead of when reading the config. However, it
-;;            does not always make sense for the variable to be  replaced  at  run
-;;            time since some arguments do need to be known at config time.
+(define SWAY-PRIMARY-SELECTION-ENABLED "enabled")
+(define SWAY-PRIMARY-SELECTION-DISABLED "disabled")
 
-;;        show_marks yes|no
-;;            If show_marks is yes, marks will be displayed in the window borders.
-;;            Any  mark  that  starts with an underscore will not be drawn even if
-;;            show_marks is yes. The default is yes.
+(define (sway-primary-selection type)
+  "Enable or disable the primary selection clipboard. May only be configured at launch. Default is enabled.
+  parameters:
+    - type: `SWAY-PRIMARY-SELECTION-ENABLED`, `SWAY-PRIMARY-SELECTION-DISABLED`"
+  (dispatch-command
+   (string-append "primary_selection " (cond
+                   ((equal? type #t) SWAY-PRIMARY-SELECTION-ENABLED)
+                   ((equal? type #f) SWAY-PRIMARY-SELECTION-DISABLED)
+                   (else type)))))
 
-;;        opacity [set|plus|minus] <value>
-;;            Adjusts the opacity of the window between 0 (completely transparent)
-;;            and 1 (completely opaque). If the operation is omitted, set will  be
-;;            used.
+(define SWAY-SHOW-MARKS-YES "yes")
+(define SWAY-SHOW-MARKS-NO "no")
 
-;;        tiling_drag  enable|disable|toggle
-;;            Sets whether or not tiling containers can be dragged with the mouse.
-;;            If  enabled  (default), the floating_mod can be used to drag tiling,
-;;            as well as floating, containers. Using the left mouse button on  ti‐
-;;            tle  bars  without the floating_mod will also allow the container to
-;;            be dragged. toggle should not be used in the config file.
+(define (sway-show-marks flag)
+  "If show_marks is yes, marks will be displayed in the window borders.
+  parameters:
+    - flag: `SWAY-SHOW-MARKS-YES`, `SWAY-SHOW-MARKS-NO`"
+  (dispatch-command
+   (string-append "show_marks " (cond
+                   ((equal? flag #t) SWAY-SHOW-MARKS-YES)
+                   ((equal? flag #f) SWAY-SHOW-MARKS-NO)
+                   (else flag)))))
 
-;;        tiling_drag_threshold <threshold>
-;;            Sets the threshold that must be  exceeded  for  a  container  to  be
-;;            dragged  by its titlebar. This has no effect if floating_mod is used
-;;            or if tiling_drag is set to disable.  Once the  threshold  has  been
-;;            exceeded  once,  the drag starts and the cursor can come back inside
-;;            the threshold without stopping the drag.  threshold is multiplied by
-;;            the scale of the output that the cursor on.  The default is 9.
+(define SWAY-OPACITY-SET "set")
+(define SWAY-OPACITY-PLUS "plus")
+(define SWAY-OPACITY-MINUS "minus")
 
-;;        title_align left|center|right
-;;            Sets the title alignment. If right is selected and show_marks is set
-;;            to yes, the marks will be shown on the  left  side  instead  of  the
-;;            right side.
+(define (sway-opacity type value)
+  "Adjusts the opacity of the window between 0 (completely transparent) and 1 (completely opaque)
+  parameters:
+    - type: `SWAY-OPACITY-SET`, `SWAY-OPACITY-PLUS`, `SWAY-OPACITY-MINUS`
+	- value: opacity value (number) should be between 0 and 1"
+  (dispatch-command
+   (string-append "opacity " type " " (number->string value))))
+
+(define SWAY-TILING-DRAG-ENABLE "enable")
+(define SWAY-TILING-DRAG-DISABLE "disable")
+(define SWAY-TILING-DRAG-TOGGLE "toggle")
+
+(define (sway-tiling-drag flag)
+  "Sets whether or not tiling containers can be dragged with the mouse.
+  parameters:
+    - flag: `SWAY-TILING-DRAG-ENABLE`, `SWAY-TILING-DRAG-DISABLE`, `SWAY-TILING-DRAG-TOGGLE`"
+  (dispatch-command
+   (string-append "tiling_drag " (cond
+                   ((equal? flag #t) SWAY-TILING-DRAG-ENABLE)
+                   ((equal? flag #f) SWAY-TILING-DRAG-DISABLE)
+                   (else flag)))))
+
+(define (sway-tiling-drag-threshold threshold)
+  "Sets whether or not tiling containers can be dragged with the mouse.
+  parameters:
+    - threshold: threshold value (number)"
+  (dispatch-command
+   (string-append "tiling_drag_threshold " (number->string threshold))))
+
+(define SWAY-TILING-ALIGN-LEFT "left")
+(define SWAY-TILING-ALIGN-CENTER "center")
+(define SWAY-TILING-ALIGN-RIGHT "right")
+
+(define (sway-tiling-align type)
+  "Sets the title alignment.
+  parameters:
+    - type: `SWAY-TILING-ALIGN-LEFT`, `SWAY-TILING-ALIGN-CENTER`, `SWAY-TILING-ALIGN-RIGHT`"
+  (dispatch-command
+   (string-append "title_align " type)))
 
 ;;        unbindswitch <switch>:<state>
 ;;            Removes a binding for when <switch> changes to <state>.
@@ -936,55 +1363,60 @@ Response:
 ;;            self as urgent. By default, windows are allowed to set their own ur‐
 ;;            gency.
 
-;;        workspace [--no-auto-back-and-forth] [number] <[num:]name>
-;;            Switches to the specified workspace. The num: portion of the name is
-;;            optional  and  will  be  used for ordering. If num: is not given and
-;;            name is a number, then it will be also be used for ordering.
+(define* (sway-switch-workspace-id id #:optional (auto-back-and-forth #f))
+  "switch to the workspace with the provided id.
+  parameters:
+	- id: workspace id (number)
+    - auto-back-and-forth: enable/disable auto back and forth"
+  (dispatch-command
+   (string-append "workspace number "
+                  (unless auto-back-and-forth "--no-auto-back-and-forth ")
+                  (number->string id))))
 
-;;            If the no-auto-back-and-forth option is  given,  then  this  command
-;;            will  not  perform  a back-and-forth operation when the workspace is
-;;            already focused and workspace_auto_back_and_forth is enabled.
+(define* (sway-switch-workspace workspace #:optional (auto-back-and-forth #f))
+  "switch to the workspace with the provided name.
+  parameters:
+	- workspace: workspace name (str)
+    - auto-back-and-forth: enable/disable auto back and forth"
+  (dispatch-command
+   (string-append "workspace "
+                  (unless auto-back-and-forth "--no-auto-back-and-forth ")
+                  workspace)))
 
-;;            If the number keyword is specified and a workspace with  the  number
-;;            already  exists, then the workspace with the number will be used. If
-;;            a workspace with the number does not exist, a new workspace will  be
-;;            created with the name name.
+(define (sway-switch-workspace-on-output workspace output)
+  "assigns workspace to output.
+  parameters:
+	- workspace: workspace name (str)
+    - output: output name"
+  (dispatch-command
+   (string-append "workspace " workspace " output " output)))
 
-;;        workspace prev|next
-;;            Switches  to the next workspace on the current output or on the next
-;;            output if currently on the last workspace.
+(define SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-YES "yes")
+(define SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-NO "no")
 
-;;        workspace prev_on_output|next_on_output
-;;            Switches to the next workspace on the current output.
+(define (sway-workspace-auto-back-and-forth option)
+  "When yes, repeating a workspace switch command will switch back to the prior workspace.
+  parameters:
+	- option: `SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-YES`, `SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-NO`"
+  (dispatch-command
+   (string-append "workspace_auto_back_and_forth "
+                  (cond
+                   ((equal? option #t) SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-YES)
+                   ((equal? option #f) SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-NO)
+                   (else option)))))
 
-;;        workspace back_and_forth
-;;            Switches to the previously focused workspace.
-
-;;        workspace  <name>  gaps   inner|outer|horizontal|vertical|top|right|bot‐
-;;        tom|left <amount>
-;;            Specifies  that  workspace  name should have the given gaps settings
-;;            when it is created.
-
-;;            This command does not affect existing workspaces. To alter the  gaps
-;;            of an existing workspace, use the gaps command.
-
-;;        workspace <name> output <outputs...>
-;;            Specifies  that workspace name should be shown on the specified out‐
-;;            puts. Multiple outputs can be listed and the first available will be
-;;            used. If the workspace gets placed on an  output  further  down  the
-;;            list and an output that is higher on the list becomes available, the
-;;            workspace will be moved to the higher priority output.
-
-;;            This  command does not affect existing workspaces. To move an exist‐
-;;            ing workspace, use the move command in combination  with  the  work‐
-;;            space  criteria (non-empty workspaces only) or workspace command (to
-;;            switch to the workspace before moving).
-
-;;        workspace_auto_back_and_forth yes|no
-;;            When yes, repeating a workspace switch command will switch  back  to
-;;            the  prior workspace. For example, if you are currently on workspace
-;;            1, switch to workspace 2, then invoke the workspace 2 command again,
-;;            you will be returned to workspace 1. Default is no.
+(define (sway-workspace-gaps workspace option amount)
+  "Specifies that workspace name should have the given gaps settings when it is created.
+  This command does not affect existing workspaces. To alter the gaps of an existing workspace,
+  use the `sway-gaps` command.
+  parameters:
+	- workspace: workspace name (str)
+    - option: `SWAY-GAPS-OPTION-INNER`, `SWAY-GAPS-OPTION-OUTER`, `SWAY-GAPS-OPTION-HORIZONTAL`,
+              `SWAY-GAPS-OPTION-VERTICAL`, `SWAY-GAPS-OPTION-TOP`, `SWAY-GAPS-OPTION-RIGHT`,
+              `SWAY-GAPS-OPTION-BOTTOM`, `SWAY-GAPS-OPTION-LEFT`
+	- amount: the amount of gap (number)"
+  (dispatch-command
+   (string-append "workspace " workspace option (number->string amount))))
 
 ;; CRITERIA
 ;;        A criteria is a string in the form of, for example:
@@ -1088,19 +1520,3 @@ Response:
 ;;            Compare  against  the workspace name for this view. Can be a regular
 ;;            expression. If the value is __focused__, then all the views  on  the
 ;;            currently focused workspace matches.
-
-(define (sway-switch-workspace id)
-  "switch to the workspace with the provided id.
-Parameters:
-    -	id
-Response:
-    An  array of objects corresponding to each command that was parsed. Each
-    object has the property success."
-  (dispatch-command
-   (string-append "workspace number " (number->string id))))
-
-;; (move-to-workspace 2)
-;; (send-command 0 "focus left")
-;; (send-command 0 "workspace number 3")
-;; (send-command 0 "split vertical")
-;; (send-command 0 "exec alacaritty")

@@ -148,6 +148,20 @@ output * bg /home/ebeem/dotfiles/.wallpapers/fixed/flat-20.png fill
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+    bindsym $mod+Shift+e exec killall -9 guile
+
+    bindsym XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+    # bindsym $mod+[ exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    # bindsym $mod+] exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    bindsym XF86AudioNext exec "mpc next"
+    bindsym XF86AudioPrev exec "mpc prev"
+    bindsym XF86AudioPlay exec "mpc toggle"
+    bindsym XF86MonBrightnessUp exec "brightnessctl set +10%"
+    bindsym XF86MonBrightnessDown exec "brightnessctl set -10%"
+
 #
 # Resizing containers:
 #
