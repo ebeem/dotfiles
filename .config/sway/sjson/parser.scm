@@ -37,6 +37,9 @@
 ;;
 
 (define (json-exception port)
+  ("display json failed to be parsed\n")
+  (display port)
+  (newline)
   (throw 'json-invalid port))
 
 (define (digit? c)

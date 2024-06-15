@@ -128,22 +128,26 @@
 (define (move-container-to-workspace-up)
   (sway-move-container-to-workspace
    (get-workspace-name
-    (get-workspace-direction "up"))))
+    (get-workspace-direction "up")))
+  (switch-workspace-up))
 
 (define (move-container-to-workspace-right)
   (sway-move-container-to-workspace
    (get-workspace-name
-    (get-workspace-direction "right"))))
+    (get-workspace-direction "right")))
+  (switch-workspace-right))
 
 (define (move-container-to-workspace-down)
   (sway-move-container-to-workspace
    (get-workspace-name
-    (get-workspace-direction "down"))))
+    (get-workspace-direction "down")))
+  (switch-workspace-down))
 
 (define (move-container-to-workspace-left)
   (sway-move-container-to-workspace
    (get-workspace-name
-    (get-workspace-direction "left"))))
+    (get-workspace-direction "left")))
+  (switch-workspace-left))
 
 (define (valid-grid? rows columns workspaces)
   "validate the grid structure"

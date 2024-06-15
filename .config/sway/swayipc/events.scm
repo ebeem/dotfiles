@@ -78,12 +78,19 @@
   (sway-subscribe-event "['workspace', 'output', 'mode', 'window', 'barconfig_update',
 	'binding', 'shutdown', 'tick', 'bar_state_update', 'input']"))
 
+(define (custom-exception-handler exc command-id payload)
+  (display "An error occurred while receiving event data\n")
+  (display (string-append "command: " (number->string command-id) ", payload: " payload)))
+
 (add-hook! data-received-hook
            (lambda (command-id payload)
-             (handle-event command-id payload)))
+             (with-exception-handler
+              (lambda (exc)
+                (custom-exception-handler exc command-id payload))
+               (lambda () (handle-event command-id payload))
+               #:unwind? #t)))
 
 (define (handle-event command-id payload)
-  ;; (display (string-append "handling " (number->string command-id) "\n"))
   (cond
    ((= command-id WORKSPACE-EVENT-REPLY)
     (run-hook sway-workspace-hook (json->sway-workspace-event payload)))

@@ -19,12 +19,24 @@
             sway-get-inputs
             sway-get-seats))
 
+(define (custom-exception-handler exc command-id payload)
+  (display "An error occurred: ")
+  (display (exp->string exc))
+  (newline)
+  (display (string-append "command: " (number->string command-id) ", payload: " payload)))
+
 (define (sway-send-query message-id payload)
   "returns the ipc response from sway after sending the message-id and payload"
-  (write-msg COMMAND-SOCKET
-             message-id
-             payload)
-  (list-ref (read-msg COMMAND-SOCKET) 1))
+  (with-exception-handler
+              (lambda (exc)
+                (custom-exception-handler exc command-id payload))
+               (lambda () (begin
+                            (write-msg COMMAND-SOCKET
+                                      message-id
+                                      payload)
+                            (let* ((out (read-msg COMMAND-SOCKET)))
+                              (list-ref out 1))))
+               #:unwind? #t))
 
 (define (sway-get-workspaces)
   "Retrieves the list of workspaces."

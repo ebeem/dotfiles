@@ -60,15 +60,12 @@
     (let* ((initiator-output "")
            (outputs (sway-get-outputs)))
       (set! last-switched-group group)
-      (display (string-append "switch-to-workspace-group from initiator " initiator "\n"))
-      (display group)
       (newline)
       (for-each
         (lambda (workspace output)
           (if (equal? workspace initiator)
               (set! initiator-output output)
               (unless (is-workspace-focused workspace output outputs)
-                (display (string-append "workspace is not focused " workspace "\n"))
                 (sway-switch-workspace workspace))))
         group OUTPUTS)
 
@@ -90,9 +87,7 @@
     ;; sometimes there is a delay in events, it's neccessary to ensure
     ;; that event workspace is same as the currently focused workspace
     (when (equal? workspace focused-workspace)
-      (display (string-append "workspace changed to " workspace "\n"))
       (unless (member workspace last-switched-group)
-        (display (string-append "nulled last-switched-group\n"))
         (set! last-switched-group '()))
       (for-each
       (lambda (group)

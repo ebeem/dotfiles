@@ -51,6 +51,7 @@
             SWAY-FULLSCREEN-ENABLED
             SWAY-FULLSCREEN-DISABLED
             SWAY-FULLSCREEN-TOGGLE
+            sway-fullscreen
             SWAY-GAPS-OPTION-INNER
             SWAY-GAPS-OPTION-OUTER
             SWAY-GAPS-OPTION-HORIZONTAL
@@ -78,6 +79,7 @@
             sway-layout
             SWAY-LAYOUT-TOGGLE-ALL
             SWAY-LAYOUT-TOGGLE-SPLIT
+            sway-move-container
             sway-move-container-absolute-position
             sway-move-container-absolute-center
             sway-move-container-cursor
@@ -206,8 +208,21 @@
             SWAY-WORKSPACE-AUTO-BACK-AND-FORTH-OPTION-NO
             sway-workspace-auto-back-and-forth
             sway-workspace-gaps
+            sway-criteria
             dispatch-commands
             dispatch-command))
+
+(define (custom-exception-handler exc)
+  (display "An error occurred while dispatching the command\n"))
+
+(define (catch-all thunk)
+  (with-exception-handler
+    (lambda (exn)
+      (format (current-error-port)
+              "Uncaught exception: ~s\n" exn)
+      #f)
+    thunk
+    #:unwind? #t))
 
 (define (dispatch-command command)
   "Parses and runs the payload as sway command.
@@ -228,15 +243,19 @@ Response:
   (display "dispatching: ")
   (display (string-join commands "\n"))
   (newline)
-  (write-msg COMMAND-SOCKET
-             RUN-COMMMAND-MSG-ID
-             (string-join commands " "))
-  (map
-      (lambda (res)
-        (scm->sway-tick res))
-      (vector->list
-      (json-string->scm
-        (list-ref (read-msg COMMAND-SOCKET) 1)))))
+
+  (catch-all
+   (lambda ()
+      (begin
+        ;; write the commands message
+        (write-msg COMMAND-SOCKET RUN-COMMMAND-MSG-ID (string-join commands " "))
+        ;; read response from socket
+        (map
+         (lambda (res)
+           (scm->sway-tick res))
+         (vector->list
+          (json-string->scm
+           (list-ref (read-msg COMMAND-SOCKET) 1))))))))
 
 ;;        bar [<bar-id>] <bar-subcommands...>
 ;;            For details on bar subcommands, see sway-bar(5).
@@ -403,7 +422,7 @@ Response:
 (define SWAY-FULLSCREEN-DISABLED "disabled")
 (define SWAY-FULLSCREEN-TOGGLE "toggle")
 
-(define* (sway-fullscreen option #:optional (global #f))
+(define* (sway-fullscreen option #:key global)
   "Makes focused view fullscreen, non-fullscreen, or the opposite of current.
   parameters:
     - option: `SWAY-FULLSCREEN-ENABLED`, `SWAY-FULLSCREEN-DISABLED`, `SWAY-FULLSCREEN-TOGGLE`
@@ -413,7 +432,7 @@ Response:
                                  ((equal? #t option) SWAY-FULLSCREEN-ENABLED)
                                  ((equal? #f option) SWAY-FULLSCREEN-DISABLED)
                                  (else option))
-                  (when global " global"))))
+                  (if global " global" ""))))
 
 (define SWAY-GAPS-OPTION-INNER "inner")
 (define SWAY-GAPS-OPTION-OUTER "outer")
@@ -472,21 +491,21 @@ Response:
 (define SWAY-LAYOUT-TOGGLE-ALL "all")
 (define SWAY-LAYOUT-TOGGLE-SPLIT "split")
 
-(define* (sway-layout-toggle #:optional (option #f))
+(define* (sway-layout-toggle #:key option)
   "Cycles the layout mode of the focused container though a preset list of layouts.
   parameters:
     - option: `SWAY-LAYOUT-TOGGLE-ALL`, `SWAY-LAYOUT-TOGGLE-SPLIT`"
   (dispatch-command
-   (string-append "layout toggle" (when option (string-append " " option)))))
+   (string-append "layout toggle" (if option (string-append " " option) ""))))
 
-(define* (sway-move-container direction #:optional (amount #f))
+(define* (sway-move-container direction #:key amount)
   "Moves the focused container in the direction specified.
   parameters:
     - direction: `SWAY-DIRECTION-UP`, `SWAY-DIRECTION-RIGHT`, `SWAY-DIRECTION-DOWN`, `SWAY-DIRECTION-LEFT`
     - amount: int"
   (dispatch-command
    (string-append "move " direction
-                  (when amount (string-append " " (number->string amount))))))
+                  (if amount (string-append " " (number->string amount)) ""))))
 
 (define (sway-move-container-absolute-position x y)
   "Moves the focused container to the specified position in the workspace.
@@ -524,7 +543,7 @@ Response:
     - workspace: workspace name, `SWAY-WORKSPACE-PREVIOUS`, `SWAY-WORKSPACE-NEXT`, `SWAY-WORKSPACE-CURRENT`,
                  `SWAY-WORKSPACE-PREVIOUS-ON-OUTPUT`, `SWAY-WORKSPACE-NEXT-ON-OUTPUT`, `SWAY-WORKSPACE-BACK-AND-FORTH`"
   (dispatch-command
-   (string-append "move container to workspace " workspace)))
+   (string-append "move container to workspace \"" workspace "\"")))
 
 (define SWAY-OUTPUT-CURRENT "current")
 (define SWAY-OUTPUT-UP "up")
@@ -557,7 +576,7 @@ Response:
                                                           (number->string output))
                                                      output))))
 
-(define* (sway-nop #:optional (comment ""))
+(define* (sway-nop #:key (comment ""))
   "A no operation command that can be used to override default behaviour.
   parameters:
     - comment: optional comment argument is ignored, but logged for debugging purposes."
@@ -591,7 +610,7 @@ Response:
 (define SWAY-SIZE-UNIT-PX "px")
 (define SWAY-SIZE-UNIT-PPT "ppt")
 
-(define* (sway-resize type amount #:optional (unit #f))
+(define* (sway-resize type amount #:key unit)
  "Resizes the currently focused container by amount, specified in pixels or percentage points.
 If the units are omitted, floating containers are resized in px and tiled containers by ppt.
   parameters:
@@ -601,19 +620,19 @@ If the units are omitted, floating containers are resized in px and tiled contai
   (dispatch-command
    (string-append "resize " type " "
                   (number->string amount)
-                  (when unit (string-append " " unit)))))
+                  (if unit (string-append " " unit) ""))))
 
-(define* (sway-resize-height amount #:optional (unit #f))
+(define* (sway-resize-height amount #:key unit)
  "Sets the height of the container to height, specified in pixels or percentage points."
   (dispatch-command
    (string-append "resize height " (number->string amount)
-                  (when unit (string-append " " unit)))))
+                  (if unit (string-append " " unit) ""))))
 
-(define* (sway-resize-width amount #:optional (unit #f))
+(define* (sway-resize-width amount #:key unit)
  "Sets the width of the container to width, specified in pixels or percentage points."
   (dispatch-command
    (string-append "resize width " (number->string amount)
-                  (when unit (string-append " " unit)))))
+                  (if unit (string-append " " unit) ""))))
 
 (define (sway-show-scratchpad)
  "Shows a window from the scratchpad."
@@ -652,17 +671,22 @@ If the units are omitted, floating containers are resized in px and tiled contai
                                ((equal? #f flag) SWAY-STICKY-DISABLE)
                                (else flag)))))
 
-;; TODO
-;;        swap container with id|con_id|mark <arg>
-;;            Swaps  the position, geometry, and fullscreen status of two contain‐
-;;            ers. The first container can be selected either by criteria  or  fo‐
-;;            cus. The second container can be selected by id, con_id, or mark. id
-;;            can only be used with xwayland views. If the first container has fo‐
-;;            cus,  it  will  retain focus unless it is moved to a different work‐
-;;            space or the second container becomes fullscreen on the  same  work‐
-;;            space  as  the first container. In either of those cases, the second
-;;            container will gain focus.
+(define SWAY-SWAY-CONTAINER-TYPE-ID "id")
+(define SWAY-SWAY-CONTAINER-TYPE-CONTAINER-ID "con_id")
+(define SWAY-SWAY-CONTAINER-TYPE-MARK "mark")
 
+(define (sway-swap-container type arg)
+  "Swaps the position, geometry, and fullscreen status of focused container with another
+   target container.
+  parameters:
+    - type: `SWAY-SWAY-CONTAINER-TYPE-ID`, `SWAY-SWAY-CONTAINER-TYPE-CONTAINER-ID`,
+			`SWAY-SWAY-CONTAINER-TYPE-MARK`
+    - arg: argument passed (based on selected type)"
+  (dispatch-command
+   (string-append "swap container with " type " "
+                  (if (number? arg)
+                      (number->string arg)
+                      arg))))
 
 (define (sway-title-format format)
   "Sets the format of window titles.
@@ -695,108 +719,102 @@ If the units are omitted, floating containers are resized in px and tiled contai
   (dispatch-command
    (string-append "assign " criteria " output " output)))
 
+(define* (sway-bindsym key command #:key whole-window border exclude-titlebar
+                       release locked to-code input-device no-warn
+                       no-repeat inhibited group)
+  "Binds key combo to execute the sway command command when pressed.
+  parameters:
+    - key: a string that represents the key to bind
+    - command: a string sway command to execute option receiving the key
+    - whole-window: affect the region in which the mouse bindings can be triggered.
+    - border: affect the region in which the mouse bindings can be triggered.
+    - exclude-titlebar: affect the region in which the mouse bindings can be triggered.
+    - release: command is executed when the key combo is released.
+    - locked: run command also when screen locking program is active
+    - to-code: the keysyms will be translated into the corresponding keycodes
+               this will make them layout independant
+    - input-device: the binding will only be executed for specified input device
+    - no-warn: silence sway warning when overriding a keybinding
+    - no-repeat: the command will not be run repeatedly when the key is held
+    - inhibited: keyboard shortcuts run also when inhibitor is active for the currently focused window.
+    - group: binding will only be available for specified group."
+  (dispatch-command
+   (string-append "bindsym "
+                  (string-join
+                   (filter (lambda (x) (> (string-length x) 0))
+                           (list
+                            (if whole-window "--whole-window" "")
+                            (if border "--border" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if release "--release" "")
+                            (if locked "--locked" "")
+                            (if to-code "--to-code" "")
+                            (if input-device (string-append "--input-device=" input-device) "")
+                            (if no-warn "--no-warn" "")
+                            (if no-repeat "--no-repeat" "")
+                            (if inhibited "--inhibited" "")
+                            (if group "--group" "")))
+                   " ")
+                  key " " command)))
 
-;;        bindsym  [--whole-window]  [--border]  [--exclude-titlebar]  [--release]
-;;        [--locked]  [--to-code]  [--input-device=<device>] [--no-warn] [--no-re‐
-;;        peat] [--inhibited] [Group<1-4>+]<key combo> <command>
-;;            Binds key combo to execute the sway command  command  when  pressed.
-;;            You  may use XKB key names here (wev(1) is a good tool for discover‐
-;;            ing these). With the flag --release, the command  is  executed  when
-;;            the  key  combo  is  released. If input-device is given, the binding
-;;            will only be executed for that input device and will be executed in‐
-;;            stead of any binding that is generic to all devices. If a group num‐
-;;            ber is given, then the binding  will  only  be  available  for  that
-;;            group. By default, if you overwrite a binding, swaynag will give you
-;;            a warning. To silence this, use the --no-warn flag.
+(define* (sway-bindcode code command #:key whole-window border exclude-titlebar
+                       release locked input-device no-warn
+                       no-repeat inhibited group)
+  "for binding with key/button codes instead of key/button names.
+  parameters:
+    - key: a string that represents the key to bind
+    - command: a string sway command to execute option receiving the key
+    - whole-window: affect the region in which the mouse bindings can be triggered.
+    - border: affect the region in which the mouse bindings can be triggered.
+    - exclude-titlebar: affect the region in which the mouse bindings can be triggered.
+    - release: command is executed when the key combo is released.
+    - locked: run command also when screen locking program is active
+    - input-device: the binding will only be executed for specified input device
+    - no-warn: silence sway warning when overriding a keybinding
+    - no-repeat: the command will not be run repeatedly when the key is held
+    - inhibited: keyboard shortcuts run also when inhibitor is active for the currently focused window.
+    - group: binding will only be available for specified group."
+  (dispatch-command
+   (string-append "bindcode "
+                  (string-join
+                   (filter (lambda (x) (> (string-length x) 0))
+                           (list
+                            (if whole-window "--whole-window" "")
+                            (if border "--border" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if release "--release" "")
+                            (if locked "--locked" "")
+                            (if input-device (string-append "--input-device=" input-device) "")
+                            (if no-warn "--no-warn" "")
+                            (if no-repeat "--no-repeat" "")
+                            (if inhibited "--inhibited" "")
+                            (if group "--group" "")))
+                   " ")
+                  code " " command)))
 
-;;            Unless  the flag --locked is set, the command will not be run when a
-;;            screen locking program is active. If there  is  a  matching  binding
-;;            with  and  without  --locked,  the  one  with will be preferred when
-;;            locked and the one without will be preferred when unlocked. If there
-;;            are matching bindings and one has both --input-device  and  --locked
-;;            and  the  other  has neither, the former will be preferred even when
-;;            unlocked.
+(define* (sway-bindswitch switch state command #:key locked no-warn reload)
+  "Binds <switch> to execute the sway command command on state changes.
+  parameters:
+    - switch: Supported switches are lid (laptop lid) and tablet (tablet mode) switches.
+    - state: valid values are on, off and toggle.
+    - command: a string sway command to execute option receiving the key
+    - locked: run command also when screen locking program is active
+    - no-warn: silence sway warning when overriding a keybinding
+    - reload: the binding should also be executed when the config is reloaded."
+  (dispatch-command
+   (string-append "bindswitch "
+                  (string-join
+                   (filter (lambda (x) (> (string-length x) 0))
+                           (list
+                            (if locked "--locked" "")
+                            (if no-warn "--no-warn" "")
+                            (if reload "--reload" "")))
+                   " ")
+                  switch ":" state " " command)))
 
-;;            Unless the flag --inhibited is set, the command will not be run when
-;;            a keyboard shortcuts inhibitor is active for the  currently  focused
-;;            window.  Such inhibitors are usually requested by remote desktop and
-;;            virtualization software to enable the user to send  keyboard  short‐
-;;            cuts  to  the remote or virtual session. The --inhibited flag allows
-;;            one to define bindings which will be  exempt  from  pass-through  to
-;;            such software. The same preference logic as for --locked applies.
-
-;;            Unless  the flag --no-repeat is set, the command will be run repeat‐
-;;            edly when the key is held, according to the repeat  settings  speci‐
-;;            fied in the input configuration.
-
-;;            Bindings  to  keysyms are layout-dependent. This can be changed with
-;;            the --to-code flag. In this case, the  keysyms  will  be  translated
-;;            into the corresponding keycodes in the first configured layout.
-
-;;            Mouse  bindings operate on the container under the cursor instead of
-;;            the container that has focus. Mouse buttons can either be  specified
-;;            in  the  form button[1-9] or by using the name of the event code (ex
-;;            BTN_LEFT or BTN_RIGHT). For the former option, the buttons  will  be
-;;            mapped  to  their values in X11 (1=left, 2=middle, 3=right, 4=scroll
-;;            up, 5=scroll down, 6=scroll left,  7=scroll  right,  8=back,  9=for‐
-;;            ward). For the latter option, you can find the event names using li‐
-;;            binput debug-events.
-
-;;            The  priority  for  matching  bindings  is as follows: input device,
-;;            group, and locked state.
-
-;;            --whole-window, --border, and --exclude-titlebar are mouse-only  op‐
-;;            tions  which  affect  the  region in which the mouse bindings can be
-;;            triggered.  By default, mouse bindings are only triggered when  over
-;;            the  title  bar.  With the --border option, the border of the window
-;;            will be included in this region. With the --whole-window option, the
-;;            cursor can be anywhere over a window including  the  title,  border,
-;;            and  content. --exclude-titlebar can be used in conjunction with any
-;;            other option to specify that the titlebar should  be  excluded  from
-;;            the region of consideration.
-
-;;            If  --whole-window  is  given, the command can be triggered when the
-;;            cursor is over an empty workspace. Using  a  mouse  binding  over  a
-;;            layer surface's exclusive region is not currently possible.
-
-;;            Example:
-;;                      # Execute firefox when alt, shift, and f are pressed together
-;;                      bindsym Mod1+Shift+f exec firefox
-
-;;            bindcode  [--whole-window]  [--border]  [--exclude-titlebar]  [--re‐
-;;            lease] [--locked]  [--input-device=<device>]  [--no-warn]  [--no-re‐
-;;            peat]  [--inhibited] [Group<1-4>+]<code> <command> is also available
-;;            for binding with key/button codes instead of key/button names.
-
-;;        bindswitch [--locked] [--no-warn] [--reload] <switch>:<state> <command>
-;;            Binds <switch> to execute the sway command command on state changes.
-;;            Supported switches are lid (laptop lid)  and  tablet  (tablet  mode)
-;;            switches.  Valid  values  for  state  are  on, off and toggle. These
-;;            switches are on when the device lid is shut and when tablet mode  is
-;;            active  respectively. toggle is also supported to run a command both
-;;            when the switch is toggled on or off.
-
-;;            Unless the flag --locked is set, the command will not be run when  a
-;;            screen  locking  program  is  active. If there is a matching binding
-;;            with and without --locked, the  one  with  will  be  preferred  when
-;;            locked and the one without will be preferred when unlocked.
-
-;;            If  the  --reload  flag  is given, the binding will also be executed
-;;            when the config is reloaded. toggle bindings will not be executed on
-;;            reload. The --locked flag will operate as normal so if the config is
-;;            reloaded while locked and --locked is not given,  the  binding  will
-;;            not be executed.
-
-;;            By  default,  if  you  overwrite  a binding, swaynag will give you a
-;;            warning. To silence this, use the --no-warn flag.
-
-;;            Example:
-;;                      # Show the virtual keyboard when tablet mode is entered.
-;;                      bindswitch tablet:on busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true
-
-;;                      # Log a message when the laptop lid is opened or closed.
-;;                      bindswitch lid:toggle exec echo "Lid moved"
-
+;; TODO
 ;;        bindgesture  [--exact]   [--input-device=<device>]   [--no-warn]   <ges‐
 ;;        ture>[:<fingers>][:directions] <command>
 ;;            Binds  gesture  to  execute  the sway command command when detected.
@@ -849,6 +867,94 @@ If the units are omitted, floating containers are resized in px and tiled contai
 ;;                      bindgesture pinch:inward+left move left
 ;;                      bindgesture pinch:inward+right move right
 
+(define* (sway-unbindswitch switch state)
+  "Removes a binding for when <switch> changes to <state>.
+  parameters:
+    - switch: Supported switches are lid (laptop lid) and tablet (tablet mode) switches.
+    - state: valid values are on, off and toggle."
+  (dispatch-command
+   (string-append "unbindswitch " switch ":" state)))
+
+;; TODO
+;;        unbindgesture   [--exact]   [--input-device=<device>]   <gesture>[:<fin‐
+;;        gers>][:directions]
+;;            Removes a binding for the specified gesture, fingers and  directions
+;;            combination.
+
+(define* (sway-unbindsym key #:key whole-window border exclude-titlebar
+                       release locked to-code input-device)
+  "Removes the binding for key combo that was previously bound with the given flags.
+  parameters:
+    - key: a string that represents the key to bind
+    - whole-window: affect the region in which the mouse bindings can be triggered.
+    - border: affect the region in which the mouse bindings can be triggered.
+    - exclude-titlebar: affect the region in which the mouse bindings can be triggered.
+    - release: command is executed when the key combo is released.
+    - locked: run command also when screen locking program is active
+    - to-code: the keysyms will be translated into the corresponding keycodes
+               this will make them layout independant
+    - input-device: the binding will only be executed for specified input device"
+  (dispatch-command
+   (string-append "unbindsym "
+                  (string-join
+                   (filter (lambda (x) (> (string-length x) 0))
+                           (list
+                            (if whole-window "--whole-window" "")
+                            (if border "--border" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if release "--release" "")
+                            (if locked "--locked" "")
+                            (if to-code "--to-code" "")
+                            (if input-device (string-append "--input-device=" input-device) "")))
+                   " ")
+                  key)))
+
+(define* (sway-unbindcode code #:key whole-window border exclude-titlebar
+                       release locked input-device)
+  "Removes the binding for code that was previously bound with the given flags.
+  parameters:
+    - key: a string that represents the key to bind
+    - whole-window: affect the region in which the mouse bindings can be triggered.
+    - border: affect the region in which the mouse bindings can be triggered.
+    - exclude-titlebar: affect the region in which the mouse bindings can be triggered.
+    - release: command is executed when the key combo is released.
+    - locked: run command also when screen locking program is active
+    - input-device: the binding will only be executed for specified input device"
+  (dispatch-command
+   (string-append "unbindcode "
+                  (string-join
+                   (filter (lambda (x) (> (string-length x) 0))
+                           (list
+                            (if whole-window "--whole-window" "")
+                            (if border "--border" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if exclude-titlebar "--exclude-titlebar" "")
+                            (if release "--release" "")
+                            (if locked "--locked" "")
+                            (if input-device (string-append "--input-device=" input-device) "")))
+                   " ")
+                  code)))
+
+(define* (sway-unmark identifier)
+  "remove identifier from the list of current marks on a window.
+  Parameters:
+   - mark: string mark."
+  (dispatch-command
+   (string-append "unmark " identifier)))
+
+(define SWAY-URGENT-ENABLE "enable")
+(define SWAY-URGENT-DISABLE "disable")
+(define SWAY-URGENT-ALLOW "allow")
+(define SWAY-URGENT-DENY "deny")
+
+(define* (sway-urgent flag)
+  "Using enable or disable manually sets or unsets the window's urgent state.
+  Parameters:
+   - flag: `SWAY-URGENT-ENABLE`, `SWAY-URGENT-DISABLE`,
+           `SWAY-URGENT-ALLOW`, `SWAY-URGENT-DENY`"
+  (dispatch-command
+   (string-append "urgent " flag)))
 
 ;; The meaning of each color is:
 ;; border: The border around the title bar.
@@ -856,30 +962,6 @@ If the units are omitted, floating containers are resized in px and tiled contai
 ;; text: The text color of the title bar.
 ;; indicator: The  color  used  to  indicate  where a new view will open.
 ;; child_border: The border around the view itself.
-
-;; The default colors are:
-;; ┌───────────────┬─────────┬────────────┬─────────┬───────────┬────────────┐
-;; │     class     │ border  │ background │ text    │ indicator │ child_bor‐ │
-;; │               │         │            │         │           │ der        │
-;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;; │ background    │ n/a     │ #ffffff    │ n/a     │ n/a       │ n/a        │
-;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;; │ focused       │ #4c7899 │ #285577    │ #ffffff │ #2e9ef4   │ #285577    │
-;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;; │ focused_in‐   │ #333333 │ #5f676a    │ #ffffff │ #484e50   │ #5f676a    │
-;; │ active        │         │            │         │           │            │
-;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;; │ fo‐           │ #333333 │ #5f676a    │ #ffffff │ n/a       │ n/a        │
-;; │ cused_tab_ti‐ │         │            │         │           │            │
-;; │ tle           │         │            │         │           │            │
-;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;; │ unfocused     │ #333333 │ #222222    │ #888888 │ #292d2e   │ #222222    │
-;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;; │ urgent        │ #2f343a │ #900000    │ #ffffff │ #900000   │ #900000    │
-;; ├───────────────┼─────────┼────────────┼─────────┼───────────┼────────────┤
-;; │ placeholder   │ #000000 │ #0c0c0c    │ #ffffff │ #000000   │ #0c0c0c    │
-;; └───────────────┴─────────┴────────────┴─────────┴───────────┴────────────┘
-
 (define (sway-client-background color)
   "This command is ignored and is only present for i3 compatibility.
   parameters:
@@ -888,8 +970,7 @@ If the units are omitted, floating containers are resized in px and tiled contai
     (string-append "client.background " color)))
 
 (define* (sway-client-focused-color border-color background-color text-color
-                                   #:optional (indictor-color #f)
-                                   (child-border-color #f))
+                                   #:key indictor-color child-border-color)
   "Configures the color of window borders and title bars of the window that has focus.
   parameters:
     - border-color: color code to be used for border (str)
@@ -899,12 +980,11 @@ If the units are omitted, floating containers are resized in px and tiled contai
     - child-border-color: color code to be used for child border (str)"
   (dispatch-command
    (string-append "client.focused " border-color background-color text-color
-                  (when indictor-color (string-append " " indictor-color))
-                  (when child-border-color (string-append " " child-border-color)))))
+                  (if indictor-color (string-append " " indictor-color) "")
+                  (if child-border-color (string-append " " child-border-color) ""))))
 
 (define* (sway-client-focused-inactive-color border-color background-color text-color
-                                   #:optional (indictor-color #f)
-                                   (child-border-color #f))
+                                   #:key indictor-color child-border-color)
   "Configures the color of window borders and title bars of the most
    recently focused view within a container which  is  not focused.
   parameters:
@@ -915,8 +995,8 @@ If the units are omitted, floating containers are resized in px and tiled contai
     - child-border-color: color code to be used for child border (str)"
   (dispatch-command
    (string-append "client.focused_inactive " border-color background-color text-color
-                  (when indictor-color (string-append " " indictor-color))
-                  (when child-border-color (string-append " " child-border-color)))))
+                  (if indictor-color (string-append " " indictor-color) "")
+                  (if child-border-color (string-append " " child-border-color) ""))))
 
 (define (sway-client-focused-tab-title-color border-color background-color text-color)
   "Configures the color of window borders and title bars of a
@@ -931,8 +1011,7 @@ If the units are omitted, floating containers are resized in px and tiled contai
    (string-append "client.focused_tab_title " border-color background-color text-color)))
 
 (define* (sway-client-placeholder-color border-color background-color text-color
-                                   #:optional (indictor-color #f)
-                                   (child-border-color #f))
+                                   #:key indictor-color child-border-color)
   "Ignored (present for i3 compatibility).
   parameters:
     - border-color: color code to be used for border (str)
@@ -942,12 +1021,11 @@ If the units are omitted, floating containers are resized in px and tiled contai
     - child-border-color: color code to be used for child border (str)"
   (dispatch-command
    (string-append "client.placeholder " border-color background-color text-color
-                  (when indictor-color (string-append " " indictor-color))
-                  (when child-border-color (string-append " " child-border-color)))))
+                  (if indictor-color (string-append " " indictor-color) "")
+                  (if child-border-color (string-append " " child-border-color) ""))))
 
 (define* (sway-client-unfocused-color border-color background-color text-color
-                                   #:optional (indictor-color #f)
-                                   (child-border-color #f))
+                                   #:key indictor-color child-border-color)
   "Configures the color of window borders and title bars of a
    view that does not have focus.
   parameters:
@@ -958,12 +1036,11 @@ If the units are omitted, floating containers are resized in px and tiled contai
     - child-border-color: color code to be used for child border (str)"
   (dispatch-command
    (string-append "client.unfocused " border-color background-color text-color
-                  (when indictor-color (string-append " " indictor-color))
-                  (when child-border-color (string-append " " child-border-color)))))
+                  (if indictor-color (string-append " " indictor-color) "")
+                  (if child-border-color (string-append " " child-border-color) ""))))
 
 (define* (sway-client-urgent-color border-color background-color text-color
-                                   #:optional (indictor-color #f)
-                                   (child-border-color #f))
+                                   #:key indictor-color child-border-color)
   "Configures the color of window borders and title bars of a
    view with an urgency hint..
   parameters:
@@ -974,28 +1051,28 @@ If the units are omitted, floating containers are resized in px and tiled contai
     - child-border-color: color code to be used for child border (str)"
   (dispatch-command
    (string-append "client.urgent " border-color background-color text-color
-                  (when indictor-color (string-append " " indictor-color))
-                  (when child-border-color (string-append " " child-border-color)))))
+                  (if indictor-color (string-append " " indictor-color) "")
+                  (if child-border-color (string-append " " child-border-color) ""))))
 
 (define SWAY-BORDER-STYLE-NONE "none")
 (define SWAY-BORDER-STYLE-NORMAL "normal")
 (define SWAY-BORDER-STYLE-PIXEL "pixel")
 
-(define* (sway-default-border-style type #:optional (n #f))
+(define* (sway-default-border-style type #:key n)
   "Set default border style for new tiled windows.
   parameters:
     - type: color code to be used for border (str)
     - n: units in case pixel is chosen (number)"
   (dispatch-command
-   (string-append "default_border " type " " (when n (number->string n)))))
+   (string-append "default_border " type " " (if n (number->string n) ""))))
 
-(define* (sway-default-floating-border-style type #:optional (n #f))
+(define* (sway-default-floating-border-style type #:key n)
   "Set default border style for new tiled windows.
   parameters:
     - type: color code to be used for border (str)
     - n: units in case pixel is chosen (number)"
   (dispatch-command
-   (string-append "default_floating_border " type " " (when n (number->string n)))))
+   (string-append "default_floating_border " type " " (if n (number->string n) ""))))
 
 (define (sway-exec command)
   "Executes shell command with sh.
@@ -1083,14 +1160,14 @@ If the units are omitted, floating containers are resized in px and tiled contai
   (dispatch-command
    (string-append "focus_wrapping " flag)))
 
-(define* (sway-font font #:optional (pango #f))
+(define* (sway-font font #:key pango)
   "Sets font to use for the title bars. To enable support for pango markup,
    preface the font name with pango:
   parameters:
     - font: font name (str)
     - pango: whether to use pango or not (boolean)"
   (dispatch-command
-   (string-append "font " (when pango "pango:") font)))
+   (string-append "font " (if pango "pango:" "") font)))
 
 (define (sway-force-display-urgency-hint timeout)
   "If an application on another workspace sets an urgency hint.
@@ -1141,14 +1218,14 @@ If the units are omitted, floating containers are resized in px and tiled contai
 (define SWAY-EDGE-BORDER-TYPE-SMART "smart")
 (define SWAY-EDGE-BORDER-TYPE-SMART-NO-GAPS "smart_no_gaps")
 
-(define* (sway-hide-edge-borders type #:optional (i3 #f))
+(define* (sway-hide-edge-borders type #:key i3)
   "Hides window borders adjacent to the screen edges.
   parameters:
     - type: `SWAY-EDGE-BORDER-TYPE-NONE`, `SWAY-EDGE-BORDER-TYPE-VERTICAL`, `SWAY-EDGE-BORDER-TYPE-HORIZONTAL`,
               `SWAY-EDGE-BORDER-TYPE-BOTH`, `SWAY-EDGE-BORDER-TYPE-SMART`, `SWAY-EDGE-BORDER-TYPE-SMART-NO-GAPS`
     - i3: enables i3-compatible behavior to hide the title bar on tabbed and stacked containers with one child"
   (dispatch-command
-   (string-append "hide_edge_borders " (when i3 "--i3 ") type)))
+   (string-append "hide_edge_borders " (if i3 "--i3 " "") type)))
 
 (define (sway-input device subcommands)
   "For details on input subcommands, see sway-input(5).
@@ -1217,7 +1294,7 @@ If the units are omitted, floating containers are resized in px and tiled contai
   parameters:
     - mode: name of the mode (str)"
   (dispatch-command
-   (string-append "mode " mode)))
+   (string-append "mode \"" mode "\"")))
 
 (define (sway-mode-subcommand mode subcommand)
   "The only valid mode-subcommands are bindsym, bindcode, bindswitch, and set.
@@ -1225,7 +1302,7 @@ If the units are omitted, floating containers are resized in px and tiled contai
     - mode: name of the mode (str)
     - subcommand: list of subcommands (str)"
   (dispatch-command
-   (string-append "mode " mode " " subcommand)))
+   (string-append "mode \"" mode "\" " subcommand)))
 
 (define SWAY-MOUSE-WARPING-OUTPUT "output")
 (define SWAY-MOUSE-WARPING-CONTAINER "container")
@@ -1335,35 +1412,7 @@ If the units are omitted, floating containers are resized in px and tiled contai
   (dispatch-command
    (string-append "title_align " type)))
 
-;;        unbindswitch <switch>:<state>
-;;            Removes a binding for when <switch> changes to <state>.
-
-;;        unbindgesture   [--exact]   [--input-device=<device>]   <gesture>[:<fin‐
-;;        gers>][:directions]
-;;            Removes a binding for the specified gesture, fingers and  directions
-;;            combination.
-
-;;        unbindsym  [--whole-window]  [--border] [--exclude-titlebar] [--release]
-;;        [--locked] [--to-code] [--input-device=<device>] <key combo>
-;;            Removes the binding for key combo that was previously bound with the
-;;            given flags.  If input-device is given, only the  binding  for  that
-;;            input device will be unbound.
-
-;;            unbindcode  [--whole-window]  [--border] [--exclude-titlebar] [--re‐
-;;            lease] [--locked] [--input-device=<device>] <code> is also available
-;;            for unbinding with key/button codes instead of key/button names.
-
-;;        unmark [<identifier>]
-;;            unmark will remove identifier from the list of current  marks  on  a
-;;            window. If identifier is omitted, all marks are removed.
-
-;;        urgent enable|disable|allow|deny
-;;            Using  enable or disable manually sets or unsets the window's urgent
-;;            state. Using allow or deny controls the window's ability to set  it‐
-;;            self as urgent. By default, windows are allowed to set their own ur‐
-;;            gency.
-
-(define* (sway-switch-workspace-id id #:optional (auto-back-and-forth #f))
+(define* (sway-switch-workspace-id id #:key auto-back-and-forth)
   "switch to the workspace with the provided id.
   parameters:
 	- id: workspace id (number)
@@ -1373,7 +1422,7 @@ If the units are omitted, floating containers are resized in px and tiled contai
                   (unless auto-back-and-forth "--no-auto-back-and-forth ")
                   (number->string id))))
 
-(define* (sway-switch-workspace workspace #:optional (auto-back-and-forth #f))
+(define* (sway-switch-workspace workspace #:key auto-back-and-forth)
   "switch to the workspace with the provided name.
   parameters:
 	- workspace: workspace name (str)
@@ -1418,105 +1467,29 @@ If the units are omitted, floating containers are resized in px and tiled contai
   (dispatch-command
    (string-append "workspace " workspace option (number->string amount))))
 
-;; CRITERIA
-;;        A criteria is a string in the form of, for example:
-
-;;            [class="[Rr]egex.*" title="some title"]
-
-;;        The string contains one or more (space separated) attribute/value pairs.
-;;        They are used by some commands to choose which views to execute  actions
-;;        on. All attributes must match for the criteria to match. Criteria is re‐
-;;        tained  across  commands  separated by a ,, but will be reset (and allow
-;;        for new criteria, if desired) for commands separated by a ;.
-
-;;        Criteria may be used with either the for_window or  assign  commands  to
-;;        specify  operations to perform on new views. A criteria may also be used
-;;        to perform specific commands (ones that normally act upon one window) on
-;;        all views that match that criteria. For example:
-
-;;        Focus on a window with the mark "IRC":
-
-;;            [con_mark="IRC"] focus
-
-;;        Kill all windows with the title "Emacs":
-
-;;            [class="Emacs"] kill
-
-;;        You may like to use swaymsg -t get_tree for finding the values of  these
-;;        properties in practice for your applications.
-
-;;        The following attributes may be matched with:
-
-;;        all
-;;            Matches all windows.
-
-;;        app_id
-;;            Compare  value  against  the app id. Can be a regular expression. If
-;;            value is __focused__, then the app id must be the same  as  that  of
-;;            the  currently focused window. app_id are specific to Wayland appli‐
-;;            cations.
-
-;;        class
-;;            Compare value against the window class. Can be a regular expression.
-;;            If value is __focused__, then the window class must be the  same  as
-;;            that  of the currently focused window. class are specific to X11 ap‐
-;;            plications and require XWayland.
-
-;;        con_id
-;;            Compare against the internal container ID, which you  can  find  via
-;;            IPC.  If  value is __focused__, then the id must be the same as that
-;;            of the currently focused window.
-
-;;        con_mark
-;;            Compare against the window marks. Can be a regular expression.
-
-;;        floating
-;;            Matches floating windows.
-
-;;        id
-;;            Compare value against the X11 window ID. Must be numeric. id is spe‐
-;;            cific to X11 applications and requires XWayland.
-
-;;        instance
-;;            Compare value against the window instance. Can be a regular  expres‐
-;;            sion.  If value is __focused__, then the window instance must be the
-;;            same as that of the currently focused window. instance  is  specific
-;;            to X11 applications and requires XWayland.
-
-;;        pid
-;;            Compare value against the window's process ID. Must be numeric.
-
-;;        shell
-;;            Compare  value  against  the  window  shell,  such as "xdg_shell" or
-;;            "xwayland". Can be a regular expression. If  value  is  __focused__,
-;;            then  the  shell  must  be the same as that of the currently focused
-;;            window.
-
-;;        tiling
-;;            Matches tiling windows.
-
-;;        title
-;;            Compare against the window title. Can be a  regular  expression.  If
-;;            value is __focused__, then the window title must be the same as that
-;;            of the currently focused window.
-
-;;        urgent
-;;            Compares the urgent state of the window. Can be first, last, latest,
-;;            newest, oldest or recent.
-
-;;        window_role
-;;            Compare  against  the window role (WM_WINDOW_ROLE). Can be a regular
-;;            expression. If value is __focused__, then the window  role  must  be
-;;            the  same  as  that  of the currently focused window. window_role is
-;;            specific to X11 applications and requires XWayland.
-
-;;        window_type
-;;            Compare against the window type (_NET_WM_WINDOW_TYPE). Possible val‐
-;;            ues are  normal,  dialog,  utility,  toolbar,  splash,  menu,  drop‐
-;;            down_menu, popup_menu, tooltip and notification. window_type is spe‐
-;;            cific to X11 applications and requires XWayland.
-
-;;        workspace
-;;            Compare  against  the workspace name for this view. Can be a regular
-;;            expression. If the value is __focused__, then all the views  on  the
-;;            currently focused workspace matches.
+(define* (sway-criteria #:key app-id class con-id con-mark
+                        floating id instance pid shell tiling title urgent
+                        window-role window-type workspace)
+  "Generate a string that contains one or more (space separated) attribute/value pairs."
+  (string-append
+   "["
+   (string-join
+    (filter (lambda (x) (> (string-length x) 0))
+            (list
+             (if app-id (string-append "app_id=" app-id) "")
+             (if class (string-append "class=" class) "")
+             (if con-id (string-append "con_id=" con-id) "")
+             (if con-mark (string-append "con_mark=" con-mark) "")
+             (if floating (string-append "floating=" floating) "")
+             (if id (string-append "id=" id) "")
+             (if instance (string-append "instance=" instance) "")
+             (if pid (string-append "pid=" pid) "")
+             (if shell (string-append "shell=" shell) "")
+             (if tiling (string-append "tiling=" tiling) "")
+             (if title (string-append "title=" title) "")
+             (if urgent (string-append "urgent=" urgent) "")
+             (if window-role (string-append "window_role=" window-role) "")
+             (if window-type (string-append "window_type=" window-type) "")
+             (if workspace (string-append "workspace=" workspace)) ""))
+    " ")
+   "]"))

@@ -1,4 +1,5 @@
-#!/usr/bin/guile
+#!/usr/bin/guile \
+-e main -s
 !#
 ;; #!/usr/bin/guile --fresh-auto-compile
 ;; ensure that the swayipc module is available under the same directory as the init file
@@ -11,6 +12,7 @@
 
 (use-modules (swayipc connection)
              (ice-9 popen)
+             (json)
              (ice-9 binary-ports)
              (rnrs bytevectors)
              (rnrs io ports)
@@ -29,7 +31,10 @@
   (display (string-append "sending command: " command "\n"))
   (display (write-msg COMMANDS-CLIENT-SOCKET
              RUN-COMMMAND-MSG-ID
-             command))
+             (scm->json-string command)))
   (display "sent\n"))
 
-(send-command "test")
+(define (main args)
+  (display (string-join (cdr args) " "))
+  (newline)
+  (send-command (string-join (cdr args) " ")))

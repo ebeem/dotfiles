@@ -1,6 +1,7 @@
 (define-module (swayipc connection)
   #:use-module (ice-9 popen)
   #:use-module (ice-9 binary-ports)
+  #:use-module (ice-9 hash-table)
   #:use-module (rnrs bytevectors)
   #:use-module (rnrs io ports)
   #:use-module (oop goops)
@@ -44,6 +45,7 @@
             start-event-listener-thread
             start-event-listener
             data-received-hook
+            command-received-hook
 
             SOCKET-COMMANDS-LISTENER-PATH
             COMMANDS-LISTENER-SOCKET
@@ -121,12 +123,20 @@
 (define (write-msg sock command-id payload)
   (put-bytevector sock (encode-msg command-id payload)))
 
+;; Mutex for synchronization
+(define mutex-table (make-hash-table))
+
 (define (read-msg sock)
-  (let* ((bv-header (get-bytevector-n sock 14))
-         (payload-length (bytevector-u32-ref bv-header 6 (native-endianness)))
-         (command-id (bytevector-u32-ref bv-header 10 (native-endianness)))
-         (payload (utf8->string (get-bytevector-n sock payload-length))))
-    (list command-id (or payload ""))))
+  (let* ((mutex (if (hash-get-handle mutex-table (fileno sock))
+                    (cdr (hash-get-handle mutex-table (fileno sock)))
+                    (hash-set! mutex-table (fileno sock) (make-mutex)))))
+    (mutex-lock! mutex)
+    (let* ((bv-header (get-bytevector-n sock 14))
+          (payload-length (bytevector-u32-ref bv-header 6 (native-endianness)))
+          (command-id (bytevector-u32-ref bv-header 10 (native-endianness)))
+          (payload (utf8->string (get-bytevector-n sock payload-length))))
+      (mutex-unlock! mutex)
+      (list command-id (or payload "")))))
 
 (define (read-from-socket sock)
   (let loop ()
@@ -153,35 +163,23 @@
   (make-hook 2))
 
 (define (handle-client client)
-  (display "handle-client\n")
-  (display "client connected\n")
-  (let ((input-port (car client))
-        (output-port (car client)))
-    (let ((data (read-msg input-port)))
-      (display "recieved command: ")
-      (display data)
-      (newline)
+  (let ((port (car client)))
+    (let ((data (read-msg port)))
       (run-hook command-received-hook
                 (list-ref data 0)
-                (list-ref data 1))
-      (write-msg output-port
-                 RUN-COMMMAND-MSG-ID
-                 "received")
-      (force-output output-port))
+                (list-ref data 1)))
 
     ;; Close the connection
-    (close-port input-port)
-    (close-port output-port)))
+    (close-port port)))
+
+(define (custom-exception-handler exc)
+  (display "An error occurred while handling client connection\n"))
 
 (define (start-server-socket sock)
-  (display (string-append "start-server-socket\n"))
   (listen sock 15)
-  (display (string-append "listening 15\n"))
   (let loop ()
     (let ((client (accept sock)))
-      (thread-start!
-       (make-thread
-        (lambda () (handle-client client))))
+      (handle-client client)
       (loop))))
 
 (define (start-event-listener)

@@ -19,6 +19,11 @@
              (swayipc events)
              (swayipc dispatcher))
 
+(load "behavior.scm")
+;; init keybindings
+(load "keybindings.scm")
+(keybindings-init)
+
 ;; subscribe to all events
 (sway-subscribe-all)
 
@@ -42,9 +47,7 @@
 
 (workspace-grid-init)
 
-;; ;; load which key module
-
-(sway-focus-follow-mouse SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO)
+;; TODO: load which key module
 
 (start-commands-listener-thread)
 (start-event-listener-thread)
