@@ -3,7 +3,7 @@
   #:use-module (swayipc records)
   #:use-module (srfi srfi-9)
   #:use-module (srfi srfi-1)
-  #:use-module (json)
+  #:use-module (sjson parser)
 
   #:export (SWAY-ORIENTATION-HORIZONTAL
             SWAY-ORIENTATION-VERTICAL

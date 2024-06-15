@@ -1,7 +1,6 @@
 (define-module (swayipc events)
   #:use-module (swayipc connection)
   #:use-module (swayipc records)
-  #:use-module (json)
 
   #:export (sway-subscribe-event
             sway-subscribe-workspace-change

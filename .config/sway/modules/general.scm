@@ -1,5 +1,5 @@
 (define-module (modules general)
-  #:use-module (json)
+  #:use-module (sjson parser)
   #:use-module (swayipc dispatcher)
   #:use-module (swayipc connection)
   #:use-module (srfi srfi-18)

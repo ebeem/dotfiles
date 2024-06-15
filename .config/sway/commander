@@ -6,13 +6,12 @@
 ;; otherwise, the module should be referenced from packaging system or via custom load path
 
 (add-to-load-path
- (dirname (if (current-filename)
-              (current-filename)
+ (dirname (or (current-filename)
               (string-append (getenv "HOME") "/.config/sway/init.scm"))))
 
 (use-modules (swayipc connection)
              (ice-9 popen)
-             (json)
+             (sjson builder)
              (ice-9 binary-ports)
              (rnrs bytevectors)
              (rnrs io ports)
