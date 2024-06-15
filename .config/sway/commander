@@ -5,6 +5,7 @@
 ;; ensure that the swayipc module is available under the same directory as the init file
 ;; otherwise, the module should be referenced from packaging system or via custom load path
 
+(add-to-load-path "/home/ebeem/workspace/guile/swayipc")
 (add-to-load-path
  (dirname (or (current-filename)
               (string-append (getenv "HOME") "/.config/sway/init.scm"))))

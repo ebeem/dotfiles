@@ -33,5 +33,40 @@
         ement-room-left-margin-width 10
         ement-room-right-margin-width 0))
 
+(use-package erc
+  :elpaca nil
+  :config
+  (add-to-list 'erc-modules 'notifications)
+  (setq erc-fill-function 'erc-fill-static
+      erc-fill-static-center 20
+      erc-track-exclude '("#emacs")
+      erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
+      erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
+      erc-track-exclude-server-buffer t))
+
+(use-package password-store)
+
+(defun eb/connect-irc ()
+  "Connect to irc using password store."
+  (interactive)
+  (erc-tls
+      :server "irc.libera.chat"
+      :port 6697
+      :nick "ebeem"
+      :password (password-store-get "IRC/irc.libera.chat")))
+
+(use-package erc-hl-nicks
+  :ensure t
+  :after erc
+  :config
+  (add-to-list 'erc-modules 'hl-nicks))
+
+(use-package erc-image
+  :ensure t
+  :after erc
+  :config
+  (setq erc-image-inline-rescale 300)
+  (add-to-list 'erc-modules 'image))
+
 (provide 'oz-matrix)
 ;;; oz-matrix.el ends here

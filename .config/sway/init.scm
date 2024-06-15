@@ -1,12 +1,12 @@
-#!/usr/bin/guile
+#!/usr/bin/guile 
 !#
 ;; #!/usr/bin/guile --fresh-auto-compile
 ;; ensure that the swayipc module is available under the same directory as the init file
 ;; otherwise, the module should be referenced from packaging system or via custom load path
 
+(add-to-load-path "/home/ebeem/workspace/guile/swayipc")
 (add-to-load-path
- (dirname (if (current-filename)
-              (current-filename)
+ (dirname (or (current-filename)
               (string-append (getenv "HOME") "/.config/sway/init.scm"))))
 
 (use-modules (oop goops)
@@ -20,6 +20,7 @@
              (swayipc dispatcher))
 
 (load "behavior.scm")
+
 ;; init keybindings
 (load "keybindings.scm")
 (keybindings-init)
