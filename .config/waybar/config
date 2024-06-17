@@ -1,6 +1,6 @@
 {
 	"output": "DP-1",
-    "modules-left": ["sway/mode", "mpd"],
+    "modules-left": ["sway/workspaces", "sway/mode", "mpd"],
     "modules-center": ["clock"],
     "modules-right": ["sway/language", "keyboard-state", "network", "temperature", "cpu", "memory", "pulseaudio", "battery", "custom/power"],
     "mpd": {
