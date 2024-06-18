@@ -1,8 +1,5 @@
-#!/usr/bin/guile 
+#!/usr/bin/guile
 !#
-;; #!/usr/bin/guile --fresh-auto-compile
-;; ensure that the swayipc module is available under the same directory as the init file
-;; otherwise, the module should be referenced from packaging system or via custom load path
 
 (add-to-load-path "/home/ebeem/workspace/guile/swayipc")
 (add-to-load-path
@@ -40,13 +37,14 @@
     ("18-development" 	"28-development" 	"38-development")
     ("19-media" 		"29-media" 			"39-media")))
 
-(define ROWS 3)
-(define COLUMNS 3)
-
-(workspace-groups-configure #:outputs OUTPUTS #:groups GROUPS)
+(workspace-groups-configure #:groups GROUPS #:outputs OUTPUTS)
 (workspace-groups-init)
 
-(workspace-grid-configure #:rows ROWS #:columns COLUMNS #:workspaces (apply map list GROUPS))
+(define ROWS 3)
+(define COLUMNS 3)
+(define WORKSPACES (apply map list GROUPS))
+
+(workspace-grid-configure #:rows ROWS #:columns COLUMNS #:workspaces WORKSPACES)
 (workspace-grid-init)
 
 ;; TODO: load which key module
