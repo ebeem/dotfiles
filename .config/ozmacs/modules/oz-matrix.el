@@ -35,14 +35,20 @@
 
 (use-package erc
   :elpaca nil
-  :config
+  :init
+  (require 'erc-history)
+  (setq erc-history-sources
+    '(("http://myhost/grc-history/#CHANNEL#/%Y/%m/%d.txt"
+      ("#systemcrafters"))))
   (add-to-list 'erc-modules 'notifications)
   (setq erc-fill-function 'erc-fill-static
       erc-fill-static-center 20
       erc-track-exclude '("#emacs")
       erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
       erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
-      erc-track-exclude-server-buffer t))
+      erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs", "#guix"))
+      erc-track-exclude-server-buffer t)
+  :hook (erc-mode . erc-history-mode))
 
 (use-package password-store)
 
