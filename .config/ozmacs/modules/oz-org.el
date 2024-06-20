@@ -44,21 +44,23 @@
 (use-package org-transclusion
   :after org)
 
-(use-package org-roam
-  :hook (org-load)
-  :commands (org-roam-buffer-toggle-display
-             org-roam-dailies-find-date
-             org-roam-dailies-find-today
-             org-roam-dailies-find-tomorrow
-             org-roam-dailies-find-yesterday)
-  :custom
-  (org-roam-directory (file-truename "~/cloud/org/roam"))
-  (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
-  :config
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  (require 'org-roam-export)
-  (require 'org-roam-protocol))
+;; (use-package org-roam
+;;   :hook (org-load)
+;;   :commands (org-roam-buffer-toggle-display
+;;              org-roam-dailies-find-date
+;;              org-roam-dailies-find-today
+;;              org-roam-dailies-find-tomorrow
+;;              org-roam-dailies-find-yesterday)
+;;   :custom
+;;   (org-roam-directory (file-truename "~/cloud/org/roam"))
+;;   (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
+;;   :config
+;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+;;   (org-roam-db-autosync-mode)
+;;   (require 'org-roam-export)
+;;   (require 'org-roam-protocol))
+
+(use-package denote)
 
 ;; TODO
 ;; https://github.com/alphapapa/org-super-agenda
