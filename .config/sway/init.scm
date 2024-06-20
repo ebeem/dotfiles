@@ -1,5 +1,7 @@
 #!/usr/bin/guile
 !#
+;; #!/usr/bin/guile --fresh-auto-compile
+;; !#
 
 (add-to-load-path "/home/ebeem/workspace/guile/swayipc")
 (add-to-load-path
@@ -10,6 +12,7 @@
              (srfi srfi-18)
              (modules workspace-groups)
              (modules workspace-grid)
+             (modules auto-reload)
              (swayipc connection)
              (swayipc records)
              (swayipc info)
@@ -47,9 +50,13 @@
 (workspace-grid-configure #:rows ROWS #:columns COLUMNS #:workspaces WORKSPACES)
 (workspace-grid-init)
 
+(auto-reload-configure #:directories '("/home/ebeem/.config/sway/"))
+(auto-reload-init)
+
 ;; TODO: load which key module
 
 (start-commands-listener-thread)
 (start-event-listener-thread)
 (thread-join! LISTENER-THREAD)
 (thread-join! COMMANDS-LISTENER-THREAD)
+
