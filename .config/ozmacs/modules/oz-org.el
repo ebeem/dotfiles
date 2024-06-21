@@ -31,7 +31,7 @@
 
 
 (use-package org-mode
-  :elpaca nil
+  :ensure nil
   :hook (org-mode . +org-mode-enhanced-view))
 
 (defun +org-mode-enhanced-view ()
@@ -70,7 +70,7 @@
 
 ;; horizontally scroll org mode tables
 (use-package org-phscroll
-  :elpaca (:host github :repo "misohena/phscroll")
+  :ensure (:host github :repo "misohena/phscroll")
   :after org
   :init
   (setq org-startup-truncated nil)

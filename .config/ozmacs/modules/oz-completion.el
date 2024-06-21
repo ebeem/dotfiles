@@ -85,12 +85,6 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :elpaca nil
-  :init
-  (savehist-mode))
-
 (use-package consult
   :defer t
   :bind

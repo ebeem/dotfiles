@@ -4,15 +4,15 @@
 (set-face-attribute 'default nil
   :font "Iosevka SS14"
   :height 150
-  :weight 'normal)
+  :weight 'demibold)
 (set-face-attribute 'fixed-pitch nil
   :font "Iosevka SS14"
   :height 150
-  :weight 'normal)
+  :weight 'demibold)
 (set-face-attribute 'variable-pitch nil
   :font "Iosevka Aile"
   :height 150
-  :weight 'normal)
+  :weight 'demibold)
 
 (setq-default truncate-lines t
               word-wrap t

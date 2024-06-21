@@ -26,6 +26,12 @@ command=date '+%Y-%m-%d %I:%M:%S %p'
 interval=1
 label= 
 
+# [weather_NOAA]
+# command=./weather_NOAA/weather_NOAA
+# LAT=26.5648515
+# LON=49.9974104
+# interval=600
+
 [memory]
 color=#a6da95
 label= 

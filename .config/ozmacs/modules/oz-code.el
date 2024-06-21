@@ -13,7 +13,7 @@
   :hook (prog-mode . hl-todo-mode))
 
 (use-package flycheck
-  :ensure t
+  :ensure nil
   :defer t
   :diminish
   :init (global-flycheck-mode))
@@ -55,7 +55,7 @@
   (global-treesit-auto-mode))
 
 ;; (use-package eglot
-;;   :elpaca nil
+;;   :ensure nil 
 ;;   ;; :hook (before-save . eglot-format-buffer)
 ;;   :config
 ;;   (setq eglot-confirm-server-initiated-edits nil)
@@ -128,7 +128,7 @@
 (use-package geiser-guile)
 
 (use-package csharp-mode
-  :elpaca nil
+  :ensure nil
   :mode ("\\.cs\\'" . csharp-ts-mode)
   :hook (csharp-ts-mode . lsp))
 

@@ -1,7 +1,5 @@
 ;;; Code:
-
 (use-package dashboard
-  :ensure t
   :init
   (setq initial-buffer-choice 'dashboard-open
         dashboard-set-heading-icons t
@@ -23,7 +21,6 @@
 
 
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode 1)
   :config
   (setq doom-modeline-height 35      ;; sets modeline height
@@ -34,19 +31,19 @@
         doom-modeline-buffer-file-name-style 'buffer-name
         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
 
-;; (use-package modus-themes)
-  ;; :config
-  ;; (load-theme 'modus-atom-one-dark t))
-
-(use-package doom-themes
+(use-package modus-themes
   :config
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  ;; Sets the default theme to load!!!
-  (setq doom-catppuccin-dark-variant "macchiato")
-  (load-theme 'doom-catppuccin t)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+  (load-theme 'modus-alucard t))
+
+;; (use-package doom-themes
+;;   :config
+;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;   ;; Sets the default theme to load!!!
+;;   (setq doom-catppuccin-dark-variant "macchiato")
+;;   (load-theme 'doom-catppuccin t)
+;;   ;; Corrects (and improves) org-mode's native fontification.
+;;   (doom-themes-org-config))
 
 ;; (use-package catppuccin-theme
 ;;   :config

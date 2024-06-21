@@ -2,12 +2,12 @@
 
 ;;; Code:
 (use-package plz
-  :elpaca (:host github :repo "alphapapa/plz.el"))
+  :ensure (:host github :repo "alphapapa/plz.el"))
 
 (use-package ement
   :after plz
   :commands (ement-connect)
-  :elpaca (:host github :repo "alphapapa/ement.el")
+  :ensure (:host github :repo "alphapapa/ement.el")
   :hook (ement-room-view . (lambda (room session) (ement-view-mode-enhanced)))
   :init
   (with-eval-after-load 'savehist
@@ -34,20 +34,20 @@
         ement-room-right-margin-width 0))
 
 (use-package erc
-  :elpaca nil
-  :init
+  :ensure nil
+  :config
   (add-to-list 'erc-modules 'notifications)
   (setq erc-fill-function 'erc-fill-static
       erc-fill-static-center 20
       erc-track-exclude '("#emacs")
       erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
       erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
-      erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs", "#guix"))
+      erc-autojoin-channels-alist '("irc.libera.chat" "#systemcrafters" "#emacs", "#guix")
       erc-track-exclude-server-buffer t))
 
 (use-package erc-history
   :after erc
-  :elpaca (:host github :repo "ebeem/erc-history")
+  :ensure (:host github :repo "ebeem/erc-history")
   :hook (erc-mode . erc-history-mode)
   :init
   (setq erc-history-sources
@@ -66,13 +66,11 @@
       :password (password-store-get "IRC/irc.libera.chat")))
 
 (use-package erc-hl-nicks
-  :ensure t
   :after erc
   :config
   (add-to-list 'erc-modules 'hl-nicks))
 
 (use-package erc-image
-  :ensure t
   :after erc
   :config
   (setq erc-image-inline-rescale 300)

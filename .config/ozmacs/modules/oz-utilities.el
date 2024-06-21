@@ -247,18 +247,20 @@ between 0 and 1)."
 
 ;; Keep track of recently opened files
 (use-package recentf
-  :elpaca nil
+  :ensure nil
   :custom (recentf-save-file (expand-file-name ".cache/recentf" user-emacs-directory))
   :config
   (setq recentf-auto-cleanup nil
         recentf-max-saved-items 200))
 
 (use-package savehist
-  :elpaca nil
+  :ensure nil
+  :init
+  (savehist-mode)
   :custom (savehist-file (expand-file-name ".cache/history" user-emacs-directory)))
 
 (use-package project
-  :elpaca nil
+  :ensure nil
   :config
   (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory)))
 

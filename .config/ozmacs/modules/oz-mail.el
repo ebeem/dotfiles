@@ -4,7 +4,6 @@
 (use-package yaml)
 (use-package mu4e
   :after yaml
-  :elpaca nil
   :commands (mu4e)
   :hook ((mu4e-headers-mode . (lambda () (display-line-numbers-mode -1)))
 	 (mu4e-view-mode . (lambda () (mu4e-view-mode-enhanced))))
