@@ -12,7 +12,7 @@
 (sway-workspace-layout SWAY-LAYOUT-TABBED)
 (sway-titlebar-border-thickness 0)
 (sway-titlebar-padding 25 0)
-(sway-default-border-style SWAY-BORDER-STYLE-PIXEL #:n 4)
+(sway-default-border-style SWAY-BORDER-STYLE-PIXEL #:n 3)
 
 ;; TODO: better move theme colors to another module for all guile scripts to inherit from
 (define rosewater "#f4dbd6")
