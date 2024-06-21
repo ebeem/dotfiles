@@ -196,28 +196,28 @@ exec_always "sleep 1 && ~/.config/sway/init.scm"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-    font "Iosevka SS14 12"
-    gaps 5 5
-    output DP-1
-    # strip_workspace_numbers yes
+# bar {
+#     position top
+#     font "Iosevka SS14 12"
+#     gaps 5 5
+#     output DP-1
+#     # strip_workspace_numbers yes
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-    status_command i3blocks
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#     status_command i3blocks
+#     tray_output none
 
-    colors {
-        statusline #c6a0f6
-        background #323232
-        urgent_workspace #323232 #323232 #ed8796
-        active_workspace #323232 #323232 #c6a0f6
-        focused_workspace #323232 #323232 #c6a0f6
-        inactive_workspace #323232 #32323200 #cad3f5
-        separator #b8c0e0
-        separator_symbol " / "
-        binding_mode #323232 #323232 #ed8796
-    }
-}
-
+#     colors {
+#         statusline #c6a0f6
+#         background #323232
+#         urgent_workspace #323232 #323232 #ed8796
+#         active_workspace #323232 #323232 #c6a0f6
+#         focused_workspace #323232 #323232 #c6a0f6
+#         inactive_workspace #323232 #32323200 #cad3f5
+#         separator #b8c0e0
+#         separator_symbol " / "
+#         binding_mode #323232 #323232 #ed8796
+#     }
+# }

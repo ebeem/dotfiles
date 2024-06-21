@@ -36,6 +36,7 @@
     "sway/workspaces": {
       "all-outputs": true,
       "current-only": true,
+      "width": 50,
       "format": "{icon} {name}",
       "format-icons": {
           "11-browser": "",
@@ -154,4 +155,3 @@
         "max-length": 10
     },
 }
-

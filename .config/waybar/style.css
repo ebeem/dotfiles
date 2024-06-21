@@ -18,6 +18,7 @@ window#waybar {
   background-color: @surface0;
   margin: 3px 5px 3px 5px;
   padding: 0px 25px 0px 15px;
+  /* max-length: 12; */
 
   /* margin: 3px 5px 3px 5px; */
   /* padding: 5px 8px 5px 15px; */
@@ -97,7 +98,7 @@ window#waybar {
 #mpd {
   background-color: @surface0;
   margin: 3px 5px 3px -25px;
-  padding: 5px 18px 5px 15px;
+  /* padding: 5px 18px 5px 15px; */
   border-radius: 1rem;
 }
 
