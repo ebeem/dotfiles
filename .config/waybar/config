@@ -1,7 +1,7 @@
 {
 	"output": "DP-1",
     "modules-left": ["sway/workspaces", "mpd", "sway/mode"],
-    "modules-center": ["clock"],
+    "modules-center": ["clock", "custom/weather"],
     "modules-right": ["network", "sway/language", "keyboard-state", "temperature", "cpu", "memory", "pulseaudio", "battery", "custom/power"],
     "mpd": {
         "format": "{stateIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
@@ -162,5 +162,10 @@
     "sway/language": {
         "format": " {}",
         "keyboard-name": "at-translated-set-2-keyboard"
+    },
+    "custom/weather": {
+        "exec": "~/dotfiles/.bin/open-weather",
+        "restart-interval": 300,
+        "format": "{}",
     },
 }

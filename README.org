@@ -9,13 +9,13 @@
                   .o+`                   -----------
                  `ooo/                   OS: arch linux
                 `+oooo:                  Shell: zsh
-               `+oooooo:                 WM: stumpwm
+               `+oooooo:                 WM: sway
                -+oooooo+:                Theme: colloid-dark-nord [GTK2/3]
              `/:-:++oooo+:               Icons: colloid-dark [GTK2/3]
             `/++++/+++++++:              Terminal: emacs (eshell)
            `/++++++++++++++:             Files: emacs (dired)
-          `/+++ooooooooooooo/`           Launcher: rofi
-         ./ooosssso++osssssso+`          bar: polybar
+          `/+++ooooooooooooo/`           Launcher: rofi (wayland)
+         ./ooosssso++osssssso+`          bar: waybar
         .oossssso-````/ossssss+`
        -osssssso.      :ssssssso.
       :osssssss/        osssso+++.
@@ -28,12 +28,10 @@
 
 ** Screenshots
 
-*** Desktop (stumpwm)
+*** Desktop (sway)
 #+ATTR_ORG: :width 900
 [[./.screenshots/desktop.png]]
 
-#+ATTR_ORG: :width 900
-[[./.screenshots/stumpwm.png]]
 
 *** Editor (emacs)
 #+ATTR_ORG: :width 900
@@ -62,7 +60,7 @@
   + rss reader (elfeed)
   + email client (mu4e)
   + music (mingus)
-  + terminal emulator (eshell + vterm)
+  + terminal emulator (eshell + vterm + alacritty)
   + text editor (emacs +lsp for IDE capabilities)
   + simple browser (eww)
   + pdf viewer (pdf-tools)

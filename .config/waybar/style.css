@@ -14,12 +14,8 @@ window#waybar {
 }
 
 #workspaces {
-  margin: 3px 5px 3px 5px;
+  margin: 0px 5px 0px 5px;
   padding: 0px 25px 0px 15px;
-  /* max-length: 12; */
-
-  /* margin: 3px 5px 3px 5px; */
-  /* padding: 5px 8px 5px 15px; */
 }
 
 #workspaces label {
@@ -62,12 +58,12 @@ window#waybar {
 #pulseaudio,
 #custom-lock,
 #custom-power {
-  margin: 3px 0px 3px 0px;
+  margin: 0px 0px 0px 0px;
   padding: 5px 8px 5px 8px;
 }
 
 #clock {
-  margin: 3px 5px 3px 5px;
+  margin: 0px 5px 0px 5px;
   padding: 5px 8px 5px 15px;
 }
 #language

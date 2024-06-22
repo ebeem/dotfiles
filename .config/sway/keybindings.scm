@@ -1,5 +1,6 @@
 (use-modules (modules kbd)
              (modules general)
+             (swayipc info)
              (ice-9 popen)
              (srfi srfi-18)
              (ice-9 textual-ports))
@@ -13,6 +14,14 @@
   "Translates keybindings, passing kbd function will enable emacs
    like key chords. The default implementation doesn't modify passed keybindings"
   (kbd key))
+
+;; get focused workspace from a list of workspaces
+(define* (focused-output-name #:optional (workspaces (sway-get-workspaces)))
+  (cond
+    ((null? workspaces) #f)
+    ((equal? #t (sway-workspace-focused (car workspaces)))
+     (sway-workspace-output (car workspaces)))
+    (else (focused-output-name (cdr workspaces)))))
 
 (define (keybindings-init)
   (kbd-init)
@@ -98,19 +107,34 @@
      ("S" (exec "~/.config/rofi/bin/sound-output")))
 
    ;; screenshot keymap
+   ;; flameshot is not performing well under wayland & multiple monitors
+   ;; `(general-define-keys
+   ;;   #:prefix "s" #:wk "Screenshot"
+   ;;   ("d" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui"))
+   ;;   ("s" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot screen"))
+   ;;   ("f" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot full"))
+   ;;   ("m" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui --last-region"))
+
+   ;;   (general-define-keys
+   ;;    #:prefix "d" #:wk "DelayScreenshot"
+   ;;    ("d" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui -d 2500"))
+   ;;    ("s" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot screen -d 2500"))
+   ;;    ("f" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot full -d 2500"))
+   ;;    ("l" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui -d 2500 --last-region"))))
+
    `(general-define-keys
      #:prefix "s" #:wk "Screenshot"
-     ("d" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui"))
-     ("s" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot screen"))
-     ("f" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot full"))
-     ("m" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui --last-region"))
+     ("g" (exec "slurp | grim -g - - | wl-copy"))
+     ("s" (exec (string-append "grim -o \"" (focused-output-name) "\" - | wl-copy")))
+     ("f" (exec "grim - | wl-copy"))
+     ("m" (exec "grim -g - - | wl-copy"))
 
      (general-define-keys
       #:prefix "d" #:wk "DelayScreenshot"
-      ("d" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui -d 2500"))
-      ("s" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot screen -d 2500"))
-      ("f" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot full -d 2500"))
-      ("l" (exec "export XDG_CURRENT_DESKTOP=sway && flameshot gui -d 2500 --last-region"))))
+      ("g" (exec "sleep 2 && slurp | grim -g - - | wl-copy"))
+      ("s" (exec (string-append "sleep 2 && grim -o \"" (focused-output-name) "\" - | wl-copy")))
+      ("f" (exec "sleep 2 && grim - | wl-copy"))
+      ("m" (exec "sleep 2 && grim -g - - | wl-copy"))))
 
    ;; session keymap
    `(general-define-keys
