@@ -53,6 +53,7 @@ export PATH=~/.dotnet/tools:$PATH
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/ebeem/.steam
 export XDG_CONFIG_HOME=~/.config
 source $ZSH/oh-my-zsh.sh
+export QT_QPA_PLATFORMTHEME="qt5ct"
 
 alias em="/usr/bin/emacsclient -nw"
 archey3
