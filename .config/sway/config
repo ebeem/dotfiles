@@ -4,14 +4,15 @@ exec_always "pkill -f '.*guile.*sway/init.scm'"
 exec_always "sleep 1 && ~/.config/sway/init.scm"
 
 # # Logo key. Use Mod1 for Alt.
-# set $mod Mod4
+set $mod Mod4
+set $term alacaritty
+bindsym $mod+t exec $term
+
 # # Home row direction keys, like vim
 # set $left h
 # set $down j
 # set $up k
 # set $right l
-# # preferred terminal emulator
-# set $term alacaritty
 
 # # preferred application launcher
 # set $menu dmenu_path | rofi -show drun | xargs swaymsg exec --
@@ -52,7 +53,6 @@ exec_always "sleep 1 && ~/.config/sway/init.scm"
 # # Read `man 5 sway-input` for more information about this section.
 
 # ### Key bindings
-#     bindsym $mod+Return exec $term
 #     bindsym $mod+Space exec $menu
 
 #     # Kill focused window
