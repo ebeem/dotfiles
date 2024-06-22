@@ -308,7 +308,7 @@ which corresponds to a minimum contrast in relative luminance of
 
 ;;; Paren match
 
-      (bg-paren-match        red-warmer)
+      (bg-paren-match        th-overlay1)
       (bg-paren-expression   th-maroon)
       (underline-paren-match unspecified)
 
