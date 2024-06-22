@@ -1,8 +1,8 @@
 {
 	"output": "DP-1",
-    "modules-left": ["sway/workspaces", "sway/mode", "mpd"],
+    "modules-left": ["sway/workspaces", "mpd", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["sway/language", "keyboard-state", "network", "temperature", "cpu", "memory", "pulseaudio", "battery", "custom/power"],
+    "modules-right": ["network", "sway/language", "keyboard-state", "temperature", "cpu", "memory", "pulseaudio", "battery", "custom/power"],
     "mpd": {
         "format": "{stateIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
         "format-disconnected": "Disconnected ",
@@ -36,7 +36,7 @@
     "sway/workspaces": {
       "all-outputs": true,
       "current-only": true,
-      "width": 50,
+      "max-length": 10,
       "format": "{icon} {name}",
       "format-icons": {
           "11-browser": "",
@@ -153,5 +153,14 @@
         "interval": 1,
         "format": "{}% ",
         "max-length": 10
+    },
+    "sway/mode": {
+      "min-length": 15,
+      "max-length": 15,
+      "format": " {}",
+    },
+    "sway/language": {
+        "format": " {}",
+        "keyboard-name": "at-translated-set-2-keyboard"
     },
 }
