@@ -65,7 +65,7 @@ configuration {
     active:           #c6a0f6;
     urgent:           #ed8796;
     border-color:     #c6a0f6;
-    border-width:     2px solid;
+    border-width:     1px solid;
     border-radius:    4px;
 
     handle-color:                var(selected);
@@ -331,7 +331,7 @@ message {
     border:                      var(border-width);
     border-radius:               var(border-radius);
     border-color:                var(border-color);
-    background-color:            transparent;
+    background-color:            var(background);
     text-color:                  var(foreground-color);
 }
 
@@ -351,7 +351,7 @@ textbox {
 }
 
 error-message {
-    padding:                     10px;
+    background-color:            var(background);
     border:                      var(border-width);
     border-radius:               var(border-radius);
     border-color:                var(border-color);
