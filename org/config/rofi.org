@@ -340,7 +340,7 @@ textbox {
     border:                      var(border-width);
     border-radius:               var(border-radius);
     border-color:                var(border-color);
-    background-color:            var(alternate-background);
+    background-color:            var(background);
     text-color:                  var(foreground-color);
     vertical-align:              0.5;
     horizontal-align:            0.0;
@@ -353,6 +353,7 @@ textbox {
 error-message {
     background-color:            var(background);
     border:                      var(border-width);
+    width:                       100px;
     border-radius:               var(border-radius);
     border-color:                var(border-color);
     text-color:                  var(foreground-color);

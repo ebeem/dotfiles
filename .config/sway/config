@@ -1,7 +1,7 @@
 include /etc/sway/config.d/*
 exec "waybar"
 exec_always "pkill -f '.*guile.*sway/init.scm'"
-exec_always "sleep 1 && ~/.config/sway/init.scm"
+exec_always "sleep 1 && ~/.config/sway/init.scm > ~/logs/guile-swayer.log 2>&1"
 
 # # Logo key. Use Mod1 for Alt.
 set $mod Mod4

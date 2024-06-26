@@ -94,6 +94,7 @@
      ("f" (exec "sleep 0.05 && ~/.config/rofi/bin/finder") #:wk "Finder")
      ("k" (exec "sleep 0.05 && ~/.config/rofi/bin/keyboard-layout") #:wk "Keyboard Layouts")
      ("P" (exec "sleep 0.05 && ~/.config/rofi/bin/powermenu") #:wk "Power")
+     ("o" (exec "sleep 0.05 && rofi -show drun") #:wk "Applications")
      ("s" (exec "sleep 0.05 && ~/.config/rofi/bin/sound-input") #:wk "Sound Input")
      ("S" (exec "sleep 0.05 && ~/.config/rofi/bin/sound-output") #:wk "Sound Output"))
 

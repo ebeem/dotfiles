@@ -3,7 +3,7 @@
 ;; #!/usr/bin/guile --fresh-auto-compile
 ;; !#
 
-(add-to-load-path "/home/ebeem/workspace/guile/swayipc")
+(add-to-load-path "/home/ebeem/workspace/guile/guile-swayer")
 (add-to-load-path
  (dirname (or (current-filename)
               (string-append (getenv "HOME") "/.config/sway/init.scm"))))
@@ -59,11 +59,11 @@
 
 (define (show-rofi-message msg)
   (hide-rofi-message)
-  (display (format #f "rofi -e \"~a\"" msg))
-  (system (format #f "rofi -e \"~a\"" msg)))
+  (let ((rofi-style "window { location: north; anchor: north; width: 20%; x-offset: 10px; y-offset: 40px; }"))
+    (system (format #f "rofi -theme-str '~a' -e \"~a\"" rofi-style msg))))
 
 (define (hide-rofi-message)
-  (system "pkill -f '.*rofi -e.*'"))
+  (system "pkill -f '.*rofi -theme-str .* -e.*'"))
 
 (define (show-which-key submap bindings)
   ;; show your which-key viewer (rofi, eww, etc.)
@@ -73,7 +73,9 @@
      (lambda (ls)
        (let ((nmsg (format #f "    - ~a -> ~a\n" (list-ref ls 1) (list-ref ls 3))))
         (display nmsg)
-        (set! message (string-append message nmsg))))
+        (set! message
+              (string-append message
+                             (format #f "    - <span color='#c6a0f6'><b>~a</b></span> -> ~a\n" (list-ref ls 1) (list-ref ls 3))))))
      bindings)
     (show-rofi-message message)))
 
