@@ -162,5 +162,11 @@
   :config
   (setq org-auto-tangle-default t))
 
+;; spell checking
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode)
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+
 (provide 'oz-org)
 ;;; oz-code.el ends here

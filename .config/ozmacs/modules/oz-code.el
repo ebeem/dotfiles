@@ -13,9 +13,6 @@
   :hook (prog-mode . hl-todo-mode))
 
 (use-package flycheck
-  :ensure nil
-  :defer t
-  :diminish
   :init (global-flycheck-mode))
 
 (use-package editorconfig

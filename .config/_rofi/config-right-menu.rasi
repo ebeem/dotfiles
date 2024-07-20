@@ -1,7 +1,0 @@
-@import                          "config.rasi"
-
-window {
-    location:                    northeast;
-    anchor:                      northeast;
-    x-offset:                    -10px;
-}

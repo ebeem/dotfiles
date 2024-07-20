@@ -257,8 +257,9 @@
 
   ;; search keybindings
   (eb/leader-keys
-    "s" '(:ignore t :wk "Search")
-    "s p" '(consult-ripgrep :wk "Search project files"))
+    "s" '(:ignore t :wk "Search/Spelling")
+    "s p" '(consult-ripgrep :wk "Search project files")
+    "s c" '(jinx-correct :wk "Correct word"))
 
   (eb/leader-keys
     "t" '(:ignore t :wk "Toggle")
@@ -286,12 +287,14 @@
     "w k" '(evil-window-up :wk "Window up")
     "w l" '(evil-window-right :wk "Window right")))
 
-;(defun complete-code ()
-;  (interactive)
-;  (if company-mode (company-complete-common)
-;    (lsp-bridge-popup-complete-menu)))
+(defun complete-code ()
+ (interactive)
+ (when (boundp 'corfu-mode)
+     (corfu-complete))
+ (when (boundp 'company-mode)
+     (company-complete-common)))
 
-(global-set-key (kbd "C-SPC") 'company-complete-common)
+(global-set-key (kbd "C-SPC") 'complete-code)
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)

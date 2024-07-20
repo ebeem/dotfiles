@@ -1,164 +1,187 @@
-(use-modules (gnu home)
+(add-to-load-path
+ (string-append (getenv "HOME") "/.config/guix"))
+
+(use-modules (gnu)
+             (gnu home)
              (gnu home services)
              (gnu home services shells)
-             (gnu packages)
              (gnu services)
-             (gnu packages admin)
-             (guix gexp))
+             (guix gexp)
+             (ebeem packages fonts)
+             (ebeem packages dotnet)
+             (ebeem packages game-development)
+             (nongnu packages messaging)
+             (nongnu packages mozilla)
+             (nongnu packages k8s)
+             (nonguix multiarch-container))
+
+(use-package-modules admin linux aspell bittorrent fonts ftp mail video
+                     gnuzilla kodi pulseaudio audio music graphics shells
+                     shellutils terminals rust-apps emacs inkscape gimp photo
+                     kde gdb mpd libreoffice chromium package-management hardware
+                     task-management gnome lua node php xfce engineering maths
+                     tor vpn wm xdisorg password-utils web-browsers golang
+                     game-development python jupyter python-xyz machine-learning
+                     java virtualization containers emulators wine)
 
 
 (home-environment
- (packages (map specification->package '(
-            "font-jetbrains-mono"
-            "font-iosevka"
-            "font-iosevka-aile"
-            "font-iosevka-comfy"
-            "font-iosevka-etoile"
-            "font-fira-mono"
-            "font-fira-sans"
+ (packages (list
+            ;; utils
+            hostapd
+            htop
+            btop
+            deluge
+            aspell
+            aspell-dict-en
+            aspell-dict-ar
+            fd
+            password-store
+            neofetch
+            pamixer
+            tlp
 
-            "isync"
-            "mu"
+            ;; hardware
+            openrgb
+            ckb-next
 
-            "gdb"
-            "radare2"
-            "cutter"
-            "ghex"
+            ;; file manager
+            filezilla
+            thunar
+            thunar-volman
+            thunar-vcs-plugin
+            thunar-shares-plugin
+            thunar-media-tags-plugin
+            thunar-archive-plugin
+            ristretto
 
-            "plymouth"
-            "stumpwm"
-            "sbcl-stumpwm-swm-gaps"
-            "sbcl-stumpwm-globalwindows"
-            "sbcl-stumpwm-ttf-fonts"
+            ;; office suite
+            libreoffice
 
-            "rofi"
-            "rofi-pass"
+            ;; fonts
+            font-iosevka
+            font-iosevka-etoile
+            font-iosevka-ss09
+            font-iosevka-ss08
+            font-iosevka-ss14
+            font-iosevka-comfy
+            font-iosevka-aile
+            font-jetbrains-mono
+            font-fira-mono
+            font-fira-sans
+            font-google-noto
 
-            "polybar"
-            "dunst"
-            "picom"
-            "feh"
-            "pamixer"
-            "brightnessctl"
-            "slock"
-            "upower"
-            "playerctl"
-            "xsettingsd"
-            "qtile"
-
-            ;; helper gui applications
-            "thunar"
-            "thunar-volman"
-            "thunar-archive-plugin"
-            "flameshot"
-            "ristretto"
-            "xclip"
-
-            "retroarch"
-
-            "gimp"
-            "inkscape"
-            "krita"
-            "darktable"
-
-            "ckb-next"
-            "openrgb"
-
-            "mpd"
-            "ncmpcpp"
-            "vlc"
-            "kodi"
-
-            "hostapd"
-            "deluge"
-            "icecat"
-            "qutebrowser"
-            "ungoogled-chromium"
-            "nyxt"
-            "openvpn"
-            "yt-dlp"
-
-            "nix"
-
-            "hydra"
-            "nmap"
-            "tor"
-
-            "python"
-            "python-cython"
-            "python"
-
-            ;; go
-            "go"
-
-            ;; java
-            "maven"
-            "openjdk"
-
-            ;; databases
-            "postgresql"
-            "mariadb"
-            "sqlite"
-
-            ;; php
-            "php"
-
-            ;; octave/matlab
-            "octave"
-
-            ;; lisp
-            "guile"
-
-            ;; lua
-            "lua"
-
-            ;; javascript
-            "node"
-
-            ;; rest-client
-            ;; "insomnia"
-
-            ;; ftp
-            "filezilla"
+            ;; programming
+            go
+            python
+            ;; python-keras
+            ;; python-matplotlib
+            ;; python-scikit-learn
+            ;; python-seaborn
+            ;; tensorflow
+            ;; python-jupyterlab-server
+            python-cython
+            lua
+            octave
+            php
+            node
+            openjdk
 
             ;; game development
-            "godot"
+            godot
+            godot-mono
 
-            "audacity"
-            "lmms"
+            ;; communication
+            isync
+            mu
 
-            "alacritty"
-            "kitty"
-            "zsh"
-            "zsh-autosuggestions"
-            "zsh-syntax-highlighting"
-            "zsh-completions"
+            ;; reverse engineering
+            gdb
+            radare2
+            cutter
+            ghex
 
-            "libreoffice"
-            "stow"
-            "aspell"
-            "aspell-dict-ar"
-            "aspell-dict-en"
-            "ncurses"
-            "git"
-            "stow"
-            "vim"
-            "emacs"
-            "make"
-            "cmake"
+            ;; hacking
+            nmap
+            hydra
+            tor
+            openvpn
 
-            ;; "gvfs"
-            "neofetch"
-            "password-store"
+            ;; shells
+            zsh
+            zsh-syntax-highlighting
+            zsh-completions
+            zsh-autopair
+            zsh-autosuggestions
 
-            "obs"
-            "openshot"
-            "blender"
+            ;; terminals
+            alacritty
+            kitty
+            foot
 
-            "qemu"
-            "docker"
-            "docker-registry"
-            "docker-compose")))
+            ;; video editing
+            obs
+            openshot
+
+            ;; graphics editing
+            blender
+            darktable
+            inkscape
+            gimp
+            krita
+
+            ;; sound editing
+            audacity
+            lmms
+
+            ;; media
+            mpd
+            blanket
+            ncmpcpp
+            vlc
+            kodi
+            yt-dlp
+
+            ;; window manager
+            sway
+            dunst
+            waybar
+            rofi-wayland
+            wofi
+
+            ;; text editors
+            emacs
+            ;; vscodium
+
+            ;; browser
+            icecat
+            nyxt
+            qutebrowser
+
+            ;; virtualization
+            qemu
+			kubectl
+            podman
+            flatpak
+
+            ;; gaming
+            retroarch
+            dolphin-emu
+            wine
+            wine64
+
+            ;; nongnu
+            element-desktop
+            firefox
+
+            ;; dotnet
+            dotnet-8
+            ;; dotnet-7
+            ;; dotnet-6
+
+            ;; nonfree
+            ;; steam
+            ))
 
  (services
   (list
@@ -167,3 +190,4 @@
              (guix-defaults? #t)
              (bash-profile (list (plain-file "bash-profile" "\
 export HISTFILE=$XDG_CACHE_HOME/.bash_history"))))))))
+

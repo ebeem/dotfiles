@@ -8,6 +8,17 @@ set $mod Mod4
 set $term alacaritty
 bindsym $mod+t exec $term
 
+seat * shortcuts_inhibitor disable
+
+# mode: hotkeygrab
+set $mode_hotkeygrab Hotkey grab: mod+Shift+z to exit
+bindsym $mod+Shift+z mode "$mode_hotkeygrab"
+mode "$mode_hotkeygrab" {
+
+  # back to normal: mod+Shift+z
+  bindsym $mod+Shift+z mode "default"
+}
+
 # # Home row direction keys, like vim
 # set $left h
 # set $down j

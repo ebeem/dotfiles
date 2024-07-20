@@ -309,6 +309,7 @@ which corresponds to a minimum contrast in relative luminance of
 ;;; Paren match
 
       (bg-paren-match        th-overlay1)
+      (fg-paren-match        fg-main)
       (bg-paren-expression   th-maroon)
       (underline-paren-match unspecified)
 
@@ -345,6 +346,7 @@ which corresponds to a minimum contrast in relative luminance of
 
 ;;;; Code mappings
 
+      (bracket fg-main)
       (builtin th-peach)
       (comment th-overlay1)
       (constant th-peach)
@@ -358,6 +360,11 @@ which corresponds to a minimum contrast in relative luminance of
       (variable text)
       (rx-construct th-green)
       (rx-backslash th-flamingo)
+
+      (delimiter fg-main)
+      (number fg-main)
+      (operator fg-main)
+      (punctuation fg-main)
 
 ;;;; Accent mappings
 
@@ -445,17 +452,29 @@ which corresponds to a minimum contrast in relative luminance of
 
 ;;;; Prose mappings
 
-      (prose-block fg-dim)
-      (prose-code th-yellow)
-      (prose-done unspecified)
-      (prose-macro th-teal)
+      (bg-prose-block-delimiter bg-dim)
+      (fg-prose-block-delimiter fg-dim)
+      (bg-prose-block-contents bg-dim)
+
+      (bg-prose-code unspecified)
+      (fg-prose-code th-yellow)
+
+      (bg-prose-macro unspecified)
+      (fg-prose-macro th-teal)
+
+      (bg-prose-verbatim unspecified)
+      (fg-prose-verbatim th-magenta)
+
+      (prose-done th-green)
+      (prose-todo th-pink)
+
       (prose-metadata fg-dim)
       (prose-metadata-value fg-alt)
+
       (prose-table fg-alt)
-      (prose-table-formula magenta)
+      (prose-table-formula th-magenta)
+
       (prose-tag th-peach)
-      (prose-todo th-pink)
-      (prose-verbatim green)
 
 ;;;; Rainbow mappings
 
@@ -567,6 +586,19 @@ as a symbol and the latter as a string.
 Semantic color mappings have the form (MAPPING-NAME COLOR-NAME)
 with both as symbols.  The latter is a named color that already
 exists in the palette and is associated with a HEX-VALUE.")
+
+  (defcustom modus-alucard-palette-user nil
+    "Like the `modus-alucard-palette' for user-defined entries.
+This is meant to extend the palette with custom named colors and/or
+semantic palette mappings.  Those may then be used in combination with
+palette overrides (also see `modus-themes-common-palette-overrides' and
+`modus-alucard-palette-overrides')."
+    :group 'modus-themes
+    :package-version '(modus-themes . "4.5.0")
+    :type '(repeat (list symbol (choice symbol string)))
+    :set #'modus-themes--set-option
+    :initialize #'custom-initialize-default
+    :link '(info-link "(modus-themes) Option to extend the palette for use with overrides"))
 
   (defcustom modus-alucard-palette-overrides nil
     "Overrides for `modus-alucard-palette'.

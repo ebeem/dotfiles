@@ -3,7 +3,6 @@ environment.systemPackages = [
   pkgs.etcher
   pkgs.arduino
   pkgs.spyder
-  pkgs.dotnet-sdk
   pkgs.dart
   pkgs.gradle
   pkgs.sqlmap
@@ -13,8 +12,6 @@ environment.systemPackages = [
   pkgs.colloid-gtk-theme
   pkgs.weather-icons
   pkgs.mattermost-desktop
-  pkgs.element-desktop
-  pkgs.wine
   pkgs.insomnia
 
   // nonfree

@@ -66,6 +66,13 @@
 (set-frame-parameter nil 'alpha-background 88)
 (add-to-list 'default-frame-alist '(alpha-background . 88))
 
+;; tramp fix remote paths
+(use-package tramp
+  :config
+  (setq tramp-remote-path
+      (append tramp-remote-path
+              '(tramp-own-remote-path))))
+
 ;; use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 (provide 'oz-settings)

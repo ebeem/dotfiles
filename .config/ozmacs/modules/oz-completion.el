@@ -23,6 +23,15 @@
         which-key-allow-imprecise-window-fit nil
         which-key-separator " → " ))
 
+;; (use-package corfu
+;;   :custom
+;;   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+;;   (corfu-auto t)                 ;; Enable auto completion
+;;   (corfu-auto-delay 0.2)
+;;   (corfu-auto-prefix 2)
+;;   :init
+;;   (global-corfu-mode))
+
 (use-package company
   :defer 2
   :diminish

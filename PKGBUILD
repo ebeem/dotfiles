@@ -9,54 +9,8 @@ url='https://github.com/ebeem/dotfiles'
 license=('MIT')
 
 depends=(
-    # base
-    'cups'
-    'curl'
-    'gparted'
-    'ntfs-3g'
-    'git'
-    'pipewire'
-
-    # utils
-    'hostapd'
-    'etcher-bin'
-    'btop'
-    'htop-vim'
-    'ocs-url'
-    'deluge-gtk'
-    'stow'
-    'cronie'
-    'nextcloud'
-    'nextcloud-client'
-    # 'grive'
-    'aspell'
-    'aspell-en'
-    'fd'
-    'editorconfig-core-c'
-    'pass'
-    'thunar'
-    'searchmonkey-gtk'
-    'flameshot'
-    'ristretto'
-    # 'xfce4-taskmanager'
-    'xclip'
-    'gvfs'
-    'gvfs-smb'
-    'gvfs-mtp'
-    'gvfs-nfs'
-    'gvfs-google'
-
-    # office suite
-    'libreoffice-fresh'
-
-    #   browser
-    'firefox'
-    'qutebrowser'
-    'chromium'
-
     #   arch specific
     'arch-install-scripts'
-    'neofetch'
 
     # development
     #   android
@@ -67,7 +21,6 @@ depends=(
     'dotnet-runtime'
     'dotnet-sdk'
     'dotnet-targeting-pack'
-    'omnisharp-roslyn'
 
     #   python
     'python'
@@ -132,82 +85,9 @@ depends=(
     'vim'
     'neovim'
 
-    #   reverse engineering
-    'gdb'
-    # 'ghex'
-    # 'ghidra'
-    'r2ghidra'
-    'radare2'
-    'rz-cutter'
-    'rz-ghidra'
-    'hexedit'
-    'nmap'
-    'metasploit'
-    'gobuster-git'
-
-    #   hacking
-    'sqlmap'
-    'hydra'
-    'tor'
-
-    #   terminal
-    'zsh'
-    'zsh-autosuggestions'
-    'zsh-completions'
-    'zsh-syntax-highlighting'
-    # 'zsh-theme-powerlevel10k'
-    'powerline-fonts'
-    # 'awesome-terminal-fonts'
-    'ttf-meslo-nerd-font-powerlevel10k'
-    'kitty'
-    # 'alacritty'
-    # 'tilix'
-
-    # video editing/recording
-    'blender'
-    'obs-studio'
-
-    # music editing/composing
-    'audacity'
-    'lmms'
-
-    # graphics editing
-    'darktable'
-    'gimp'
-    'inkscape'
-    'krita'
-
-    # media
-    'mpd'
-    'blanket'
-    'ncmpcpp'
-    # 'mopidy'
-    # 'mopidy-spotify'
-    # 'mopidy-local'
-    # 'mopidy-soundcloud'
-    # 'mopidy-youtube'
-    # 'mopidy-mpris'
-    # 'mopidy-notifier'
-    # 'mopidy-mpd'
-    # 'mopidy-iris'
-    'vlc'
-    'kodi'
-    'yt-dlp'
-    'openshot'
-
     # look and behavior
     'breeze-snow-cursor-theme'
-    'ttf-fira-sans'
-    'ttf-fira-code'
-    'ttc-iosevka'
-    'ttc-iosevka-aile'
-    'ttc-iosevka-etoile'
-    # 'ttf-ubuntu-font-family'
-    'ttf-jetbrains-mono'
-    # 'ttf-jetbrains-mono-nerd'
     'plymouth'
-    'noto-fonts'
-    'ttf-weather-icons'
 
     # desktop environment
     #   GNOME
@@ -234,17 +114,7 @@ depends=(
     # 'light-locker'
     # 'lutetium-webkit2-greeter'
     # 'lightdm-webkit2-theme-glorious'
-    'qtile'
-    'stumpwm'
-    'cl-swank'
-    'python-pywal'
-    'rofi'
-    'polybar'
-    'dunst'
     'networkmanager-dmenu-git'
-    'picom'
-    'xorg-xrandr'
-    'feh'
     'pamixer'
     'brightnessctl'
     'scrot'
@@ -260,9 +130,6 @@ depends=(
     'ckb-next'
     'openrgb'
 
-    # communication
-    'isync'
-    'mu'
     # 'element-desktop'
     'element-web'
     'discord'
@@ -281,7 +148,6 @@ depends=(
     # security
     'gufw'
     'ufw'
-    'openvpn'
 
     # virtualization
     'qemu'

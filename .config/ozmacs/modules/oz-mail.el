@@ -3,6 +3,7 @@
 
 (use-package yaml)
 (use-package mu4e
+  :ensure nil
   :after yaml
   :commands (mu4e)
   :hook ((mu4e-headers-mode . (lambda () (display-line-numbers-mode -1)))
@@ -120,7 +121,7 @@
 (use-package mu4e-alert
   :after mu4e
   :config
-  (setq mu4e-alert-set-default-style 'libnotify)
+  (setq mu4e-alert-set-default-style 'notifications)
   (mu4e-alert-enable-notifications))
 
 

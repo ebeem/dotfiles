@@ -22,5 +22,14 @@
 
 ;; (use-package seq)
 
+;; highlight diffs
+;; (use-package diff-hl
+;;   :init
+;;   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+;;   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+;;   :config
+;;   (global-diff-hl-mode)
+;;   (diff-hl-margin-mode))
+
 (provide 'oz-git)
 ;;; oz-keybindings.el ends here

@@ -53,7 +53,7 @@
 
 (use-package nerd-icons-completion
   :after marginalia
-  :config
+  :init
   (nerd-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
@@ -69,6 +69,7 @@
 
 ;; disable minor-mode visibility in modeline
 (use-package diminish)
+(use-package keycast)
 
 (provide 'oz-ui)
 ;;; oz-completion.el ends here
