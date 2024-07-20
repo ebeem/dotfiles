@@ -19,6 +19,11 @@ mode "$mode_hotkeygrab" {
   bindsym $mod+Shift+z mode "default"
 }
 
+input * {
+    xkb_layout "us,ara"
+    xkb_options "grp:win_space_toggle"
+}
+
 # # Home row direction keys, like vim
 # set $left h
 # set $down j

@@ -41,6 +41,8 @@
    `("XF86MonBrightnessUp" (exec "brightnessctl set +10%") #:wk "Increase Brightness")
    `("XF86MonBrightnessDown" (exec "brightnessctl set 10%-") #:wk "Decrease Brightness")
 
+   `("C-SPC" (sway-input "type:keyboard" "xkb_switch_layout next") #:wk "Switch Language")
+
    ;; window and group management
    `("s-f" (sway-fullscreen SWAY-FULLSCREEN-TOGGLE) #:wk "Toggle Fullscreen")
 
