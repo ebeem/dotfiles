@@ -9,13 +9,36 @@
               (string-append (getenv "HOME") "/.config/sway/init.scm"))))
 
 (use-modules (oop goops)
+             (srfi srfi-1)
              (srfi srfi-18)
+             (ice-9 regex)
+             (ice-9 rdelim)
+             (ice-9 popen)
+             (ice-9 textual-ports)
              (modules workspace-groups)
              (modules workspace-grid)
              (modules auto-reload)
              (modules which-key)
              (swayipc))
 
+;; TODO: make a module
+;; kill any existing sway init.scm file other than this file
+(define (kill-duplicate-processes)
+  (let* ((ps "ps -ewwo pid,cmd")
+         (pipe (open-input-pipe ps)))
+    (let loop ((line (read-line pipe)))
+      (unless (eof-object? line)
+        (let* ((fields (filter (lambda (x) (and x (> (string-length x) 0)))
+                               (string-split line #\space)))
+               (pid (car fields))
+               (cmd (string-join (cdr fields) " ")))
+          (when (and (not (equal? pid (number->string (getpid))))
+                     (string-match ".*guile.*sway.*init.*scm" cmd))
+            (system* "kill" "-9" pid)))
+        (loop (read-line pipe))))
+    (close-pipe pipe)))
+
+(kill-duplicate-processes)
 
 ;; load look and feel
 (load "behavior.scm")
