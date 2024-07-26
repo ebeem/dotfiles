@@ -51,6 +51,8 @@
     (system "gsettings set org.gnome.desktop.interface icon-theme 'Colloid-nord-dark'")
     (system "gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'")))
 
+(apply-gtk-settings)
+
 ;; load look and feel
 (load "behavior.scm")
 
