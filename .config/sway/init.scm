@@ -40,6 +40,17 @@
 
 (kill-duplicate-processes)
 
+;; TODO: make a module
+(define* (apply-gtk-settings #:optional (settings-path "~/.config/gtk-3.0/settings.ini"))
+  (let ((schema "org.gnome.desktop.interface")
+        (theme "gtk-theme")
+        (icon "icon-theme")
+        (cursor "cursor-theme")
+        (font "font-name"))
+    (system "gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Purple-Dark-Catppuccin'")
+    (system "gsettings set org.gnome.desktop.interface icon-theme 'Colloid-nord-dark'")
+    (system "gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'")))
+
 ;; load look and feel
 (load "behavior.scm")
 
