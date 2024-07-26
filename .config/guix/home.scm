@@ -10,6 +10,7 @@
              (ebeem packages fonts)
              (ebeem packages dotnet)
              (ebeem packages game-development)
+             (ebeem packages gnome-xyz)
              (nongnu packages messaging)
              (nongnu packages mozilla)
              (nongnu packages k8s)
@@ -22,7 +23,7 @@
                      task-management gnome lua node php xfce engineering maths
                      tor vpn wm xdisorg password-utils web-browsers golang
                      game-development python jupyter python-xyz machine-learning
-                     java virtualization containers emulators wine)
+                     java virtualization containers emulators wine glib)
 
 
 (home-environment
@@ -58,6 +59,12 @@
             ;; office suite
             libreoffice
 
+            ;; ui
+            colloid-gtk-theme
+            colloid-icon-theme
+            gsettings-desktop-schemas
+            (list glib "bin")
+
             ;; fonts
             font-iosevka
             font-iosevka-etoile
@@ -70,6 +77,7 @@
             font-fira-mono
             font-fira-sans
             font-google-noto
+            font-awesome
 
             ;; programming
             go
