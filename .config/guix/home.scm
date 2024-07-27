@@ -80,6 +80,7 @@
             font-awesome
 
             ;; programming
+            make
             go
             python
             ;; python-keras
