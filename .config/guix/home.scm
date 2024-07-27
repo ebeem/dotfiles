@@ -180,8 +180,8 @@
             wine64
 
             ;; nongnu
-            element-desktop
-            firefox
+            ;; element-desktop
+            ;; firefox
 
             ;; dotnet
             dotnet-8
