@@ -23,7 +23,7 @@
                      task-management gnome lua node php xfce engineering maths
                      tor vpn wm xdisorg password-utils web-browsers golang
                      game-development python jupyter python-xyz machine-learning
-                     java virtualization containers emulators wine glib)
+                     java virtualization containers emulators wine glib base)
 
 
 (home-environment
