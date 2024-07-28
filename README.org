@@ -7,7 +7,7 @@
 #+BEGIN_SRC
 
       ..                             `.
-      `--..```..`           `..```..--`   		OS: Guix
+      `--..```..`           `..```..--`   		OS: Linux/Guix
         .-:///-:::.       `-:::///:-.     		Shell: zsh
             ````.:::`     `:::.````       		WM: sway
                 -//:`    -::-             		Theme: Colloid-Purple-Dark-Catppuccin [GTK2/3]
