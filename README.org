@@ -6,16 +6,16 @@
 ** Specifications
 #+BEGIN_SRC
 
- ..                             `.   ----------- 
- `--..```..`           `..```..--`   OS: Guix
-   .-:///-:::.       `-:::///:-.     Shell: zsh
-      ````.:::`     `:::.````        WM: sway
-           -//:`    -::-             Theme: Colloid-Purple-Dark-Catppuccin [GTK2/3]
-            ://:   -::-              Icons: Colloid-nord-dark [GTK2/3]
-            `///- .:::`              Terminal: emacs (eshell)
-             -+++-:::.               Files: emacs (dired)
-              :+/:::-                Launcher: rofi (wayland)
-              `-....`                bar: waybar
+      ..                             `.         ----------- 
+      `--..```..`           `..```..--`   		OS: Guix
+        .-:///-:::.       `-:::///:-.     		Shell: zsh
+            ````.:::`     `:::.````       		WM: sway
+                -//:`    -::-             		Theme: Colloid-Purple-Dark-Catppuccin [GTK2/3]
+                  ://:   -::-             		Icons: Colloid-nord-dark [GTK2/3]
+                  `///- .:::`             		Terminal: emacs (eshell)
+                  -+++-:::.               		Files: emacs (dired)
+                    :+/:::-               		Launcher: rofi (wayland)
+                    `-....`               		bar: waybar
 
 #+END_SRC
 
