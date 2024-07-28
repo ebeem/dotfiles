@@ -5,25 +5,18 @@
 
 ** Specifications
 #+BEGIN_SRC
-                   -`
-                  .o+`                   -----------
-                 `ooo/                   OS: arch linux
-                `+oooo:                  Shell: zsh
-               `+oooooo:                 WM: sway
-               -+oooooo+:                Theme: colloid-dark-nord [GTK2/3]
-             `/:-:++oooo+:               Icons: colloid-dark [GTK2/3]
-            `/++++/+++++++:              Terminal: emacs (eshell)
-           `/++++++++++++++:             Files: emacs (dired)
-          `/+++ooooooooooooo/`           Launcher: rofi (wayland)
-         ./ooosssso++osssssso+`          bar: waybar
-        .oossssso-````/ossssss+`
-       -osssssso.      :ssssssso.
-      :osssssss/        osssso+++.
-     /ossssssss/        +ssssooo/-
-   `/ossssso+/:-        -:/+osssso+-
-  `+sso+:-`                 `.-/+oso:
- `++:.                           `-/+/
- .`                                 `/
+
+ ..                             `.   ----------- 
+ `--..```..`           `..```..--`   OS: Guix
+   .-:///-:::.       `-:::///:-.     Shell: zsh
+      ````.:::`     `:::.````        WM: sway
+           -//:`    -::-             Theme: Colloid-Purple-Dark-Catppuccin [GTK2/3]
+            ://:   -::-              Icons: Colloid-nord-dark [GTK2/3]
+            `///- .:::`              Terminal: emacs (eshell)
+             -+++-:::.               Files: emacs (dired)
+              :+/:::-                Launcher: rofi (wayland)
+              `-....`                bar: waybar
+
 #+END_SRC
 
 ** Screenshots
@@ -69,18 +62,19 @@
   + simple spreadsheets (org-mode)
 
 ** Setup
-the script *dotfiles* in *.bin* will perform all tasks needed to configure the system to use these configuration in any Arch Linux based distro. These tasks include:
-+ installing paru (AUR helper)
-+ enabling/activating systemctl services
-+ install dependencies (all dependencies are stored and versioned in a *PKGBUILD*)
-+ link the dotfiles to your home directory (using symbolic links)
+
+1. stow the dotfiles
 
 #+begin_src bash
-git clone https://github.com/ebeem/dotfiles ~/dotfiles
-~/.dotfiles/.bin/dotfiles
+  git clone https://github.com/ebeem/dotfiles.git
+  cd dotfiles
+  cd stow ./
 #+end_src
 
-to update your system in the future to install extra packages added in *PKGBUILD* or to upgrade installed packages or to link files from your dotfiles directory to your home directory, simply run
+2. reconfigure system and home
+NOTE: system =swap-devices= and =file-systems= have to be modified
+
 #+begin_src bash
-dotfiles
+  sudo guix system reconfigure ~/.config/guix/system.scm
+  guix home reconfigure ~/.config/guix/home.scm
 #+end_src
