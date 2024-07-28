@@ -37,7 +37,7 @@
       "all-outputs": true,
       "current-only": true,
       "max-length": 10,
-      "format": "{icon} {name}",
+      "format": "{icon}  {name}",
       "format-icons": {
           "11-browser": "",
           "12-development": "",
@@ -92,7 +92,7 @@
     },
     "network": {
         "format-wifi": "{bandwidthUpBytes} {bandwidthDownBytes} ({signalStrength}%) ",
-        "format-ethernet": " {bandwidthDownBytes} {bandwidthUpBytes}",
+        "format-ethernet": "  {bandwidthDownBytes} {bandwidthUpBytes}",
         "interval": 1,
         "format-disconnected": "", 
         "max-length": 50,
@@ -157,10 +157,10 @@
     "sway/mode": {
       "min-length": 15,
       "max-length": 15,
-      "format": " {}",
+      "format": "  {}",
     },
     "sway/language": {
-        "format": " {}",
+        "format": "  {}",
         "keyboard-name": "at-translated-set-2-keyboard"
     },
     "custom/weather": {
