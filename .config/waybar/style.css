@@ -19,7 +19,6 @@ window#waybar {
 }
 
 #workspaces label {
-  font-size: 15px;
 }
 
 #workspaces button.active label {
@@ -35,7 +34,7 @@ window#waybar {
 }
 
 #workspaces button.persistent {
-  font-size: 1;
+  /* font-size: 1; */
 }
 
 #workspaces button.active {
@@ -59,7 +58,7 @@ window#waybar {
 #custom-lock,
 #custom-power {
   margin: 0px 0px 0px 0px;
-  padding: 5px 8px 5px 8px;
+  padding: 5px 12px 5px 8px;
 }
 
 #clock {
