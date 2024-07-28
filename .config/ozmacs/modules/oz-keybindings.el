@@ -250,7 +250,7 @@
     "p k" '(project-kill-buffers :wk "Kill buffers")
     "p p" '(project-switch-project :wk "Switch project")
     "p r" '(project-query-replace-regexp :wk "Replace query")
-    "p s" '(consult-ripgrep :wk "Search project files")
+    "p s" '(consult-grep :wk "Search project files")
     "p S" '(project-find-regexp :wk "Search project files")
     "p v" '(project-vc-dir :wk "VC directory")
     "p x" '(project-execute-extended-command :wk "Execute command"))
