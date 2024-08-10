@@ -1,4 +1,4 @@
-#!/usr/bin/guile
+#!/usr/bin/env guile
 !#
 ;; #!/usr/bin/guile --fresh-auto-compile
 ;; !#
@@ -20,6 +20,8 @@
              (modules auto-reload)
              (modules which-key)
              (swayipc))
+
+(sway-connect-sockets!)
 
 ;; TODO: make a module
 ;; kill any existing sway init.scm file other than this file

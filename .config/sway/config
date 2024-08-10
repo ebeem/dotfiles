@@ -14,3 +14,5 @@ mode "$mode_hotkeygrab" {
 input * {
     xkb_layout "us,ara"
 }
+
+blur enable
