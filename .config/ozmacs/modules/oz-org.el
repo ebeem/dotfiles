@@ -32,7 +32,12 @@
 
 (use-package org-mode
   :ensure nil
-  :hook (org-mode . +org-mode-enhanced-view))
+  :hook (org-mode . +org-mode-enhanced-view)
+  :init
+  (setq
+   org-directory "~/Documents/notes"
+   org-agenda-files (list org-directory "~/workspace/godot/WerewolfRampage")))
+
 
 (defun +org-mode-enhanced-view ()
   (setq-local truncate-lines nil)
