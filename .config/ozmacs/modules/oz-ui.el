@@ -53,7 +53,6 @@
 
 ;; TODO remove github package
 (use-package nerd-icons-completion
-  :ensure (:host github :repo "maxecharel/nerd-icons-completion" :branch "contrib")
   :after marginalia
   :init
   (nerd-icons-completion-mode)
