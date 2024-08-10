@@ -122,7 +122,6 @@ depends=(
     'upower'
     'tlp'
     'playerctl'
-    'pulseaudio-nextsink'
     'xsettingsd'
 
     # hardware
