@@ -7,6 +7,7 @@
     :init
     (setq evil-want-integration t
           evil-want-keybinding nil
+          evil-want-minibuffer t
           evil-vsplit-window-right t
           evil-split-window-below t
           evil-want-C-u-scroll t
