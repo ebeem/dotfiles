@@ -23,41 +23,51 @@
         which-key-allow-imprecise-window-fit nil
         which-key-separator " → " ))
 
-;; (use-package corfu
-;;   :custom
-;;   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-;;   (corfu-auto t)                 ;; Enable auto completion
-;;   (corfu-auto-delay 0.2)
-;;   (corfu-auto-prefix 2)
-;;   :init
-;;   (global-corfu-mode))
+(use-package corfu
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-auto-delay 0.1)
+  (corfu-auto-prefix 2)
+  (corfu-echo-documentation 0.2)
+  (corfu-scroll-margin 5)
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion))))
+  :init
+  (global-corfu-mode))
 
-(use-package company
-  :defer 2
-  :diminish
-  :hook (company-mode . evil-normalize-keymaps)
-  :init (global-company-mode)
-  :config
-  (setq company-minimum-prefix-length     2
-        company-toolsip-limit             14
-        company-tooltip-align-annotations t
-        company-require-match             nil
-        company-global-modes              '(not erc-mode message-mode help-mode gud-mode)
-        company-backends '(company-capf)
-        company-auto-commit         nil
-        company-auto-complete-chars nil
-        company-dabbrev-other-buffers nil
-        company-dabbrev-ignore-case nil
-        company-dabbrev-downcase    nil
-        company-begin-commands '(self-insert-command)
-        company-idle-delay 0.1
-        company-show-numbers t))
+(use-package nerd-icons-corfu
+  :after corfu
+  :init
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
-;; TODO: configure icons with nerd
-(use-package company-box
-  :after (company nerd-icons-completion)
-  :diminish
-  :hook (company-mode . company-box-mode))
+;; (use-package company
+;;   :defer 2
+;;   :diminish
+;;   :hook (company-mode . evil-normalize-keymaps)
+;;   :init (global-company-mode)
+;;   :config
+;;   (setq company-minimum-prefix-length     2
+;;         company-toolsip-limit             14
+;;         company-tooltip-align-annotations t
+;;         company-require-match             nil
+;;         company-global-modes              '(not erc-mode message-mode help-mode gud-mode)
+;;         company-backends '(company-capf)
+;;         company-auto-commit         nil
+;;         company-auto-complete-chars nil
+;;         company-dabbrev-other-buffers nil
+;;         company-dabbrev-ignore-case nil
+;;         company-dabbrev-downcase    nil
+;;         company-begin-commands '(self-insert-command)
+;;         company-idle-delay 0.1
+;;         company-show-numbers t))
+
+;; ;; TODO: configure icons with nerd
+;; (use-package company-box
+;;   :after (company nerd-icons-completion)
+;;   :diminish
+;;   :hook (company-mode . company-box-mode))
 
 (use-package vertico
   :init

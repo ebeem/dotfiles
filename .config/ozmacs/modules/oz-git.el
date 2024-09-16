@@ -2,7 +2,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package git-commit)
+(use-package transient)
 (use-package magit
   :defer 5
   :init

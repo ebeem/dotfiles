@@ -1,4 +1,4 @@
-#!/usr/bin/guile
+#!/usr/bin/env guile
 !#
 ;; #!/usr/bin/guile --fresh-auto-compile
 ;; !#
@@ -9,13 +9,51 @@
               (string-append (getenv "HOME") "/.config/i3/init.scm"))))
 
 (use-modules (oop goops)
+             (srfi srfi-1)
              (srfi srfi-18)
+             (ice-9 regex)
+             (ice-9 rdelim)
+             (ice-9 popen)
+             (ice-9 textual-ports)
              (modules workspace-groups)
              (modules workspace-grid)
              (modules auto-reload)
              (modules which-key)
              (swayipc))
 
+(sway-connect-sockets!)
+
+;; TODO: make a module
+;; kill any existing sway init.scm file other than this file
+(define (kill-duplicate-processes)
+  (let* ((ps "ps -ewwo pid,cmd")
+         (pipe (open-input-pipe ps)))
+    (let loop ((line (read-line pipe)))
+      (unless (eof-object? line)
+        (let* ((fields (filter (lambda (x) (and x (> (string-length x) 0)))
+                               (string-split line #\space)))
+               (pid (car fields))
+               (cmd (string-join (cdr fields) " ")))
+          (when (and (not (equal? pid (number->string (getpid))))
+                     (string-match ".*guile.*sway.*init.*scm" cmd))
+            (system* "kill" "-9" pid)))
+        (loop (read-line pipe))))
+    (close-pipe pipe)))
+
+(kill-duplicate-processes)
+
+;; TODO: make a module
+(define* (apply-gtk-settings #:optional (settings-path "~/.config/gtk-3.0/settings.ini"))
+  (let ((schema "org.gnome.desktop.interface")
+        (theme "gtk-theme")
+        (icon "icon-theme")
+        (cursor "cursor-theme")
+        (font "font-name"))
+    (system "gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Purple-Dark-Catppuccin'")
+    (system "gsettings set org.gnome.desktop.interface icon-theme 'Colloid-nord-dark'")
+    (system "gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'")))
+
+(apply-gtk-settings)
 
 ;; load look and feel
 (load "behavior.scm")
@@ -27,7 +65,7 @@
 ;; subscribe to all events
 (sway-subscribe-all)
 
-(define OUTPUTS '("HDMI-A-2" "DP-1" "DP-2"))
+(define OUTPUTS '("HDMI-A-1" "DP-1" "DP-2"))
 (define GROUPS
   '(("11-browser" 		"21-browser" 		"31-browser")
     ("12-development" 	"22-development" 	"32-development")
@@ -50,7 +88,7 @@
 (workspace-grid-init)
 
 (auto-reload-configure #:directories
-                       `(,(string-append (getenv "HOME") "/.config/sway/")))
+                       `(,(string-append (getenv "HOME") "/.config/i3/")))
 (auto-reload-init)
 
 ;; init which-key

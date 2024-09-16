@@ -22,8 +22,8 @@
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "brightnessctl set 10%-")
 
 ;; window and group management
-(define-key *top-map* (kbd "s-f") "float-this")
-(define-key *top-map* (kbd "s-F") "unfloat-this")
+;; (define-key *top-map* (kbd "s-f") "float-this")
+;; (define-key *top-map* (kbd "s-F") "unfloat-this")
 
 (define-key *top-map* (kbd "s-h") "move-focus left")
 (define-key *top-map* (kbd "s-j") "move-focus down")

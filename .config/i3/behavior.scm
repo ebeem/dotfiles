@@ -1,10 +1,10 @@
 (use-modules (swayipc))
 
-(sway-output "HDMI-A-2" "pos 0 0 res 1920x1080")
-(sway-output "DP-1" "pos 1920 0 res 1920x1080")
-(sway-output "DP-2" "pos 3840 0 res 1920x1080")
+;;(sway-output "HDMI-A-1" "pos 0 0 res 1920x1080@100Hz")
+;;(sway-output "DP-1" "pos 1920 0 res 1920x1080@100Hz")
+;;(sway-output "DP-2" "pos 3840 0 res 1920x1080@100Hz")
 
-(sway-output "*" "bg ~/.wallpapers/fixed/flat-20.png fill")
+;;(sway-output "*" "bg ~/.wallpapers/fixed/flat-16.png fill")
 
 (sway-focus-follow-mouse SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO)
 (sway-default-gaps SWAY-GAPS-OPTION-INNER 10)
@@ -69,3 +69,4 @@
 (sway-mouse-warping SWAY-MOUSE-WARPING-NONE)
 ;; (sway-opacity SWAY-OPACITY-SET 0.95)
 (sway-show-marks SWAY-SHOW-MARKS-NO)
+

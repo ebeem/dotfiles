@@ -35,7 +35,7 @@
   :hook ((prog-mode . yas-minor-mode)
          (text-mode . yas-minor-mode))
   :config
-  (setq yas-snippet-dirs (expand-file-name ".cache/snippets" user-emacs-directory)
+  (setq yas-snippet-dirs (list (expand-file-name ".cache/snippets" user-emacs-directory))
         yas--default-user-snippets-dir (expand-file-name ".cache/snippets" user-emacs-directory)))
 
 (use-package yasnippet-snippets
@@ -47,27 +47,25 @@
 (use-package treesit-auto
   :demand t
   :init
-  (setq treesit-auto-install 'prompt)
+  (setq treesit-auto-install 'prompt))
+
+(use-package eldoc
+  :after elpaca)
+(use-package jsonrpc)
+(use-package eglot
+  ;; :ensure nil
+  ;; :hook (before-save . eglot-format-buffer)
   :config
-  (global-treesit-auto-mode))
+  (setq eglot-confirm-server-initiated-edits nil)
+  :commands eglot)
 
-;; (use-package eglot
-;;   :ensure nil 
-;;   ;; :hook (before-save . eglot-format-buffer)
-;;   :config
-;;   (setq eglot-confirm-server-initiated-edits nil)
-;;   (add-to-list 'eglot-server-programs
-;;                   `(csharp-ts-mode . ("omnisharp" "-lsp")))
-;;   (add-to-list 'eglot-server-programs
-;;                   `(csharp-mode . ("omnisharp" "-lsp"))))
-
-(use-package lsp-mode
-  :init
-  (setq lsp-session-file (expand-file-name ".cache/lsp-sessions" user-emacs-directory)
-        lsp-server-install-dir (expand-file-name ".cache/lsp-servers" user-emacs-directory))
-  :hook (
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+;; (use-package lsp-mode
+;;   :init
+;;   (setq lsp-session-file (expand-file-name ".cache/lsp-sessions" user-emacs-directory)
+;;         lsp-server-install-dir (expand-file-name ".cache/lsp-servers" user-emacs-directory))
+;;   :hook (
+;;          (lsp-mode . lsp-enable-which-key-integration))
+;;   :commands lsp)
 
 (use-package with-venv)
 (use-package dap-mode
@@ -115,51 +113,51 @@
 ;; programming langauges major modes
 (use-package rjsx-mode
   :mode ("\\.jsx\\'" . rjsx-mode)
-  :hook (rjsx-mode . lsp))
+  :hook (rjsx-mode . eglot-ensure))
 
 (use-package python-mode
   :mode ("\\.py\\'" . python-ts-mode)
-  :hook (python-ts-mode . lsp))
+  :hook (python-ts-mode . eglot-ensure))
 
 (use-package geiser)
 (use-package geiser-guile)
 
 (use-package csharp-mode
-  :ensure nil
-  :mode ("\\.cs\\'" . csharp-ts-mode)
-  :hook (csharp-ts-mode . lsp))
+  :mode ("\\.cs\\'" . csharp-mode)
+  :hook (csharp-mode . eglot-ensure)
+  :hook (csharp-ts-mode . eglot-ensure))
 
 (use-package typescript-mode
   :mode ("\\.tsx\\'" . tsx-ts-mode)
-  :hook (tsx-ts-mode . lsp))
+  :hook (tsx-ts-mode . eglot-ensure))
 
 (use-package dart-mode
   :mode ("\\.dart\\'" . dart-mode)
-  :hook (dart-mode . lsp))
+  :hook (dart-mode . eglot-ensure))
 
 (use-package flutter
   :mode ("\\.dart\\'" . dart-mode)
-  :hook (dart-mode . lsp))
+  :hook (dart-mode . eglot-ensure))
 
 (use-package csv-mode
   :mode ("\\.csv\\'" . csv-mode)
-  :hook (csv-mode . lsp))
+  :hook (csv-mode . eglot-ensure))
 
 (use-package gdscript-mode
   :mode ("\\.gd\\'" . gdscript-ts-mode)
-  :hook (gdscript-ts-mode . lsp))
+  :hook (gdscript-ts-mode . eglot-ensure))
 
 (use-package php-mode
   :mode ("\\.php\\'" . php-mode)
-  :hook (php-mode . lsp))
+  :hook (php-mode . eglot-ensure))
 
 (use-package lua-mode
   :mode ("\\.lua\\'" . lua-mode)
-  :hook (lua-mode . lsp))
+  :hook (lua-mode . eglot-ensure))
 
 (use-package csproj-mode
   :mode ("\\.csproj\\'" . csproj-mode)
-  :hook (csproj-mode . lsp))
+  :hook (csproj-mode . eglot-ensure))
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

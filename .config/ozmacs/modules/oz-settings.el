@@ -3,6 +3,7 @@
 ;; font
 (set-face-attribute 'default nil
   :font "Iosevka SS14"
+  :width 'normal
   :height 150
   :weight 'demibold)
 (set-face-attribute 'fixed-pitch nil
@@ -11,7 +12,7 @@
   :weight 'demibold)
 (set-face-attribute 'variable-pitch nil
   :font "Iosevka Aile"
-  :height 150
+  :height 165
   :weight 'demibold)
 
 (setq-default truncate-lines t

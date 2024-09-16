@@ -290,10 +290,11 @@
 (defun complete-code ()
  (interactive)
  (when (boundp 'corfu-mode)
-     (corfu-complete))
+     (completion-at-point))
  (when (boundp 'company-mode)
      (company-complete-common)))
 
+;; (global-set-key (kbd "C-SPC") 'completion-at-point)
 (global-set-key (kbd "C-SPC") 'complete-code)
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)

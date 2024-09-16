@@ -15,8 +15,8 @@
   (run-shell-command "setxkbmap -option ctrl:nocaps")
   (run-shell-command "picom -b --dbus")
   (run-shell-command "nitrogen --restore")
+  (run-shell-command "dunst")
   (run-shell-command "polybar -r")
-  ;; (run-shell-command "xrandr --output DP-1 --mode 1920x1080 --rate 144.00 --output DP-2 --mode 1920x1080 --rate 144.00 --right-of DP-1 --output HDMI-2 --mode 1920x1080 --rate 120.00 --left-of DP-1")
 
   ;; (run-shell-command "~/.fehbg")
   ;; initialize modeline/polybar
@@ -25,3 +25,6 @@
                      "chromium 'https://web.whatsapp.com/'" "discord" "sleep 10 && slack" "obs" "sleep 10"
                      "ckb-next -b" "sleep 10 && gtk-launch 'elfeed'" "sleep 10 && gtk-launch 'mu4e'" "sleep 10 && gtk-launch 'ement'"))
    (run-shell-command app)))
+
+(run-shell-command "sleep 5 && xrandr --output DP-0 --mode 1920x1080 --rate 144.00 --output DP-2 --mode 1920x1080 --rate 144.00 --right-of DP-0 --output HDMI-0 --mode 1920x1080 --rate 120.00 --left-of DP-0")
+(run-shell-command "sleep 10 && xrandr --output DP-0 --mode 1920x1080 --rate 144.00 --output DP-2 --mode 1920x1080 --rate 144.00 --right-of DP-0 --output HDMI-0 --mode 1920x1080 --rate 120.00 --left-of DP-0")

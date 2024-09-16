@@ -65,7 +65,7 @@
 ;; subscribe to all events
 (sway-subscribe-all)
 
-(define OUTPUTS '("HDMI-A-2" "DP-1" "DP-2"))
+(define OUTPUTS '("HDMI-A-1" "DP-1" "DP-2"))
 (define GROUPS
   '(("11-browser" 		"21-browser" 		"31-browser")
     ("12-development" 	"22-development" 	"32-development")

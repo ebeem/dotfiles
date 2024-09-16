@@ -9,27 +9,27 @@
 
 ;; (setf clx-truetype:+font-cache-filename+ (concat (getenv "HOME") "/.fonts/font-cache.sexp"))
 (xft:cache-fonts) ;; NOTE: needs to be executed once, better to map it to one keybinding
-(set-font `(,(make-instance 'xft:font :family "JetBrainsMono Nerd Font" :subfamily "Bold" :size 11 :antialias t)))
+(set-font `(,(make-instance 'xft:font :family "Iosevka SS14" :subfamily "Bold" :size 13 :antialias t)))
 
 ;; setting colors
 (setf *colors*
-      '("#292D3E"  ; bg
-        "#EEFFFF"  ; fg
-        "#c3e88d"  ; green
-        "#89DDFF"  ; cyan
-        "#82aaff"  ; blue
-        "#ff5370"  ; red
-        "#c792ea"  ; magenta
-        "#ffcb6b"  ; yellow
+      '("#24273a"  ; bg
+        "#cad3f5"  ; fg
+        "#a6da95"  ; green
+        "#7dc4e4"  ; cyan
+        "#8aadf4"  ; blue
+        "#ed8796"  ; red
+        "#c6a0f6"  ; magenta
+        "#eed49f"  ; yellow
         ))
 
 (update-color-map (current-screen))
 (set-bg-color (elt *colors* 0))
 (set-fg-color (elt *colors* 1))
-(set-border-color (elt *colors* 4))
-(set-focus-color (elt *colors* 4))
+(set-border-color (elt *colors* 6))
+(set-focus-color (elt *colors* 6))
 (set-unfocus-color (elt *colors* 0))
-(set-float-focus-color (elt *colors* 4))
+(set-float-focus-color (elt *colors* 6))
 (set-float-unfocus-color (elt *colors* 0))
 (set-msg-border-width 3)
 
@@ -63,5 +63,5 @@
         (setf swm-external-panel:*heads* (list (find-head-by-position (current-screen)
                                           (/ (screen-width (current-screen)) 2)
                                           (/ (screen-height (current-screen)) 2)))
-              swm-external-panel:*heads-gaps* (list (list 0 0 30 0)))
+              swm-external-panel:*heads-gaps* (list (list 0 0 35 0)))
         (swm-external-panel:toggle-gaps-on)))

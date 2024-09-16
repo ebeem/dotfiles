@@ -1,8 +1,8 @@
 (use-modules (swayipc))
 
-(sway-output "HDMI-A-2" "pos 0 0 res 1920x1080")
-(sway-output "DP-1" "pos 1920 0 res 1920x1080")
-(sway-output "DP-2" "pos 3840 0 res 1920x1080")
+(sway-output "HDMI-A-1" "pos 0 0 res 1920x1080@120Hz")
+(sway-output "DP-1" "pos 1920 0 res 1920x1080@144Hz")
+(sway-output "DP-2" "pos 3840 0 res 1920x1080@144Hz")
 
 (sway-output "*" "bg ~/.wallpapers/fixed/flat-16.png fill")
 

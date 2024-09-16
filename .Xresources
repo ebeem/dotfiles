@@ -40,7 +40,6 @@
 *.icons.theme: v_icons_theme
 *.cursor.theme: v_cursor_theme
 *.icon-theme: v_icons_theme
-! *.font: JetBrainsMono Nerd Font Bold 10
 *.font: v_pitch_font
 *.font-fixed: v_fixed_font
 *.terminal: alacritty

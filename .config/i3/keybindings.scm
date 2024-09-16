@@ -1,4 +1,3 @@
-
 (use-modules (modules kbd)
              (modules general)
              (swayipc)
@@ -22,8 +21,7 @@
 (define (keybindings-init)
   (kbd-init)
 
-  (general-configure #:keybinding-translator kbd-translate
-                     #:command-signature "exec /general ")
+  (general-configure #:keybinding-translator kbd-translate)
   (general-init)
 
   ;; define root keybindings
@@ -41,6 +39,8 @@
    ;; brightness-keys
    `("XF86MonBrightnessUp" (exec "brightnessctl set +10%") #:wk "Increase Brightness")
    `("XF86MonBrightnessDown" (exec "brightnessctl set 10%-") #:wk "Decrease Brightness")
+
+   `("s-M-SPC" (sway-input "type:keyboard" "xkb_switch_layout next") #:wk "Switch Language")
 
    ;; window and group management
    `("s-f" (sway-fullscreen SWAY-FULLSCREEN-TOGGLE) #:wk "Toggle Fullscreen")

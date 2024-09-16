@@ -7,7 +7,7 @@
     :init
     (setq evil-want-integration t
           evil-want-keybinding nil
-          evil-want-minibuffer t
+          ;; evil-want-minibuffer t
           evil-vsplit-window-right t
           evil-split-window-below t
           evil-want-C-u-scroll t
@@ -32,24 +32,23 @@
     (define-key evil-ex-completion-map (kbd "C-j") 'next-complete-history-element)
     (define-key evil-ex-completion-map (kbd "C-k") 'previous-complete-history-element))
 
-  (use-package evil-collection
-    :after evil
-    :config
-    (evil-collection-init))
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
-  (use-package evil-escape
-    :after evil
-    :config
-    (setq-default evil-escape-key-sequence "jk"
-          evil-escape-excluded-states '(normal visual multiedit emacs motion)
-          evil-escape-delay 0.2)
-    (evil-escape-mode))
+(use-package evil-escape
+  :after evil
+  :config
+  (setq-default evil-escape-key-sequence "jk"
+        evil-escape-excluded-states '(normal visual multiedit emacs motion)
+        evil-escape-delay 0.2)
+  (evil-escape-mode))
 
 (use-package evil-mc
   :after evil
   :config
   (global-evil-mc-mode 1))
-
 
 (use-package evil-nerd-commenter
   :after evil)
