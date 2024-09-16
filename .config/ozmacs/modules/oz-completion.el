@@ -29,12 +29,11 @@
   (corfu-auto t)                 ;; Enable auto completion
   (corfu-auto-delay 0.1)
   (corfu-auto-prefix 2)
-  (corfu-echo-documentation 0.2)
+  (corfu-popupinfo-delay 0.1)
   (corfu-scroll-margin 5)
   (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion))))
   :init
+  (corfu-popupinfo-mode)
   (global-corfu-mode))
 
 (use-package nerd-icons-corfu
