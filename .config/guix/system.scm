@@ -6,6 +6,7 @@
 ;; to the 'guix system reconfigure' command to effect your
 ;; changes.
 
+
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
 (use-modules (gnu))
@@ -64,7 +65,7 @@
                           pipewire)
                     %base-packages))
 
-  ;; Configure only the services necessary to run the system
+   ;; Configure only the services necessary to run the system
   (services (append
              (modify-services %base-services
                               (delete mingetty-service-type)
@@ -104,7 +105,7 @@
                         (program (file-append swaylock "/bin/swaylock"))
                         (using-pam? #t)
                         (using-setuid? #f)))
-
+              
               ;; Configure the Guix service and ensure we use Nonguix substitutes
               (simple-service 'add-nonguix-substitutes
                               guix-service-type
@@ -116,19 +117,19 @@
                                 (append (list (plain-file "nonguix.pub"
                                                           "(public-key (ecc (curve Ed25519) (q #C1FD53E5D4CE971933EC50C9F307AE2171A2D3B52C804642A7A35F84F3A4EA98#)))"))
                                         %default-authorized-guix-keys))))
-
+              
               ;; Set up Polkit to allow `wheel' users to run admin tasks
               polkit-wheel-service
-
+              
               ;; Give certain programs super-user access
               (simple-service 'mount-setuid-helpers
-                              setuid-program-service-type
+                              privileged-program-service-type
                               (map (lambda (program)
                                      (setuid-program
                                       (program program)))
                                    (list (file-append nfs-utils "/sbin/mount.nfs")
                                          (file-append ntfs-3g "/sbin/mount.ntfs-3g"))))
-
+              
               ;; Networking services
               (service network-manager-service-type
                        (network-manager-configuration
@@ -140,7 +141,7 @@
                        (bluetooth-configuration
                         (auto-enable? #t)))
               (service usb-modeswitch-service-type)
-
+              
               ;; Basic desktop system services (copied from %desktop-services)
               (service avahi-service-type)
               (service udisks-service-type)
@@ -150,31 +151,32 @@
               (service polkit-service-type)
               (service dbus-root-service-type)
               fontconfig-file-system-service ;; Manage the fontconfig cache
-
+              
               ;; Power and thermal management services
               (service thermald-service-type)
               (service tlp-service-type
                        (tlp-configuration
                         (cpu-boost-on-ac? #t)
                         (wifi-pwr-on-bat? #t)))
-
+              
               ;; Enable JACK to enter realtime mode
               (service pam-limits-service-type
                        (list
                         (pam-limits-entry "@realtime" 'both 'rtprio 99)
                         (pam-limits-entry "@realtime" 'both 'nice -19)
                         (pam-limits-entry "@realtime" 'both 'memlock 'unlimited)))
-
+              
               ;; Enable Docker containers and virtual machines
+              (service containerd-service-type)
               (service docker-service-type)
               (service libvirt-service-type
                        (libvirt-configuration
                         (unix-sock-group "libvirt")
                         (tls-port "16555")))
-
+              
               ;; Enable SSH access
               (service openssh-service-type)
-
+              
               ;; Enable printing and scanning
               (service sane-service-type)
               (service cups-service-type
@@ -182,23 +184,23 @@
                         (web-interface? #t)
                         (extensions
                          (list cups-filters))))
-
+              
               ;; Set up the X11 socket directory for XWayland
               (service x11-socket-directory-service-type)
-
+              
               ;; Sync system clock with time servers
               (service ntp-service-type)
-
+              
               ;; Add udev rules for MTP (mobile) devices for non-root user access
               (simple-service 'mtp udev-service-type (list libmtp))
-
+              
               ;; Add udev rules for a few packages
               (udev-rules-service 'pipewire-add-udev-rules pipewire)
               (udev-rules-service 'brightnessctl-udev-rules brightnessctl)
-
+              
               ;; Enable the build service for Nix package manager
               (service nix-service-type)
-
+              
               ;; Schedule cron jobs for system tasks
               (simple-service 'system-cron-jobs
                               mcron-service-type
@@ -212,7 +214,6 @@
                (bootloader grub-bootloader)
                (targets (list "/dev/sda"))
                (keyboard-layout keyboard-layout)))
-
   (swap-devices (list (swap-space
                        (target (uuid
                                 "bd988b15-f520-4f96-ad57-942031e57570")))))

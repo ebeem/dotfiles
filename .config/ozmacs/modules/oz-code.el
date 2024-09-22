@@ -56,8 +56,31 @@
   ;; :ensure nil
   ;; :hook (before-save . eglot-format-buffer)
   :config
+  (defun eglot-csharp-ls-select-solution ()
+    (let* ((project (project-current t))
+           (files (project-files project))
+           (solutions (seq-filter
+                       (lambda (file)
+                         (string-suffix-p ".sln" file)) files)))
+      (if (length> solutions 1)
+          (list "-s" (completing-read "Select a solution: " solutions))
+        '())))
+
   (setq eglot-confirm-server-initiated-edits nil)
+  (setq eglot-server-programs
+        (remove (assoc '(csharp-mode csharp-ts-mode)
+                       eglot-server-programs) eglot-server-programs))
+  (add-to-list 'eglot-server-programs
+               `((csharp-mode csharp-ts-mode)
+                 . ,(append '("csharp-ls")
+                            (eglot-csharp-ls-select-solution))))
   :commands eglot)
+
+(use-package flycheck-eglot
+  :ensure t
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode 1))
 
 ;; (use-package lsp-mode
 ;;   :init
@@ -68,34 +91,34 @@
 ;;   :commands lsp)
 
 (use-package with-venv)
-(use-package dap-mode
-  :init
-  (dap-ui-mode 1)
-  ;; enables mouse hover support
-  (dap-tooltip-mode 1)
-  ;; use tooltips for mouse hover
-  ;; if it is not enabled `dap-mode' will use the minibuffer.
-  (tooltip-mode 1)
-  ;; displays floating panel with debug buttons
-  ;; requies emacs 26+
-  (dap-ui-controls-mode 1)
-  (dap-mode 1)
+;; (use-package dap-mode
+;;   :init
+;;   (dap-ui-mode 1)
+;;   ;; enables mouse hover support
+;;   (dap-tooltip-mode 1)
+;;   ;; use tooltips for mouse hover
+;;   ;; if it is not enabled `dap-mode' will use the minibuffer.
+;;   (tooltip-mode 1)
+;;   ;; displays floating panel with debug buttons
+;;   ;; requies emacs 26+
+;;   (dap-ui-controls-mode 1)
+;;   (dap-mode 1)
 
-  (require 'dap-python)
-  (defun dap-python--pyenv-executable-find (command)
-    (with-venv (executable-find "python")))
-  (dap-register-debug-template
-    "Python Venv :: Run file (buffer)"
-    (list :type "python"
-          :args ""
-          :cwd "${workspaceFolder/.venv/bin/python}"
-          :module nil
-          :program nil
-          :request "launch"
-          :name "Python Venv :: Run file (buffer)"))
-  (setq dap-python-debugger 'debugpy)
+;;   (require 'dap-python)
+;;   (defun dap-python--pyenv-executable-find (command)
+;;     (with-venv (executable-find "python")))
+;;   (dap-register-debug-template
+;;     "Python Venv :: Run file (buffer)"
+;;     (list :type "python"
+;;           :args ""
+;;           :cwd "${workspaceFolder/.venv/bin/python}"
+;;           :module nil
+;;           :program nil
+;;           :request "launch"
+;;           :name "Python Venv :: Run file (buffer)"))
+;;   (setq dap-python-debugger 'debugpy)
 
-  (require 'dap-netcore))
+;;   (require 'dap-netcore))
 
 (use-package hydra)
 
@@ -158,6 +181,10 @@
 (use-package csproj-mode
   :mode ("\\.csproj\\'" . csproj-mode)
   :hook (csproj-mode . eglot-ensure))
+
+(use-package indent-bars
+  :ensure (:host github :repo "jdtsmith/indent-bars")
+  :hook (prog-mode . indent-bars-mode))
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

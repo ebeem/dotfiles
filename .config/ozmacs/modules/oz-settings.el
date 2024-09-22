@@ -64,8 +64,8 @@
   (load custom-file))
 
 ;; transparency
-(set-frame-parameter nil 'alpha-background 88)
-(add-to-list 'default-frame-alist '(alpha-background . 88))
+(set-frame-parameter nil 'alpha-background 96)
+(add-to-list 'default-frame-alist '(alpha-background . 96))
 
 ;; tramp fix remote paths
 (use-package tramp

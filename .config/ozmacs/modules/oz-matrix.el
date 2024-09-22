@@ -39,11 +39,7 @@
   (add-to-list 'erc-modules 'notifications)
   (setq erc-fill-function 'erc-fill-static
       erc-fill-static-center 20
-      erc-track-exclude '("#emacs")
-      erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
-      erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
-      erc-autojoin-channels-alist '("irc.libera.chat" "#systemcrafters" "#emacs", "#guix")
-      erc-track-exclude-server-buffer t))
+      erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")))
 
 (defun erc-history-ubuntu-message-parser (msg)
 "Parse a chat log MSG and return a list of (time nickname message).
