@@ -51,7 +51,8 @@
         (font "font-name"))
     (system "gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Purple-Dark-Catppuccin'")
     (system "gsettings set org.gnome.desktop.interface icon-theme 'Colloid-nord-dark'")
-    (system "gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'")))
+    (system "gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'")
+    (system "export QT_QPA_PLATFORMTHEME='qt6ct'")))
 
 (apply-gtk-settings)
 
