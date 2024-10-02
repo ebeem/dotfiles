@@ -77,12 +77,12 @@
    `("s-w" (sway-kill) #:wk "Kill Window")
    `("s-Return" (exec "alacritty") #:wk "Spawn Terminal")
    `("M-s-Space" (exec "~/.bin/switch-keyboard-layout") #:wk "Switch Keyboard Layout")
-   `("C-s-Space" (exec "sleep 0.05 && rofi -show drun")) #:wk "Application Launcher")
+   `("C-s-Space" (exec "sleep 0.05 && fuzzel")) #:wk "Application Launcher")
 
   ;; define leader keymap
   (general-define-keys
    #:prefix "s-Space" #:wk "Leader"
-   `("o" (exec "sleep 0.05 && rofi -show drun") #:wk "Applications")
+   `("o" (exec "sleep 0.05 && fuzzel") #:wk "Applications")
    `("C-g" (sway-mode "default") #:wk "Abort")
 
    ;; rofi keymap
