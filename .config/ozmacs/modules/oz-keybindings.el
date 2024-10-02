@@ -14,8 +14,8 @@
 
   (evil-define-key '(normal) 'global
     "gcc" 'evilnc-comment-or-uncomment-lines
-    "gcn" 'flycheck-next-error
-    "gcp" 'flycheck-previous-error)
+    "gcn" 'flymake-goto-next-error
+    "gcp" 'flymake-goto-prev-error)
 
   (evil-collection-define-key 'normal 'emacs-lisp-mode-map
     "gz" nil)
@@ -98,7 +98,7 @@
   ;;   "c K" '(eldoc :wk "Jump to documentation")
   ;;   "c r" '(lsp-rename :wk "LSP Rename")
   ;;   "c t" '(lsp-find-type-definition :wk "Find type definition")
-  ;;   "c x" '(flycheck-list-errors :wk "List errors"))
+  ;;   "c x" '(flymake-list-errors :wk "List errors"))
 
   (eb/leader-keys
     "c" '(:ignore t :wk "LSP Code")
@@ -116,7 +116,7 @@
     "c K" '(eldoc :wk "Jump to documentation")
     "c r" '(eglot-rename :wk "LSP Rename")
     "c t" '(eglot-find-typeDefinition :wk "Find type definition")
-    "c x" '(flycheck-list-errors :wk "List errors"))
+    "c x" '(flymake-show-project-diagnostics :wk "List errors"))
 
   (eb/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -282,7 +282,7 @@
   (eb/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t e" '(eshell-toggle :wk "Toggle eshell")
-    "t f" '(flycheck-mode :wk "Toggle flycheck")
+    "t f" '(flymake-mode :wk "Toggle flymake")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t n" '(neotree-toggle :wk "Toggle neotree file viewer")
     "t r" '(rainbow-mode :wk "Toggle rainbow mode")

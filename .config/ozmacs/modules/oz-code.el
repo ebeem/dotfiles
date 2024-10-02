@@ -12,9 +12,6 @@
           ("BUG" . "#ff6c6b")))
   :hook (prog-mode . hl-todo-mode))
 
-(use-package flycheck
-  :init (global-flycheck-mode))
-
 (use-package editorconfig
   :diminish
   :hook (prog-mode . editorconfig-mode)
@@ -51,7 +48,9 @@
 
 (use-package eldoc
   :after elpaca)
+
 (use-package jsonrpc)
+
 (use-package eglot
   ;; :ensure nil
   ;; :hook (before-save . eglot-format-buffer)
@@ -76,12 +75,6 @@
                             (eglot-csharp-ls-select-solution))))
   :commands eglot)
 
-(use-package flycheck-eglot
-  :ensure t
-  :after (flycheck eglot)
-  :config
-  (global-flycheck-eglot-mode 1))
-
 ;; (use-package lsp-mode
 ;;   :init
 ;;   (setq lsp-session-file (expand-file-name ".cache/lsp-sessions" user-emacs-directory)
@@ -91,42 +84,12 @@
 ;;   :commands lsp)
 
 (use-package with-venv)
-;; (use-package dap-mode
+
+;; (use-package eldoc-box
 ;;   :init
-;;   (dap-ui-mode 1)
-;;   ;; enables mouse hover support
-;;   (dap-tooltip-mode 1)
-;;   ;; use tooltips for mouse hover
-;;   ;; if it is not enabled `dap-mode' will use the minibuffer.
-;;   (tooltip-mode 1)
-;;   ;; displays floating panel with debug buttons
-;;   ;; requies emacs 26+
-;;   (dap-ui-controls-mode 1)
-;;   (dap-mode 1)
-
-;;   (require 'dap-python)
-;;   (defun dap-python--pyenv-executable-find (command)
-;;     (with-venv (executable-find "python")))
-;;   (dap-register-debug-template
-;;     "Python Venv :: Run file (buffer)"
-;;     (list :type "python"
-;;           :args ""
-;;           :cwd "${workspaceFolder/.venv/bin/python}"
-;;           :module nil
-;;           :program nil
-;;           :request "launch"
-;;           :name "Python Venv :: Run file (buffer)"))
-;;   (setq dap-python-debugger 'debugpy)
-
-;;   (require 'dap-netcore))
-
-(use-package hydra)
-
-(use-package eldoc-box
-  :init
-  (setq eldoc-echo-area-use-multiline-p nil)
-  :bind
-  ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
+;;   (setq eldoc-echo-area-use-multiline-p nil)
+;;   :bind
+;;   ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
   
 ;; rest client
 (use-package restclient)

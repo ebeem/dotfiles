@@ -269,5 +269,47 @@ between 0 and 1)."
   :config
   (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory)))
 
+(use-package proced
+  :ensure nil
+  :commands proced
+  :custom
+  (proced-auto-update-flag t)
+  (proced-goal-attribute nil)
+  (proced-show-remote-processes t)
+  (proced-enable-color-flag t)
+  (proced-format 'custom)
+  :config
+  (add-to-list
+   'proced-format-alist
+   '(custom user pid ppid sess tree pcpu pmem rss start time state (args comm))))
+;; YOU DON'T NEED NONE OF THIS CODE FOR SIMPLE INSTALL
+;; IT IS AN EXAMPLE OF CUSTOMIZATION.
+
+(use-package ellama
+  :init
+  ;; language you want ellama to translate to
+  (setopt ellama-language "Arabic")
+  ;; could be llm-openai for example
+  (require 'llm-ollama)
+  (setopt ellama-provider
+	  (make-llm-ollama
+	   ;; this model should be pulled to use it
+	   ;; value should be the same as you print in terminal during pull
+	   :chat-model "llama3.1:latest"
+	   :embedding-model "llama3.1:latest"
+	   :default-chat-non-standard-params '(("num_ctx" . 8192))))
+
+  ;; Naming new sessions with llm
+  (setopt ellama-naming-provider
+	  (make-llm-ollama
+	   :chat-model "llama3.1:latest"
+	   :embedding-model "llama3.1:latest"
+	   :default-chat-non-standard-params '(("stop" . ("\n")))))
+  (setopt ellama-naming-scheme 'ellama-generate-name-by-llm)
+  ;; Translation llm provider
+  (setopt ellama-translation-provider (make-llm-ollama
+				       :chat-model "phi3:14b-medium-128k-instruct-q6_K"
+				       :embedding-model "nomic-embed-text")))
+
 (provide 'oz-utilities)
 ;;; oz-utilities.el ends here
