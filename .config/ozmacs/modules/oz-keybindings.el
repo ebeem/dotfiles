@@ -8,10 +8,18 @@
   :config
 
   ;; set up 'SPC' as the global leader key
-  (general-create-definer eb/leader-keys
-    :keymaps '(meow-motion-state-keymap meow-normal-state-keymap)
-    :prefix "SPC"
-    :global-prefix "M-SPC")
+  (when (featurep 'evil)
+    (general-create-definer eb/leader-keys
+      :states '(normal insert motion visual emacs)
+      :keymaps 'override
+      :prefix "SPC"
+      :global-prefix "M-SPC"))
+
+  (when (featurep 'meow)
+    (general-create-definer eb/leader-keys
+      :keymaps '(meow-motion-state-keymap meow-normal-state-keymap)
+      :prefix "SPC"
+      :global-prefix "M-SPC"))
 
   (eb/leader-keys
     ":" '(eval-expression :wk "Evaluate")

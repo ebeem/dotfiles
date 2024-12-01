@@ -8,17 +8,13 @@
         dashboard-banner-logo-title "Emacs Is More Than A Text Editor!"
         dashboard-startup-banner (expand-file-name "imgs/logo-dragon.png" user-emacs-directory)
         dashboard-center-content t
-        dashboard-items '((recents . 5)
-                          (agenda . 5 )
-                          (bookmarks . 5)
-                          (projects . 5)
-                          (registers . 5)))
+        dashboard-items '((projects . 10)
+                          (bookmarks . 10)))
   :custom
   (dashboard-modify-heading-icons '((recents . "file-text")
                       (bookmarks . "book")))
   :config
   (dashboard-setup-startup-hook))
-
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -34,22 +30,6 @@
 (use-package modus-themes
   :config
   (load-theme 'modus-alucard t))
-
-;; (use-package doom-themes
-;;   :config
-;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-;;   ;; Sets the default theme to load!!!
-;;   (setq doom-catppuccin-dark-variant "macchiato")
-;;   (load-theme 'doom-catppuccin t)
-;;   ;; Corrects (and improves) org-mode's native fontification.
-;;   (doom-themes-org-config))
-
-;; (use-package catppuccin-theme
-;;   :config
-;;   (setq catppuccin-flavor 'macchiato)
-;;   (load-theme 'catppuccin t)
-;;   (catppuccin-reload))
 
 ;; TODO remove github package
 (use-package nerd-icons-completion
