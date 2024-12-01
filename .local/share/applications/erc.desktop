@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Emacs ERC
+GenericName=IRC Client
+Exec=emacsclient -F "'(title . \"erc\")" -c -e "(erc)"
+Terminal=false
+Icon=emacs
+Type=Application
+Categories=Application;Emacs;Chat;

@@ -11,9 +11,15 @@
   :height 150
   :weight 'demibold)
 (set-face-attribute 'variable-pitch nil
-  :font "Iosevka Aile"
-  :height 165
-  :weight 'demibold)
+  :font "Iosevka"
+  :height 160
+  :weight 'normal)
+
+;; (use-package unicode-fonts
+;;   :config
+;;   (unicode-fonts-setup))
+
+;;(set-frame-font "Iosevka SS14 15 demibold")
 
 (setq-default truncate-lines t
               word-wrap t

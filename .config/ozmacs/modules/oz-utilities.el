@@ -267,7 +267,9 @@ between 0 and 1)."
 
 (use-package burly
   :config
-  (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory)))
+  (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory))
+  (setq burly-frameset-filter-alist '((name . nil)
+                                      (posframe-parent-buffer . :never))))
 
 (use-package proced
   :ensure nil

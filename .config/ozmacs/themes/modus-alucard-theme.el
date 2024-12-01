@@ -43,75 +43,6 @@
                (require-theme 'modus-themes t))
     (require 'modus-themes))
 
-    ;;; Color helper functions
-    ;; borrowed from doom
-    ;;;###autoload
-    (defun color-name-to-rgb (color)
-      "Retrieves the hexidecimal string repesented the named COLOR (e.g. \"red\")
-    for FRAME (defaults to the current frame)."
-      (cl-loop with div = (float (car (tty-color-standard-values "#ffffff")))
-              for x in (tty-color-standard-values (downcase color))
-              collect (/ x div)))
-
-    ;;;###autoload
-    (defun color-blend (color1 color2 alpha)
-      "Blend two colors (hexidecimal strings) together by a coefficient ALPHA (a
-    float between 0 and 1)"
-      (when (and color1 color2)
-        (cond ((and color1 color2 (symbolp color1) (symbolp color2))
-              (color-blend (color-color color1) (color-color color2) alpha))
-
-              ((or (listp color1) (listp color2))
-              (cl-loop for x in color1
-                        when (if (listp color2) (pop color2) color2)
-                        collect (color-blend x it alpha)))
-
-              ((and (string-prefix-p "#" color1) (string-prefix-p "#" color2))
-              (apply (lambda (r g b) (format "#%02x%02x%02x" (* r 255) (* g 255) (* b 255)))
-                      (cl-loop for it    in (color-name-to-rgb color1)
-                              for other in (color-name-to-rgb color2)
-                              collect (+ (* alpha it) (* other (- 1 alpha))))))
-
-              (color1))))
-
-    ;;;###autoload
-    (defun color-lighten (color alpha)
-      "Brighten a COLOR (a hexidecimal string) by a coefficient ALPHA (a float
-    between 0 and 1)."
-      (cond ((and color (symbolp color))
-            (color-lighten (color-color color) alpha))
-
-            ((listp color)
-            (cl-loop for c in color collect (color-lighten c alpha)))
-
-            ((color-blend color "#FFFFFF" (- 1 alpha)))))
-
-    ;;;###autoload
-    (defun color-darken (color alpha)
-      "Darken a COLOR (a hexidecimal string) by a coefficient ALPHA (a float between
-    0 and 1)."
-      (cond ((and color (symbolp color))
-            (color-darken (color-color color) alpha))
-
-            ((listp color)
-            (cl-loop for c in color collect (color-darken c alpha)))
-
-            ((color-blend color "#000000" (- 1 alpha)))))
-
-    ;;;###autoload
-    (defun color-color (name &optional type)
-      "Retrieve a specific color named NAME (a symbol) from the current theme."
-      (let ((colors (if (listp name)
-                        name
-                      (cdr-safe (assq name color-themes--colors)))))
-        (and colors
-            (cond ((listp colors)
-                    (let ((i (or (plist-get '(256 1 16 2 8 3) type) 0)))
-                      (if (> i (1- (length colors)))
-                          (car (last colors))
-                        (nth i colors))))
-                  (t colors)))))
-
 ;;;###theme-autoload
   (deftheme modus-alucard
     "Elegant, highly legible theme with a night sky background.
@@ -395,12 +326,14 @@ which corresponds to a minimum contrast in relative luminance of
 
       (date-common th-green)
       (date-deadline red)
+      (date-deadline-subtle red-faint)
       (date-event fg-alt)
       (date-holiday red)
       (date-holiday-other blue)
       (date-now fg-main)
       (date-range fg-alt)
       (date-scheduled yellow)
+      (date-scheduled-subtle yellow-faint)
       (date-weekday cyan)
       (date-weekend red)
 

@@ -6,7 +6,7 @@
         dashboard-set-file-icons t
         dashboard-projects-backend 'project-el
         dashboard-banner-logo-title "Emacs Is More Than A Text Editor!"
-        dashboard-startup-banner (expand-file-name "imgs/logo.png" user-emacs-directory)
+        dashboard-startup-banner (expand-file-name "imgs/logo-dragon.png" user-emacs-directory)
         dashboard-center-content t
         dashboard-items '((recents . 5)
                           (agenda . 5 )
@@ -28,7 +28,7 @@
         doom-modeline-persp-name t   ;; adds perspective name to modeline
         doom-modeline-enable-word-count t
         doom-modeline-buffer-encoding nil
-        doom-modeline-buffer-file-name-style 'buffer-name
+        doom-modeline-buffer-file-name-style 'truncate-with-project
         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
 
 (use-package modus-themes
@@ -67,6 +67,14 @@
 (use-package diredfl
   :hook
   (dired-mode . diredfl-mode))
+
+;; colorful dired
+(use-package dired
+  :ensure nil
+  :config
+  (setq dired-dwim-target t))
+  ;; :hook
+  ;; (dired-mode . dired-hide-details-mode))
 
 ;; disable minor-mode visibility in modeline
 (use-package diminish)

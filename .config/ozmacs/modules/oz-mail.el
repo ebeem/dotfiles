@@ -124,6 +124,5 @@
   (setq mu4e-alert-set-default-style 'notifications)
   (mu4e-alert-enable-notifications))
 
-
 (provide 'oz-mail)
 ;;; oz-mail.el ends here

@@ -29,15 +29,9 @@
     org-agenda-current-time-string
     "⭠ now ─────────────────────────────────────────────────"))
 
-
 (use-package org-mode
   :ensure nil
-  :hook (org-mode . +org-mode-enhanced-view)
-  :init
-  (setq
-   org-directory "~/Documents/notes"
-   org-agenda-files (list org-directory "~/workspace/godot/WerewolfRampage")))
-
+  :hook (org-mode . +org-mode-enhanced-view))
 
 (defun +org-mode-enhanced-view ()
   (setq-local truncate-lines nil)

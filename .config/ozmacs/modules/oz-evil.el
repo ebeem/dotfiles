@@ -20,6 +20,17 @@
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
     (define-key evil-normal-state-map (kbd "K") 'eldoc-box-help-at-point)
 
+    (evil-define-key '(normal) 'global
+      "gcn" 'flymake-goto-next-error
+      "gcp" 'flymake-goto-prev-error)
+
+    (evil-collection-define-key 'normal 'emacs-lisp-mode-map
+      "gz" nil)
+
+    (evil-define-key '(visual) 'global
+      ">" 'evil-interactive-shift-right
+      "<" 'evil-interactive-shift-left)
+
     (unbind-key (kbd "C-k") evil-insert-state-map)
 
     ;; Use visual line motions even outside of visual-line-mode buffers
@@ -48,10 +59,34 @@
 (use-package evil-mc
   :after evil
   :config
-  (global-evil-mc-mode 1))
+  (global-evil-mc-mode 1)
+  (evil-define-key '(normal) 'global
+    "gzd" 'evil-mc-make-and-goto-next-match
+    "gzD" 'evil-mc-make-and-goto-prev-match
+    "gzs" 'evil-mc-skip-and-goto-next-match
+    "gzS" 'evil-mc-skip-and-goto-prev-match
+    "gzc" 'evil-mc-skip-and-goto-next-cursor
+    "gzC" 'evil-mc-skip-and-goto-prev-cursor
+    "gzj" 'evil-mc-make-cursor-move-next-line
+    "gzk" 'evil-mc-make-cursor-move-prev-line
+    "gzm" 'evil-mc-make-all-cursors
+    "gzn" 'evil-mc-make-and-goto-next-cursor
+    "gzN" 'evil-mc-make-and-goto-last-cursor
+    "gzp" 'evil-mc-make-and-goto-prev-cursor
+    "gzP" 'evil-mc-make-and-goto-first-cursor
+    "gzq" 'evil-mc-undo-all-cursors
+    "gzt" '+multiple-cursors/evil-mc-toggle-cursors
+    "gzu" '+multiple-cursors/evil-mc-undo-cursor
+    "gzz" '+multiple-cursors/evil-mc-toggle-cursor-here))
 
 (use-package evil-nerd-commenter
-  :after evil)
+  :after evil
+  :config
+    (evil-define-key '(visual) 'global
+      "gc" 'evilnc-comment-or-uncomment-lines)
+
+    (evil-define-key '(normal) 'global
+      "gcc" 'evilnc-comment-or-uncomment-lines))
 
 ;; extra 'evil-collection' bindings
 (defun eb/evil-keybindings-hook (mode mode-keymaps &rest _rest)

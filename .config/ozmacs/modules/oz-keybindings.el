@@ -3,56 +3,15 @@
 
 ;;; Code:
 (use-package general
-  :after evil-collection
   :init
   (general-auto-unbind-keys)
   :config
-  (general-evil-setup)
-
-  (evil-define-key '(visual) 'global
-    "gc" 'evilnc-comment-or-uncomment-lines)
-
-  (evil-define-key '(normal) 'global
-    "gcc" 'evilnc-comment-or-uncomment-lines
-    "gcn" 'flymake-goto-next-error
-    "gcp" 'flymake-goto-prev-error)
-
-  (evil-collection-define-key 'normal 'emacs-lisp-mode-map
-    "gz" nil)
-
-  (evil-define-key '(normal) 'global
-    "gzd" 'evil-mc-make-and-goto-next-match
-    "gzD" 'evil-mc-make-and-goto-prev-match
-    "gzs" 'evil-mc-skip-and-goto-next-match
-    "gzS" 'evil-mc-skip-and-goto-prev-match
-    "gzc" 'evil-mc-skip-and-goto-next-cursor
-    "gzC" 'evil-mc-skip-and-goto-prev-cursor
-    "gzj" 'evil-mc-make-cursor-move-next-line
-    "gzk" 'evil-mc-make-cursor-move-prev-line
-    "gzm" 'evil-mc-make-all-cursors
-    "gzn" 'evil-mc-make-and-goto-next-cursor
-    "gzN" 'evil-mc-make-and-goto-last-cursor
-    "gzp" 'evil-mc-make-and-goto-prev-cursor
-    "gzP" 'evil-mc-make-and-goto-first-cursor
-    "gzq" 'evil-mc-undo-all-cursors
-    "gzt" '+multiple-cursors/evil-mc-toggle-cursors
-    "gzu" '+multiple-cursors/evil-mc-undo-cursor
-    "gzz" '+multiple-cursors/evil-mc-toggle-cursor-here)
-
-  (evil-define-key '(visual) 'global
-    ">" 'evil-interactive-shift-right
-    "<" 'evil-interactive-shift-left)
-
 
   ;; set up 'SPC' as the global leader key
   (general-create-definer eb/leader-keys
-    :states '(normal insert visual emacs)
-    :keymaps 'override
+    :keymaps '(meow-motion-state-keymap meow-normal-state-keymap)
     :prefix "SPC"
     :global-prefix "M-SPC")
-
-  ;; (eb/leader-keys
-  ;;   "SPC" '(embark :wk "Embark"))
 
   (eb/leader-keys
     ":" '(eval-expression :wk "Evaluate")
@@ -73,7 +32,7 @@
     "b l" '(next-buffer :wk "Next buffer")
     "b m" '(bookmark-set :wk "Set bookmark")
     "b M" '(bookmark-delete :wk "Delete bookmark")
-    "b n" '(evil-buffer-new :wk "New buffer")
+    "b n" '(switch-to-buffer :wk "New buffer") ;; TODO: improve
     "b p" '(paste-buffer :wk "Paste buffer")
     "b r" '(revert-buffer :wk "Revert buffer")
     "b R" '(rename-buffer :wk "Rename buffer")
@@ -194,7 +153,6 @@
     "g c i" '(forge-create-issue :wk "Issue")
     "g c p" '(forge-create-pullreq :wk "Pull request"))
 
-
   (eb/leader-keys
     "h" '(:ignore t :wk "Help")
     "h a" '(counsel-apropos :wk "Apropos")
@@ -293,17 +251,16 @@
     "w" '(:ignore t :wk "Windows")
     "w f" '(make-frame :wk "Create new frame")
 
-    ;; TODO: extend from 'evil-window-map'
     ;; Window splits
-    "w d" '(evil-window-delete :wk "Close window")
-    "w s" '(evil-window-split :wk "Horizontal split window")
-    "w v" '(evil-window-vsplit :wk "Vertical split window")
+    "w d" '(delete-window :wk "Close window")
+    "w s" '(split-window-vertically :wk "Horizontal split window")
+    "w v" '(split-window-horizontally :wk "Vertical split window")
 
     ;; Window motions
-    "w h" '(evil-window-left :wk "Window left")
-    "w j" '(evil-window-down :wk "Window down")
-    "w k" '(evil-window-up :wk "Window up")
-    "w l" '(evil-window-right :wk "Window right")))
+    "w h" '(windmove-left :wk "Window left")
+    "w j" '(windmove-down :wk "Window down")
+    "w k" '(windmove-up :wk "Window up")
+    "w l" '(windmove-right :wk "Window right")))
 
 (defun complete-code ()
  (interactive)

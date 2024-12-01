@@ -13,9 +13,7 @@
   :hook (prog-mode . hl-todo-mode))
 
 (use-package editorconfig
-  :diminish
-  :hook (prog-mode . editorconfig-mode)
-  :init)
+  :hook (prog-mode . editorconfig-mode))
 
 ;; colorize color names / color hex code in buffers. (red) (#ff0000)
 (use-package rainbow-mode
@@ -64,7 +62,6 @@
       (if (length> solutions 1)
           (list "-s" (completing-read "Select a solution: " solutions))
         '())))
-
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-server-programs
         (remove (assoc '(csharp-mode csharp-ts-mode)
@@ -83,18 +80,21 @@
 ;;          (lsp-mode . lsp-enable-which-key-integration))
 ;;   :commands lsp)
 
-(use-package with-venv)
+;; (use-package with-venv)
 
-;; (use-package eldoc-box
-;;   :init
-;;   (setq eldoc-echo-area-use-multiline-p nil)
-;;   :bind
-;;   ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
+(use-package eldoc-box
+  :init
+  (setq eldoc-echo-area-use-multiline-p nil)
+  :bind
+  ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
   
 ;; rest client
-(use-package restclient)
+(use-package restclient
+  :mode ("\\.rest\\'" . restclient-mode))
+
 ;; import postman requests if needed
-(use-package impostman)
+(use-package impostman
+  :commands (impostman-import-file impostman-import-string))
 
 ;; programming langauges major modes
 (use-package rjsx-mode
@@ -105,8 +105,10 @@
   :mode ("\\.py\\'" . python-ts-mode)
   :hook (python-ts-mode . eglot-ensure))
 
-(use-package geiser)
-(use-package geiser-guile)
+(use-package geiser
+  :defer t)
+(use-package geiser-guile
+  :defer t)
 
 (use-package csharp-mode
   :mode ("\\.cs\\'" . csharp-mode)
@@ -148,6 +150,8 @@
 (use-package indent-bars
   :ensure (:host github :repo "jdtsmith/indent-bars")
   :hook (prog-mode . indent-bars-mode))
+
+;; (use-package pgmacs)
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

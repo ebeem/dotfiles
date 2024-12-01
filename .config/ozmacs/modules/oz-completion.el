@@ -17,11 +17,17 @@
         which-key-min-display-lines 6
         which-key-side-window-slot -10
         which-key-side-window-max-height 0.35
-        which-key-idle-delay 1
-        which-key-idle-secondary-delay 2
+        which-key-idle-delay 0.5
+        which-key-idle-secondary-delay 0.5
         which-key-max-description-length 25
         which-key-allow-imprecise-window-fit nil
         which-key-separator " → " ))
+
+;; (use-package which-key-posframe
+;;   :config
+;;   (setq which-key-posframe-border-width 2
+;;         which-key-posframe-poshandler 'posframe-poshandler-frame-center)
+;;   (which-key-posframe-mode))
 
 (use-package corfu
   :custom
@@ -87,14 +93,19 @@
         ("C-'" . vertico-quick-jump)))
 
 ;; lets 'vertico' use 'posframe' to show its candidate menu
-(use-package vertico-posframe
-  :after vertico
-  :init
-  (vertico-posframe-mode 1)
-  :config
-  (setq vertico-posframe-parameters
-        '((left-fringe . 12)
-          (right-fringe . 12))))
+;; (use-package vertico-posframe
+;;   :after vertico
+;;   :init
+;;   (vertico-posframe-mode 1)
+;;   :config
+;;   (advice-add 'vertico-posframe--show
+;;               :before
+;;               (defun vertico-posframe--show/before (&rest _args)
+;;                 (setq vertico-posframe-truncate-lines
+;;                       (< (point) (* 0.8 (window-width (active-minibuffer-window)))))))
+;;   (setq vertico-posframe-parameters
+;;         '((left-fringe . 12)
+;;           (right-fringe . 12))))
 
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
@@ -150,6 +161,9 @@
   ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
          ("M-A" . marginalia-cycle))
+  :hook (rfn-eshadow-update-overlay-hook . vertico-directory-tidy)
+  :config
+  (setq file-name-shadow-mode 1)
   :init
   (marginalia-mode))
 

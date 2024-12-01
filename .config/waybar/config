@@ -7,6 +7,7 @@
         "format": "{stateIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
         "format-disconnected": "Disconnected ",
         "interval": 1,
+        "title-len": 30,
         "state-icons": {
             "paused": "",
             "playing": ""

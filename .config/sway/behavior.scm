@@ -5,7 +5,7 @@
 (sway-output "DP-2" "pos 3840 0 res 1920x1080@144Hz")
 
 ;; (sway-output "*" "bg ~/.wallpapers/fixed/flat-16.png fill")
-(sway-output "*" "bg ~/.wallpapers/fixed/nord-01.jpg fill")
+(sway-output "*" "bg ~/.wallpapers/fixed/cat-01.jpeg fill")
 
 (sway-focus-follow-mouse SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO)
 (sway-default-gaps SWAY-GAPS-OPTION-INNER 10)
