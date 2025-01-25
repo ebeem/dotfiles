@@ -6,6 +6,30 @@
   :init
   (general-auto-unbind-keys)
   :config
+  (defun split-window-horizontally-and-focus ()
+    "Split the window horizontally and focus on the new window."
+    (interactive)
+    (let ((new-window (split-window-horizontally)))
+      (select-window new-window)))
+
+  (defun split-window-vertically-and-focus ()
+    "Split the window vertically and focus on the new window."
+    (interactive)
+    (let ((new-window (split-window-vertically)))
+      (select-window new-window)))
+
+  (defun create-scratch-buffer ()
+    "Create a new buffer titled 'Scratch', or 'Scratch<N>' if 'Scratch' already exists."
+    (interactive)
+    (let ((base-name "Scratch")
+          (counter 1)
+          (buffer-name "Scratch"))
+      ;; Find an unused buffer name
+      (while (get-buffer buffer-name)
+        (setq buffer-name (format "%s<%d>" base-name counter))
+        (setq counter (1+ counter)))
+      ;; Create and switch to the new buffer
+      (switch-to-buffer (get-buffer-create buffer-name))))
 
   ;; set up 'SPC' as the global leader key
   (when (featurep 'evil)
@@ -40,7 +64,7 @@
     "b l" '(next-buffer :wk "Next buffer")
     "b m" '(bookmark-set :wk "Set bookmark")
     "b M" '(bookmark-delete :wk "Delete bookmark")
-    "b n" '(switch-to-buffer :wk "New buffer") ;; TODO: improve
+    "b n" '(create-scratch-buffer :wk "New buffer") ;; TODO: improve
     "b p" '(paste-buffer :wk "Paste buffer")
     "b r" '(revert-buffer :wk "Revert buffer")
     "b R" '(rename-buffer :wk "Rename buffer")
@@ -261,8 +285,8 @@
 
     ;; Window splits
     "w d" '(delete-window :wk "Close window")
-    "w s" '(split-window-vertically :wk "Horizontal split window")
-    "w v" '(split-window-horizontally :wk "Vertical split window")
+    "w s" '(split-window-vertically-and-focus :wk "Horizontal split window")
+    "w v" '(split-window-horizontally-and-focus :wk "Vertical split window")
 
     ;; Window motions
     "w h" '(windmove-left :wk "Window left")

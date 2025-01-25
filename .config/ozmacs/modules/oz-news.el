@@ -9,6 +9,11 @@
         elfeed-show-entry-switch #'pop-to-buffer
         shr-max-image-proportion 0.6)
 
+  (defun elfeed-reload-db ()
+      "Reload database."
+      (interactive)
+      (elfeed-db-load))
+
   ;; override some ui behaviors
   (defun elfeed-kill-buffer ()
       "Kill the current buffer."

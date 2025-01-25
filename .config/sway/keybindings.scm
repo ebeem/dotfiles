@@ -1,7 +1,7 @@
 
-(use-modules (modules kbd)
-             (modules general)
-             (swayipc)
+(use-modules (guile-swayer modules kbd)
+             (guile-swayer modules general)
+             (guile-swayer swayipc)
              (ice-9 popen)
              (srfi srfi-18)
              (ice-9 textual-ports))
@@ -30,8 +30,11 @@
    ;; media-keys
    `("XF86AudioLowerVolume" (exec "pactl set-sink-volume @DEFAULT_SINK@ -5%") #:wk "Decrease Volume")
    `("XF86AudioRaiseVolume" (exec "pactl set-sink-volume @DEFAULT_SINK@ +5%") #:wk "Increase Volume")
-   `("s-[" (exec "pactl set-sink-volume @DEFAULT_SINK@ -5%") #:wk "Decrease Volume")
-   `("s-]" (exec "pactl set-sink-volume @DEFAULT_SINK@ +5%") #:wk "Increase Volume")
+   `("s-[" (sway-resize SWAY-RESIZE-TYPE-GROW SWAY-RESIZE-DIRECTION-WIDTH 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Grow Width")
+   `("s-]" (sway-resize SWAY-RESIZE-TYPE-SHRINK SWAY-RESIZE-DIRECTION-WIDTH 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Shrink Width")
+   `("s-[" (sway-resize SWAY-RESIZE-TYPE-GROW SWAY-RESIZE-DIRECTION-HEIGHT 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Grow Height")
+   `("s-]" (sway-resize SWAY-RESIZE-TYPE-SHRINK SWAY-RESIZE-DIRECTION-HEIGHT 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Shrink Height")
+
    `("XF86AudioMute" (exec "pactl set-sink-mute @DEFAULT_SINK@ toggle") #:wk "Toggle Mute")
    `("XF86AudioNext" (exec "mpc next") #:wk "Next Song")
    `("XF86AudioPrev" (exec "mpc prev") #:wk "Previous Song")
@@ -57,6 +60,7 @@
    `("s-S-j" (sway-move-container SWAY-DIRECTION-DOWN) #:wk "Move Container Down")
    `("s-S-k" (sway-move-container SWAY-DIRECTION-UP) #:wk "Move Container Up")
    `("s-S-l" (sway-move-container SWAY-DIRECTION-RIGHT) #:wk "Move Container Right")
+
 
    ;; switch workspace
    `("s-C-h" (workspace-grid-switch-workspace-left) #:wk "Switch Workspace Left")
@@ -140,6 +144,7 @@
      #:prefix "w" #:wk "Window"
      ("v" (sway-layout SWAY-LAYOUT-SPLITV) #:wk "Split Vertically")
      ("h" (sway-layout SWAY-LAYOUT-SPLITH) #:wk "Split Horizontally")
+     ("g" (sway-floating SWAY-FLOATING-TOGGLE) #:wk "Toggle Floating")
      ("f" (sway-fullscreen SWAY-FULLSCREEN-TOGGLE) #:wk "Fullscreen")
      ("d" (sway-layout SWAY-LAYOUT-DEFAULT) #:wk "Default Layout")
      ("t" (sway-layout SWAY-LAYOUT-TABBED) #:wk "Tabbed Layout"))))

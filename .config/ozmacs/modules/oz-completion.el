@@ -17,8 +17,8 @@
         which-key-min-display-lines 6
         which-key-side-window-slot -10
         which-key-side-window-max-height 0.35
-        which-key-idle-delay 0.5
-        which-key-idle-secondary-delay 0.5
+        which-key-idle-delay 0.2
+        which-key-idle-secondary-delay 0
         which-key-max-description-length 25
         which-key-allow-imprecise-window-fit nil
         which-key-separator " → " ))

@@ -20,16 +20,23 @@
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
     (define-key evil-normal-state-map (kbd "K") 'eldoc-box-help-at-point)
 
+    (defun evil-interactive-shift-right ()
+      "vnoremap < <gv"
+      (interactive)
+      (call-interactively #'evil-shift-right)
+      (evil-normal-state)
+      (evil-visual-restore))
+
+    (defun evil-interactive-shift-left ()
+      "vnoremap > >gv"
+      (interactive)
+      (call-interactively #'evil-shift-left)
+      (evil-normal-state)
+      (evil-visual-restore))
+
     (evil-define-key '(normal) 'global
       "gcn" 'flymake-goto-next-error
       "gcp" 'flymake-goto-prev-error)
-
-    (evil-collection-define-key 'normal 'emacs-lisp-mode-map
-      "gz" nil)
-
-    (evil-define-key '(visual) 'global
-      ">" 'evil-interactive-shift-right
-      "<" 'evil-interactive-shift-left)
 
     (unbind-key (kbd "C-k") evil-insert-state-map)
 
@@ -41,12 +48,17 @@
     (evil-set-initial-state 'messages-buffer-mode 'normal)
     (evil-set-initial-state 'dashboard-mode 'normal)
     (define-key evil-ex-completion-map (kbd "C-j") 'next-complete-history-element)
-    (define-key evil-ex-completion-map (kbd "C-k") 'previous-complete-history-element))
+    (define-key evil-ex-completion-map (kbd "C-k") 'previous-complete-history-element)
+
+    (define-key evil-visual-state-map (kbd ">") 'evil-interactive-shift-right)
+    (define-key evil-visual-state-map (kbd "<") 'evil-interactive-shift-left))
 
 (use-package evil-collection
   :after evil
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  (evil-collection-define-key 'normal 'emacs-lisp-mode-map
+    "gz" nil))
 
 (use-package evil-escape
   :after evil

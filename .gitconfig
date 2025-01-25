@@ -6,3 +6,5 @@
 [http]
 	sslverify = false
 	proxy = 
+[pull]
+	rebase = false

@@ -20,8 +20,7 @@
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
       eshell-last-dir-ring-file-name (expand-file-name ".cache/eshell/lastdir" user-emacs-directory)
       eshell-aliases-file (expand-file-name ".cache/eshell/aliases" user-emacs-directory)
-      eshell-history-file-name (expand-file-name ".cache/eshell/history" user-emacs-directory)
-      )
+      eshell-history-file-name (expand-file-name ".cache/eshell/history" user-emacs-directory))
 
 (use-package vterm
 :config

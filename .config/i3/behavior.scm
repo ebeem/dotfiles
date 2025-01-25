@@ -64,7 +64,7 @@
                            #:indictor-color overlay0
                            #:child-border-color overlay0)
 
-(sway-font "Iosevka SS14 Bold 12")
+(sway-font "Iosevka Bold 12")
 (sway-workspace-auto-back-and-forth #f)
 (sway-mouse-warping SWAY-MOUSE-WARPING-NONE)
 ;; (sway-opacity SWAY-OPACITY-SET 0.95)

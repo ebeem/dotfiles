@@ -1,4 +1,4 @@
-(use-modules (swayipc))
+(use-modules (guile-swayer swayipc))
 
 (sway-exec "firefox")
 (sway-exec "gtk-launch 'eshell'")

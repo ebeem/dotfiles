@@ -27,6 +27,21 @@
         doom-modeline-buffer-file-name-style 'truncate-with-project
         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
 
+;; Show current command in modeline
+(use-package keycast
+  :hook (after-init . keycast-mode)
+  :config
+  (define-minor-mode keycast-mode
+    "Show current command and its key binding in the mode line (modified for doom-modeline use)."
+    :global t
+    (if keycast-mode
+      (progn
+	(add-hook 'pre-command-hook 'keycast--update t)
+	(add-to-list 'global-mode-string '("" keycast-mode-line)))
+      (progn
+	(remove-hook 'pre-command-hook 'keycast--update)
+	(setq global-mode-string (remove '("" keycast-mode-line) global-mode-string))))))
+
 (use-package modus-themes
   :config
   (load-theme 'modus-alucard t))
@@ -58,7 +73,6 @@
 
 ;; disable minor-mode visibility in modeline
 (use-package diminish)
-(use-package keycast)
 
 (provide 'oz-ui)
 ;;; oz-completion.el ends here

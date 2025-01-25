@@ -53,7 +53,7 @@ We provide a template that will be passed to an elisp to be processed
 #+name: colors-configs
 #+BEGIN_SRC conf
 configuration {
-    font:             "Iosevka SS14 Bold 12";
+    font:             "Iosevka Bold 12";
     terminal:         "alacritty";
 }
 

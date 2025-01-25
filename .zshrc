@@ -45,6 +45,7 @@ export STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/ebeem/.steam
 export XDG_CONFIG_HOME=~/.config
 source $ZSH/oh-my-zsh.sh
 export QT_QPA_PLATFORMTHEME="qt5ct"
+export GUILE_LOAD_PATH=/usr/local/share/guile/site/3.0
 
 alias em="/usr/bin/emacsclient -nw"
 neofetch

@@ -1,4 +1,4 @@
-(use-modules (swayipc))
+(use-modules (guile-swayer swayipc))
 
 (sway-output "HDMI-A-1" "pos 0 0 res 1920x1080@120Hz")
 (sway-output "DP-1" "pos 1920 0 res 1920x1080@144Hz")
@@ -65,8 +65,15 @@
                            #:indictor-color overlay0
                            #:child-border-color overlay0)
 
-(sway-font "Iosevka SS14 Bold 12")
+(sway-font "Noto Sans Bold 10")
 (sway-workspace-auto-back-and-forth #f)
 (sway-mouse-warping SWAY-MOUSE-WARPING-NONE)
 ;; (sway-opacity SWAY-OPACITY-SET 0.95)
 (sway-show-marks SWAY-SHOW-MARKS-NO)
+
+(sway-input "10429:2359:UGTABLET_UGEE_S640_Mouse" "map_to_output DP-1")
+(sway-input "10429:2359:UGTABLET_UGEE_S640_Keyboard" "map_to_output DP-1")
+(sway-input "10429:2359:UGTABLET_UGEE_S640_Pen" "map_to_output DP-1")
+(sway-input "type:keyboard" "repeat_delay 200")
+(sway-input "type:keyboard" "repeat_rate 30")
+(sway-input "type:keyboard" "xkb_layout 'us,ara'")

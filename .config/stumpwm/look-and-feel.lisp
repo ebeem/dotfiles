@@ -9,7 +9,7 @@
 
 ;; (setf clx-truetype:+font-cache-filename+ (concat (getenv "HOME") "/.fonts/font-cache.sexp"))
 (xft:cache-fonts) ;; NOTE: needs to be executed once, better to map it to one keybinding
-(set-font `(,(make-instance 'xft:font :family "Iosevka SS14" :subfamily "Bold" :size 13 :antialias t)))
+(set-font `(,(make-instance 'xft:font :family "Iosevka" :subfamily "Bold" :size 13 :antialias t)))
 
 ;; setting colors
 (setf *colors*

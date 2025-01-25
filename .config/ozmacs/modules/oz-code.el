@@ -105,6 +105,13 @@
   :mode ("\\.py\\'" . python-ts-mode)
   :hook (python-ts-mode . eglot-ensure))
 
+(use-package jupyter
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (jupyter . t))))
+
 (use-package geiser
   :defer t)
 (use-package geiser-guile

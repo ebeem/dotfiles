@@ -3,8 +3,8 @@
 * {
   /* reference the color by using @color-name */
   color: @text;
-  font-family: "Iosevka SS14", "Iosevka Nerd Font", sans-serif;
-  font-size: 15;
+  font-family: "Iosevka Nerd Font", sans-serif;
+  font-size: 15.5;
   font-weight: bold;
 }
 
@@ -20,16 +20,14 @@ window#waybar {
 #workspaces label {
 }
 
-#workspaces button.active label {
+#workspaces button.active {
   color: @mauve;
 }
 
 #workspaces button {
   color: @pink;
-  padding-left: 2px;
-  margin: 2px 0;
-  box-shadow: inset 0 -3px transparent;
-  transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.68);
+  margin: 0px;
+  padding: 0px;
 }
 
 #workspaces button.persistent {
@@ -57,7 +55,7 @@ window#waybar {
 #custom-lock,
 #custom-power {
   margin: 0px 0px 0px 0px;
-  padding: 5px 12px 5px 8px;
+  padding: 5px 12px 5px 12px;
 }
 
 #clock {

@@ -1,6 +1,6 @@
 configuration {
   dpi:                        100;
-  monitor:                    0;
+  monitor:                    2;
   modi:                       "drun,run,filebrowser,window";
   show-icons:                 true;
   display-drun:               "";
@@ -24,7 +24,7 @@ configuration {
 }
 
 configuration {
-    font:             "Iosevka SS14 Bold 12";
+    font:             "Iosevka Bold 12";
     terminal:         "alacritty";
 }
 

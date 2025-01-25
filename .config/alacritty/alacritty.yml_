@@ -116,18 +116,18 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: Iosevka SS14
+    family: Iosevka
 
   bold:
-    family: Iosevka SS14
+    family: Iosevka
     style: Bold
 
   italic:
-    family: Iosevka SS14
+    family: Iosevka
     style: Italic
 
   bold_italic:
-    family: Iosevka SS14
+    family: Iosevka
     style: Bold Italic
 
   size: 15

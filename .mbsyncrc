@@ -214,3 +214,51 @@ Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 Create Both
 Expunge Both
 SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount gmret
+Host imap.gmail.com
+UserCmd "sed -n 10p ~/.secret/mails"
+PassCmd "sed -n 10p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmret-remote
+Account gmret
+
+MaildirStore gmret-local
+SubFolders Verbatim
+Path ~/.mail/gmret/
+Inbox ~/.mail/gmret/Inbox
+
+Channel gmret
+Far :gmret-remote:
+Near :gmret-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+# ============================== EMAIL ============================== #
+IMAPAccount gmozm
+Host imap.gmail.com
+UserCmd "sed -n 11p ~/.secret/mails"
+PassCmd "sed -n 11p ~/.secret/mailsp"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmozm-remote
+Account gmozm
+
+MaildirStore gmozm-local
+SubFolders Verbatim
+Path ~/.mail/gmozm/
+Inbox ~/.mail/gmozm/Inbox
+
+Channel gmozm
+Far :gmozm-remote:
+Near :gmozm-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+Expunge Both
+SyncState *

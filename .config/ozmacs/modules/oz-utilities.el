@@ -10,22 +10,6 @@
 (with-eval-after-load "elpaca-log"
   (setf (alist-get 'utils-reload-init elpaca-log-command-queries) 'silent))
 
-;;;###autoload
-(defun evil-interactive-shift-right ()
-  "vnoremap < <gv"
-  (interactive)
-  (call-interactively #'evil-shift-right)
-  (evil-normal-state)
-  (evil-visual-restore))
-
-;;;###autoload
-(defun evil-interactive-shift-left ()
-  "vnoremap > >gv"
-  (interactive)
-  (call-interactively #'evil-shift-left)
-  (evil-normal-state)
-  (evil-visual-restore))
-
 ;; file opening procedures
 (defun dired-open-file ()
   "In dired, open the file named on this line."

@@ -2,24 +2,17 @@
 
 ;; font
 (set-face-attribute 'default nil
-  :font "Iosevka SS14"
-  :width 'normal
+  :font "Iosevka"
   :height 150
   :weight 'demibold)
 (set-face-attribute 'fixed-pitch nil
-  :font "Iosevka SS14"
+  :font "Iosevka"
   :height 150
   :weight 'demibold)
 (set-face-attribute 'variable-pitch nil
   :font "Iosevka"
   :height 160
-  :weight 'normal)
-
-;; (use-package unicode-fonts
-;;   :config
-;;   (unicode-fonts-setup))
-
-;;(set-frame-font "Iosevka SS14 15 demibold")
+  :weight 'demibold)
 
 (setq-default truncate-lines t
               word-wrap t
@@ -30,7 +23,7 @@
               fill-column 80
               indent-tabs-mode t
               standard-indent 4
-			  typescript-ts-mode-indent-offset 4
+              typescript-ts-mode-indent-offset 4
               tab-width 4
               undo-limit 1000
               auto-save-default t
@@ -39,6 +32,7 @@
               scroll-conservatively 1000			;; no cursor jumping on scrolling
               delete-by-moving-to-trash t			;; move deleted files to trash
               indent-tabs-mode nil)
+
 (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
 ;; (add-hook 'before-save-hook #'whitespace-cleanup)	;; cleanup whitespaces
@@ -70,8 +64,8 @@
   (load custom-file))
 
 ;; transparency
-(set-frame-parameter nil 'alpha-background 96)
-(add-to-list 'default-frame-alist '(alpha-background . 96))
+(set-frame-parameter nil 'alpha-background 92)
+(add-to-list 'default-frame-alist '(alpha-background . 92))
 
 ;; tramp fix remote paths
 (use-package tramp

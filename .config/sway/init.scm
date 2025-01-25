@@ -15,11 +15,11 @@
              (ice-9 rdelim)
              (ice-9 popen)
              (ice-9 textual-ports)
-             (modules workspace-groups)
-             (modules workspace-grid)
-             (modules auto-reload)
-             (modules which-key)
-             (swayipc))
+             (guile-swayer modules workspace-groups)
+             (guile-swayer modules workspace-grid)
+             (guile-swayer modules auto-reload)
+             (guile-swayer modules which-key)
+             (guile-swayer swayipc))
 
 (sway-connect-sockets!)
 
