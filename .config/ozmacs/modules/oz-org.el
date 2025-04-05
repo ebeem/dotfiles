@@ -1,47 +1,47 @@
 ;;; Code:
 
-(use-package toc-org ; auto-table of contents
-  :hook (org-mode . toc-org-enable)
-  :config
-  (setq toc-org-hrefify-default "gh"))
+;; (use-package toc-org ; auto-table of contents
+;;   :hook (org-mode . toc-org-enable)
+;;   :config
+;;   (setq toc-org-hrefify-default "gh"))
 
-(use-package org-modern ; modern org
-  :hook (org-mode . +org-mode-enhanced-view)
-  :config
-  (setq org-auto-align-tags nil
-    org-tags-column 0
-    org-catch-invisible-edits 'show-and-error
-    org-special-ctrl-a/e t
-    org-insert-heading-respect-content t
+;; (use-package org-modern ; modern org
+;;   :hook (org-mode . +org-mode-enhanced-view)
+;;   :config
+;;   (setq org-auto-align-tags nil
+;;     org-tags-column 0
+;;     org-catch-invisible-edits 'show-and-error
+;;     org-special-ctrl-a/e t
+;;     org-insert-heading-respect-content t
 
-    ;; Org styling, hide markup etc.
-    org-hide-emphasis-markers t
-    org-pretty-entities t
-    org-ellipsis "…"
+;;     ;; Org styling, hide markup etc.
+;;     org-hide-emphasis-markers t
+;;     org-pretty-entities t
+;;     org-ellipsis "…"
 
-    ;; Agenda styling
-    org-agenda-tags-column 0
-    org-agenda-block-separator ?─
-    org-agenda-time-grid
-    '((daily today require-timed)
-      (800 1000 1200 1400 1600 1800 2000)
-      " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-    org-agenda-current-time-string
-    "⭠ now ─────────────────────────────────────────────────"))
+;;     ;; Agenda styling
+;;     org-agenda-tags-column 0
+;;     org-agenda-block-separator ?─
+;;     org-agenda-time-grid
+;;     '((daily today require-timed)
+;;       (800 1000 1200 1400 1600 1800 2000)
+;;       " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+;;     org-agenda-current-time-string
+;;     "⭠ now ─────────────────────────────────────────────────"))
 
-(use-package org-mode
-  :ensure nil
-  :hook (org-mode . +org-mode-enhanced-view))
+;; (use-package org-mode
+;;   :ensure nil
+;;   :hook (org-mode . +org-mode-enhanced-view))
 
-(defun +org-mode-enhanced-view ()
-  (setq-local truncate-lines nil)
-  (org-modern-mode))
+;; (defun +org-mode-enhanced-view ()
+;;   (setq-local truncate-lines nil)
+;;   (org-modern-mode))
 
 ;; Org-transclusion lets you insert a copy of text content via a file
 ;; link or ID link within an Org file. It lets you have the same content
 ;; present in different buffers at the same time without copy-and-pasting it.
-(use-package org-transclusion
-  :after org)
+;; (use-package org-transclusion
+;;   :after org)
 
 ;; (use-package org-roam
 ;;   :hook (org-load)
@@ -68,13 +68,13 @@
 ;; https://github.com/abo-abo/org-download
 
 ;; horizontally scroll org mode tables
-(use-package org-phscroll
-  :ensure (:host github :repo "misohena/phscroll")
-  :after org
-  :init
-  (setq org-startup-truncated nil)
-  (with-eval-after-load "org"
-    (require 'org-phscroll)))
+;; (use-package org-phscroll
+;;   :ensure (:host github :repo "misohena/phscroll")
+;;   :after org
+;;   :init
+;;   (setq org-startup-truncated nil)
+;;   (with-eval-after-load "org"
+;;     (require 'org-phscroll)))
 
 ;; org mode presentations
 (use-package org-present
@@ -145,7 +145,7 @@
 (set-face-attribute 'org-document-title nil :inherit 'fixed-pitch :weight 'bold :height 1.2)
 
 ;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
-(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-block nil :inherit 'fixed-pitch)
 (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
 (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
 (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))

@@ -69,6 +69,7 @@
 
 ;; tramp fix remote paths
 (use-package tramp
+  :ensure nil
   :config
   (setq tramp-remote-path
       (append tramp-remote-path

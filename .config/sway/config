@@ -17,3 +17,16 @@ for_window [title="^.*"] title_format ""
 default_border normal 0
 default_floating_border normal 0
 floating_maximum_size -1 x -1
+
+# bar {
+#   status_command i3blocks
+#   position top
+#   output DP-1
+#   workspace_buttons no
+#   font "Iosevka 12"
+#   tray_output none
+
+#   colors {
+#     background "#24273a"
+#   }
+# }

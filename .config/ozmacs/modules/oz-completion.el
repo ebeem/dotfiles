@@ -4,6 +4,7 @@
 ;; displays the key bindings following your currently entered incomplete command
 ;; TODO: keybindings to cycle next/prev options
 (use-package which-key
+  :ensure nil
   :init
   (which-key-mode)
   :diminish
@@ -38,6 +39,10 @@
   (corfu-popupinfo-delay 0.1)
   (corfu-scroll-margin 5)
   (completion-styles '(orderless basic))
+  :bind
+  (:map corfu-map
+        ("C-j" . corfu-next)
+        ("C-k" . corfu-previous))
   :init
   (corfu-popupinfo-mode)
   (global-corfu-mode))

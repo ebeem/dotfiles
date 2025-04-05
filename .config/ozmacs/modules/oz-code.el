@@ -44,13 +44,8 @@
   :init
   (setq treesit-auto-install 'prompt))
 
-(use-package eldoc
-  :after elpaca)
-
-(use-package jsonrpc)
-
 (use-package eglot
-  ;; :ensure nil
+  :ensure nil
   ;; :hook (before-save . eglot-format-buffer)
   :config
   (defun eglot-csharp-ls-select-solution ()
@@ -140,7 +135,11 @@
 
 (use-package gdscript-mode
   :mode ("\\.gd\\'" . gdscript-ts-mode)
-  :hook (gdscript-ts-mode . eglot-ensure))
+  :hook (gdscript-ts-mode . eglot-ensure)
+  :config
+  (setq gdscript-gdformat-save-and-format t
+        gdscript-use-tab-indents nil
+        gdscript-indent-offset 4))
 
 (use-package php-mode
   :mode ("\\.php\\'" . php-mode)

@@ -126,5 +126,7 @@
 (add-hook! which-key-display-keybindings-hook show-which-key)
 (add-hook! which-key-hide-keybindings-hook hide-which-key)
 
+;; (load "autostart.scm")
+
 (sway-start-event-listener-thread)
 (thread-join! SWAY-LISTENER-THREAD)

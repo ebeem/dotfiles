@@ -18,19 +18,20 @@
   (defun elfeed-kill-buffer ()
       "Kill the current buffer."
       (interactive)
-      (evil-window-up 1)
+      (other-window -1)
       (kill-buffer (other-buffer))
       (delete-other-windows))
 
   (defun elfeed-show-entry (entry)
     "Display ENTRY in the current buffer."
     (let ((title (elfeed-entry-title entry)))
-      (evil-window-split)
+      (split-window-below)
+      (other-window 1)
       (switch-to-buffer (get-buffer-create (format "*elfeed %s*" title)))
       (unless (eq major-mode 'elfeed-show-mode)
         (elfeed-show-mode))
       (setq elfeed-show-entry entry)
-      (evil-window-increase-height 8)
+      (enlarge-window 6)
       (elfeed-view-mode-enhanced)
       (elfeed-show-refresh)))
 
@@ -44,6 +45,43 @@
       (inhibit-modification-hooks t))
     (visual-fill-column-mode)
     (set-buffer-modified-p nil))))
+
+;; override some ui behaviors
+(defun elfeed-kill-buffer ()
+  "Kill the current buffer and restore the previous one."
+  (interactive)
+  (kill-buffer)
+  (when (one-window-p)
+    (switch-to-buffer (other-buffer)))
+  (delete-other-windows))
+
+(defun elfeed-show-entry (entry)
+  "Display ENTRY in a new window."
+  (let ((title (elfeed-entry-title entry)))
+    (split-window-below) ;; or use split-window-right for horizontal split
+    (other-window 1)
+    (switch-to-buffer (get-buffer-create (format "*elfeed %s*" title)))
+    (unless (eq major-mode 'elfeed-show-mode)
+      (elfeed-show-mode))
+    (setq elfeed-show-entry entry)
+    (resize-window-vertically 8)
+    (elfeed-view-mode-enhanced)
+    (elfeed-show-refresh)))
+
+(defun resize-window-vertically (delta)
+  "Resize the current window vertically by DELTA lines."
+  (enlarge-window delta))
+
+(defun elfeed-view-mode-enhanced ()
+  (display-line-numbers-mode -1)
+  (setq-local truncate-lines nil
+              visual-fill-column-width 120
+              visual-fill-column-center-text t
+              default-text-properties '(line-height 1.1))
+  (let ((inhibit-read-only t)
+        (inhibit-modification-hooks t))
+    (visual-fill-column-mode)
+    (set-buffer-modified-p nil)))
 
 (use-package elfeed-org
   :after elfeed
