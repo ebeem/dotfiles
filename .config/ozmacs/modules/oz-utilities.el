@@ -199,22 +199,22 @@ between 0 and 1)."
 ;; https://gitlab.com/tsc25/undo-tree
 ;; recover any past state of a buffer. To do this, Emacs treats “undo” itself
 ;; as just another editing action that can be undone
-(use-package undo-tree
-  :defer t
-  :custom
-  (undo-tree-history-directory-alist
-   `(("." . ,(expand-file-name (file-name-as-directory ".cache/undo-tree-hist")
-                               user-emacs-directory))))
-  :init
-  (global-undo-tree-mode)
-  :config
-  (setq undo-tree-visualizer-diff       t
-        undo-tree-visualizer-timestamps t
-        undo-tree-auto-save-history     t
-        undo-tree-enable-undo-in-region t
-        undo-limit        (* 200 1024)
-        undo-strong-limit (* 12 1024 1024)
-        undo-outer-limit  (* 12 1024 1024)))
+;; (use-package undo-tree
+;;   :defer t
+;;   :custom
+;;   (undo-tree-history-directory-alist
+;;    `(("." . ,(expand-file-name (file-name-as-directory ".cache/undo-tree-hist")
+;;                                user-emacs-directory))))
+;;   :init
+;;   (global-undo-tree-mode)
+;;   :config
+;;   (setq undo-tree-visualizer-diff       t
+;;         undo-tree-visualizer-timestamps t
+;;         undo-tree-auto-save-history     t
+;;         undo-tree-enable-undo-in-region t
+;;         undo-limit        (* 200 1024)
+;;         undo-strong-limit (* 12 1024 1024)
+;;         undo-outer-limit  (* 12 1024 1024)))
 
 (use-package sudo-edit)
 (use-package visual-fill-column)
