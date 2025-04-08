@@ -153,9 +153,9 @@
   :mode ("\\.csproj\\'" . csproj-mode)
   :hook (csproj-mode . eglot-ensure))
 
-(use-package indent-bars
-  :ensure (:host github :repo "jdtsmith/indent-bars")
-  :hook (prog-mode . indent-bars-mode))
+;; (use-package indent-bars
+;;   :ensure (:host github :repo "jdtsmith/indent-bars")
+;;   :hook (prog-mode . indent-bars-mode))
 
 ;; (use-package pgmacs)
 
