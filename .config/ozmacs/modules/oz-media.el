@@ -1,25 +1,26 @@
 ;;; Code:
 
 ;; music player
-;; (use-package emms
-;;   :init
-;;   (require 'emms-setup)
-;;   (require 'emms-mark)
-;;   (emms-all)
-;;   (add-to-list 'emms-info-functions 'emms-info-mpd)
-;;   (add-to-list 'emms-player-list    'emms-player-mpd)
-;;   (emms-player-mpd-sync-from-mpd)
-;;   (emms-player-mpd-connect)
-;;   (emms-mode-line-disable)
-;;   :custom
-;;   ((emms-source-file-default-directory (expand-file-name "~/Music"))
-;;    (emms-player-mpd-server-name "localhost")
-;;    (emms-player-mpd-server-port "6600")
-;;    (emms-player-mpd-music-directory (expand-file-name "~/Music"))
-;;    (emms-browser-thumbnail-small-size 64)
-;;    (emms-browser-thumbnail-medium-size 128)
-;;    (emms-browser-covers #'emms-browser-cache-thumbnail-async)
-;;    (emms-playlist-default-major-mode 'emms-mark-mode)))
+(use-package emms
+  :ensure nil
+  :init
+  (require 'emms-setup)
+  (require 'emms-mark)
+  (emms-all)
+  (add-to-list 'emms-info-functions 'emms-info-mpd)
+  (add-to-list 'emms-player-list    'emms-player-mpd)
+  (emms-player-mpd-sync-from-mpd)
+  (emms-player-mpd-connect)
+  (emms-mode-line-disable)
+  :custom
+  ((emms-source-file-default-directory (expand-file-name "~/Music"))
+   (emms-player-mpd-server-name "localhost")
+   (emms-player-mpd-server-port "6600")
+   (emms-player-mpd-music-directory (expand-file-name "~/Music"))
+   (emms-browser-thumbnail-small-size 64)
+   (emms-browser-thumbnail-medium-size 128)
+   (emms-browser-covers #'emms-browser-cache-thumbnail-async)
+   (emms-playlist-default-major-mode 'emms-mark-mode)))
 
 (use-package mingus
   :init
