@@ -94,7 +94,7 @@
   (eb/leader-keys
     "c" '(:ignore t :wk "LSP Code")
     "c a" '(eglot-code-actions :wk "LSP Execute code action")
-    "c c" '(comment-region :wk "Comment Region")
+    "c c" '(comment-or-uncomment-region :wk "Comment Region")
     "c C" '(recompile :wk "Recompile")
     "c d" '(eglot-find-typeDefinition :wk "Jump to definition")
     "c D" '(eglot-find-implementation :wk "Jump to references")
