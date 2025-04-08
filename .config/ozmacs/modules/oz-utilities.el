@@ -67,16 +67,16 @@
     	(message (buffer-substring target-pos (point)))))
 
 
-(add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)
+;; (add-hook 'evil-collection-setup-hook #'eb/evil-keybindings-hook)
 (global-set-key [remap keyboard-quit] #'eb/escape)
 
-(defun eb/escape-multiple-cursors ()
-   "Clear evil-mc cursors and restore state."
-   (when (evil-mc-has-cursors-p)
-    (evil-mc-undo-all-cursors)
-    (evil-mc-resume-cursors)
-        t))
-(add-hook 'keyboard-escape-hook 'eb/escape-multiple-cursors)
+;; (defun eb/escape-multiple-cursors ()
+;;    "Clear evil-mc cursors and restore state."
+;;    (when (evil-mc-has-cursors-p)
+;;     (evil-mc-undo-all-cursors)
+;;     (evil-mc-resume-cursors)
+;;         t))
+;; (add-hook 'keyboard-escape-hook 'eb/escape-multiple-cursors)
 
 ;;;###autoload
 (defun color-color (name &optional type)
@@ -146,14 +146,15 @@ between 0 and 1)."
 
 ;; delete current file
 (defun delete-current-file ()
-  "Delete current buffer/file and close the buffer"
+  "Delete the file associated with the current buffer"
   (interactive)
-  (progn
-    (when (buffer-file-name)
-      (when (file-exists-p (buffer-file-name))
-        (progn
-          (delete-file (buffer-file-name))
-          (message "Deleted file: 「%s」." (buffer-file-name)))))
+  (let ((filename (buffer-file-name)))
+    (if (not filename)
+        (message "No file is associated with this buffer.")
+      (when (file-exists-p filename)
+        (when (yes-or-no-p (format "Really delete file \"%s\"? " filename))
+          (delete-file filename)
+          (message "Deleted file: 「%s」." filename))))
     (let ((buffer-offer-save nil))
       (set-buffer-modified-p nil)
       (kill-buffer (current-buffer)))))
@@ -215,6 +216,9 @@ between 0 and 1)."
 ;;         undo-limit        (* 200 1024)
 ;;         undo-strong-limit (* 12 1024 1024)
 ;;         undo-outer-limit  (* 12 1024 1024)))
+(use-package undo-fu-session
+  :init
+  (undo-fu-session-global-mode))
 
 (use-package sudo-edit)
 (use-package visual-fill-column)

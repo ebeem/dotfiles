@@ -27,36 +27,44 @@
 ;;         doom-modeline-buffer-file-name-style 'truncate-with-project
 ;;         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
 
-(defun eb/nerd-icon-for-file ()
+(defun eb/mode-line-file-icon ()
   "Return a nerd icon based on the current buffer's file type."
   (if (featurep 'nerd-icons)
       (nerd-icons-icon-for-buffer)
     "📁 "))
 
-(defun eb/truncated-file-path ()
-  "Return a truncated relative file path like project/m/s/f/file.el."
-  (when-let* ((project (project-current))
-              (root (expand-file-name (project-root project)))
-              (file (or (buffer-file-name) default-directory))
-              (relative (file-relative-name file root)))
-    (let* ((parts (split-string relative "/"))
-           (folders (butlast parts))
-           (file-name (car (last parts)))
-           (shortened (mapconcat
-                       (lambda (s)
-                         (let ((first (substring s 0 1)))
-                           (if (string-match-p "[^[:alnum:]]" first)
-                               (substring s 0 (min 2 (length s)))
-                             first)))
-                       folders "/"))
-           (path (concat (if (string-empty-p shortened)
-                             file-name
-                           (concat (project-name project)
-                                   "/" shortened "/" file-name)))))
-      (propertize (concat "📁 " path)
-                  'face (when (buffer-modified-p) 'error)))))
+(defun eb/mode-line-file-path ()
+  "Return a truncated relative file path like project/m/s/f/file.el.
+If not in a project, show path from `default-directory`.
+If not visiting a file, show buffer name."
+  (if-let ((file (buffer-file-name)))
+      (let* ((project (project-current))
+             (root (if project
+                       (expand-file-name (project-root project))
+                     default-directory))
+             (relative (file-relative-name file root))
+             (parts (split-string relative "/"))
+             (folders (butlast parts))
+             (file-name (car (last parts)))
+             (shortened (mapconcat
+                         (lambda (s)
+                           (let ((first (substring s 0 1)))
+                             (if (string-match-p "[^[:alnum:]]" first)
+                                 (substring s 0 (min 2 (length s)))
+                               first)))
+                         folders "/"))
+             (path (if (string-empty-p shortened)
+                       file-name
+                     (if project
+                         (concat (project-name project) "/" shortened "/" file-name)
+                       (concat shortened "/" file-name)))))
+        (propertize path
+                    'face (when (buffer-modified-p) 'error)))
+    ;; Not visiting a file
+    (propertize (buffer-name)
+                'face (when (buffer-modified-p) 'error))))
 
-(defun eb/meow-state-icon ()
+(defun eb/mode-line-meow-state ()
   "Return an icon or emoji representing the current Meow state."
   (let ((state (meow--current-state)))
     (alist-get state
@@ -67,50 +75,75 @@
                  (beacon . "🅑"))
                "?" nil #'eq)))
 
-;; Show current command in modeline
-(setq-default
- mode-line-format
+(defun eb/mode-line-read-only ()
+  "Return the a lock icon if the buffer is read-only"
+  (when buffer-read-only "🔒 "))
+
+(defun eb/mode-line-mode-name ()
+  "Return the major mode name"
+  (format "%s" major-mode
+          (if (featurep 'nerd-icons)
+              (nerd-icons-icon-for-mode major-mode)
+            "")))
+
+(defun eb/mode-line-git-branch-name ()
+  "Return the current VC branch name as a string, or nil if not under VC."
+  (when (and vc-mode buffer-file-name)
+    (let ((backend (vc-backend buffer-file-name)))
+      (when backend
+        (concat " "
+                (replace-regexp-in-string
+                 "^ Git[:-]" "" vc-mode))))))
+
+(setq-default mode-line-format
  '(" "
    ;; Meow state
-   (:eval (eb/meow-state-icon))
+   (:eval (eb/mode-line-meow-state))
    " "
    ;; File icon
-   (:eval (eb/nerd-icon-for-file))
+   (:eval (eb/mode-line-file-icon))
    " "
+   ;; Read-only / modified symbol (optional)
+   (:eval)
    ;; Shortened path
-   (:eval (eb/truncated-file-path))
+   (:eval (eb/mode-line-file-path))
    "\t"
    ;; Line:Column
    "L%l:%c"
    "\t"
    ;; Percent
    (:eval (propertize "%p%" 'face 'bold))
-      ;; 🪟 Right-align major mode + branch
+   ;; 🪟 Right-align major mode + branch
    (:eval
-    (let* ((mode-str (format "%s" mode-name))
-           (branch-str
-            (if (and vc-mode (stringp vc-mode))
-                (let ((backend (vc-backend buffer-file-name)))
-                  (when backend
-                    (concat "🌿 "
-                            (substring vc-mode (+ (length backend) 2)))))
-              "")) ;; fallback if not a proper vc-mode
+    (let* ((mode-str (eb/mode-line-mode-name))
+           (branch-str (eb/mode-line-git-branch-name))
            (total-width (+ (length mode-str)
                            (length branch-str)
                            3))) ;; extra space buffer
       (concat
        (propertize " " 'display `((space :align-to (- right-fringe ,total-width))))
-       (propertize mode-str 'face 'italic)
+       mode-str
        "  "
        branch-str)))
    ))
 
-(message (vc-backend buffer-file-name))
 (use-package modus-themes
   :config
-  (load-theme 'modus-alucard t))
+  (load-theme 'modus-alucard t)
+  (modus-themes-with-colors
+    (custom-set-faces
+     ;; Add "padding" to the mode lines
+     `(mode-line ((,c :underline ,border-mode-line-active
+                      :overline ,border-mode-line-active
+                      :box (:line-width 4 :color ,bg-mode-line-active))))
+     `(mode-line-inactive ((,c :underline ,border-mode-line-inactive
+                               :overline ,border-mode-line-inactive
+                               :box (:line-width 4 :color ,bg-mode-line-inactive))))))
 
-;; TODO remove github package
+  ;; ESSENTIAL to make the underline move to the bottom of the box:
+  (setq x-underline-at-descent-line t)
+  (add-hook 'modus-themes-after-load-theme-hook #'eb/modus-themes-custom-faces))
+  
 (use-package nerd-icons-completion
   :after marginalia
   :init
@@ -134,9 +167,6 @@
   (setq dired-dwim-target t))
 ;; :hook
 ;; (dired-mode . dired-hide-details-mode))
-
-;; disable minor-mode visibility in modeline
-(use-package diminish)
 
 (provide 'oz-ui)
 ;;; oz-completion.el ends here

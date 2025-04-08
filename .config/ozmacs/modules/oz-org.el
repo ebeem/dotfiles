@@ -5,37 +5,36 @@
 ;;   :config
 ;;   (setq toc-org-hrefify-default "gh"))
 
-;; (use-package org-modern ; modern org
-;;   :hook (org-mode . +org-mode-enhanced-view)
-;;   :config
-;;   (setq org-auto-align-tags nil
-;;     org-tags-column 0
-;;     org-catch-invisible-edits 'show-and-error
-;;     org-special-ctrl-a/e t
-;;     org-insert-heading-respect-content t
+(use-package org-modern ; modern org
+  :hook (org-mode . +org-mode-enhanced-view)
+  :config
+  (defun +org-mode-enhanced-view ()
+    (setq-local truncate-lines nil)
+    (org-modern-mode))
+  (setq org-auto-align-tags nil
+        org-tags-column 0
+        org-catch-invisible-edits 'show-and-error
+        org-special-ctrl-a/e t
+        org-insert-heading-respect-content t
 
-;;     ;; Org styling, hide markup etc.
-;;     org-hide-emphasis-markers t
-;;     org-pretty-entities t
-;;     org-ellipsis "…"
+        ;; Org styling, hide markup etc.
+        org-hide-emphasis-markers t
+        org-pretty-entities t
+        org-ellipsis "…"
 
-;;     ;; Agenda styling
-;;     org-agenda-tags-column 0
-;;     org-agenda-block-separator ?─
-;;     org-agenda-time-grid
-;;     '((daily today require-timed)
-;;       (800 1000 1200 1400 1600 1800 2000)
-;;       " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-;;     org-agenda-current-time-string
-;;     "⭠ now ─────────────────────────────────────────────────"))
+        ;; Agenda styling
+        org-agenda-tags-column 0
+        org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "⭠ now ─────────────────────────────────────────────────"))
 
 ;; (use-package org-mode
 ;;   :ensure nil
 ;;   :hook (org-mode . +org-mode-enhanced-view))
-
-;; (defun +org-mode-enhanced-view ()
-;;   (setq-local truncate-lines nil)
-;;   (org-modern-mode))
 
 ;; Org-transclusion lets you insert a copy of text content via a file
 ;; link or ID link within an Org file. It lets you have the same content
@@ -180,6 +179,8 @@
          (prog-mode . flyspell-prog-mode))
   :custom
   (flyspell-issue-message-flag nil))
+
+(use-package flyspell-correct)
 
 (provide 'oz-org)
 ;;; oz-code.el ends here

@@ -4,14 +4,17 @@
 (set-face-attribute 'default nil
   :font "Iosevka"
   :height 150
+  ;; :height 200
   :weight 'demibold)
 (set-face-attribute 'fixed-pitch nil
   :font "Iosevka"
   :height 150
+  ;; :height 200
   :weight 'demibold)
 (set-face-attribute 'variable-pitch nil
   :font "Iosevka"
   :height 160
+  ;; :height 200
   :weight 'demibold)
 
 (setq-default truncate-lines t
@@ -28,9 +31,13 @@
               undo-limit 1000
               auto-save-default t
               tab-always-indent t
+              undo-no-redo t
               sentence-end-double-space nil			;; avoid whitespaces
               scroll-conservatively 1000			;; no cursor jumping on scrolling
               delete-by-moving-to-trash t			;; move deleted files to trash
+              undo-limit 67108864
+			  undo-strong-limit 100663296
+			  undo-outer-limit 1006632960
               indent-tabs-mode nil)
 
 (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))

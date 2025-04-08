@@ -30,7 +30,7 @@
 (require 'oz-org)             ;; ('org-mode', 'toc-org', 'org-modern', 'org-transclusion', 'org-roam', 'org-phscroll')
 (require 'oz-git)             ;; ('magit', 'forge')
 (require 'oz-mail)            ;; ('mu4e')
-(require 'oz-matrix)          ;; ('ement')
+(require 'oz-chat)            ;; ('erc', 'ement')
 (require 'oz-news)            ;; ('elfeed')
 (require 'oz-media)           ;; ('mingus')
 (require 'oz-keybindings)     ;; ('general')

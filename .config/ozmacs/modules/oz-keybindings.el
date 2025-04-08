@@ -269,7 +269,7 @@
   (eb/leader-keys
     "s" '(:ignore t :wk "Search/Spelling")
     "s p" '(consult-ripgrep :wk "Search project files")
-    "s c" '(jinx-correct :wk "Correct word"))
+    "s c" '(flyspell-correct-wrapper :wk "Correct word"))
 
   (eb/leader-keys
     "t" '(:ignore t :wk "Toggle")
