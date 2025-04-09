@@ -46,3 +46,7 @@ flycheck_*.el
 /tramp
 /transient/
 /var/
+/ellama-sessions/
+/games/
+/undo-fu-session/
+recentf
