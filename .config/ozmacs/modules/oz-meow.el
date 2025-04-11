@@ -56,6 +56,13 @@
     (cond ((looking-at "\\s(") (forward-sexp 1))
           ((looking-back "\\s)" 1) (backward-sexp 1))
           (t (message "Not on a parenthesis"))))
+  
+(defun delete-region-and-yank ()
+  "Delete the selected region (if any), then yank from the clipboard."
+  (interactive)
+  (when (use-region-p)
+    (delete-region (region-beginning) (region-end)))
+  (yank))
 
   (meow-leader-define-key
    ;; SPC j/k will run the original command in MOTION state.
@@ -123,20 +130,21 @@
    '("N" . isearch-repeat-backward)
    '("o" . meow-block)
    '("O" . meow-to-block)
-   '("p" . clipboard-yank)
+   '("p" . delete-region-and-yank)
+   '("P" . clipboard-yank)
    '("Q" . meow-goto-line)
-   '("r" . meow-replace)
+   '("r" . undo-redo)
+   '("C-r" . undo-redo)
    '("R" . meow-swap-grab)
    '("s" . meow-kill)
+   '("S" . meow-clipboard-kill)
    '("t" . meow-till)
    '("u" . undo-only)
-   '("C-r" . undo-redo)
    '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
    '("w" . meow-mark-word)
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
-   '("X" . meow-goto-line)
    '("y" . meow-clipboard-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
@@ -144,6 +152,7 @@
    '("/" . isearch-forward)
    '("<" . indent-rigidly-left-to-tab-stop)
    '(">" . indent-rigidly-right-to-tab-stop)
+   '(":" . meow-goto-line)
    '("<escape>" . ignore))
   
   (defun my/elfeed-meow-keys ()

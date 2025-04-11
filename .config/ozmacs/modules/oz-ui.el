@@ -95,6 +95,33 @@ If not visiting a file, show buffer name."
                 (replace-regexp-in-string
                  "^ Git[:-]" "" vc-mode))))))
 
+(defun eb/region-info ()
+  "Display character, line, and word count for the active region in the mode line."
+  (if (use-region-p)
+      (let* ((beg (region-beginning))
+             (end (region-end))
+             (chars (abs (- end beg)))
+             (lines (count-lines beg end))
+             (words (count-words beg end)))
+        (format " [%dC/%dW/%dL]" chars words lines))
+    ""))
+
+;; (setq mu4e-unread-mail-count 0)
+;; (defun eb/mode-line-mu4e-unread-count ()
+;;   "Return a string showing the number of unread mu4e messages."
+;;   (let* ((output (shell-command-to-string "mu find flag:unread --fields 'n' | wc -l"))
+;;          (count (string-to-number (string-trim output))))
+;;     (propertize (format " %d  " (/ mu4e-unread-mail-count 2)) 'face 'font-lock-string-face)))
+
+;; (defun eb/setup-mu4e-unread-sync ()
+;;   "Set up hooks to keep unread count updated."
+;;   (eb/update-mu4e-unread-count) ;; initial load
+;;   (add-hook 'mu4e-mark-execute-hook #'eb/update-mu4e-unread-count)
+;;   (add-hook 'mu4e-index-updated-hook #'eb/update-mu4e-unread-count))
+
+;; (with-eval-after-load 'mu4e
+;;   (eb/setup-mu4e-unread-sync))
+
 (setq-default mode-line-format
  '(" "
    ;; Meow state
@@ -113,6 +140,9 @@ If not visiting a file, show buffer name."
    "\t"
    ;; Percent
    (:eval (propertize "%p%" 'face 'bold))
+   "\t"
+   (:eval (propertize (eb/region-info)
+                      'face 'font-lock-string-face))
    ;; 🪟 Right-align major mode + branch
    (:eval
     (let* ((mode-str (eb/mode-line-mode-name))

@@ -1,11 +1,27 @@
 (use-modules (guile-swayer swayipc))
 
-(sway-output "HDMI-A-1" "pos 0 0 res 1920x1080@120Hz")
-(sway-output "DP-1" "pos 1920 0 res 1920x1080@144Hz")
-(sway-output "DP-2" "pos 3840 0 res 1920x1080@144Hz")
+;; (sway-output "HDMI-A-1" "pos 0 0 res 1920x1080@120Hz")
+;; (sway-output "DP-1" "pos 1920 0 res 1920x1080@144Hz")
+;; (sway-output "DP-2" "pos 3840 0 res 1920x1080@144Hz")
 
 ;; (sway-output "*" "bg ~/.wallpapers/fixed/flat-16.png fill")
-(sway-output "*" "bg ~/.wallpapers/fixed/cat-01.jpeg fill")
+;; (sway-output "*" "bg ~/.wallpapers/fixed/cat-01.jpeg fill")
+
+(sway-output "HDMI-A-1"
+             #:position '(0 0)
+             #:resolution '(1920 1080)
+             #:refresh-rate 120
+             #:background "~/.wallpapers/fixed/flat-16.png")
+(sway-output "DP-1"
+             #:position '(1920 0)
+             #:resolution '(1920 1080)
+             #:refresh-rate 144
+             #:background "~/.wallpapers/fixed/flat-16.png")
+(sway-output "DP-2"
+             #:position '(3840 0)
+             #:resolution '(1920 1080)
+             #:refresh-rate 144
+             #:background "~/.wallpapers/fixed/flat-16.png")
 
 (sway-focus-follow-mouse SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO)
 (sway-default-gaps SWAY-GAPS-OPTION-INNER 10)
@@ -65,7 +81,7 @@
                            #:indictor-color overlay0
                            #:child-border-color overlay0)
 
-(sway-font "Noto Sans Bold 10")
+(sway-font "Iosevka Bold 11")
 (sway-workspace-auto-back-and-forth #f)
 (sway-mouse-warping SWAY-MOUSE-WARPING-NONE)
 ;; (sway-opacity SWAY-OPACITY-SET 0.95)

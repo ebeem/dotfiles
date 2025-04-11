@@ -143,6 +143,8 @@
   (eb/leader-keys
     "g" '(:ignore t :wk "Git")
     "g R" '(vc-revert :wk "Revert file")
+    "g i" '(eb/vc-git-init-repo :wk "Init Repo")
+    
     "g /" '(magit-dispatch :wk "Magit dispatch")
     "g ." '(magit-file-dispatch :wk "Magit file dispatch")
     "g '" '(forge-dispatch :wk "Forge dispatch")
@@ -164,13 +166,13 @@
     "g f i" '(forge-visit-issue :wk "Find issue")
     "g f p" '(forge-visit-pullreq :wk "Find pull request")
 
-    "g i" '(:ignore t :wk "Git browse")
-    "g i r" '(forge-browse-remote :wk "Browse remote")
-    "g i c" '(forge-browse-commit :wk "Browse commit")
-    "g i i" '(forge-browse-issue :wk "Browse an issue")
-    "g i p" '(forge-browse-pullreq :wk "Browse a pull request")
-    "g i I" '(forge-browse-issues :wk "Browse issues")
-    "g i P" '(forge-browse-pullreqs :wk "Browse pull requests")
+    ;; "g i" '(:ignore t :wk "Git browse")
+    ;; "g i r" '(forge-browse-remote :wk "Browse remote")
+    ;; "g i c" '(forge-browse-commit :wk "Browse commit")
+    ;; "g i i" '(forge-browse-issue :wk "Browse an issue")
+    ;; "g i p" '(forge-browse-pullreq :wk "Browse a pull request")
+    ;; "g i I" '(forge-browse-issues :wk "Browse issues")
+    ;; "g i P" '(forge-browse-pullreqs :wk "Browse pull requests")
 
     "g l r" '(magit-list-repositories :wk "List repositories")
     "g l s" '(magit-list-submodules :wk "List submodules")
@@ -310,6 +312,7 @@
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 (global-set-key (kbd "TAB") 'self-insert-command)
-
+(global-set-key (kbd "M-n") 'isearch-repeat-forward)
+(global-set-key (kbd "M-p") 'isearch-repeat-backward)
 (provide 'oz-keybindings)
 ;;; oz-keybindings.el ends here

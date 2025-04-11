@@ -6,7 +6,8 @@
 ;;   (setq toc-org-hrefify-default "gh"))
 
 (use-package org-modern ; modern org
-  :hook (org-mode . +org-mode-enhanced-view)
+  :hook
+  (org-mode . +org-mode-enhanced-view)
   :config
   (defun +org-mode-enhanced-view ()
     (setq-local truncate-lines nil)
@@ -32,9 +33,9 @@
         org-agenda-current-time-string
         "⭠ now ─────────────────────────────────────────────────"))
 
-;; (use-package org-mode
-;;   :ensure nil
-;;   :hook (org-mode . +org-mode-enhanced-view))
+(use-package org-mode
+  :ensure nil
+  :hook (org-mode . org-indent-mode))
 
 ;; Org-transclusion lets you insert a copy of text content via a file
 ;; link or ID link within an Org file. It lets you have the same content

@@ -8,6 +8,8 @@ set $mod Mod4
 seat * shortcuts_inhibitor disable
 set $mode_hotkeygrab Hotkey grab
 bindsym $mod+Shift+z mode "$mode_hotkeygrab"
+bindsym $mod+Return exec "alacritty"
+bindsym $mod+E exec "emacs"
 mode "$mode_hotkeygrab" {
   bindsym $mod+Shift+z mode "default"
 }
