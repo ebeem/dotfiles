@@ -233,6 +233,7 @@
     "n b -" '(org-table-insert-hline :wk "Insert hline in table")
     "n f" '(denote-open-or-create :wk "Denote Open")
     "n r c" '(org-roam-capture :wk "Org roam capture")
+    "n s" '(consult-org-heading :wk "Search Org Heading")
     "n d" '(:ignore t :wk "Date/deadline")
     "n d t" '(org-time-stamp :wk "Org time stamp"))
 

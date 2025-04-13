@@ -95,3 +95,11 @@ tooltip {
 tooltip label {
     color: @text;
 }
+
+#custom-mail.unread {
+  color: #a6da95;
+}
+
+#custom-mail.none {
+  color: inherit;
+}

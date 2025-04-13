@@ -81,6 +81,18 @@
                            #:indictor-color overlay0
                            #:child-border-color overlay0)
 
+;; (sway-bar-colors #:background overlay0
+;;                  #:statusline overlay0
+;;                  #:separator overlay0
+;;                  #:focused-background overlay0
+;;                  #:focused-statusline overlay0
+;;                  #:focused-separator overlay0
+;;                  #:focused-workspace '(overlay0 overlay0 overlay0)
+;;                  #:focused-active-workspace '(overlay0 overlay0 overlay0)
+;;                  #:focused-inactive-workspace '(overlay0 overlay0 overlay0)
+;;                  #:focused-urgent-workspace '(overlay0 overlay0 overlay0)
+;;                  #:binding-mode '(overlay0 overlay0 overlay0))
+
 (sway-font "Iosevka Bold 11")
 (sway-workspace-auto-back-and-forth #f)
 (sway-mouse-warping SWAY-MOUSE-WARPING-NONE)

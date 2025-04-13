@@ -1,10 +1,12 @@
 # Guess the weather hourly
-[weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-interval=3600
-color=#A4C2F4
+# Block with a fixed width
+[aligned]
+full_text=Here.
+min_width=100
+align=left
 
-# Update time every 5 seconds
-[time]
-command=date +%T
-interval=5
+[clickme]
+align=center
+full_text=Click me!
+min_width=Button=? x=? y=?
+command=fuzzel

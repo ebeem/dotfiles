@@ -21,14 +21,19 @@ default_floating_border normal 0
 floating_maximum_size -1 x -1
 
 # bar {
-#   status_command i3blocks
+#   id "bar-0"
+#   swaybar_command swaybar
+#   # status_command "while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done"
+#   status_command "echo '{\"version\":1}\n[\n' && while cat ~/Downloads/sample-swaybar-blocks.json | paste -sd ' '; do sleep 1; done"
 #   position top
 #   output DP-1
 #   workspace_buttons no
-#   font "Iosevka 12"
+#   font "pango:Iosevka bold 12"
 #   tray_output none
+#   pango_markup enabled
 
 #   colors {
 #     background "#24273a"
 #   }
 # }
+

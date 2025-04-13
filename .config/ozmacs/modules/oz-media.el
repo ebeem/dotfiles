@@ -22,44 +22,47 @@
    (emms-browser-covers #'emms-browser-cache-thumbnail-async)
    (emms-playlist-default-major-mode 'emms-mark-mode)))
 
-(use-package mingus
-  :init
-  (setq mingus-mpd-port 6600
-        mingus-mpd-host "localhost"
-        mingus-mpd-playlist-dir "~/Music/playlists")
-   (evil-collection-define-key 'normal 'mingus-playlist-mode-map
-    "q" 'mingus-git-out
-    "p" 'mingus-toggle
-    "J" 'mingus-move-down
-    "K" 'mingus-move-up
-    "h" 'mingus-seek-backward
-    "l" 'mingus-seek
-    "H" 'mingus-next
-    "L" 'mingus-prev
-    "[" 'mingus-vol-up
-    "]" 'mingus-vol-down
-    "<" 'mingus-prev
-    ">" 'mingus-next
-    "?" 'mingus-help
-    "c" 'mingus-clear
-    "C" 'mingus-remove-playlist
-    "g" 'mingus-refresh
-    "W" 'mingus-save-playlist
-    "o" 'mingus-load-playlist-and-play
-    "d" 'mingus-del
-    "D" 'mingus-del-marked
+(use-package mpc
+  :ensure nil)
 
-    "m" 'mingus-mark
-    "u" 'mingus-unmark
+;; (use-package mingus
+;;   :init
+;;   (setq mingus-mpd-port 6600
+;;         mingus-mpd-host "localhost"
+;;         mingus-mpd-playlist-dir "~/Music/playlists")
+;;    (evil-collection-define-key 'normal 'mingus-playlist-mode-map
+;;     "q" 'mingus-git-out
+;;     "p" 'mingus-toggle
+;;     "J" 'mingus-move-down
+;;     "K" 'mingus-move-up
+;;     "h" 'mingus-seek-backward
+;;     "l" 'mingus-seek
+;;     "H" 'mingus-next
+;;     "L" 'mingus-prev
+;;     "[" 'mingus-vol-up
+;;     "]" 'mingus-vol-down
+;;     "<" 'mingus-prev
+;;     ">" 'mingus-next
+;;     "?" 'mingus-help
+;;     "c" 'mingus-clear
+;;     "C" 'mingus-remove-playlist
+;;     "g" 'mingus-refresh
+;;     "W" 'mingus-save-playlist
+;;     "o" 'mingus-load-playlist-and-play
+;;     "d" 'mingus-del
+;;     "D" 'mingus-del-marked
 
-    "bb" 'mingus-browse
+;;     "m" 'mingus-mark
+;;     "u" 'mingus-unmark
 
-    (kbd "RET") 'mingus-play)
+;;     "bb" 'mingus-browse
 
-  (evil-collection-define-key 'normal 'mingus-browse-mode-map
-    "q" 'mingus-git-out
-    "^" 'mingus-open-parent
-    (kbd "RET") 'mingus-down-dir-or-play-song))
+;;     (kbd "RET") 'mingus-play)
+
+;;   (evil-collection-define-key 'normal 'mingus-browse-mode-map
+;;     "q" 'mingus-git-out
+;;     "^" 'mingus-open-parent
+;;     (kbd "RET") 'mingus-down-dir-or-play-song))
 
 (provide 'oz-media)
 ;;; oz-media.el ends here

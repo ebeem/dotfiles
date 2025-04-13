@@ -15,3 +15,5 @@
 **** http://feeds.feedburner.com/TheHackersNews
 *** EMACS                                                           :emacs:
 **** https://systemcrafters.net/rss/news.xml
+*** GAMES
+**** https://store.steampowered.com/feeds/news/app/3443650/?cc=SA&l=english :spooky_night:

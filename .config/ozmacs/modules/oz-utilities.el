@@ -259,6 +259,10 @@ between 0 and 1)."
   (setq burly-frameset-filter-alist '((name . nil)
                                       (posframe-parent-buffer . :never))))
 
+(use-package pgmacs
+  :ensure (:host github :repo "emarsden/pgmacs")
+  :after pg-el)
+
 (use-package proced
   :ensure nil
   :commands proced

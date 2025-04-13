@@ -10,6 +10,7 @@
           (fundamental-mode . normal)
           (help-mode . motion)
           (prog-mode . normal)
+          (man-mode . normal)
           (text-mode . normal)
           (elfeed-view-mode . normal)
           (elfeed-show-mode . normal)))
