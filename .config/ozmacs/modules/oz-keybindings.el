@@ -93,6 +93,7 @@
 
   (eb/leader-keys
     "c" '(:ignore t :wk "LSP Code")
+    "c A" '(aider-transient-menu :wk "AI")
     "c a" '(eglot-code-actions :wk "LSP Execute code action")
     "c c" '(comment-or-uncomment-region :wk "Comment Region")
     "c C" '(recompile :wk "Recompile")

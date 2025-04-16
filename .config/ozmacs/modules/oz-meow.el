@@ -12,6 +12,7 @@
           (prog-mode . normal)
           (man-mode . normal)
           (text-mode . normal)
+          (messages-buffer-mode . normal)
           (elfeed-view-mode . normal)
           (elfeed-show-mode . normal)))
   (setq meow-two-char-escape-sequence "jk")

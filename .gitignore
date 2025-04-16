@@ -8,3 +8,4 @@ tmp/
 .wallpapers/ignored
 *.pyc
 __pycache__
+.aider*

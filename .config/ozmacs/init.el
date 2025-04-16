@@ -34,3 +34,4 @@
 (require 'oz-news)            ;; ('elfeed')
 (require 'oz-media)           ;; ('mingus')
 (require 'oz-keybindings)     ;; ('general')
+(require 'oz-ai)              ;; ('aider')

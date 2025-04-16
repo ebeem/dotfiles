@@ -32,7 +32,7 @@
 ;;   (global-diff-hl-mode)
 ;;   (diff-hl-margin-mode))
 
-(use-package vc-mode
+(use-package vc
   :ensure nil
   :init
   (defun eb/vc-git-init-repo ()

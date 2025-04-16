@@ -7,7 +7,7 @@
   :after yaml
   :commands (mu4e)
   :hook ((mu4e-headers-mode . (lambda () (display-line-numbers-mode -1)))
-	 (mu4e-view-mode . (lambda () (mu4e-view-mode-enhanced))))
+	     (mu4e-view-mode . (lambda () (mu4e-view-mode-enhanced))))
   :config
   (setq mu4e-update-interval (* 60 2)
         mu4e-root-maildir "~/.mail"
@@ -35,11 +35,11 @@
         mu4e-headers-results-limit 1000
         mu4e-index-cleanup t
         mu4e-headers-field
-          '((:human-date    .   17)
-            (:flags         .    10)
-            ;; (:mailing-list  .   30)
-            (:from          .   30)
-            (:subject       .   nil))
+        '((:human-date    .   17)
+          (:flags         .    10)
+          ;; (:mailing-list  .   30)
+          (:from          .   30)
+          (:subject       .   nil))
 		message-send-mail-function 'smtpmail-send-it
       	smtpmail-stream-type 'starttls
       	message-kill-buffer-on-exit t)
@@ -48,19 +48,19 @@
   (custom-set-faces '(mu4e-unread-face ((t (:inherit font-lock-keyword-face :extend t)))))
 
   (with-eval-after-load "mm-decode"
-      (add-to-list 'mm-discouraged-alternatives "text/html")
-      (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+    (add-to-list 'mm-discouraged-alternatives "text/html")
+    (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
   (defun mu4e-view-mode-enhanced ()
     (display-line-numbers-mode -1)
     (setq-local truncate-lines nil
-            visual-fill-column-width 120
-            visual-fill-column-center-text t
-            default-text-properties '(line-height 1.1))
+                visual-fill-column-width 120
+                visual-fill-column-center-text t
+                default-text-properties '(line-height 1.1))
     (let ((inhibit-read-only t)
-      (inhibit-modification-hooks t))
-    (visual-fill-column-mode)
-    (set-buffer-modified-p nil)))
+          (inhibit-modification-hooks t))
+      (visual-fill-column-mode)
+      (set-buffer-modified-p nil)))
 
   ;; append each context from mail.yml config file
   (defun read-mail-contexts (config-path)
@@ -68,21 +68,50 @@
     (with-temp-buffer
       (insert-file-contents config-path)
       (let* ((contexts '())
-            (mails-parsed (yaml-parse-string (buffer-string) :object-type 'plist)))
-                (dolist (a mails-parsed)
-                  (let* ((nickname (plist-get a :nick-name))
-						 (id (plist-get a :id))
-						 (mail (plist-get a :mail))
-						 (fullname (plist-get a :sender-name))
-						 (smtp-server (plist-get a :smtp-host))
-						 (smtp-port (plist-get a :smtp-port))
-						 (smtp-protocol (plist-get a :smtp-protocol))
-						 (sent-folder (plist-get a :sent-folder))
-						 (draft-folder (plist-get a :draft-folder))
-						 (trash-folder (plist-get a :trash-folder))
-						 (archive-folder (plist-get a :archive-folder)))
-                      (add-to-list 'contexts (simple-make-mu4e-context id fullname mail smtp-server smtp-port smtp-protocol sent-folder trash-folder archive-folder draft-folder) t)))
-      (cdr contexts))))
+             (mails-parsed (yaml-parse-string (buffer-string) :object-type 'plist)))
+        (dolist (a mails-parsed)
+          (let* ((nickname (plist-get a :nick-name))
+				 (id (plist-get a :id))
+				 (mail (plist-get a :mail))
+				 (fullname (plist-get a :sender-name))
+				 (smtp-server (plist-get a :smtp-host))
+				 (smtp-port (plist-get a :smtp-port))
+				 (smtp-protocol (plist-get a :smtp-protocol))
+				 (sent-folder (plist-get a :sent-folder))
+				 (draft-folder (plist-get a :draft-folder))
+				 (trash-folder (plist-get a :trash-folder))
+				 (archive-folder (plist-get a :archive-folder)))
+            (add-to-list 'contexts (simple-make-mu4e-context id fullname mail smtp-server smtp-port smtp-protocol sent-folder trash-folder archive-folder draft-folder) t)))
+        (cdr contexts))))
+
+  (defun eb/mu4e-compose-context-switch ()
+    "Prompt in minibuffer to switch mu4e context and open new compose buffer."
+    (interactive)
+    (let* ((context-alist
+            (mapcar (lambda (ctx)
+                      (cons (mu4e-context-name ctx) ctx))
+                    mu4e-contexts))
+           (choice
+            (completing-read "Compose with context: " (mapcar #'car context-alist) nil t))
+           (selected-context (cdr (assoc choice context-alist))))
+      (when selected-context
+        (message (mu4e-context-name selected-context))
+        (mu4e-compose-context-switch nil (mu4e-context-name selected-context)))))
+
+  (defun eb/mu4e-context-switch ()
+    "Switch mu4e context using minibuffer selection."
+    (interactive)
+    (let* ((context-alist
+            (mapcar (lambda (ctx)
+                      (cons (mu4e-context-name ctx) ctx))
+                    mu4e-contexts))
+           (choice
+            (completing-read "Switch to context: " (mapcar #'car context-alist) nil t))
+           (selected-context (cdr (assoc choice context-alist))))
+      (when selected-context
+        (message (mu4e-context-name selected-context))
+        (mu4e-context-switch nil (mu4e-context-name selected-context)))))
+
 
   (defun simple-make-mu4e-context (context-name full-name mail-address smtp-server smtp-port smtp-protocol sent-folder trash-folder archive-folder draft-folder)
     "Return a mu4e context named CONTEXT-NAME with :match-func matching
@@ -99,8 +128,8 @@
        `(lambda (msg)
           (when msg
             (string-match-p
-  	   ,(concat "^" dir-name)
-  	   (mu4e-message-field msg :maildir))))
+  	         ,(concat "^" dir-name)
+  	         (mu4e-message-field msg :maildir))))
        :vars
        `((user-mail-address    . ,mail-address)
          (user-full-name       . ,full-name)
@@ -111,7 +140,7 @@
          (smtpmail-smtp-server  . ,smtp-server)
          (smtpmail-smtp-service . ,smtp-port)
          (smtpmail-stream-type  . starttls)))))			  ;; TODO: stream type from variable
-         ;; (mu4e-compose-signature . ,signature))))  ;; TODO: optional signature
+  ;; (mu4e-compose-signature . ,signature))))    ;; TODO: optional signature
 
   (setq mu4e-contexts (read-mail-contexts mu4e-secret-mail-path)))
 
