@@ -1,4 +1,17 @@
-; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+(use-package project
+  :ensure nil
+  :config
+  ;; TODO: fix function
+  (defun eb/project-prune-remembered-files ()
+    "Remove non-existent files from `project-remembered-files'."
+    (interactive)
+    (let* ((proj (project-current))
+           (files (project-remembered-files proj))
+           (valid-files (seq-filter #'file-exists-p files)))
+      (setf (project-remembered-files proj) valid-files)
+      (message "Pruned non-existent files from project."))))
+
+;; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
 (use-package hl-todo
   :config
   (setq hl-todo-keyword-faces
@@ -13,6 +26,7 @@
   :hook (prog-mode . hl-todo-mode))
 
 (use-package editorconfig
+  :ensure nil
   :hook (prog-mode . editorconfig-mode))
 
 ;; colorize color names / color hex code in buffers. (red) (#ff0000)
@@ -77,11 +91,16 @@
 
 ;; (use-package with-venv)
 
-(use-package eldoc-box
-  :init
-  (setq eldoc-echo-area-use-multiline-p nil)
-  :bind
-  ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
+(use-package eldoc
+  :ensure nil
+  :config
+  (setq eldoc-echo-area-use-multiline-p 1))
+
+;; (use-package eldoc-box
+;;   :init
+;;   (setq eldoc-echo-area-use-multiline-p nil)
+;;   :bind
+;;   ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
   
 ;; rest client
 (use-package restclient
@@ -92,11 +111,12 @@
   :commands (impostman-import-file impostman-import-string))
 
 ;; programming langauges major modes
-(use-package rjsx-mode
-  :mode ("\\.jsx\\'" . rjsx-mode)
-  :hook (rjsx-mode . eglot-ensure))
+;; (use-package rjsx-mode
+;;   :mode ("\\.jsx\\'" . rjsx-mode)
+;;   :hook (rjsx-mode . eglot-ensure))
 
 (use-package python-mode
+  :ensure nil
   :mode ("\\.py\\'" . python-ts-mode)
   :hook (python-ts-mode . eglot-ensure))
 
@@ -109,17 +129,19 @@
 
 (use-package geiser
   :defer t)
+
 (use-package geiser-guile
   :defer t)
 
 (use-package csharp-mode
+  :ensure nil
   :mode ("\\.cs\\'" . csharp-mode)
   :hook (csharp-mode . eglot-ensure)
   :hook (csharp-ts-mode . eglot-ensure))
 
-(use-package typescript-mode
-  :mode ("\\.tsx\\'" . tsx-ts-mode)
-  :hook (tsx-ts-mode . eglot-ensure))
+;; (use-package typescript-ts-mode
+;;   :mode ("\\.tsx\\'" . tsx-ts-mode)
+;;   :hook (tsx-ts-mode . eglot-ensure))
 
 (use-package dart-mode
   :mode ("\\.dart\\'" . dart-mode)
@@ -141,12 +163,14 @@
         gdscript-use-tab-indents nil
         gdscript-indent-offset 4))
 
-(use-package php-mode
-  :mode ("\\.php\\'" . php-mode)
+(use-package php-ts-mode
+  :ensure nil
+  :mode ("\\.php\\'" . php-ts-mode)
   :hook (php-mode . eglot-ensure))
 
-(use-package lua-mode
-  :mode ("\\.lua\\'" . lua-mode)
+(use-package lua-ts-mode
+  :ensure nil
+  :mode ("\\.lua\\'" . lua-ts-mode)
   :hook (lua-mode . eglot-ensure))
 
 (use-package csproj-mode

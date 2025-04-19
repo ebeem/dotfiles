@@ -34,11 +34,13 @@
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
-  (corfu-auto-delay 0.1)
+  (corfu-auto-delay 0.5)
   (corfu-auto-prefix 2)
-  (corfu-popupinfo-delay 0.1)
+  (corfu-popupinfo-delay 0.5)
   (corfu-scroll-margin 5)
   (completion-styles '(orderless basic))
+  :hook
+  (org-mode . (lambda () (setq-local corfu-mode -1)))
   :bind
   (:map corfu-map
         ("C-j" . corfu-next)
@@ -172,10 +174,10 @@
   :init
   (marginalia-mode))
 
-(use-package helpful
-  :bind
-  ([premap describe-command] . helpful-command)
-  ([premap describe-key] . helpful-key))
+;; (use-package helpful
+;;   :bind
+;;   ([premap describe-command] . helpful-command)
+;;   ([premap describe-key] . helpful-key))
 
 (provide 'oz-completion)
 ;;; oz-completion.el ends here

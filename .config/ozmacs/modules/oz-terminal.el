@@ -1,5 +1,3 @@
-
-
 ;;; Code:
 (use-package eshell-syntax-highlighting
   :after esh-mode

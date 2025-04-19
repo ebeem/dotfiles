@@ -170,9 +170,10 @@
 
 (use-package ispell
   :ensure nil
-  :custom
-  (ispell-program-name "aspell")
-  (ispell-dictionary "english"))
+  :config
+  (setq ispell-alternate-dictionary "/usr/share/dict/words"
+        ispell-program-name "ispell"
+        ispell-dictionary "english"))
 
 (use-package flyspell
   :ensure nil

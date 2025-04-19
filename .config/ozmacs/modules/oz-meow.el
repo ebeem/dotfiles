@@ -8,13 +8,16 @@
   (setq meow-mode-state-list
         '((conf-mode . normal)
           (fundamental-mode . normal)
-          (help-mode . motion)
+          (help-mode . normal)
           (prog-mode . normal)
           (man-mode . normal)
+          (help-mode . normal)
           (text-mode . normal)
           (messages-buffer-mode . normal)
+          (gnus-group-mode . motion)
           (elfeed-view-mode . normal)
           (elfeed-show-mode . normal)))
+  
   (setq meow-two-char-escape-sequence "jk")
   (setq meow-two-char-escape-delay 0.5)
 
@@ -136,7 +139,6 @@
    '("P" . clipboard-yank)
    '("Q" . meow-goto-line)
    '("r" . undo-redo)
-   '("C-r" . undo-redo)
    '("R" . meow-swap-grab)
    '("s" . meow-kill)
    '("S" . meow-clipboard-kill)

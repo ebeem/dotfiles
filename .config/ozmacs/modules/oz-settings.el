@@ -13,9 +13,9 @@
   :weight 'demibold)
 (set-face-attribute 'variable-pitch nil
   :font "Iosevka"
-  :height 160
+  :height 150
   ;; :height 200
-  :weight 'demibold)
+  :weight 'bold)
 
 (setq-default truncate-lines t
               word-wrap t
@@ -38,7 +38,8 @@
               undo-limit 67108864
 			  undo-strong-limit 100663296
 			  undo-outer-limit 1006632960
-              indent-tabs-mode nil)
+              indent-tabs-mode nil
+              backup-directory-alist '((".*" . "~/.Trash")))
 
 (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))

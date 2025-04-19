@@ -9,14 +9,12 @@
 ;;; Code:
 
 ;; add modules and themes to load paths
+;; (profiler-start 'cpu)
+
 (add-to-list 'load-path
   (expand-file-name "modules" user-emacs-directory))
 (add-to-list 'custom-theme-load-path
   (expand-file-name "themes" user-emacs-directory))
-
-(setq user-full-name "Ibraheem Almarhoon"
-      user-mail-address "ibraheem.marhoon@gmail.com"
-      backup-directory-alist '((".*" . "~/.Trash")))
 
 (require 'oz-package-manager) ;; ('elpaca')
 (require 'oz-settings)        ;;
@@ -35,3 +33,5 @@
 (require 'oz-media)           ;; ('mingus')
 (require 'oz-keybindings)     ;; ('general')
 (require 'oz-ai)              ;; ('aider')
+
+;; (profiler-stop)

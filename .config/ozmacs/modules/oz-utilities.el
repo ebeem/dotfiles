@@ -252,7 +252,6 @@ between 0 and 1)."
   :config
   (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory)))
 
-
 (use-package burly
   :config
   (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory))
