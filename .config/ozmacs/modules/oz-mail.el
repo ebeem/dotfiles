@@ -170,9 +170,13 @@
           ((+ 86400 (gnus-seconds-today)) . "%d/%m/%Y %H:%M:%S")
           (t . "%d/%m/%Y %H:%M:%S")))
 
+  (setq gnus-topic-display-empty-topics t) ;; hides empty topics
+  (setq gnus-topic-save-on-exit t)           ;; save layout on exit
+  (setq gnus-permanently-visible-groups ".*")
   (setq gnus-summary-line-format
         "%U%R%z%I %&user-date; %(%[%4L: %-23,23f%]%) %s\n")
 
+  (add-hook 'gnus-summary-prepare-hook 'gnus-summary-sort-by-most-recent-date)
   (setq gnus-select-method '(nnnil nil))
   (setq gnus-secondary-select-methods
         '((nnimap "gmeb2"
@@ -197,7 +201,7 @@
   (setq smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587
         gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
-  
+  :hook (gnus-group-mode . gnus-topic-mode)
   :bind (:map gnus-summary-mode-map
               ("c-j" . gnus-summary-next-article)
               ("c-k" . gnus-summary-prev-article)
