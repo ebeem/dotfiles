@@ -9,9 +9,11 @@
   :hook
   (org-mode . +org-mode-enhanced-view)
   :config
+  
   (defun +org-mode-enhanced-view ()
     (setq-local truncate-lines nil)
     (org-modern-mode))
+  
   (setq org-auto-align-tags nil
         org-tags-column 0
         org-catch-invisible-edits 'show-and-error
@@ -35,31 +37,20 @@
 
 (use-package org-mode
   :ensure nil
-  :hook (org-mode . org-indent-mode))
+  :init
+  (which-key-add-key-based-replacements "C-c n" "Note")
+  :hook (org-mode . org-indent-mode)
+  :bind (("C-c n a" . org-agenda)
+         ("C-c n b" . org-babel-tangle)
+         ("C-c n e" . org-export-dispatch)
+         ("C-c n i" . org-toggle-item)
+         ("C-c n t" . org-todo)
+         ("C-c n T" . org-todo-list)
+         ("C-c n s" . consult-org-heading)
+         ("C-c n d" . org-time-stamp)))
 
-;; Org-transclusion lets you insert a copy of text content via a file
-;; link or ID link within an Org file. It lets you have the same content
-;; present in different buffers at the same time without copy-and-pasting it.
-;; (use-package org-transclusion
-;;   :after org)
-
-;; (use-package org-roam
-;;   :hook (org-load)
-;;   :commands (org-roam-buffer-toggle-display
-;;              org-roam-dailies-find-date
-;;              org-roam-dailies-find-today
-;;              org-roam-dailies-find-tomorrow
-;;              org-roam-dailies-find-yesterday)
-;;   :custom
-;;   (org-roam-directory (file-truename "~/cloud/org/roam"))
-;;   (org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
-;;   :config
-;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-;;   (org-roam-db-autosync-mode)
-;;   (require 'org-roam-export)
-;;   (require 'org-roam-protocol))
-
-(use-package denote)
+(use-package denote
+    :bind (("C-c n f" . denote-open-or-create)))
 
 ;; TODO
 ;; https://github.com/alphapapa/org-super-agenda
@@ -182,7 +173,8 @@
   :custom
   (flyspell-issue-message-flag nil))
 
-(use-package flyspell-correct)
+(use-package flyspell-correct
+  :bind (("C-c s c" . flyspell-correct-wrapper)))
 
 (provide 'oz-org)
 ;;; oz-code.el ends here

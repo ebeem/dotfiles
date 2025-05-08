@@ -1,0 +1,112 @@
+configurations:
+    -
+        host: imap.gmail.com
+        port: 993
+        tls: true
+        tlsOptions:
+            rejectUnauthorized: false
+        alias: gmeb2
+        usernameCMD: 'awk ''/machine gmeb2/ {for (i=1; i<=NF; i++) if ($i=="login") print $(i+1)}'' ~/.authinfo'
+        passwordCMD: 'awk ''/machine gmeb2/ {for (i=1; i<=NF; i++) if ($i=="password") print $(i+1)}'' ~/.authinfo'
+        xoAuth2: false
+        boxes:
+            -
+                mailbox: INBOX
+                onNewMail: 'mbsync gmeb2'
+                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+
+    -
+        host: imap.gmail.com
+        port: 993
+        tls: true
+        tlsOptions:
+            rejectUnauthorized: false
+        alias: gmibm
+        usernameCMD: 'awk ''/machine gmibm/ {for (i=1; i<=NF; i++) if ($i=="login") print $(i+1)}'' ~/.authinfo'
+        passwordCMD: 'awk ''/machine gmibm/ {for (i=1; i<=NF; i++) if ($i=="password") print $(i+1)}'' ~/.authinfo'
+        xoAuth2: false
+        boxes:
+            -
+                mailbox: INBOX
+                onNewMail: 'mbsync gmibm'
+                onNewMailPost: SKIP
+                
+    -
+        host: imap.gmail.com
+        port: 993
+        tls: true
+        tlsOptions:
+            rejectUnauthorized: false
+        alias: gmozb
+        usernameCMD: 'awk ''/machine gmozb/ {for (i=1; i<=NF; i++) if ($i=="login") print $(i+1)}'' ~/.authinfo'
+        passwordCMD: 'awk ''/machine gmozb/ {for (i=1; i<=NF; i++) if ($i=="password") print $(i+1)}'' ~/.authinfo'
+        xoAuth2: false
+        boxes:
+            -
+                mailbox: INBOX
+                onNewMail: 'mbsync gmozb'
+                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                
+    -
+        host: imap.gmail.com
+        port: 993
+        tls: true
+        tlsOptions:
+            rejectUnauthorized: false
+        alias: gmtwi
+        usernameCMD: 'awk ''/machine gmtwi/ {for (i=1; i<=NF; i++) if ($i=="login") print $(i+1)}'' ~/.authinfo'
+        passwordCMD: 'awk ''/machine gmtwi/ {for (i=1; i<=NF; i++) if ($i=="password") print $(i+1)}'' ~/.authinfo'
+        xoAuth2: false
+        boxes:
+            -
+                mailbox: INBOX
+                onNewMail: 'mbsync gmtwi'
+                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                
+    -
+        host: imap.gmail.com
+        port: 993
+        tls: true
+        tlsOptions:
+            rejectUnauthorized: false
+        alias: gmblm
+        usernameCMD: 'awk ''/machine gmblm/ {for (i=1; i<=NF; i++) if ($i=="login") print $(i+1)}'' ~/.authinfo'
+        passwordCMD: 'awk ''/machine gmblm/ {for (i=1; i<=NF; i++) if ($i=="password") print $(i+1)}'' ~/.authinfo'
+        xoAuth2: false
+        boxes:
+            -
+                mailbox: INBOX
+                onNewMail: 'mbsync gmblm'
+                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+
+    -
+        host: imap.gmail.com
+        port: 993
+        tls: true
+        tlsOptions:
+            rejectUnauthorized: false
+        alias: gmret
+        usernameCMD: 'awk ''/machine gmret/ {for (i=1; i<=NF; i++) if ($i=="login") print $(i+1)}'' ~/.authinfo'
+        passwordCMD: 'awk ''/machine gmret/ {for (i=1; i<=NF; i++) if ($i=="password") print $(i+1)}'' ~/.authinfo'
+        xoAuth2: false
+        boxes:
+            -
+                mailbox: INBOX
+                onNewMail: 'mbsync gmret'
+                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+
+    -
+        host: imap.gmail.com
+        port: 993
+        tls: true
+        tlsOptions:
+            rejectUnauthorized: false
+        alias: gmozm
+        usernameCMD: 'awk ''/machine gmozm/ {for (i=1; i<=NF; i++) if ($i=="login") print $(i+1)}'' ~/.authinfo'
+        passwordCMD: 'awk ''/machine gmozm/ {for (i=1; i<=NF; i++) if ($i=="password") print $(i+1)}'' ~/.authinfo'
+        xoAuth2: false
+        boxes:
+            -
+                mailbox: INBOX
+                onNewMail: 'mbsync gmozm'
+                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'

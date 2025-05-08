@@ -1,9 +1,9 @@
 # ============================== EMAIL ============================== #
 IMAPAccount gmeb2
 Host imap.gmail.com
-UserCmd "sed -n 1p ~/.secret/mails"
-PassCmd "sed -n 1p ~/.secret/mailsp"
-SSLType IMAPS
+UserCmd "awk '/machine gmeb2/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine gmeb2/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmeb2-remote
@@ -17,7 +17,7 @@ Inbox ~/.mail/gmeb2/Inbox
 Channel gmeb2
 Far :gmeb2-remote:
 Near :gmeb2-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns "[Gmail]/All Mail" "[Gmail]/Sent Mail"
 Create Both
 Expunge Both
 SyncState *
@@ -25,9 +25,9 @@ SyncState *
 # ============================== EMAIL ============================== #
 IMAPAccount gmibm
 Host imap.gmail.com
-UserCmd "sed -n 2p ~/.secret/mails"
-PassCmd "sed -n 2p ~/.secret/mailsp"
-SSLType IMAPS
+UserCmd "awk '/machine gmibm/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine gmibm/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmibm-remote
@@ -41,17 +41,14 @@ Inbox ~/.mail/gmibm/Inbox
 Channel gmibm
 Far :gmibm-remote:
 Near :gmibm-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-Create Both
-Expunge Both
-SyncState *
+Patterns "[Gmail]/All Mail" "[Gmail]/Sent Mail"
 
 # ============================== EMAIL ============================== #
 IMAPAccount gmozb
 Host imap.gmail.com
-UserCmd "sed -n 3p ~/.secret/mails"
-PassCmd "sed -n 3p ~/.secret/mailsp"
-SSLType IMAPS
+UserCmd "awk '/machine gmozb/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine gmozb/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmozb-remote
@@ -65,7 +62,7 @@ Inbox ~/.mail/gmozb/Inbox
 Channel gmozb
 Far :gmozb-remote:
 Near :gmozb-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns "[Gmail]/All Mail" "[Gmail]/Sent Mail"
 Create Both
 Expunge Both
 SyncState *
@@ -73,9 +70,9 @@ SyncState *
 # ============================== EMAIL ============================== #
 IMAPAccount gmtwi
 Host imap.gmail.com
-UserCmd "sed -n 4p ~/.secret/mails"
-PassCmd "sed -n 4p ~/.secret/mailsp"
-SSLType IMAPS
+UserCmd "awk '/machine gmtwi/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine gmtwi/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmtwi-remote
@@ -89,7 +86,7 @@ Inbox ~/.mail/gmtwi/Inbox
 Channel gmtwi
 Far :gmtwi-remote:
 Near :gmtwi-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns "[Gmail]/All Mail" "[Gmail]/Sent Mail"
 Create Both
 Expunge Both
 SyncState *
@@ -97,9 +94,9 @@ SyncState *
 # ============================== EMAIL ============================== #
 IMAPAccount gmblm
 Host imap.gmail.com
-UserCmd "sed -n 5p ~/.secret/mails"
-PassCmd "sed -n 5p ~/.secret/mailsp"
-SSLType IMAPS
+UserCmd "awk '/machine gmblm/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine gmblm/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmblm-remote
@@ -113,90 +110,90 @@ Inbox ~/.mail/gmblm/Inbox
 Channel gmblm
 Far :gmblm-remote:
 Near :gmblm-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns "[Gmail]/All Mail" "[Gmail]/Sent Mail"
 Create Both
 Expunge Both
 SyncState *
 
-# ============================== EMAIL ============================== #
-IMAPAccount rsibm
-Host imap.mail.ovh.ca:993
-UserCmd "sed -n 7p ~/.secret/mails"
-PassCmd "sed -n 7p ~/.secret/mailsp"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# # ============================== EMAIL ============================== #
+# IMAPAccount rsibm
+# Host imap.mail.ovh.ca:993
+# UserCmd "awk '/machine rsibm/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+# PassCmd "awk '/machine rsibm/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+# TLSType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-IMAPStore rsibm-remote
-Account rsibm
+# IMAPStore rsibm-remote
+# Account rsibm
 
-MaildirStore rsibm-local
-SubFolders Verbatim
-Path ~/.mail/rsibm/
-Inbox ~/.mail/rsibm/Inbox
+# MaildirStore rsibm-local
+# SubFolders Verbatim
+# Path ~/.mail/rsibm/
+# Inbox ~/.mail/rsibm/Inbox
 
-Channel rsibm
-Far :rsibm-remote:
-Near :rsibm-local:
-Patterns *
-Create Both
-Expunge Both
-SyncState *
+# Channel rsibm
+# Far :rsibm-remote:
+# Near :rsibm-local:
+# Patterns *
+# Create Both
+# Expunge Both
+# SyncState *
 
 
-# ============================== EMAIL ============================== #
-IMAPAccount otibm
-Host imap-mail.outlook.com
-UserCmd "sed -n 8p ~/.secret/mails"
-PassCmd "sed -n 8p ~/.secret/mailsp"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# # ============================== EMAIL ============================== #
+# IMAPAccount otibm
+# Host imap-mail.outlook.com
+# UserCmd "awk '/machine otibm/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+# PassCmd "awk '/machine otibm/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+# TLSType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-IMAPStore otibm-remote
-Account otibm
+# IMAPStore otibm-remote
+# Account otibm
 
-MaildirStore otibm-local
-SubFolders Verbatim
-Path ~/.mail/otibm/
-Inbox ~/.mail/otibm/Inbox
+# MaildirStore otibm-local
+# SubFolders Verbatim
+# Path ~/.mail/otibm/
+# Inbox ~/.mail/otibm/Inbox
 
-Channel otibm
-Far :otibm-remote:
-Near :otibm-local:
-Patterns *
-Create Both
-Expunge Both
-SyncState *
+# Channel otibm
+# Far :otibm-remote:
+# Near :otibm-local:
+# Patterns *
+# Create Both
+# Expunge Both
+# SyncState *
 
-# ============================== EMAIL ============================== #
-IMAPAccount ottwi
-Host imap-mail.outlook.com
-UserCmd "sed -n 9p ~/.secret/mails"
-PassCmd "sed -n 9p ~/.secret/mailsp"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# # ============================== EMAIL ============================== #
+# IMAPAccount ottwi
+# Host imap-mail.outlook.com
+# UserCmd "awk '/machine ottwi/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+# PassCmd "awk '/machine ottwi/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+# TLSType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-IMAPStore ottwi-remote
-Account ottwi
+# IMAPStore ottwi-remote
+# Account ottwi
 
-MaildirStore ottwi-local
-SubFolders Verbatim
-Path ~/.mail/ottwi/
-Inbox ~/.mail/ottwi/Inbox
+# MaildirStore ottwi-local
+# SubFolders Verbatim
+# Path ~/.mail/ottwi/
+# Inbox ~/.mail/ottwi/Inbox
 
-Channel ottwi
-Far :ottwi-remote:
-Near :ottwi-local:
-Patterns *
-Create Both
-Expunge Both
-SyncState *
+# Channel ottwi
+# Far :ottwi-remote:
+# Near :ottwi-local:
+# Patterns *
+# Create Both
+# Expunge Both
+# SyncState *
 
 # ============================== EMAIL ============================== #
 IMAPAccount gmret
 Host imap.gmail.com
-UserCmd "sed -n 10p ~/.secret/mails"
-PassCmd "sed -n 10p ~/.secret/mailsp"
-SSLType IMAPS
+UserCmd "awk '/machine gmret/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine gmret/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmret-remote
@@ -210,31 +207,7 @@ Inbox ~/.mail/gmret/Inbox
 Channel gmret
 Far :gmret-remote:
 Near :gmret-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-Create Both
-Expunge Both
-SyncState *
-
-# ============================== EMAIL ============================== #
-IMAPAccount gmret
-Host imap.gmail.com
-UserCmd "sed -n 10p ~/.secret/mails"
-PassCmd "sed -n 10p ~/.secret/mailsp"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
-
-IMAPStore gmret-remote
-Account gmret
-
-MaildirStore gmret-local
-SubFolders Verbatim
-Path ~/.mail/gmret/
-Inbox ~/.mail/gmret/Inbox
-
-Channel gmret
-Far :gmret-remote:
-Near :gmret-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns "[Gmail]/All Mail" "[Gmail]/Sent Mail"
 Create Both
 Expunge Both
 SyncState *
@@ -242,9 +215,9 @@ SyncState *
 # ============================== EMAIL ============================== #
 IMAPAccount gmozm
 Host imap.gmail.com
-UserCmd "sed -n 11p ~/.secret/mails"
-PassCmd "sed -n 11p ~/.secret/mailsp"
-SSLType IMAPS
+UserCmd "awk '/machine gmozm/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine gmozm/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore gmozm-remote
@@ -258,7 +231,32 @@ Inbox ~/.mail/gmozm/Inbox
 Channel gmozm
 Far :gmozm-remote:
 Near :gmozm-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns "[Gmail]/All Mail" "[Gmail]/Sent Mail"
+Create Both
+Expunge Both
+SyncState *
+
+
+# ============================== EMAIL ============================== #
+IMAPAccount ozbif
+Host imappro.zoho.com
+UserCmd "awk '/machine ozbif/ {for (i=1; i<=NF; i++) if ($i==\"login\") print $(i+1)}' ~/.authinfo"
+PassCmd "awk '/machine ozbif/ {for (i=1; i<=NF; i++) if ($i==\"password\") print $(i+1)}' ~/.authinfo"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore ozbif-remote
+Account ozbif
+
+MaildirStore ozbif-local
+SubFolders Verbatim
+Path ~/.mail/ozbif/
+Inbox ~/.mail/ozbif/Inbox
+
+Channel ozbif
+Far :ozbif-remote:
+Near :ozbif-local:
+Patterns "Inbox" "Sent"
 Create Both
 Expunge Both
 SyncState *

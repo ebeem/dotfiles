@@ -79,7 +79,22 @@
                `((csharp-mode csharp-ts-mode)
                  . ,(append '("csharp-ls")
                             (eglot-csharp-ls-select-solution))))
-  :commands eglot)
+  :commands eglot
+  :bind (("C-c c c" . comment-or-uncomment-region)
+    ("C-c c C" . recompile)
+    ("C-c c d" . eglot-find-typeDefinition)
+    ("C-c c D" . eglot-find-implementation)
+    ("C-c c F" . eglot-format-buffer)
+    ("C-c c f" . eglot-format)
+    ("C-c c i" . indent-region)
+    ("C-c c I" . eglot-find-implementation)
+    ("C-c c j" . eglot-find-declaration)
+    ("C-c c k" . eldoc)
+    ("C-c c K" . eldoc)
+    ("C-c c m" . imenu)
+    ("C-c c r" . eglot-rename)
+    ("C-c c t" . eglot-find-typeDefinition)
+    ("C-c c x" . flymake-show-project-diagnostics)))
 
 ;; (use-package lsp-mode
 ;;   :init

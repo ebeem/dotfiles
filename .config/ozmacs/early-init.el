@@ -262,9 +262,9 @@ When set to non-nil, Emacs will automatically call `package-initialize' and
 (defalias #'view-hello-file #'ignore)  ; Never show the hello file
 
 ;;; package.el
-(setq package-enable-at-startup nil)
-(setq package-quickstart nil)
-(setq use-package-always-ensure t)
+;; (setq package-enable-at-startup nil)
+;; (setq package-quickstart nil)
+;; (setq use-package-always-ensure t)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")

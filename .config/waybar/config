@@ -190,7 +190,7 @@
     "escape": true
   },
   "custom/mail": {
-    "exec": "bash -c 'n=$(mu find flag:unread --fields \"n\" | wc -l); h=$((n/2)); echo \"{\\\"text\\\": \\\"$h\\\", \\\"class\\\": \\\"$( [ $h -gt 0 ] && echo unread || echo none )\\\"}\"'",
+    "exec": "bash -c 'n=$(emacsclient -e \"gnus-unread-mails-count\" | sed \"s/^\\\"\\(.*\\)\\\"$/\\1/\"); echo \"{\\\"text\\\": \\\"$n\\\", \\\"class\\\": \\\"$( [ \"$n\" -gt 0 ] && echo unread || echo none )\\\"}\"'",
     "return-type": "json",
     "restart-interval": 10,
     "format": "   {}"

@@ -152,14 +152,42 @@
 ;;   :config
 ;;   (setq mu4e-alert-set-default-style 'notifications)
 ;;   (mu4e-alert-enable-notifications))
-
 (use-package gnus
+  :init
+  (defvar gnus-unread-mails-count 0)
+
   :ensure nil
   :config
+  ;; watch mail directory for changes
+  (require 'notifications)
+  (add-hook 'gnus-after-getting-new-news-hook #'gnus-notify-unread-inbox)
+
+  ;; notify when there are unread mails
+  (defun gnus-notify-unread-inbox ()
+  "Notify if there are unread messages in the Gnus topic named 'Inbox'."
+  (interactive)
+  (let ((groups (gnus-topic-find-groups "Inbox"))
+      (total 0)
+      (unread-groups '()))
+  (dolist (group groups)
+    (let* ((name (gnus-info-group (car (cdr group))))
+           (unread (gnus-group-unread name)))
+      (when (numberp unread)
+        (push group unread-groups)
+        (setq total (+ total unread)))))
+  (setq gnus-unread-mails-count total)
+  (when (> total 0)
+    (notifications-notify
+     :title "📬 New Mail"
+     :body (format "You have %d unread message%s"
+                   total
+                   (if (= total 1) "" "s"))
+     :app-name "Emacs Gnus"
+     :urgency 'normal))))
+  
   (setq user-mail-address "ibraheem.marhoon@gmail.com"
         user-full-name "Ibraheem Almarhoon")
-  (setq gnus-article-html-prefetch-allowed nil
-        shr-inhibit-images nil        ;; keep images
+  (setq shr-inhibit-images t          ;; images
         shr-use-fonts nil             ;; disable CSS fonts
         shr-use-colors nil)           ;; disable CSS colors
 
@@ -176,21 +204,85 @@
   (setq gnus-summary-line-format
         "%U%R%z%I %&user-date; %(%[%4L: %-23,23f%]%) %s\n")
 
-  (add-hook 'gnus-summary-prepare-hook 'gnus-summary-sort-by-most-recent-date)
+  ;; (add-hook 'gnus-summary-prepare-hook 'gnus-summary-sort-by-most-recent-date)
+  (setq gnus-asynchronous t)
+  (setq gnus-use-article-prefetch 15)
+  (setq gnus-summary-ignore-duplicates t)
+  (setq gnus-summary-goto-unread nil)
+  (setq gnus-thread-sort-functions
+        '((not gnus-thread-sort-by-date)
+          (not gnus-thread-sort-by-number)))
+  (setq gnus-subthread-sort-functions
+        'gnus-thread-sort-by-date)
+  (setq gnus-thread-hide-subtree nil)
+  (setq gnus-thread-ignore-subject nil)
+  (setq gnus-user-date-format-alist
+        '(((gnus-seconds-today) . "Today at %R")
+          ((+ (* 60 60 24) (gnus-seconds-today)) . "Yesterday, %R")
+          (t . "%d/%m/%y %R")))
+  
+  (setq gnus-summary-line-format "%U%R %-18,18&user-date; %4L:%-25,25f %B%s\n")
+  (setq gnus-group-line-format "%M%p%P%5y:%B%(%g%)\n")
+  
+  (setq gnus-sum-thread-tree-indent " "
+        gnus-sum-thread-tree-root "└> "
+        gnus-sum-thread-tree-false-root "└> "
+        gnus-sum-thread-tree-single-indent " "
+        gnus-sum-thread-tree-leaf-with-other "└> "
+        gnus-sum-thread-tree-single-leaf "└> "
+        gnus-sum-thread-tree-vertical "| "
+        gnus-sum-thread-tree-horizontal "- "
+        gnus-sum-thread-tree-down "└> ")
+  
+  (setq gnus-group-sort-function
+        '((gnus-group-sort-by-unread)
+          (gnus-group-sort-by-alphabet)
+          (gnus-group-sort-by-rank)))
+  
+  (setq gnus-inhibit-images t)
+  (setq gnus-article-sort-functions
+        '((not gnus-article-sort-by-number)
+          (not gnus-article-sort-by-date)))
+  
   (setq gnus-select-method '(nnnil nil))
   (setq gnus-secondary-select-methods
-        '((nnimap "gmeb2"
-                  (nnimap-address "imap.gmail.com"))
-          (nnimap "gmibm"
-                  (nnimap-address "imap.gmail.com"))
-          (nnimap "gmozb"
-                  (nnimap-address "imap.gmail.com"))
-          (nnimap "gmozm"
-                  (nnimap-address "imap.gmail.com"))
-          (nnimap "gmtwi"
-                  (nnimap-address "imap.gmail.com"))
-          (nnimap "gmblb"
-                  (nnimap-address "imap.gmail.com"))))
+        '((nnmaildir "gmeb2"
+                     (directory "~/.mail/gmeb2/[Gmail]")
+                     (get-new-mail t))
+          (nnmaildir "gmibm"
+                     (directory "~/.mail/gmibm/[Gmail]")
+                     (get-new-mail t))
+          (nnmaildir "gmozb"
+                     (directory "~/.mail/gmozb/[Gmail]")
+                     (get-new-mail t))
+          (nnmaildir "gmozm"
+                     (directory "~/.mail/gmozm/[Gmail]")
+                     (get-new-mail t))
+          (nnmaildir "gmtwi"
+                     (directory "~/.mail/gmtwi/[Gmail]")
+                     (get-new-mail t))
+          (nnmaildir "gmblm"
+                     (directory "~/.mail/gmblm/[Gmail]")
+                     (get-new-mail t))
+          (nnmaildir "ozbif"
+                     (directory "~/.mail/ozbif")
+                     (get-new-mail t))))
+        
+        ;; '((nnimap "gmeb2"
+        ;;           (nnimap-address "imap.gmail.com"))
+        ;;   (nnimap "gmibm"
+        ;;           (nnimap-address "imap.gmail.com"))
+        ;;   (nnimap "gmozb"
+        ;;           (nnimap-address "imap.gmail.com"))
+        ;;   (nnimap "gmozm"
+        ;;           (nnimap-address "imap.gmail.com"))
+        ;;   (nnimap "gmtwi"
+        ;;           (nnimap-address "imap.gmail.com"))
+        ;;   (nnimap "gmblb"
+        ;;           (nnimap-address "imap.gmail.com"))
+        ;;   (nnimap "ozbif"
+        ;;           (nnimap-address "imappro.zoho.com"))))
+  
   ;; (nnimap "rsibm"
   ;;         (nnimap-address "imap.mail.ovh.ca:993"))))
   ;; (nnimap "otibm"
@@ -201,6 +293,7 @@
   (setq smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587
         gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
+  
   :hook (gnus-group-mode . gnus-topic-mode)
   :bind (:map gnus-summary-mode-map
               ("c-j" . gnus-summary-next-article)

@@ -17,7 +17,9 @@
           (gnus-group-mode . motion)
           (elfeed-view-mode . normal)
           (elfeed-show-mode . normal)))
-  
+
+  (setq meow-keypad-leader-dispatch "C-c")
+  ;; (setq meow-use-keypad-when-execute-kbd nil)
   (setq meow-two-char-escape-sequence "jk")
   (setq meow-two-char-escape-delay 0.5)
 
@@ -69,25 +71,12 @@
     (delete-region (region-beginning) (region-end)))
   (yank))
 
-  (meow-leader-define-key
-   ;; SPC j/k will run the original command in MOTION state.
-   '("j" . "H-j")
-   '("k" . "H-k")
-   ;; Use SPC (0-9) for digit arguments.
-   '("1" . meow-digit-argument)
-   '("2" . meow-digit-argument)
-   '("3" . meow-digit-argument)
-   '("4" . meow-digit-argument)
-   '("5" . meow-digit-argument)
-   '("6" . meow-digit-argument)
-   '("7" . meow-digit-argument)
-   '("8" . meow-digit-argument)
-   '("9" . meow-digit-argument)
-   '("0" . meow-digit-argument)
-   '("/" . meow-keypad-describe-key)
-   '("?" . meow-cheatsheet))
+(defun eb/show-custom-mode-keymap ()
+  "Pretend user pressed C-c"
+  (interactive)
+  (setq unread-command-events (listify-key-sequence (kbd "C-c"))))
 
-  (meow-normal-define-key
+(meow-normal-define-key
    '("9" . meow-expand-9)
    '("8" . meow-expand-8)
    '("7" . meow-expand-7)
@@ -157,15 +146,8 @@
    '("<" . indent-rigidly-left-to-tab-stop)
    '(">" . indent-rigidly-right-to-tab-stop)
    '(":" . meow-goto-line)
+   '("SPC" . eb/show-custom-mode-keymap)
    '("<escape>" . ignore))
-  
-  (defun my/elfeed-meow-keys ()
-    (define-key elfeed-show-mode-map (kbd "C-j") #'elfeed-show-next)
-    (define-key elfeed-show-mode-map (kbd "C-k") #'elfeed-show-prev))
-  
-  (defun my/mu4e-view-meow-keys ()
-    (define-key mu4e-view-mode-map (kbd "C-j") #'mu4e-view-headers-next)
-    (define-key mu4e-view-mode-map (kbd "C-k") #'mu4e-view-headers-prev))
 
   (add-hook 'elfeed-show-mode-hook #'my/elfeed-meow-keys)
   (add-hook 'mu4e-view-mode-hook #'my/mu4e-view-meow-keys)

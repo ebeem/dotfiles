@@ -1,20 +1,21 @@
 ;;; Code:
-(use-package dashboard
-  :init
-  (setq initial-buffer-choice 'dashboard-open
-        dashboard-set-heading-icons t
-        dashboard-set-file-icons t
-        dashboard-projects-backend 'project-el
-        dashboard-banner-logo-title "Emacs Is More Than A Text Editor!"
-        dashboard-startup-banner (expand-file-name "imgs/logo.png" user-emacs-directory)
-        dashboard-center-content t
-        dashboard-items '((projects . 10)
-                          (bookmarks . 10)))
-  :custom
-  (dashboard-modify-heading-icons '((recents . "file-text")
-                                    (bookmarks . "book")))
-  :config
-  (dashboard-setup-startup-hook))
+;; (use-package dashboard
+;;   :demand t
+;;   :init
+;;   (setq initial-buffer-choice 'dashboard-open
+;;         dashboard-set-heading-icons t
+;;         dashboard-set-file-icons t
+;;         dashboard-projects-backend 'project-el
+;;         dashboard-banner-logo-title "Emacs Is More Than A Text Editor!"
+;;         dashboard-startup-banner (expand-file-name "imgs/logo.png" user-emacs-directory)
+;;         dashboard-center-content t
+;;         dashboard-items '((projects . 10)
+;;                           (bookmarks . 10)))
+;;   :custom
+;;   (dashboard-modify-heading-icons '((recents . "file-text")
+;;                                     (bookmarks . "book")))
+;;   :config
+;;   (dashboard-setup-startup-hook))
 
 ;; (use-package doom-modeline
 ;;   :init (doom-modeline-mode 1)
@@ -64,16 +65,16 @@ If not visiting a file, show buffer name."
     (propertize (buffer-name)
                 'face (when (buffer-modified-p) 'error))))
 
-(defun eb/mode-line-meow-state ()
-  "Return an icon or emoji representing the current Meow state."
-  (let ((state (meow--current-state)))
-    (alist-get state
-               '((normal . "🅝")
-                 (insert . "🅘")
-                 (motion . "🅜")
-                 (keypad . "🅚")
-                 (beacon . "🅑"))
-               "?" nil #'eq)))
+;;(defun eb/mode-line-meow-state ()
+;;  "Return an icon or emoji representing the current Meow state."
+;;  (let ((state (meow--current-state)))
+;;    (alist-get state
+;;               '((normal . "🅝")
+;;                 (insert . "🅘")
+;;                 (motion . "🅜")
+;;                 (keypad . "🅚")
+;;                 (beacon . "🅑"))
+;;               "?" nil #'eq)))
 
 (defun eb/mode-line-read-only ()
   "Return the a lock icon if the buffer is read-only"
@@ -125,8 +126,8 @@ If not visiting a file, show buffer name."
 (setq-default mode-line-format
  '(" "
    ;; Meow state
-   (:eval (eb/mode-line-meow-state))
-   " "
+   ;; (:eval (eb/mode-line-meow-state))
+   ;; " "
    ;; File icon
    (:eval (eb/mode-line-file-icon))
    " "

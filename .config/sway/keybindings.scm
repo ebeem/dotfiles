@@ -1,4 +1,3 @@
-
 (use-modules (guile-swayer modules kbd)
              (guile-swayer modules general)
              (guile-swayer swayipc)

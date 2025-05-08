@@ -1,5 +1,7 @@
 ;;; Code:
 (use-package newsticker
+  :init
+  (setq newsticker-dir "~/.emacs.d/.cache/newsticker")
   :ensure nil
   :config
   (setq newsticker-url-list-defaults nil
@@ -7,7 +9,7 @@
         newsticker-retrieval-method 'extern
         newsticker-automatically-mark-items-as-old t
         newsticker-automatically-mark-visited-items-as-old t
-        newsticker-retrieval-interval 600
+        newsticker-retrieval-interval (* 60 240)
         newsticker-groups '("Linux" "Data Science" "Godot" "Games")
         newsticker-url-list
         '(("Arch Linux" "https://archlinux.org/feeds/news/" nil nil nil)
@@ -28,7 +30,10 @@
   (with-eval-after-load 'newsticker
     (define-key newsticker-treeview-item-mode-map (kbd "RET") nil)
     (define-key newsticker-treeview-item-mode-map (kbd "C-j") #'newsticker-treeview-next-item)
-    (define-key newsticker-treeview-item-mode-map (kbd "C-k") #'newsticker-treeview-prev-item)))
-    
+    (define-key newsticker-treeview-item-mode-map (kbd "C-k") #'newsticker-treeview-prev-item))
+  :bind (
+         :map eb/open-map
+         ("n" . newsticker-tree)))
+
 (provide 'oz-news)
 ;;; oz-news.el ends here
