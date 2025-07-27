@@ -101,17 +101,10 @@
   (corfu-auto-prefix 2)
   (corfu-popupinfo-delay 0.5)
   (corfu-scroll-margin 5)
-;;  (completion-styles '(orderless basic))
-  :hook
-  (org-mode . (lambda () (setq-local corfu-mode -1)))
-  :bind
-  (:map corfu-map
-        ("C-j" . corfu-next)
-        ("C-k" . corfu-previous))
-  :init
-  (corfu-popupinfo-mode)
-  (global-corfu-mode))
-
+  ;;  (completion-styles '(orderless basic))
+  :hook ((prog-mode . corfu-mode)
+         (corfu-mode . corfu-popupinfo-mode)))
+  
 (use-package nerd-icons-corfu
   :ensure t
   :after corfu
@@ -209,7 +202,7 @@
    ([remap yank-pop] . consult-yank-pop)
    ([remap persp-switch-to-buffer] . +vertico/switch-workspace-buffer))
   :bind (:map eb/project-map
-              ("s" . consult-find))
+              ("s" . consult-ripgrep))
   :config
   (setq consult-narrow-key "<"
         consult-line-numbers-widen t

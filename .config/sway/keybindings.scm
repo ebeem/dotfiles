@@ -60,6 +60,10 @@
    `("s-S-k" (sway-move-container SWAY-DIRECTION-UP) #:wk "Move Container Up")
    `("s-S-l" (sway-move-container SWAY-DIRECTION-RIGHT) #:wk "Move Container Right")
 
+   `("s-M-h" (sway-move-container SWAY-DIRECTION-LEFT) #:wk "Move Container Left")
+   `("s-M-j" (sway-move-container SWAY-DIRECTION-DOWN) #:wk "Move Container Down")
+   `("s-M-k" (sway-move-container SWAY-DIRECTION-UP) #:wk "Move Container Up")
+   `("s-M-l" (sway-move-container SWAY-DIRECTION-RIGHT) #:wk "Move Container Right")
 
    ;; switch workspace
    `("s-C-h" (workspace-grid-switch-workspace-left) #:wk "Switch Workspace Left")

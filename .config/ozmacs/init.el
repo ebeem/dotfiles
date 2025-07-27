@@ -16,13 +16,10 @@
 (add-to-list 'custom-theme-load-path
   (expand-file-name "themes" user-emacs-directory))
 
-;; (require 'oz-package-manager) ;; ('elpaca')
 (require 'oz-settings)        ;;
 (require 'oz-utilities)       ;; ('sudo-edit')
 (require 'oz-terminal)        ;; ('vterm', 'eshell')
 (require 'oz-completion)      ;; ('compeny', 'vertico', 'which-key')
-;; (require 'oz-evil)            ;; ('evil', 'evil-collection', 'evil-escape')
-;; (require 'oz-meow)            ;; ('meow')
 (require 'oz-ui)              ;; ('dashboard', 'faces', 'doom-themes', 'doom-modeline', 'diredfl', 'diminish')
 (require 'oz-code)            ;; ('flycheck') ;; TODO: optimize
 (require 'oz-org)             ;; ('org-mode', 'toc-org', 'org-modern', 'org-transclusion', 'org-roam', 'org-phscroll')
@@ -31,9 +28,13 @@
 (require 'oz-chat)            ;; ('erc', 'ement')
 (require 'oz-news)            ;; ('elfeed')
 (require 'oz-media)           ;; ('mingus')
+
+;; (require 'oz-package-manager) ;; ('elpaca')
+;; (require 'oz-evil)            ;; ('evil', 'evil-collection', 'evil-escape')
+;; (require 'oz-meow)            ;; ('meow')
 ;; (require 'oz-keybindings)     ;; ('general')
 ;; (require 'oz-ai)              ;; ('aider')
 ;; (require 'oz-dashboard)
 
 ;; (profiler-stop)
-(put 'downcase-region 'disabled nil)
+

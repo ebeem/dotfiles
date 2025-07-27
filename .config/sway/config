@@ -1,7 +1,7 @@
 include /etc/sway/config.d/*
 exec "waybar"
 exec_always "export QT_QPA_PLATFORMTHEME='qt6ct'"
-exec_always "guile ~/.config/sway/init.scm > ~/logs/guile-swayer.log 2>&1"
+exec_always "guile ~/.config/sway/init.scm > ~/.cache/logs/guile-swayer.log 2>&1"
 workspace_layout tabbed 
 
 set $mod Mod4
@@ -19,6 +19,7 @@ for_window [title="^.*"] title_format ""
 default_border normal 0
 default_floating_border normal 0
 floating_maximum_size -1 x -1
+# disable_titlebar true
 
 # bar {
 #   id "bar-0"

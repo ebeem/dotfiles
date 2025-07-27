@@ -33,7 +33,38 @@
     "In dired, open the file named on this line."
     (interactive)
     (let* ((file (dired-get-filename nil t)))
-      (call-process "xdg-open" nil 0 nil file))))
+      (call-process "xdg-open" nil 0 nil file)))
+
+  (defun dired-rename-to-snake-case ()
+  "Rename marked files in Dired to snake_case format."
+  (interactive)
+  (require 'subr-x)
+  (dired-map-over-marks
+   (let* ((old (dired-get-filename))
+          (filename (file-name-nondirectory old))
+          (dir (file-name-directory old))
+          (name-no-ext (file-name-sans-extension filename))
+          (ext (file-name-extension filename))
+          ;; Convert camelCase, PascalCase, kebab-case, and space to snake_case
+          (snake (downcase
+                  (replace-regexp-in-string
+                   "[^A-Za-z0-9]+" "_"
+                   (replace-regexp-in-string
+                    "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2" name-no-ext))))
+          (newname (if ext
+                       (concat snake "." ext)
+                     snake))
+          (newpath (expand-file-name newname dir)))
+     (rename-file old newpath)
+     (message "Renamed: %s -> %s" old newpath))
+   nil)))
+
+  (defun goto-match-paren ()
+    "Go to the matching parenthesis if on a parenthesis character."
+    (interactive)
+    (cond ((looking-at "\\s(") (forward-sexp 1))
+          ((looking-back "\\s)" 1) (backward-sexp 1))
+          (t (message "Not on a parenthesis"))))
 
 ;; "b" (cons "Buffer" my-test-buffer-map)
 (use-package emacs
@@ -51,6 +82,7 @@
          ("C-c C" . org-capture)
          ("C-c >" . next-buffer)
          ("C-c <" . previous-buffer)
+         ("C-%" . goto-match-paren)
 
          :map eb/buffer-map
          ("b" . project-switch-to-buffer)
@@ -250,6 +282,11 @@
   (add-to-list
    'proced-format-alist
    '(custom user pid ppid sess tree pcpu pmem rss start time state (args comm))))
+
+(use-package expand-region
+  :ensure t
+  :bind
+  ("C-=" . er/expand-region))
 
 (provide 'oz-utilities)
 ;;; oz-utilities.el ends here

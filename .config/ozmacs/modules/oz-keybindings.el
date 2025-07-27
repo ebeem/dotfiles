@@ -311,6 +311,8 @@
 
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+(global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
+(global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 ;; (global-set-key (kbd "C-SPC") 'completion-at-point)
 ;; (global-set-key (kbd "C-SPC") 'complete-code)
 ;; (global-set-key (kbd "C-=") 'text-scale-increase)

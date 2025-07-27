@@ -80,21 +80,22 @@
                  . ,(append '("csharp-ls")
                             (eglot-csharp-ls-select-solution))))
   :commands eglot
-  :bind (("C-c c c" . comment-or-uncomment-region)
-    ("C-c c C" . recompile)
-    ("C-c c d" . eglot-find-typeDefinition)
-    ("C-c c D" . eglot-find-implementation)
-    ("C-c c F" . eglot-format-buffer)
-    ("C-c c f" . eglot-format)
-    ("C-c c i" . indent-region)
-    ("C-c c I" . eglot-find-implementation)
-    ("C-c c j" . eglot-find-declaration)
-    ("C-c c k" . eldoc)
-    ("C-c c K" . eldoc)
-    ("C-c c m" . imenu)
-    ("C-c c r" . eglot-rename)
-    ("C-c c t" . eglot-find-typeDefinition)
-    ("C-c c x" . flymake-show-project-diagnostics)))
+  :bind (("C-c c a" . eglot-code-actions)
+         ("C-c c c" . comment-or-uncomment-region)
+         ("C-c c C" . recompile)
+         ("C-c c d" . eglot-find-typeDefinition)
+         ("C-c c D" . eglot-find-implementation)
+         ("C-c c F" . eglot-format-buffer)
+         ("C-c c f" . eglot-format)
+         ("C-c c i" . indent-region)
+         ("C-c c I" . eglot-find-implementation)
+         ("C-c c j" . eglot-find-declaration)
+         ("C-c c k" . eldoc)
+         ("C-c c K" . eldoc)
+         ("C-c c m" . imenu)
+         ("C-c c r" . eglot-rename)
+         ("C-c c t" . eglot-find-typeDefinition)
+         ("C-c c x" . flymake-show-project-diagnostics)))
 
 ;; (use-package lsp-mode
 ;;   :init
@@ -173,10 +174,36 @@
 (use-package gdscript-mode
   :mode ("\\.gd\\'" . gdscript-ts-mode)
   :hook (gdscript-ts-mode . eglot-ensure)
-  :config
-  (setq gdscript-gdformat-save-and-format t
-        gdscript-use-tab-indents nil
-        gdscript-indent-offset 4))
+  :init
+  (setq gdscript-gdformat-save-and-format t)
+  (setq gdscript-mode-map
+		(let ((map (make-sparse-keymap)))
+          ;; Movement
+          (define-key map [remap backward-sentence] 'gdscript-nav-backward-block)
+          (define-key map [remap forward-sentence] 'gdscript-nav-forward-block)
+          (define-key map [remap backward-up-list] 'gdscript-nav-backward-up-list)
+          (define-key map [remap mark-defun] 'gdscript-mark-defun)
+          (define-key map (kbd "C-c C-f r") 'gdscript-format-region)
+          (define-key map (kbd "C-c C-f b") 'gdscript-format-buffer)
+          (define-key map (kbd "C-c C-r p") 'gdscript-godot-open-project-in-editor)
+          (define-key map (kbd "C-c C-r r") 'gdscript-godot-run-project)
+          (define-key map (kbd "C-c C-r d") 'gdscript-godot-run-project-debug)
+          (define-key map (kbd "C-c C-r s") 'gdscript-godot-run-current-scene)
+          (define-key map (kbd "C-c C-r q") 'gdscript-godot-run-current-scene-debug)
+          (define-key map (kbd "C-c C-r e") 'gdscript-godot-edit-current-scene)
+          (define-key map (kbd "C-c C-r x") 'gdscript-godot-run-current-script)
+          (define-key map (kbd "C-c C-b a") 'gdscript-docs-browse-api)
+          (define-key map (kbd "C-c C-b o") 'gdscript-docs-browse-symbol-at-point)
+          (define-key map (kbd "C-c C-b s") 'gdscript-docs-online-search-api)
+          (define-key map (kbd "C-c C-d C-d s") 'gdscript-debug-display-stack-frame-vars-buffer)
+          (define-key map (kbd "C-c C-d C-d d") 'gdscript-debug-display-stack-dump-buffer)
+          (define-key map (kbd "C-c C-d C-d b") 'gdscript-debug-display-breakpoint-buffer)
+          (define-key map (kbd "C-c C-d C-d i") 'gdscript-debug-display-inspector-buffer)
+          (define-key map (kbd "C-c C-d q") 'gdscript-debug-make-server)
+          (define-key map (kbd "C-c C-d n") 'gdscript-debug-next)
+          (define-key map (kbd "C-c C-d c") 'gdscript-debug-continue)
+          (define-key map (kbd "C-c C-d s") 'gdscript-debug-step)
+          map)))
 
 (use-package php-ts-mode
   :ensure nil

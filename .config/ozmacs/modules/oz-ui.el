@@ -1,21 +1,22 @@
 ;;; Code:
-;; (use-package dashboard
-;;   :demand t
-;;   :init
-;;   (setq initial-buffer-choice 'dashboard-open
-;;         dashboard-set-heading-icons t
-;;         dashboard-set-file-icons t
-;;         dashboard-projects-backend 'project-el
-;;         dashboard-banner-logo-title "Emacs Is More Than A Text Editor!"
-;;         dashboard-startup-banner (expand-file-name "imgs/logo.png" user-emacs-directory)
-;;         dashboard-center-content t
-;;         dashboard-items '((projects . 10)
-;;                           (bookmarks . 10)))
-;;   :custom
-;;   (dashboard-modify-heading-icons '((recents . "file-text")
-;;                                     (bookmarks . "book")))
-;;   :config
-;;   (dashboard-setup-startup-hook))
+(use-package dashboard
+  :ensure t
+  :demand t
+  :config
+  (setq initial-buffer-choice 'dashboard-open
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-projects-backend 'project-el
+        dashboard-banner-logo-title "Emacs Is More Than A Text Editor!"
+        dashboard-startup-banner (expand-file-name "imgs/logo.png" user-emacs-directory)
+        dashboard-center-content t
+        dashboard-items '((projects . 10)
+                          (bookmarks . 10)))
+  (dashboard-setup-startup-hook)
+  :custom
+  (dashboard-modify-heading-icons '((recents . "file-text")
+                                    (bookmarks . "book"))))
+
 
 ;; (use-package doom-modeline
 ;;   :init (doom-modeline-mode 1)

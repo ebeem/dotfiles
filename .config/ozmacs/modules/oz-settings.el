@@ -41,15 +41,17 @@
               undo-limit 67108864
 			  undo-strong-limit 100663296
 			  undo-outer-limit 1006632960
-              indent-tabs-mode nil
               backup-directory-alist '((".*" . "~/.Trash")))
 
-(add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))
+(put 'downcase-region 'disabled nil)
+
+;; (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
 ;; (add-hook 'before-save-hook #'whitespace-cleanup)	;; cleanup whitespaces
 
 (global-auto-revert-mode 1)							;; auto revert unchanged buffers
 (column-number-mode)								;; modeline column indicator
+(delete-selection-mode 1)
 
 ;; auto-save-mode doesn't create the path automatically!
 (make-directory (expand-file-name ".cache" user-emacs-directory) t)
@@ -86,6 +88,12 @@
   (setq tramp-remote-path
       (append tramp-remote-path
               '(tramp-own-remote-path))))
+
+;; keybindings
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+(global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
+(global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 
 ;; use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)

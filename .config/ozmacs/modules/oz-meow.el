@@ -4,6 +4,7 @@
 
 ;;; Code:
 (use-package meow
+  :ensure t
   :config
   (setq meow-mode-state-list
         '((conf-mode . normal)
