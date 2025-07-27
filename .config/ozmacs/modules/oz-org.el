@@ -6,6 +6,7 @@
 ;;   (setq toc-org-hrefify-default "gh"))
 
 (use-package org-modern ; modern org
+  :ensure t
   :hook
   (org-mode . +org-mode-enhanced-view)
   :config
@@ -50,6 +51,7 @@
          ("C-c n d" . org-time-stamp)))
 
 (use-package denote
+  :ensure t
     :bind (("C-c n f" . denote-open-or-create)))
 
 ;; TODO
@@ -69,6 +71,7 @@
 
 ;; org mode presentations
 (use-package org-present
+  :ensure t
   :after org
   :hook (
          (org-mode . eb/org-mode-start)
@@ -147,6 +150,7 @@
 
 ;; auto tangle org-mode files
 (use-package org-auto-tangle
+  :ensure t
   :defer t
   :hook (org-mode . org-auto-tangle-mode)
   :config
@@ -174,6 +178,7 @@
   (flyspell-issue-message-flag nil))
 
 (use-package flyspell-correct
+  :ensure t
   :bind (("C-c s c" . flyspell-correct-wrapper)))
 
 (provide 'oz-org)

@@ -160,6 +160,7 @@ If not visiting a file, show buffer name."
    ))
 
 (use-package modus-themes
+  :ensure t
   :config
   (load-theme 'modus-alucard t)
   (modus-themes-with-colors
@@ -177,6 +178,7 @@ If not visiting a file, show buffer name."
   (add-hook 'modus-themes-after-load-theme-hook #'eb/modus-themes-custom-faces))
   
 (use-package nerd-icons-completion
+  :ensure t
   :after marginalia
   :init
   (nerd-icons-completion-mode)
@@ -184,11 +186,13 @@ If not visiting a file, show buffer name."
 
 ;; icons to dired
 (use-package nerd-icons-dired
+  :ensure t
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
 ;; colorful dired
 (use-package diredfl
+  :ensure t
   :hook
   (dired-mode . diredfl-mode))
 

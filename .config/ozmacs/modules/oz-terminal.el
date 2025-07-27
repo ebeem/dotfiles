@@ -1,11 +1,13 @@
 ;;; Code:
 (use-package eshell-syntax-highlighting
+  :ensure t
   :after esh-mode
   :config
   (eshell-syntax-highlighting-global-mode +1))
 
 ;; eshell and evaluation
 (use-package eshell
+  :ensure nil
   :init
   (setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
         eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
@@ -39,6 +41,7 @@
          ("s" . eshell)))
 
 (use-package vterm
+  :ensure t
   :config
   (setq shell-file-name "/bin/sh"
         vterm-max-scrollback 5000)

@@ -179,13 +179,17 @@
     (yank)))
 
 (use-package undo-fu-session
+  :ensure t
   :init
   (undo-fu-session-global-mode))
 
-(use-package sudo-edit)
-(use-package visual-fill-column)
+(use-package sudo-edit
+    :ensure t)
+(use-package visual-fill-column
+    :ensure t)
 
 (use-package pdf-tools
+  :ensure t
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1)))
   :hook (pdf-tools-enabled . pdf-view-midnight-minor-mode)
@@ -264,6 +268,7 @@
 
 
 (use-package burly
+  :ensure t
   :config
   (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory))
   (setq burly-frameset-filter-alist '((name . nil)

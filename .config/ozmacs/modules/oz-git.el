@@ -2,8 +2,10 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package transient)
+(use-package transient
+  :ensure t)
 (use-package magit
+  :ensure t
   :defer 5
   :init
   (defvar-keymap eb/magit-map :doc "Magit")

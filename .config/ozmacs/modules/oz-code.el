@@ -13,6 +13,7 @@
 
 ;; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
 (use-package hl-todo
+  :ensure t
   :config
   (setq hl-todo-keyword-faces
         '(
@@ -31,16 +32,19 @@
 
 ;; colorize color names / color hex code in buffers. (red) (#ff0000)
 (use-package rainbow-mode
+  :ensure t
   :diminish
   :hook (prog-mode . rainbow-mode))
 
 ;; highlight delimiters such as parentheses, brackets or braces according to their depth
 (use-package rainbow-delimiters
+  :ensure t
   :diminish
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; insert some pre-made code by just typing a few characters
 (use-package yasnippet
+  :ensure t
   :hook ((prog-mode . yas-minor-mode)
          (text-mode . yas-minor-mode))
   :config
@@ -48,12 +52,15 @@
         yas--default-user-snippets-dir (expand-file-name ".cache/snippets" user-emacs-directory)))
 
 (use-package yasnippet-snippets
+  :ensure t
   :after yasnippet)
 
 (use-package yatemplate
+  :ensure t
   :after yasnippet)
 
 (use-package treesit-auto
+  :ensure t
   :demand t
   :init
   (setq treesit-auto-install 'prompt))
@@ -120,10 +127,12 @@
   
 ;; rest client
 (use-package restclient
+  :ensure t
   :mode ("\\.rest\\'" . restclient-mode))
 
 ;; import postman requests if needed
 (use-package impostman
+  :ensure t
   :commands (impostman-import-file impostman-import-string))
 
 ;; programming langauges major modes
@@ -137,6 +146,7 @@
   :hook (python-ts-mode . eglot-ensure))
 
 (use-package jupyter
+  :ensure t
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -144,9 +154,11 @@
      (jupyter . t))))
 
 (use-package geiser
+  :ensure t
   :defer t)
 
 (use-package geiser-guile
+  :ensure t
   :defer t)
 
 (use-package csharp-mode
@@ -160,18 +172,22 @@
 ;;   :hook (tsx-ts-mode . eglot-ensure))
 
 (use-package dart-mode
+  :ensure t
   :mode ("\\.dart\\'" . dart-mode)
   :hook (dart-mode . eglot-ensure))
 
 (use-package flutter
+  :ensure t
   :mode ("\\.dart\\'" . dart-mode)
   :hook (dart-mode . eglot-ensure))
 
 (use-package csv-mode
+  :ensure t
   :mode ("\\.csv\\'" . csv-mode)
   :hook (csv-mode . eglot-ensure))
 
 (use-package gdscript-mode
+  :ensure t
   :mode ("\\.gd\\'" . gdscript-ts-mode)
   :hook (gdscript-ts-mode . eglot-ensure)
   :init
@@ -216,6 +232,7 @@
   :hook (lua-mode . eglot-ensure))
 
 (use-package csproj-mode
+  :ensure t
   :mode ("\\.csproj\\'" . csproj-mode)
   :hook (csproj-mode . eglot-ensure))
 
