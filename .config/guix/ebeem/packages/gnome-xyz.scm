@@ -41,10 +41,10 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg))
 
-(define-public colloid-gtk-theme
+(define-public colloid-catppuccin-purple-gtk-theme
   (package
     (name "colloid-gtk-theme")
-    (version "2024.06.18")
+    (version "2024.11.16")
     (source (origin
               (method git-fetch)
               (uri (git-reference
@@ -64,9 +64,9 @@
                (replace 'install
                  (lambda _
                    (let* ((dest (string-append #$output "/share/themes"))
-                          (flags (list "--theme" "all"
-                                       ;; "--color" "all"
-                                       "--tweaks" "all"
+                          (flags (list "--theme" "purple"
+                                       "--color" "dark"
+                                       "--scheme" "catppuccin"
                                        "--dest" dest)))
                      (mkdir-p dest)
                      (apply invoke "bash" "install.sh" flags)))))))
@@ -75,10 +75,10 @@
     (description "This package provides a flat colorful design gtk theme.")
     (license license:gpl3)))
 
-(define-public colloid-icon-theme
+(define-public colloid-catppuccin-purple-icon-theme
   (package
     (name "colloid-icon-theme")
-    (version "2024.02.28")
+    (version "2025.07.19")
     (source (origin
               (method git-fetch)
               (uri (git-reference
@@ -98,9 +98,9 @@
                (replace 'install
                  (lambda _
                    (let* ((dest (string-append #$output "/share/icons"))
-                          (flags (list "--theme" "all"
-                                       ;; "--color" "all"
-                                       "--scheme" "all"
+                          (flags (list "--theme" "purple"
+                                       "--color" "dark"
+                                       "--scheme" "catppuccin"
                                        "--dest" dest)))
                      (mkdir-p dest)
                      (apply invoke "bash" "install.sh" flags)))))))
