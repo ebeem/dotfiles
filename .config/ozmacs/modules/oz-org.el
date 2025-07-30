@@ -163,12 +163,12 @@
 ;;          ("C-M-$" . jinx-languages)))
 ;; Basic ispell setup using use-package
 
-(use-package ispell
-  :ensure nil
-  :config
-  (setq ispell-alternate-dictionary "/usr/share/dict/words"
-        ispell-program-name "ispell"
-        ispell-dictionary "english"))
+;; (use-package ispell
+;;   :ensure nil
+;;   :config
+;;   (setq ispell-alternate-dictionary "/usr/share/dict/words"
+;;         ispell-program-name "ispell"
+;;         ispell-dictionary "english"))
 
 (use-package flyspell
   :ensure nil

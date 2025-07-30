@@ -41,6 +41,8 @@
               undo-limit 67108864
 			  undo-strong-limit 100663296
 			  undo-outer-limit 1006632960
+			  ispell-program-name "aspell"
+			  ispell-extra-args '("--sug-mode=ultra" "--lang=en")
               backup-directory-alist '((".*" . "~/.Trash")))
 
 (put 'downcase-region 'disabled nil)

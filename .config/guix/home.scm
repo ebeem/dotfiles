@@ -14,13 +14,14 @@
              (nongnu packages messaging)
              (nongnu packages mozilla)
              (nongnu packages k8s)
+			 (nongnu packages game-client)
              (nonguix multiarch-container))
 
-(use-package-modules admin linux aspell bittorrent fonts ftp mail video
+(use-package-modules admin linux aspell bittorrent fonts ftp mail video image
                      gnuzilla kodi pulseaudio audio music graphics shells
-                     shellutils terminals rust-apps emacs inkscape gimp photo
+                     shellutils terminals rust-apps emacs inkscape gimp photo gnucash
                      kde gdb mpd libreoffice chromium package-management hardware
-                     task-management gnome lua node php xfce engineering maths
+                     task-management gnome librewolf lua node php xfce engineering maths
                      tor vpn wm xdisorg password-utils web-browsers golang
                      game-development python jupyter python-xyz machine-learning
                      java virtualization containers emulators wine glib base)
@@ -33,6 +34,7 @@
             htop
             btop
             deluge
+			ispell
             aspell
             aspell-dict-en
             aspell-dict-ar
@@ -99,6 +101,7 @@
             ;; game development
             godot
             ;; godot-mono
+			tiled
 
             ;; communication
             isync
@@ -122,25 +125,30 @@
             zsh-completions
             zsh-autopair
             zsh-autosuggestions
+			fish
 
             ;; terminals
             alacritty
             kitty
             foot
+			ripgrep
 
             ;; video editing
             obs
             openshot
+			kdenlive
 
             ;; graphics editing
-            ;;blender
+            ;; blender
             darktable
             inkscape
             gimp
-            ;;krita
+            ;; krita
+			libresprite
 
             ;; sound editing
             audacity
+			ardour
             ;; lmms
 
             ;; media
@@ -150,6 +158,7 @@
             vlc
             kodi
             yt-dlp
+			picard
 
             ;; window manager
             sway
@@ -158,13 +167,15 @@
             rofi-wayland
 			fuzzel
             wofi
+			flameshot
 
             ;; text editors
             emacs
             ;; vscodium
 
             ;; browser
-            icecat
+			librewolf
+			;; ungoogled-chromium
             nyxt
             qutebrowser
 
@@ -173,6 +184,9 @@
 			kubectl
             podman
             flatpak
+
+			;; finance
+			gnucash
 
             ;; gaming
             retroarch
@@ -190,7 +204,7 @@
             ;; dotnet-6
 
             ;; nonfree
-            ;; steam
+            steam
             ))
 
  (services
