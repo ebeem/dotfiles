@@ -54,7 +54,7 @@
               (modules '((guix build utils)))
               (sha256
                (base32
-                "1iv6arqv661k8plbaab5kdb5bzs6myjbknk1hinjqq720zys7ins"))))
+                "0nb525kq16svmfqfcblmis8rlsd0h175xnzcgck6sw6srsgw6hgg"))))
     (build-system copy-build-system)
     (inputs
      (list murrine sassc))
@@ -66,7 +66,7 @@
                    (let* ((dest (string-append #$output "/share/themes"))
                           (flags (list "--theme" "purple"
                                        "--color" "dark"
-                                       "--scheme" "catppuccin"
+                                       "--tweaks" "catppuccin"
                                        "--dest" dest)))
                      (mkdir-p dest)
                      (apply invoke "bash" "install.sh" flags)))))))
@@ -77,7 +77,7 @@
 
 (define-public colloid-catppuccin-purple-icon-theme
   (package
-    (name "colloid-icon-theme")
+    (name "colloid-catppuccin-purple-icon-theme")
     (version "2025.07.19")
     (source (origin
               (method git-fetch)
@@ -90,7 +90,7 @@
                           (("gtk-update-icon-cache") "true")))
               (sha256
                (base32
-                "1jhj6c1jljb52fxmh88x5i7rdlc893i7q3vbw55j1wvwgg3plcvd"))))
+                "1gm76i62nmary08nivx86brccb5apl44236j3pn4s978ilql8c8b"))))
     (build-system copy-build-system)
     (arguments
      (list #:phases
@@ -99,7 +99,6 @@
                  (lambda _
                    (let* ((dest (string-append #$output "/share/icons"))
                           (flags (list "--theme" "purple"
-                                       "--color" "dark"
                                        "--scheme" "catppuccin"
                                        "--dest" dest)))
                      (mkdir-p dest)

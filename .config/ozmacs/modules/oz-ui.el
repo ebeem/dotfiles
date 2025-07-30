@@ -161,7 +161,7 @@ If not visiting a file, show buffer name."
 
 (use-package modus-themes
   :ensure t
-  :config
+  :init
   (load-theme 'modus-alucard t)
   (modus-themes-with-colors
     (custom-set-faces

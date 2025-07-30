@@ -3,8 +3,8 @@
 * {
   /* reference the color by using @color-name */
   color: @text;
-  font-family: "Iosevka Nerd Font", sans-serif;
-  font-size: 15.5;
+  font-family: "Iosevka", sans-serif;
+  font-size: 17;
   font-weight: bold;
 }
 

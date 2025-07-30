@@ -50,7 +50,7 @@
         (cursor "cursor-theme")
         (font "font-name"))
     (system "gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Purple-Dark-Catppuccin'")
-    (system "gsettings set org.gnome.desktop.interface icon-theme 'Colloid-nord-dark'")
+    (system "gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Purple-Catppuccin-Dark'")
     (system "gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'")
     (system "export QT_QPA_PLATFORMTHEME='qt6ct'")))
 

@@ -101,7 +101,6 @@
   (corfu-auto-prefix 2)
   (corfu-popupinfo-delay 0.5)
   (corfu-scroll-margin 5)
-  ;;  (completion-styles '(orderless basic))
   :hook ((prog-mode . corfu-mode)
          (corfu-mode . corfu-popupinfo-mode)))
   
@@ -174,12 +173,18 @@
 ;;           (right-fringe . 12))))
 
 ;; Optionally use the `orderless' completion style.
+;; (use-package orderless
+;;   :ensure t
+;;   :config
+;;   (setq completion-styles '(orderless basic)
+;;         completion-category-defaults nil
+;;         completion-category-overrides '((file (styles partial-completion)))))
+
 (use-package orderless
   :ensure t
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package consult
   :ensure t

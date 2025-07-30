@@ -60,8 +60,8 @@
             libreoffice
 
             ;; ui
-            colloid-gtk-theme
-            colloid-icon-theme
+            colloid-catppuccin-purple-gtk-theme
+			colloid-catppuccin-purple-icon-theme
             gsettings-desktop-schemas
             (list glib "bin")
 
@@ -80,7 +80,7 @@
             font-awesome
 
             ;; programming
-            make
+            ;; make
             go
             python
             ;; python-keras
@@ -98,7 +98,7 @@
 
             ;; game development
             godot
-            godot-mono
+            ;; godot-mono
 
             ;; communication
             isync
@@ -133,19 +133,19 @@
             openshot
 
             ;; graphics editing
-            blender
+            ;;blender
             darktable
             inkscape
             gimp
-            krita
+            ;;krita
 
             ;; sound editing
             audacity
-            lmms
+            ;; lmms
 
             ;; media
             mpd
-            blanket
+            ;; blanket
             ncmpcpp
             vlc
             kodi
@@ -156,6 +156,7 @@
             dunst
             waybar
             rofi-wayland
+			fuzzel
             wofi
 
             ;; text editors
