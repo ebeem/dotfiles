@@ -18,7 +18,7 @@
              (nonguix multiarch-container))
 
 (use-package-modules admin linux aspell bittorrent fonts ftp mail video image
-                     gnuzilla kodi pulseaudio audio music graphics shells
+                     gnuzilla kodi pulseaudio audio music graphics shells guile-xyz
                      shellutils terminals rust-apps emacs inkscape gimp photo gnucash
                      kde gdb mpd libreoffice chromium package-management hardware
                      task-management gnome librewolf lua node php xfce engineering maths
