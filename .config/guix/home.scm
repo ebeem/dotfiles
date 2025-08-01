@@ -168,6 +168,7 @@
 			fuzzel
             wofi
 			flameshot
+			guile-swayer
 
             ;; text editors
             emacs
