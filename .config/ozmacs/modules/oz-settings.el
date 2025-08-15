@@ -45,6 +45,15 @@
 			  ispell-extra-args '("--sug-mode=ultra" "--lang=en")
               backup-directory-alist '((".*" . "~/.Trash")))
 
+;; completion configuration
+(setq-default completion-styles '(basic flex)
+      completion-auto-select t ;; Show completion on first call
+      completion-auto-help 'visible ;; Display *Completions* upon first request
+      completions-format 'one-column ;; Use only one column
+      completions-sort 'historical ;; Order based on minibuffer history
+      completions-max-height 20 ;; Limit completions to 15 (completions start at line 5)
+      completion-ignore-case t)
+
 (put 'downcase-region 'disabled nil)
 
 ;; (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))

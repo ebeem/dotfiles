@@ -31,7 +31,7 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
-export BROWSER=/usr/bin/firefox
+export BROWSER=/usr/bin/librewolf
 export EDITOR=/usr/bin/emacs
 #export ANDROID_HOME=/mnt/storage/android
 #export ANDROID_SDK_ROOT=$ANDROID_HOME

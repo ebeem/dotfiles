@@ -26,7 +26,6 @@
                      game-development python jupyter python-xyz machine-learning
                      java virtualization containers emulators wine glib base)
 
-
 (home-environment
  (packages (list
             ;; utils

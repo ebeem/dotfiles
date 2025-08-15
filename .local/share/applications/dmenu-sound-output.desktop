@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=DMenu Sound Output
+GenericName=Sound Manager
+Exec=guile .bin/dmenu-sound-output-controller.scm
+Terminal=false
+Icon=settings
+Type=Application
+Categories=Application;DMenu;Sound;Settings;

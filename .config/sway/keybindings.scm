@@ -83,29 +83,27 @@
 
    `("s-w" (sway-kill) #:wk "Kill Window")
    `("s-Return" (exec "alacritty") #:wk "Spawn Terminal")
-   `("M-s-Space" (exec "~/.bin/switch-keyboard-layout") #:wk "Switch Keyboard Layout")
+   ;; `("M-s-Space" (exec "~/.bin/switch-keyboard-layout") #:wk "Switch Keyboard Layout")
    `("C-s-Space" (exec "sleep 0.05 && fuzzel")) #:wk "Application Launcher")
 
   ;; define leader keymap
   (general-define-keys
    #:prefix "s-Space" #:wk "Leader"
-   `("o" (exec "sleep 0.05 && fuzzel") #:wk "Applications")
+   `("o" (exec "fuzzel") #:wk "Applications")
    `("C-g" (sway-mode "default") #:wk "Abort")
 
    ;; rofi keymap
    `(general-define-keys
      #:prefix "r" #:wk "Rofi"
-     ("p" (exec "sleep 0.05 && ~/.config/rofi/bin/password-manager") #:wk "Password Manager")
+     ("p" (exec "guile ~/.bin/dmenu-password-controller.scm") #:wk "Password Manager")
      ("m" (exec "sleep 0.05 && rofi-mount") #:wk "Mount Drives")
      ("u" (exec "sleep 0.05 && rofi-unmount") #:wk "Unmount Drives")
      ("w" (exec "sleep 0.05 && .config/rofi/bin/wifi") #:wk "Wifi")
-     ("b" (exec "sleep 0.05 && ~/.config/rofi/bin/bluetooth") #:wk "Bluetooth")
-     ("f" (exec "sleep 0.05 && ~/.config/rofi/bin/finder") #:wk "Finder")
-     ("k" (exec "sleep 0.05 && ~/.config/rofi/bin/keyboard-layout") #:wk "Keyboard Layouts")
-     ("P" (exec "sleep 0.05 && ~/.config/rofi/bin/powermenu") #:wk "Power")
-     ("o" (exec "sleep 0.05 && rofi -show drun") #:wk "Applications")
-     ("s" (exec "sleep 0.05 && ~/.config/rofi/bin/sound-input") #:wk "Sound Input")
-     ("S" (exec "sleep 0.05 && ~/.config/rofi/bin/sound-output") #:wk "Sound Output"))
+     ("b" (exec "guile ~/.bin/dmenu-bluetooth-controller.scm") #:wk "Bluetooth")
+     ("P" (exec "guile ~/.bin/dmenu-power-controller.scm") #:wk "Power")
+     ("o" (exec "fuzzel") #:wk "Applications")
+     ("s" (exec "guile ~/.bin/dmenu-sound-input-controller.scm") #:wk "Sound Input")
+     ("S" (exec "guile ~/.bin/dmenu-sound-output-controller.scm") #:wk "Sound Output"))
 
    ;; screenshot keymap
    ;; flameshot is not performing well under wayland & multiple monitors

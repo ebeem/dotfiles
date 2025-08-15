@@ -1,10 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-Name=Rofi Power 
+Name=DMenu Power
 GenericName=Power Manager
-Exec=.bin/rofi-powermenu
+Exec=guile .bin/dmenu-power-controller.scm
 Terminal=false
 Icon=settings
 Type=Application
-Categories=Application;Rofi;Power;Settings;
+Categories=Application;DMenu;Power;Settings;

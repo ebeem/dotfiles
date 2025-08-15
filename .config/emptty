@@ -1,0 +1,28 @@
+#!/bin/sh
+Selection=true
+
+xrdb -merge ~/.Xresources
+
+# source /etc/profile does not have any effect
+. /etc/profile
+. ~/.profile
+
+export BROWSER=/usr/bin/librewolf
+export EDITOR=/usr/bin/emacs
+#export ANDROID_HOME=/mnt/storage/android
+#export ANDROID_SDK_ROOT=$ANDROID_HOME
+#export PATH=/home/ebeem/workspace/git/flutter/bin::$PATH
+export PATH=home/ebeem/.dotnet/tools:$PATH
+export PATH=/opt/android-sdk/tools/bin:$PATH
+export PATH=~/.emacs.d/bin:~/.bin:$PATH
+export PATH=~/.config/emacs/bin:~/.bin:$PATH
+export PATH=~/.dotnet/tools:$PATH
+export STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/ebeem/.steam
+export XDG_CONFIG_HOME=~/.config
+source $ZSH/oh-my-zsh.sh
+export QT_QPA_PLATFORMTHEME="qt6ct"
+export GUILE_LOAD_PATH=/usr/local/share/guile/site/3.0
+export EDITOR=/usr/bin/emacs
+export MOZ_ENABLE_WAYLAND=1
+
+exec dbus-launch $@

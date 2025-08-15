@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-Name=Rofi Bluetooth
+Name=DMenu Bluetooth
 GenericName=Bluetooth Manager
-Exec=.bin/rofi-bluetooth
+Exec=guile .bin/dmenu-bluetooth-controller.scm
 Terminal=false
 Icon=settings
 Type=Application

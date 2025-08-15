@@ -1,6 +1,6 @@
 (use-modules (guile-swayer swayipc))
 
-(sway-exec "firefox")
+(sway-exec "librewolf")
 (sway-exec "gtk-launch 'eshell'")
 (sway-exec "emacsclient -c")
 
