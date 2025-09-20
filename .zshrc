@@ -33,8 +33,8 @@ fi
 
 export BROWSER=/usr/bin/librewolf
 export EDITOR=/usr/bin/emacs
-#export ANDROID_HOME=/mnt/storage/android
-#export ANDROID_SDK_ROOT=$ANDROID_HOME
+export ANDROID_HOME=/home/ebeem/Android/Sdk
+export ANDROID_SDK_ROOT=$ANDROID_HOME
 #export PATH=/home/ebeem/workspace/git/flutter/bin::$PATH
 export PATH=home/ebeem/.dotnet/tools:$PATH
 export PATH=/opt/android-sdk/tools/bin:$PATH
