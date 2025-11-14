@@ -18,17 +18,6 @@
                                     (bookmarks . "book"))))
 
 
-;; (use-package doom-modeline
-;;   :init (doom-modeline-mode 1)
-;;   :config
-;;   (setq doom-modeline-height 35      ;; sets modeline height
-;;         doom-modeline-bar-width 5    ;; sets right bar width
-;;         doom-modeline-persp-name t   ;; adds perspective name to modeline
-;;         doom-modeline-enable-word-count t
-;;         doom-modeline-buffer-encoding nil
-;;         doom-modeline-buffer-file-name-style 'truncate-with-project
-;;         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
-
 (defun eb/mode-line-file-icon ()
   "Return a nerd icon based on the current buffer's file type."
   (if (featurep 'nerd-icons)
@@ -159,24 +148,23 @@ If not visiting a file, show buffer name."
        branch-str)))
    ))
 
+(use-package spacious-padding
+  :ensure t
+  :init
+  (setq spacious-padding-widths
+		'( :internal-border-width 8
+		   :header-line-width 4
+		   :mode-line-width 6
+		   :tab-width 8
+		   :right-divider-width 4
+		   :scroll-bar-width 8))
+  (spacious-padding-mode 1))
+
 (use-package modus-themes
   :ensure t
   :init
-  (load-theme 'modus-alucard t)
-  (modus-themes-with-colors
-    (custom-set-faces
-     ;; Add "padding" to the mode lines
-     `(mode-line ((,c :underline ,border-mode-line-active
-                      :overline ,border-mode-line-active
-                      :box (:line-width 4 :color ,bg-mode-line-active))))
-     `(mode-line-inactive ((,c :underline ,border-mode-line-inactive
-                               :overline ,border-mode-line-inactive
-                               :box (:line-width 4 :color ,bg-mode-line-inactive))))))
+  (load-theme 'modus-alucard t))
 
-  ;; ESSENTIAL to make the underline move to the bottom of the box:
-  (setq x-underline-at-descent-line t)
-  (add-hook 'modus-themes-after-load-theme-hook #'eb/modus-themes-custom-faces))
-  
 (use-package nerd-icons-completion
   :ensure t
   :after marginalia

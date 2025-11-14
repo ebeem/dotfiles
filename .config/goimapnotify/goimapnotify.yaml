@@ -13,7 +13,7 @@ configurations:
             -
                 mailbox: INBOX
                 onNewMail: 'mbsync gmeb2'
-                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                onNewMailPost: 'notmuch new && emacsclient -e "(notmuch-refresh-all-buffers)"'
 
     -
         host: imap.gmail.com
@@ -29,7 +29,7 @@ configurations:
             -
                 mailbox: INBOX
                 onNewMail: 'mbsync gmibm'
-                onNewMailPost: SKIP
+                onNewMailPost: 'notmuch new && emacsclient -e "(notmuch-refresh-all-buffers)"'
                 
     -
         host: imap.gmail.com
@@ -45,7 +45,7 @@ configurations:
             -
                 mailbox: INBOX
                 onNewMail: 'mbsync gmozb'
-                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                onNewMailPost: 'notmuch new && emacsclient -e "(notmuch-refresh-all-buffers)"'
                 
     -
         host: imap.gmail.com
@@ -61,7 +61,7 @@ configurations:
             -
                 mailbox: INBOX
                 onNewMail: 'mbsync gmtwi'
-                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                onNewMailPost: 'notmuch new && emacsclient -e "(notmuch-refresh-all-buffers)"'
                 
     -
         host: imap.gmail.com
@@ -77,7 +77,7 @@ configurations:
             -
                 mailbox: INBOX
                 onNewMail: 'mbsync gmblm'
-                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                onNewMailPost: 'notmuch new && emacsclient -e "(notmuch-refresh-all-buffers)"'
 
     -
         host: imap.gmail.com
@@ -93,7 +93,7 @@ configurations:
             -
                 mailbox: INBOX
                 onNewMail: 'mbsync gmret'
-                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                onNewMailPost: 'notmuch new && emacsclient -e "(notmuch-refresh-all-buffers)"'
 
     -
         host: imap.gmail.com
@@ -109,4 +109,4 @@ configurations:
             -
                 mailbox: INBOX
                 onNewMail: 'mbsync gmozm'
-                onNewMailPost: 'emacsclient -e "(gnus-group-get-new-news)"'
+                onNewMailPost: 'notmuch new && emacsclient -e "(notmuch-refresh-all-buffers)"'

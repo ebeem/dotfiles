@@ -31,6 +31,28 @@
 ;;         ement-room-left-margin-width 10
 ;;         ement-room-right-margin-width 0))
 
+(use-package ement
+  :commands (ement-connect)
+  :ensure t
+  :init
+  (with-eval-after-load 'savehist
+      (defun ement--savehist-save-hook ()
+        "Remove all `ement-' commands from `command-history'.
+    Because when `savehist' saves `command-history', it includes the
+    interactive arguments passed to the command, which in our case
+    includes large data structures that should never be persisted!"
+        (setf command-history
+              (cl-remove-if (pcase-lambda (`(,command . ,_))
+                              (string-match-p (rx bos "ement-") (symbol-name command)))
+                            command-history)))
+      (add-hook 'begining-of-buffer-hook (lambda () (ement-room-mwheel-scroll)))
+      (cl-pushnew 'ement--savehist-save-hook savehist-save-hook))
+  (setq ement-save-sessions t)
+  :config
+  (setq ement-room-message-format-spec "%W <%S>: %B%t"
+		ement-room-left-margin-width 1
+		ement-room-right-margin-width 1))
+
 (use-package erc
   :ensure nil
   :init
@@ -42,6 +64,16 @@
      :port 6697
      :nick "ebeem"
      :password (password-store-get "IRC/irc.libera.chat")))
+  (defun eb/connect-znc ()
+    "Connect to irc using password store."
+    (interactive)
+    (erc
+     :server "191.101.165.63"
+     :port 1200
+     :nick "ebeem"
+	 :user "ebeem/libera"
+     :password (password-store-get "IRC/irc.libera.chat")))
+
   :config
   (add-to-list 'erc-modules 'notifications)
   (setq erc-fill-function 'erc-fill-static

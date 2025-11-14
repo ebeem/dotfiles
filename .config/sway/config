@@ -1,5 +1,6 @@
 include /etc/sway/config.d/*
 exec "waybar"
+exec "swayosd-server"
 exec_always "export QT_QPA_PLATFORMTHEME='qt6ct'"
 exec_always "guile ~/.config/sway/init.scm > ~/.cache/logs/guile-swayer.log 2>&1"
 workspace_layout tabbed 

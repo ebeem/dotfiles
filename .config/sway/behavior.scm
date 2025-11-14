@@ -27,8 +27,8 @@
 (sway-default-gaps SWAY-GAPS-OPTION-INNER 10)
 (sway-title-format "")
 (sway-workspace-layout SWAY-LAYOUT-TABBED)
-(sway-titlebar-border-thickness 0)
-(sway-titlebar-padding 25 0)
+(sway-titlebar-padding 25 4)
+(sway-titlebar-border-thickness 3)
 (sway-default-border-style SWAY-BORDER-STYLE-PIXEL #:n 3)
 
 ;; TODO: better move theme colors to another module for all guile scripts to inherit from
@@ -61,17 +61,17 @@
 
 (sway-client-background base)
 
-(sway-client-focused-color mauve mauve crust
+(sway-client-focused-color mauve mantle text
                            #:indictor-color mauve
                            #:child-border-color mauve)
 
-(sway-client-focused-inactive-color overlay0 overlay0 text
-                           #:indictor-color overlay0
-                           #:child-border-color overlay0)
+(sway-client-focused-inactive-color mantle mantle text
+                           #:indictor-color mantle
+                           #:child-border-color mantle)
 
-(sway-client-unfocused-color overlay0 overlay0 text
-                           #:indictor-color overlay0
-                           #:child-border-color overlay0)
+(sway-client-unfocused-color mantle mantle text
+                           #:indictor-color mantle
+                           #:child-border-color mantle)
 
 (sway-client-urgent-color peach base peach
                            #:indictor-color overlay0
@@ -93,7 +93,7 @@
 ;;                  #:focused-urgent-workspace '(overlay0 overlay0 overlay0)
 ;;                  #:binding-mode '(overlay0 overlay0 overlay0))
 
-(sway-font "Iosevka Bold 11")
+(sway-font "Iosevka Bold 13")
 (sway-workspace-auto-back-and-forth #f)
 (sway-mouse-warping SWAY-MOUSE-WARPING-NONE)
 ;; (sway-opacity SWAY-OPACITY-SET 0.95)

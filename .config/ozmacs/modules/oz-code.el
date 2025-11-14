@@ -140,6 +140,11 @@
 ;;   :mode ("\\.jsx\\'" . rjsx-mode)
 ;;   :hook (rjsx-mode . eglot-ensure))
 
+(use-package javascript-mode
+  :ensure nil
+  :mode ("\\.tsx\\'" . js-jsx-mode)
+  :hook (js-jsx-mode . eglot-ensure))
+
 (use-package python-mode
   :ensure nil
   :mode ("\\.py\\'" . python-ts-mode)
@@ -167,9 +172,10 @@
   :hook (csharp-mode . eglot-ensure)
   :hook (csharp-ts-mode . eglot-ensure))
 
-;; (use-package typescript-ts-mode
-;;   :mode ("\\.tsx\\'" . tsx-ts-mode)
-;;   :hook (tsx-ts-mode . eglot-ensure))
+(use-package rjsx-mode
+  :ensure t
+  :mode ("\\.tsx\\'" . rjsx-mode)
+  :hook (rjsx-mode . eglot-ensure))
 
 (use-package dart-mode
   :ensure t
@@ -236,11 +242,26 @@
   :mode ("\\.csproj\\'" . csproj-mode)
   :hook (csproj-mode . eglot-ensure))
 
+(use-package markdown-mode
+  :ensure t
+  :mode ("\\.md\\'" . gfm-mode))
+
 ;; (use-package indent-bars
 ;;   :ensure (:host github :repo "jdtsmith/indent-bars")
 ;;   :hook (prog-mode . indent-bars-mode))
 
-;; (use-package pgmacs)
+(use-package pg
+  :commands pgmacs
+  :ensure t
+  :vc (:url "https://github.com/emarsden/pg-el"))
+
+(use-package pgmacs
+  :ensure t
+  :commands pgmacs
+  :vc (:url "https://github.com/emarsden/pgmacs")
+  :custom-face
+  (pgmacs-table-data
+   ((t (:inherit default :weight bold)))))
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

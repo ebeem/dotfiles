@@ -27,21 +27,21 @@
   ;; define root keybindings
   (general-define-keys
    ;; media-keys
-   `("XF86AudioLowerVolume" (exec "pactl set-sink-volume @DEFAULT_SINK@ -5%") #:wk "Decrease Volume")
-   `("XF86AudioRaiseVolume" (exec "pactl set-sink-volume @DEFAULT_SINK@ +5%") #:wk "Increase Volume")
+   `("XF86AudioLowerVolume" (exec "swayosd-client --output-volume -5") #:wk "Decrease Volume")
+   `("XF86AudioRaiseVolume" (exec "swayosd-client --output-volume +5") #:wk "Increase Volume")
    `("s-[" (sway-resize SWAY-RESIZE-TYPE-GROW SWAY-RESIZE-DIRECTION-WIDTH 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Grow Width")
    `("s-]" (sway-resize SWAY-RESIZE-TYPE-SHRINK SWAY-RESIZE-DIRECTION-WIDTH 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Shrink Width")
    `("s-[" (sway-resize SWAY-RESIZE-TYPE-GROW SWAY-RESIZE-DIRECTION-HEIGHT 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Grow Height")
    `("s-]" (sway-resize SWAY-RESIZE-TYPE-SHRINK SWAY-RESIZE-DIRECTION-HEIGHT 10 #:unit SWAY-SIZE-UNIT-PX) #:wk "Shrink Height")
 
-   `("XF86AudioMute" (exec "pactl set-sink-mute @DEFAULT_SINK@ toggle") #:wk "Toggle Mute")
+   `("XF86AudioMute" (exec "swayosd-client --output-volume mute-toggle") #:wk "Toggle Mute")
    `("XF86AudioNext" (exec "mpc next") #:wk "Next Song")
    `("XF86AudioPrev" (exec "mpc prev") #:wk "Previous Song")
    `("XF86AudioPlay" (exec "mpc toggle") #:wk "Toggle Player")
 
    ;; brightness-keys
-   `("XF86MonBrightnessUp" (exec "brightnessctl set +10%") #:wk "Increase Brightness")
-   `("XF86MonBrightnessDown" (exec "brightnessctl set 10%-") #:wk "Decrease Brightness")
+   `("XF86MonBrightnessUp" (exec "swayosd-client --brightness raise") #:wk "Increase Brightness")
+   `("XF86MonBrightnessDown" (exec "swayosd-client --brightness lower") #:wk "Decrease Brightness")
 
    `("s-M-SPC" (sway-input "type:keyboard" "xkb_switch_layout next") #:wk "Switch Language")
 

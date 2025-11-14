@@ -48,7 +48,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export GUILE_LOAD_PATH=/usr/local/share/guile/site/3.0
 
 alias em="/usr/bin/emacsclient -nw"
-neofetch
+fastfetch
 
 autoload -Uz vcs_info # enable vcs_info
 precmd () { vcs_info } # always load before displaying the prompt

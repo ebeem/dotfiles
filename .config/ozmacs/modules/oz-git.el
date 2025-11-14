@@ -4,6 +4,7 @@
 ;;; Code:
 (use-package transient
   :ensure t)
+
 (use-package magit
   :ensure t
   :defer 5
@@ -35,10 +36,11 @@
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-;; (use-package forge
-;;   :after magit
-;;   :commands (forge-create-pullreq forge-create-issue)
-;;   :custom (forge-database-file (expand-file-name ".cache/forge-database.sqlite" user-emacs-directory)))
+(use-package forge
+  :after magit
+  :ensure t
+  :commands (forge-create-pullreq forge-create-issue)
+  :custom (forge-database-file (expand-file-name ".cache/forge-database.sqlite" user-emacs-directory)))
 
 ;; (use-package seq)
 

@@ -1,24 +1,22 @@
 ;;; Code:
 
 ;; font
-(set-face-attribute 'default nil
-                    :font "Iosevka"
-                    ;; :height (/ (display-pixel-width) 13)
-                    :height 165
-                    ;; :height 200
-                    :weight 'demibold)
-(set-face-attribute 'fixed-pitch nil
-                    :font "Iosevka"
-                    ;; :height (/ (display-pixel-width) 13)
-                    :height 165
-                    ;; :height 200
-                    :weight 'demibold)
-(set-face-attribute 'variable-pitch nil
-                    :font "Iosevka"
-                    ;; :height (/ (display-pixel-width) 13)
-                    :height 165
-                    ;; :height 200
-                    :weight 'bold)
+(defun eb/reset-font ()
+  "Reset the font to default ones."
+  (interactive)
+  (set-face-attribute 'default nil
+					  :font "Iosevka"
+					  :height 165
+					  :weight 'bold)
+  (set-face-attribute 'fixed-pitch nil
+					  :font "Iosevka"
+					  :height 165
+					  :weight 'bold)
+  (set-face-attribute 'variable-pitch nil
+					  :font "Iosevka"
+					  :height 165
+					  :weight 'bold))
+(eb/reset-font)
 
 (setq-default truncate-lines t
               word-wrap t
