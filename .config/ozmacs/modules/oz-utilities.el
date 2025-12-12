@@ -59,12 +59,12 @@
      (message "Renamed: %s -> %s" old newpath))
    nil)))
 
-  (defun goto-match-paren ()
-    "Go to the matching parenthesis if on a parenthesis character."
-    (interactive)
-    (cond ((looking-at "\\s(") (forward-sexp 1))
-          ((looking-back "\\s)" 1) (backward-sexp 1))
-          (t (message "Not on a parenthesis"))))
+(defun goto-match-paren ()
+  "Go to the matching parenthesis if on a parenthesis character."
+  (interactive)
+  (cond ((looking-at "\\s(") (forward-sexp 1))
+        ((looking-back "\\s)" 1) (backward-sexp 1))
+        (t (message "Not on a parenthesis"))))
 
 ;; "b" (cons "Buffer" my-test-buffer-map)
 (use-package emacs
@@ -184,9 +184,31 @@
   (undo-fu-session-global-mode))
 
 (use-package sudo-edit
-    :ensure t)
-(use-package visual-fill-column
-    :ensure t)
+  :ensure t)
+
+;; (use-package visual-fill-column
+;;   :ensure t)
+
+(use-package olivetti
+  :ensure t
+  :config
+  (setq olivetti-minimum-body-width 80
+		olivetti-body-width 0.8
+		olivetti-margin-width 0
+		olivetti-recall-visual-line-mode-entry-state t))
+
+;; TODO: read pdf, docx, libreoffice
+;; (setq package-vc-allow-build-commands t)
+;; (use-package reader
+;;   :ensure t
+;;   :vc (:url "https://codeberg.org/divyaranjan/emacs-reader"
+;; 	  :make "all"))
+
+(use-package eww
+  :ensure nil
+  :config
+  (setq shr-max-width fill-column
+		shr-use-fonts nil))
 
 (use-package pdf-tools
   :ensure t
@@ -292,6 +314,65 @@
   :ensure t
   :bind
   ("C-=" . er/expand-region))
+
+(use-package pulsar
+  :ensure t
+  :bind
+  ( :map global-map
+    ("C-x l" . pulsar-pulse-line)
+    ("C-x L" . pulsar-highlight-dwim))
+  :init
+  (pulsar-global-mode 1)
+  :config
+  (set-face-background 'pulsar-generic "#c6a0f6")
+  (setq pulsar-face 'pulsar-generic)
+  (setq pulsar-highlight-face 'pulsar-generic)
+  (setq pulsar-region-face 'pulsar-generic)
+  (setq pulsar-delay 0.05)
+  (setq pulsar-iterations 3)
+  (setq pulsar-pulse-region-functions pulsar-pulse-region-functions)
+  :hook
+  (next-error . pulsar-pulse-line)
+  (minibuffer-setup . pulsar-pulse-line))
+
+(use-package show-font
+  :ensure t
+  :bind (
+		 :map eb/open-map
+			  ("f" . show-font-select-preview)
+			  ("F" . show-font-tabulated))
+  :config
+  (setq show-font-pangram "the quick brown fox jumps over the lazy dog"))
+
+(use-package logos
+  :ensure t
+  :config
+  ;; If you want to use outlines instead of page breaks (the ^L):
+  (setq logos-outlines-are-pages t)
+
+  ;; This is the default value for the outlines:
+  (setq logos-outline-regexp-alist
+		`((emacs-lisp-mode . "^;;;+ ")
+		  (org-mode . "^\\*+ +")
+		  (markdown-mode . "^\\#+ +")))
+
+  ;; These apply when `logos-focus-mode' is enabled.  Their value is
+  ;; buffer-local.
+  (setq-default logos-hide-cursor nil
+				logos-hide-mode-line t
+				logos-hide-header-line t
+				logos-hide-buffer-boundaries t
+				logos-hide-fringe t
+				logos-variable-pitch nil
+				logos-buffer-read-only nil
+				logos-scroll-lock nil
+				logos-olivetti t)
+
+  (let ((map global-map))
+	(define-key map [remap narrow-to-region] #'logos-narrow-dwim)
+	(define-key map [remap forward-page] #'logos-forward-page-dwim)
+	(define-key map [remap backward-page] #'logos-backward-page-dwim)
+	(define-key map (kbd "<f9>") #'logos-focus-mode)))
 
 (provide 'oz-utilities)
 ;;; oz-utilities.el ends here

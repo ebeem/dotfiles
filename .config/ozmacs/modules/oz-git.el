@@ -53,27 +53,27 @@
 ;;   (global-diff-hl-mode)
 ;;   (diff-hl-margin-mode))
 
-(use-package vc
-  :ensure nil
-  :init
-  (defvar-keymap eb/magit-map :doc "Magit")
-  :bind-keymap (("C-c g" . eb/magit-map))
+;; (use-package vc
+;;   :ensure nil
+;;   :init
+;;   (defvar-keymap eb/magit-map :doc "Magit")
+;;   :bind-keymap (("C-c g" . eb/magit-map))
 
-  (defun eb/vc-git-init-repo ()
-    "Initialize a new Git repository in the current directory and enable VC support."
-    (interactive)
-    (let ((default-directory (expand-file-name default-directory)))
-      (if (vc-find-root default-directory ".git")
-          (message "Git repository already exists in %s" default-directory)
-        (progn
-          (shell-command "git init")
-          (vc-refresh-state)
-          (message "Initialized new Git repository in %s" default-directory)))))
+;;   (defun eb/vc-git-init-repo ()
+;;     "Initialize a new Git repository in the current directory and enable VC support."
+;;     (interactive)
+;;     (let ((default-directory (expand-file-name default-directory)))
+;;       (if (vc-find-root default-directory ".git")
+;;           (message "Git repository already exists in %s" default-directory)
+;;         (progn
+;;           (shell-command "git init")
+;;           (vc-refresh-state)
+;;           (message "Initialized new Git repository in %s" default-directory)))))
   
-  :bind (
-         :map eb/magit-map
-         ("R" . vc-revert)
-         ("i" . eb/vc-git-init-repo)))
+;;   :bind (
+;;          :map eb/magit-map
+;;          ("R" . vc-revert)
+;;          ("i" . eb/vc-git-init-repo)))
 
 (provide 'oz-git)
 ;;; oz-keybindings.el ends here

@@ -11,10 +11,12 @@
 ;; add modules and themes to load paths
 ;; (profiler-start 'cpu)
 
-(add-to-list 'load-path
-  (expand-file-name "modules" user-emacs-directory))
-(add-to-list 'custom-theme-load-path
-  (expand-file-name "themes" user-emacs-directory))
+(dolist (dir '("modules" "themes" "lisp"))
+  (let ((path (expand-file-name dir user-emacs-directory)))
+    (add-to-list 'load-path path)
+    (add-to-list 'custom-theme-load-path path)))
+
+(setq package-vc-allow-build-commands t)
 
 (require 'oz-settings)        ;;
 (require 'oz-utilities)       ;; ('sudo-edit')
@@ -38,3 +40,6 @@
 
 ;; (profiler-stop)
 
+;;(setq youtube-browser-api-key "AIzaSyB__eInZK-mOvxULY8cwonn0Km-b7ZuT94")
+;;(require 'empty)
+;;(require 'youtube-browser)

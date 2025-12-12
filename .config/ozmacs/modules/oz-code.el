@@ -31,6 +31,7 @@
   :hook (prog-mode . editorconfig-mode))
 
 ;; colorize color names / color hex code in buffers. (red) (#ff0000)
+;; TODO: replace with colorful-mode
 (use-package rainbow-mode
   :ensure t
   :diminish
@@ -86,10 +87,13 @@
                `((csharp-mode csharp-ts-mode)
                  . ,(append '("csharp-ls")
                             (eglot-csharp-ls-select-solution))))
+  (add-to-list 'display-buffer-alist
+             '("\\*compilation\\*"
+               (display-buffer-no-window)))
+
   :commands eglot
   :bind (("C-c c a" . eglot-code-actions)
-         ("C-c c c" . comment-or-uncomment-region)
-         ("C-c c C" . recompile)
+         ("C-c c c" . project-recompile)
          ("C-c c d" . eglot-find-typeDefinition)
          ("C-c c D" . eglot-find-implementation)
          ("C-c c F" . eglot-format-buffer)
@@ -102,7 +106,13 @@
          ("C-c c m" . imenu)
          ("C-c c r" . eglot-rename)
          ("C-c c t" . eglot-find-typeDefinition)
-         ("C-c c x" . flymake-show-project-diagnostics)))
+         ("C-c c x" . flymake-show-project-diagnostics)
+         ("C-c c ;" . comment-or-uncomment-region)))
+
+(use-package ansi-color
+  :ensure nil
+  :hook
+  (compilation-filter . ansi-color-compilation-filter))
 
 ;; (use-package lsp-mode
 ;;   :init

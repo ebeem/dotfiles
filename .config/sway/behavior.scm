@@ -93,7 +93,7 @@
 ;;                  #:focused-urgent-workspace '(overlay0 overlay0 overlay0)
 ;;                  #:binding-mode '(overlay0 overlay0 overlay0))
 
-(sway-font "Iosevka Bold 13")
+(sway-font "Iosevka Bold 14")
 (sway-workspace-auto-back-and-forth #f)
 (sway-mouse-warping SWAY-MOUSE-WARPING-NONE)
 ;; (sway-opacity SWAY-OPACITY-SET 0.95)

@@ -20,7 +20,8 @@
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
         org-insert-heading-respect-content t
-
+		;; I find sub and superscripts annoying is most org files
+		org-use-sub-superscripts nil
         ;; Org styling, hide markup etc.
         org-hide-emphasis-markers t
         org-pretty-entities t
@@ -112,9 +113,8 @@
       (eb/start-panel)))
 
   (defun eb/org-mode-start ()
-    (setq-local visual-fill-column-width 150
-                visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
+    (setq-local olivetti-body-width 0.8)
+    (olivetti-mode 1))
 
   (defun eb/org-present-prev ()
     (interactive)

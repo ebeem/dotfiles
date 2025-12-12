@@ -18,6 +18,7 @@
 					  :weight 'bold))
 (eb/reset-font)
 
+
 (setq-default truncate-lines t
               word-wrap t
               inhibit-startup-message t
@@ -55,7 +56,10 @@
 (put 'downcase-region 'disabled nil)
 
 ;; (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))
-(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
+(add-hook 'prog-mode-hook
+		  (lambda ()
+			(display-line-numbers-mode)
+			(electric-pair-local-mode)))
 ;; (add-hook 'before-save-hook #'whitespace-cleanup)	;; cleanup whitespaces
 
 (global-auto-revert-mode 1)							;; auto revert unchanged buffers

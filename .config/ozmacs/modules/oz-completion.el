@@ -141,7 +141,6 @@
   :ensure t
   :init
   (vertico-mode)
-  :ensure t
   :config
   (setq vertico-resize nil
         vertico-count 17
@@ -158,19 +157,20 @@
         ("C-'" . vertico-quick-jump)))
 
 ;; lets 'vertico' use 'posframe' to show its candidate menu
-;; (use-package vertico-posframe
-;;   :after vertico
-;;   :init
-;;   (vertico-posframe-mode 1)
-;;   :config
-;;   (advice-add 'vertico-posframe--show
-;;               :before
-;;               (defun vertico-posframe--show/before (&rest _args)
-;;                 (setq vertico-posframe-truncate-lines
-;;                       (< (point) (* 0.8 (window-width (active-minibuffer-window)))))))
-;;   (setq vertico-posframe-parameters
-;;         '((left-fringe . 12)
-;;           (right-fringe . 12))))
+(use-package vertico-posframe
+  :ensure t
+  :after vertico
+  :init
+  (vertico-posframe-mode 1)
+  :config
+  (advice-add 'vertico-posframe--show
+              :before
+              (defun vertico-posframe--show/before (&rest _args)
+                (setq vertico-posframe-truncate-lines
+                      (< (point) (* 0.8 (window-width (active-minibuffer-window)))))))
+  (setq vertico-posframe-parameters
+        '((left-fringe . 12)
+          (right-fringe . 12))))
 
 ;; Optionally use the `orderless' completion style.
 ;; (use-package orderless
@@ -189,6 +189,9 @@
 (use-package consult
   :ensure t
   :defer t
+  :init
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
   :bind
   (
    ([remap bookmark-jump] . consult-bookmark)
@@ -211,7 +214,8 @@
   :bind (:map eb/project-map
               ("s" . consult-ripgrep))
   :config
-  (setq consult-narrow-key "<"
+  (setq consult-ripgrep-args "rg --hidden --null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip -g !.git"
+		consult-narrow-key "<"
         consult-line-numbers-widen t
         consult-async-min-input 2
         consult-async-refresh-delay  0.15
@@ -242,6 +246,23 @@
   (setq file-name-shadow-mode 1)
   :init
   (marginalia-mode))
+
+(use-package embark
+  :ensure t
+  :bind (("C-." . embark-act)
+         :map minibuffer-local-map
+         ("C-c C-c" . embark-collect)
+         ("C-c C-e" . embark-export)))
+
+(use-package embark-consult
+  :ensure t)
+
+(use-package wgrep
+  :ensure t
+  :bind ( :map grep-mode-map
+          ("e" . wgrep-change-to-wgrep-mode)
+          ("C-x C-q" . wgrep-change-to-wgrep-mode)
+          ("C-c C-c" . wgrep-finish-edit)))
 
 ;; (use-package helpful
 ;;   :bind

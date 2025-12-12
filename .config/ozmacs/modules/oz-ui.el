@@ -152,11 +152,11 @@ If not visiting a file, show buffer name."
   :ensure t
   :init
   (setq spacious-padding-widths
-		'( :internal-border-width 8
+		'( :internal-border-width 12
 		   :header-line-width 4
 		   :mode-line-width 6
 		   :tab-width 8
-		   :right-divider-width 4
+		   :right-divider-width 8
 		   :scroll-bar-width 8))
   (spacious-padding-mode 1))
 

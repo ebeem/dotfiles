@@ -4,7 +4,7 @@
   /* reference the color by using @color-name */
   color: @text;
   font-family: "Iosevka", sans-serif;
-  font-size: 16;
+  font-size: 17;
   font-weight: bold;
 }
 
