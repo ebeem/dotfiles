@@ -19,7 +19,7 @@
          ("-" . dired-jump)
          
          :map eb/files-map
-         ("c" . editorconfig-find-current-editorconfig)
+         ("C" . editorconfig-find-current-editorconfig)
          ("c" . copy-this-file)
          ("u" . sudo-edit)
          ("U" . sudo-edit-find-file)
@@ -333,7 +333,6 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 (use-package burly
   :ensure t
   :config
-  (setq project-list-file (expand-file-name ".cache/projects" user-emacs-directory))
   (setq burly-frameset-filter-alist '((name . nil)
                                       (posframe-parent-buffer . :never))))
 
@@ -371,7 +370,6 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
   (setq pulsar-region-face 'pulsar-generic)
   (setq pulsar-delay 0.05)
   (setq pulsar-iterations 3)
-  (setq pulsar-pulse-region-functions pulsar-pulse-region-functions)
   :hook
   (next-error . pulsar-pulse-line)
   (minibuffer-setup . pulsar-pulse-line))

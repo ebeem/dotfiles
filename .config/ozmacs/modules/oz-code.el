@@ -152,7 +152,6 @@
 
 (use-package javascript-mode
   :ensure nil
-  :mode ("\\.tsx\\'" . js-jsx-mode)
   :hook (js-jsx-mode . eglot-ensure))
 
 (use-package python-mode
@@ -162,11 +161,13 @@
 
 (use-package jupyter
   :ensure t
+  :defer t
   :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)
-     (jupyter . t))))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((python . t)
+       (jupyter . t)))))
 
 (use-package geiser
   :ensure t
@@ -199,8 +200,7 @@
 
 (use-package csv-mode
   :ensure t
-  :mode ("\\.csv\\'" . csv-mode)
-  :hook (csv-mode . eglot-ensure))
+  :mode ("\\.csv\\'" . csv-mode))
 
 (use-package gdscript-mode
   :ensure t
@@ -240,17 +240,16 @@
 (use-package php-ts-mode
   :ensure nil
   :mode ("\\.php\\'" . php-ts-mode)
-  :hook (php-mode . eglot-ensure))
+  :hook (php-ts-mode . eglot-ensure))
 
 (use-package lua-ts-mode
   :ensure nil
   :mode ("\\.lua\\'" . lua-ts-mode)
-  :hook (lua-mode . eglot-ensure))
+  :hook (lua-ts-mode . eglot-ensure))
 
 (use-package csproj-mode
   :ensure t
-  :mode ("\\.csproj\\'" . csproj-mode)
-  :hook (csproj-mode . eglot-ensure))
+  :mode ("\\.csproj\\'" . csproj-mode))
 
 (use-package markdown-mode
   :ensure t

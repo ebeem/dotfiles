@@ -2,9 +2,6 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package transient
-  :ensure t)
-
 (use-package magit
   :ensure t
   :defer 5
@@ -14,7 +11,7 @@
         transient-values-file  (expand-file-name ".cache/transient/values" user-emacs-directory)
         transient-history-file (expand-file-name ".cache/transient/history" user-emacs-directory)
   		transient-display-buffer-action '(display-buffer-below-selected)
-        magit-display-buffer-function #'+magit-display-buffer-fn
+        magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1
         magit-bury-buffer-function #'magit-mode-quit-window)
   
   :bind-keymap (("C-c g" . eb/magit-map))
@@ -33,8 +30,7 @@
          ("S" . magit-stage-file)
          ("U" . magit-unstage-file))
 
-  :config
-  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+)
 
 (use-package forge
   :after magit
@@ -76,4 +72,4 @@
 ;;          ("i" . eb/vc-git-init-repo)))
 
 (provide 'oz-git)
-;;; oz-keybindings.el ends here
+;;; oz-git.el ends here

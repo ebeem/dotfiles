@@ -55,7 +55,7 @@ When set to non-nil, Emacs will automatically call `package-initialize' and
 
 (setq custom-theme-directory
       (expand-file-name "themes/" minimal-emacs-user-directory))
-(setq custom-file (expand-file-name "custom.el" minimal-emacs-user-directory))
+(setq custom-file (expand-file-name ".cache/custom.el" minimal-emacs-user-directory))
 
 ;;; Misc
 

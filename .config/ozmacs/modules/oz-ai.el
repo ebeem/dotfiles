@@ -17,4 +17,4 @@
 		  (agent-shell-google-make-authentication :login t)))
 
 (provide 'oz-ai)
-;;; oz-utilities.el ends here
+;;; oz-ai.el ends here

@@ -2,7 +2,7 @@
 (use-package newsticker
   :ensure nil
   :init
-  (setq newsticker-dir "~/.emacs.d/.cache/newsticker"
+  (setq newsticker-dir (expand-file-name ".cache/newsticker" user-emacs-directory)
 		newsticker-url-list-defaults nil
         newsticker-treeview-listwindow-height 13
         newsticker-retrieval-method 'extern

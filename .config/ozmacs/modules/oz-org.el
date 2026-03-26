@@ -128,25 +128,19 @@
     (when (fboundp 'live-crafter-add-timestamp)
       (live-crafter-add-timestamp (substring-no-properties (org-get-heading t t t t))))))
 
-;; Load org-faces to make sure we can set appropriate faces
-(require 'org-faces)
-
-;; Hide emphasis markers on formatted text
-(setq org-hide-emphasis-markers t)
-
-
-;; Make the document title a bit bigger
-(set-face-attribute 'org-document-title nil :inherit 'fixed-pitch :weight 'bold :height 1.2)
-
-;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
-(set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+;; Defer org face customization until org is actually loaded
+(with-eval-after-load 'org
+  (require 'org-faces)
+  (setq org-hide-emphasis-markers t)
+  (set-face-attribute 'org-document-title nil :inherit 'fixed-pitch :weight 'bold :height 1.2)
+  (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 ;; auto tangle org-mode files
 (use-package org-auto-tangle
@@ -182,4 +176,4 @@
   :bind (("C-c s c" . flyspell-correct-wrapper)))
 
 (provide 'oz-org)
-;;; oz-code.el ends here
+;;; oz-org.el ends here

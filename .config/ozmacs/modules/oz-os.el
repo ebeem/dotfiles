@@ -20,7 +20,7 @@
 
 (setq academel-progress-file (expand-file-name ".cache/academel-progress.json" user-emacs-directory)
 	  typel-stats-file (expand-file-name ".cache/typelstats.el" user-emacs-directory)
-	  ytbel-history-file (expand-file-name ".cache/ytbel-history.el9" user-emacs-directory)
+	  ytbel-history-file (expand-file-name ".cache/ytbel-history.el" user-emacs-directory)
 	  ytbel-subscriptions-file (expand-file-name ".cache/ytbel-subscriptions.el" user-emacs-directory)
 	  ytbel-bookmarks-file (expand-file-name ".cache/ytbel-bookmarks.el" user-emacs-directory)
 	  skyel-use-nerd-icons t
@@ -30,4 +30,4 @@
 		("London"      51.5074   -0.1278  "Europe/London")))
 
 (provide 'oz-os)
-;;; oz-code.el ends here
+;;; oz-os.el ends here

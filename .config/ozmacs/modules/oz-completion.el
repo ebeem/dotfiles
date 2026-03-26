@@ -206,7 +206,7 @@
    ([remap man] . consult-man)
    ([remap recentf-open-files] . consult-recent-file)
    ([remap switch-to-buffer] . consult-buffer)
-   ([remap switch-to-buffer-other-window] . nsult-buffer-other-window)
+   ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
    ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
    ([remap project-switch-to-buffer] . consult-project-buffer)
    ([remap yank-pop] . consult-yank-pop)
@@ -241,9 +241,8 @@
   :bind (:map minibuffer-local-map
          ("M-A" . marginalia-cycle))
   :ensure t
-  :hook (rfn-eshadow-update-overlay-hook . vertico-directory-tidy)
   :config
-  (setq file-name-shadow-mode 1)
+  (file-name-shadow-mode 1)
   :init
   (marginalia-mode))
 

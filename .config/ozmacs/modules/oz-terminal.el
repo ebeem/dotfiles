@@ -20,9 +20,7 @@
         eshell-last-dir-ring-file-name (expand-file-name ".cache/eshell/lastdir" user-emacs-directory)
         eshell-aliases-file (expand-file-name ".cache/eshell/aliases" user-emacs-directory)
         eshell-history-file-name (expand-file-name ".cache/eshell/history" user-emacs-directory))
-  (defvar-keymap eb/evaluate-map :doc "EShell/Evaluate")
   (defvar-keymap eb/toggle-map :doc "Toggle")
-  :bind-keymap (("C-c e" . eb/evaluate-map))
   :ensure nil
   :bind (
          :map eb/open-map

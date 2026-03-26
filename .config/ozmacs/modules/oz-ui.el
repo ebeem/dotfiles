@@ -121,8 +121,8 @@ If not visiting a file, show buffer name."
    ;; File icon
    (:eval (eb/mode-line-file-icon))
    " "
-   ;; Read-only / modified symbol (optional)
-   (:eval)
+   ;; Read-only indicator
+   (:eval (eb/mode-line-read-only))
    ;; Shortened path
    (:eval (eb/mode-line-file-path))
    "\t"
@@ -202,4 +202,4 @@ If not visiting a file, show buffer name."
 ;; (dired-mode . dired-hide-details-mode))
 
 (provide 'oz-ui)
-;;; oz-completion.el ends here
+;;; oz-ui.el ends here

@@ -81,7 +81,9 @@
         erc-fill-static-center 20
         erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")))
 
-(use-package password-store)
+(use-package password-store
+  :ensure t
+  :defer t)
 
 (use-package erc-hl-nicks
   :after erc
@@ -95,4 +97,4 @@
   (add-to-list 'erc-modules 'image))
 
 (provide 'oz-chat)
-;;; oz-matrix.el ends here
+;;; oz-chat.el ends here

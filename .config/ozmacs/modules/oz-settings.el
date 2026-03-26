@@ -37,7 +37,6 @@ Intended for `after-make-frame-functions'."
               standard-indent 4
               typescript-ts-mode-indent-offset 4
               tab-width 4
-              undo-limit 1000
               auto-save-default t
               tab-always-indent t
               undo-no-redo t
@@ -50,11 +49,10 @@ Intended for `after-make-frame-functions'."
 			  resize-mini-windows nil
 			  ispell-program-name "aspell"
 			  ispell-extra-args '("--sug-mode=ultra" "--lang=en")
-              backup-directory-alist '((".*" . "~/.Trash")))
+)
 
-;; completion configuration
-(setq-default completion-styles '(basic flex)
-      completion-auto-select t ;; Show completion on first call
+;; completion configuration (completion-styles overridden by orderless in oz-completion)
+(setq-default completion-auto-select t ;; Show completion on first call
       completion-auto-help 'visible ;; Display *Completions* upon first request
       completions-format 'one-column ;; Use only one column
       completions-sort 'historical ;; Order based on minibuffer history
@@ -77,13 +75,10 @@ Intended for `after-make-frame-functions'."
 ;; auto-save-mode doesn't create the path automatically!
 (make-directory (expand-file-name ".cache" user-emacs-directory) t)
 (make-directory (expand-file-name ".cache/auto-saves/" user-emacs-directory) t)
-(setq read-process-output-max (* 1024 1024))
-
 (setq url-configuration-directory (expand-file-name ".cache/url" user-emacs-directory)
       transient-history-file (expand-file-name ".cache/transient/history" user-emacs-directory)
       eshell-directory-name (expand-file-name ".cache/eshell" user-emacs-directory)
       bookmark-default-file (expand-file-name ".cache/bookmarks.bmk" user-emacs-directory)
-      auto-save-list-file-prefix (expand-file-name ".cache/auto-save-list/.saves-" user-emacs-directory)
       create-lockfiles nil
       auto-save-list-file-prefix (expand-file-name ".cache/auto-saves/sessions" user-emacs-directory)
       auto-save-file-name-transforms `((".*" ,(expand-file-name ".cache/auto-saves/" user-emacs-directory) t))
@@ -91,8 +86,7 @@ Intended for `after-make-frame-functions'."
 
 (add-to-list 'treesit-extra-load-path (expand-file-name ".cache/tree-sitter" user-emacs-directory))
 
-;; avoid storing custom lines in 'init.el' file
-(setq custom-file (expand-file-name ".cache/custom.el" user-emacs-directory))
+;; load custom file (path already set in early-init.el)
 (when (file-exists-p custom-file)
   (load custom-file))
 
@@ -137,7 +131,5 @@ Intended for `after-make-frame-functions'."
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 
-;; use y/n instead of yes/no
-(defalias 'yes-or-no-p 'y-or-n-p)
 (provide 'oz-settings)
 ;;; oz-settings.el ends here
