@@ -33,15 +33,5 @@
 (require 'oz-ai)
 (require 'oz-os)
 
-;; (require 'oz-package-manager) ;; ('elpaca')
-;; (require 'oz-evil)            ;; ('evil', 'evil-collection', 'evil-escape')
-;; (require 'oz-meow)            ;; ('meow')
-;; (require 'oz-keybindings)     ;; ('general')
-;; (require 'oz-ai)              ;; ('aider')
-;; (require 'oz-dashboard)
-
 ;; (profiler-stop)
 
-;;(setq youtube-browser-api-key "AIzaSyB__eInZK-mOvxULY8cwonn0Km-b7ZuT94")
-;;(require 'empty)
-;;(require 'youtube-browser)
