@@ -1,9 +1,3 @@
-(use-package aider
-  :ensure (:host github :repo "tninja/aider.el")
-  :config
-  (setenv "OLLAMA_API_BASE" "http://127.0.0.1:11434")
-  (setq aider-args '("--no-auto-commits" "--model" "ollama_chat/qwen2.5-coder")))
-
 (use-package gptel
   :ensure t
   :init
@@ -11,7 +5,16 @@
    (gptel-make-ollama "Ollama"
 	:host "localhost:11434"
 	:stream t
-	:models '(gpt-oss:latest))))
+	:models '("aeline/phil:8b"))))
+	;; :models '(qwen3-coder-next:latest))))
+
+(use-package agent-shell
+    :ensure t
+    :config
+	(setq agent-shell-anthropic-authentication
+		  (agent-shell-anthropic-make-authentication :login t)
+		  agent-shell-google-authentication
+		  (agent-shell-google-make-authentication :login t)))
 
 (provide 'oz-ai)
 ;;; oz-utilities.el ends here

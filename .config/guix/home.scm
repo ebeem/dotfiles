@@ -142,17 +142,17 @@
             darktable
             inkscape
             gimp
-            ;; krita
+            krita
 			libresprite
 
             ;; sound editing
             audacity
 			ardour
-            ;; lmms
+            lmms
 
             ;; media
             mpd
-            ;; blanket
+            blanket
             ncmpcpp
             vlc
             kodi
@@ -199,7 +199,7 @@
             ;; firefox
 
             ;; dotnet
-            dotnet-8
+            ;; dotnet-8
             ;; dotnet-7
             ;; dotnet-6
 

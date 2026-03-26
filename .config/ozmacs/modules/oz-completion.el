@@ -142,8 +142,8 @@
   :init
   (vertico-mode)
   :config
-  (setq vertico-resize nil
-        vertico-count 17
+  (setq vertico-resize t
+        vertico-count 15
         vertico-cycle t)
   :bind
   (:map vertico-map

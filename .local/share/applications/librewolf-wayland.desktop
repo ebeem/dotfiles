@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=LibreWolf (Wayland)
+GenericName=LibreWolf (Wayland)
+Exec=MOZ_ENABLE_WAYLAND=1 librewolf
+Terminal=false
+Icon=librewolf
+Type=Application
+Categories=Application;Browser;Internet

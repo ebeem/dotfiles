@@ -7,6 +7,7 @@
       frame-resize-pixelwise      t     ; fine resize
       max-lisp-eval-depth		  10000
       warning-minimum-level 	  :emergency
+	  package-user-dir (expand-file-name ".cache/elpa" user-emacs-directory)
       native-comp-eln-load-path
       (list (expand-file-name ".cache/eln-cache/" user-emacs-directory)))
 

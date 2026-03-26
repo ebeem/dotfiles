@@ -5,19 +5,26 @@
   "Reset the font to default ones."
   (interactive)
   (set-face-attribute 'default nil
-					  :font "Iosevka"
+					  :font "Iosevka Charon Mono"
 					  :height 165
 					  :weight 'bold)
   (set-face-attribute 'fixed-pitch nil
-					  :font "Iosevka"
+					  :font "Iosevka Charon Mono"
 					  :height 165
 					  :weight 'bold)
   (set-face-attribute 'variable-pitch nil
-					  :font "Iosevka"
+					  :font "Iosevka Charon Mono"
 					  :height 165
 					  :weight 'bold))
-(eb/reset-font)
 
+(defun eb/reset-font-hook (frame)
+  "Configure font given initial non-daemon FRAME.
+Intended for `after-make-frame-functions'."
+  (eb/reset-font))
+
+;; Run for the first frame (if it exists) and all subsequent frames
+(add-hook 'after-make-frame-functions #'eb/reset-font-hook)
+(eb/reset-font)
 
 (setq-default truncate-lines t
               word-wrap t
@@ -40,6 +47,7 @@
               undo-limit 67108864
 			  undo-strong-limit 100663296
 			  undo-outer-limit 1006632960
+			  resize-mini-windows nil
 			  ispell-program-name "aspell"
 			  ispell-extra-args '("--sug-mode=ultra" "--lang=en")
               backup-directory-alist '((".*" . "~/.Trash")))
@@ -89,8 +97,8 @@
   (load custom-file))
 
 ;; transparency
-(set-frame-parameter nil 'alpha-background 92)
-(add-to-list 'default-frame-alist '(alpha-background . 92))
+(set-frame-parameter nil 'alpha-background 97)
+(add-to-list 'default-frame-alist '(alpha-background . 97))
 
 ;; tramp fix remote paths
 (use-package tramp
@@ -101,6 +109,27 @@
   (setq tramp-remote-path
       (append tramp-remote-path
               '(tramp-own-remote-path))))
+
+;; (use-package easysession
+;;   :ensure t
+;;   :demand t
+;;   :init
+;;   (setq easysession-directory (expand-file-name ".cache/easy-session" user-emacs-directory))
+;;   :custom
+;;   (easysession-save-interval (* 10 60))
+;;   (easysession-switch-to-save-session t)
+;;   (easysession-switch-to-exclude-current t)
+;;   (easysession-save-mode-lighter-show-session-name t)
+;;   :config
+;;   (global-set-key (kbd "C-c sl") #'easysession-switch-to) ; Load session
+;;   (global-set-key (kbd "C-c ss") #'easysession-save) ; Save session
+;;   (global-set-key (kbd "C-c sL") #'easysession-switch-to-and-restore-geometry)
+;;   (global-set-key (kbd "C-c sr") #'easysession-rename)
+;;   (global-set-key (kbd "C-c sR") #'easysession-reset)
+;;   (global-set-key (kbd "C-c su") #'easysession-unload)
+;;   (global-set-key (kbd "C-c sd") #'easysession-delete)
+;;   (setq easysession-setup-load-session t)
+;;   (easysession-setup))
 
 ;; keybindings
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)

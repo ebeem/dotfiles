@@ -1,10 +1,9 @@
 ;;; Code:
 (use-package newsticker
-  :init
-  (setq newsticker-dir "~/.emacs.d/.cache/newsticker")
   :ensure nil
-  :config
-  (setq newsticker-url-list-defaults nil
+  :init
+  (setq newsticker-dir "~/.emacs.d/.cache/newsticker"
+		newsticker-url-list-defaults nil
         newsticker-treeview-listwindow-height 13
         newsticker-retrieval-method 'extern
         newsticker-automatically-mark-items-as-old t
@@ -33,7 +32,7 @@
     (define-key newsticker-treeview-item-mode-map (kbd "C-k") #'newsticker-treeview-prev-item))
   :bind (
          :map eb/open-map
-         ("n" . newsticker-tree)))
+         ("n" . newsticker-treeview)))
 
 (provide 'oz-news)
 ;;; oz-news.el ends here

@@ -39,7 +39,7 @@ style = "Bold"
 history = 100000
 
 [window]
-opacity = 0.85
+opacity = 0.97
 
 [general]
 import = [
@@ -48,4 +48,182 @@ import = [
   # "~/.config/alacritty/catppuccin-frappe.toml"
   "~/.config/alacritty/catppuccin-macchiato.toml"
   # "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+[keyboard]
+bindings = [
+ 
+  # ---------------------------------------------------------------------------
+  # CLIPBOARD  (Emacs: M-w copy, C-w kill, C-y yank)
+  # ---------------------------------------------------------------------------
+  # C-w  — kill/cut selection (send DEL word, handled by readline; also Copy)
+  { key = "W",          mods = "Control",       action = "Copy"  },
+  # M-w  — copy selection (Emacs: copy without killing)
+  { key = "W",          mods = "Alt",            action = "Copy"  },
+  # C-y  — yank (paste)
+  { key = "Y",          mods = "Control",        action = "Paste" },
+  # C-S-v / S-Insert  — alternative paste
+  { key = "V",          mods = "Control|Shift",  action = "Paste" },
+  { key = "Insert",     mods = "Shift",           action = "Paste" },
+  # C-S-c — copy (GUI-style fallback)
+  { key = "C",          mods = "Control|Shift",  action = "Copy"  },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # SCROLLING  (Emacs: C-v / M-v page up/down; M-< / M-> top/bottom)
+  # ---------------------------------------------------------------------------
+  # C-v  — scroll one page down  (Emacs: next screen)
+  { key = "V",          mods = "Control",        action = "ScrollPageDown" },
+  # M-v  — scroll one page up   (Emacs: previous screen)
+  { key = "V",          mods = "Alt",            action = "ScrollPageUp"   },
+  # M-<  — scroll to top of buffer
+  { key = "Home",       mods = "Alt",            action = "ScrollToTop"    },
+  { key = "Comma",      mods = "Alt|Shift",      action = "ScrollToTop"    },
+  # M->  — scroll to bottom of buffer
+  { key = "End",        mods = "Alt",            action = "ScrollToBottom"  },
+  { key = "Period",     mods = "Alt|Shift",      action = "ScrollToBottom"  },
+  # C-Down / C-Up — scroll line by line
+  { key = "Down",       mods = "Control",        action = "ScrollLineDown"  },
+  { key = "Up",         mods = "Control",        action = "ScrollLineUp"    },
+  # Mouse wheel scroll (extra lines)
+  { key = "PageDown",   mods = "Shift",          action = "ScrollPageDown"  },
+  { key = "PageUp",     mods = "Shift",          action = "ScrollPageUp"    },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # CURSOR MOVEMENT  (Emacs movement chars sent to the shell / readline)
+  # C-a / C-e  beginning / end of line   → most shells handle natively
+  # C-f / C-b  forward / back char       → most shells handle natively
+  # M-f / M-b  forward / back word
+  # C-n / C-p  next / previous line
+  # ---------------------------------------------------------------------------
+ 
+  # M-f  — forward word  (ESC f)
+  { key = "F",          mods = "Alt",            chars = "\u001bf" },
+  # M-b  — backward word  (ESC b)
+  { key = "B",          mods = "Alt",            chars = "\u001bb" },
+  # M-Right — forward word (alternative)
+  { key = "Right",      mods = "Alt",            chars = "\u001bf" },
+  # M-Left  — backward word (alternative)
+  { key = "Left",       mods = "Alt",            chars = "\u001bb" },
+ 
+  # C-a  — beginning of line (also home)
+  { key = "A",          mods = "Control",        chars = "\u0001" },
+  # C-e  — end of line
+  { key = "E",          mods = "Control",        chars = "\u0005" },
+  # C-f  — forward char
+  { key = "F",          mods = "Control",        chars = "\u0006" },
+  # C-b  — backward char
+  { key = "B",          mods = "Control",        chars = "\u0002" },
+  # C-n  — next line (down)
+  { key = "N",          mods = "Control",        chars = "\u000e" },
+  # C-p  — previous line (up)
+  { key = "P",          mods = "Control",        chars = "\u0010" },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # DELETION  (Emacs-style kill commands sent to readline)
+  # ---------------------------------------------------------------------------
+  # C-d  — delete char forward
+  { key = "D",          mods = "Control",        chars = "\u0004" },
+  # C-h  — delete char backward (backspace)
+  { key = "H",          mods = "Control",        chars = "\u0008" },
+  # M-d  — kill word forward   (ESC d)
+  { key = "D",          mods = "Alt",            chars = "\u001bd" },
+  # M-Backspace / C-Backspace  — kill word backward
+  { key = "Back",       mods = "Alt",            chars = "\u001b\u007f" },
+  { key = "Back",       mods = "Control",        chars = "\u001b\u007f" },
+  # C-k  — kill to end of line
+  { key = "K",          mods = "Control",        chars = "\u000b" },
+  # C-u  — kill to beginning of line (readline: kill whole line)
+  { key = "U",          mods = "Control",        chars = "\u0015" },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # SEARCH / ISEARCH  (Emacs: C-r / C-s — sent to shell / fzf / etc.)
+  # ---------------------------------------------------------------------------
+  # C-r  — reverse incremental search (readline / bash history)
+  { key = "R",          mods = "Control",        chars = "\u0012" },
+  # C-s  — forward incremental search
+  { key = "S",          mods = "Control",        chars = "\u0013" },
+ 
+  # Alacritty's built-in search overlay (C-S-f / C-S-b)
+  { key = "F",          mods = "Control|Shift",  action = "SearchForward"  },
+  { key = "B",          mods = "Control|Shift",  action = "SearchBackward" },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # TRANSPOSE / MISC EDITING
+  # ---------------------------------------------------------------------------
+  # C-t  — transpose chars
+  { key = "T",          mods = "Control",        chars = "\u0014" },
+  # M-t  — transpose words (ESC t)
+  { key = "T",          mods = "Alt",            chars = "\u001bt" },
+  # C-o  — open line (newline without moving point)
+  { key = "O",          mods = "Control",        chars = "\u000f" },
+  # C-l  — redraw / clear screen (like clear-screen in readline)
+  { key = "L",          mods = "Control",        chars = "\u000c" },
+  # C-g  — cancel / abort (sends BEL / ^G)
+  { key = "G",          mods = "Control",        chars = "\u0007" },
+  # C-Space — set mark (sends NUL / ^@)
+  { key = "Space",      mods = "Control",        chars = "\u0000" },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # UNDO  (C-/ and C-_ — readline undo)
+  # ---------------------------------------------------------------------------
+  { key = "Slash",      mods = "Control",        chars = "\u001f" },
+  { key = "Minus",      mods = "Control",        chars = "\u001f" },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # VI MODE  (Alacritty's built-in Vi mode, toggled with C-S-Space)
+  # Useful for Emacs users who want keyboard-driven copy without the mouse.
+  # ---------------------------------------------------------------------------
+  { key = "Space",      mods = "Control|Shift",  action = "ToggleViMode"  },
+ 
+  # Vi mode navigation (only active when Vi mode is on)
+  { key = "C",          mods = "Control",        mode = "Vi",  action = "ScrollToBottom"    },
+  { key = "D",          mods = "Control",        mode = "Vi",  action = "ScrollHalfPageDown" },
+  { key = "U",          mods = "Control",        mode = "Vi",  action = "ScrollHalfPageUp"   },
+  { key = "Y",          mods = "None",           mode = "Vi",  action = "Copy"               },
+  { key = "Return",     mods = "None",           mode = "Vi",  action = "ToggleViMode"       },
+  { key = "Escape",     mods = "None",           mode = "Vi",  action = "ToggleViMode"       },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # FONT SIZE  (Emacs: C-x C-+  / C-x C-- style, mapped to C-= and C--)
+  # ---------------------------------------------------------------------------
+  { key = "Plus",       mods = "Control",        action = "IncreaseFontSize" },
+  { key = "Equals",     mods = "Control",        action = "IncreaseFontSize" },
+  { key = "Minus",      mods = "Control|Shift",  action = "DecreaseFontSize" },
+  { key = "Key0",       mods = "Control",        action = "ResetFontSize"    },
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # TABS / WINDOWS  (terminal-emulator level — requires shell/tmux support)
+  # These send common tmux/screen prefix sequences as a convenience.
+  # ---------------------------------------------------------------------------
+  # F1-F4 — switch tmux windows 1-4  (send tmux prefix + number)
+  # (Uncomment and adjust prefix if you use tmux with C-b)
+  # { key = "F1", mods = "None", chars = "\u0002\u0031" },  # C-b 1
+  # { key = "F2", mods = "None", chars = "\u0002\u0032" },  # C-b 2
+  # { key = "F3", mods = "None", chars = "\u0002\u0033" },  # C-b 3
+  # { key = "F4", mods = "None", chars = "\u0002\u0034" },  # C-b 4
+ 
+ 
+  # ---------------------------------------------------------------------------
+  # MISC
+  # ---------------------------------------------------------------------------
+  # C-z  — suspend process (SIGTSTP)
+  { key = "Z",          mods = "Control",        chars = "\u001a" },
+  # C-c  — interrupt (SIGINT) — leave default, but explicit here for clarity
+  { key = "C",          mods = "Control",        chars = "\u0003" },
+  # C-\  — quit (SIGQUIT)
+  { key = "Backslash",  mods = "Control",        chars = "\u001c" },
+  # M-x  — send ESC x  (launches M-x in emacs-style shells like eshell)
+  { key = "X",          mods = "Alt",            chars = "\u001bx" },
+  # M-:  — send ESC :  (eval-expression equivalent)
+  { key = "Semicolon",  mods = "Alt|Shift",      chars = "\u001b:" },
+ 
 ]

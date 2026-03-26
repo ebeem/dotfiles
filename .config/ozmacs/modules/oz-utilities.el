@@ -9,7 +9,8 @@
   :bind-keymap (("C-c o" . eb/open-map))
   :bind (
          :map eb/dired-map
-         ("d" . dired-jump) 
+         ("d" . dired-jump)
+         ("D" . dired-delete-permanently) 
          ("j" . dired-jump) 
          ("p" . peep-dired)
          
@@ -28,6 +29,12 @@
          ("s" . save-buffer)
          ("r" . counsel-recentf))
   :config
+  (defun dired-delete-permanently (&optional arg)
+	"Delete marked files in Dired permanently, bypassing the trash."
+	(interactive "P")
+	(let ((delete-by-moving-to-trash nil))
+      (dired-do-delete arg)))
+
   ;; file opening procedures
   (defun dired-open-file ()
     "In dired, open the file named on this line."
@@ -35,29 +42,61 @@
     (let* ((file (dired-get-filename nil t)))
       (call-process "xdg-open" nil 0 nil file)))
 
+  (defun dired-open-file-with ()
+	"Prompt to open the file at point in Dired with a user-selected application.
+Relies on `xdg-mime`, `gio`, and `gtk-launch`."
+	(interactive)
+	(require 'dired)
+	(require 'subr-x)
+	(let* ((file (dired-get-filename nil t))
+           mimetype gio-output apps selected-desktop file-uri)
+      (unless file
+		(error "No file at point"))
+      (setq file-uri (concat "file://" (expand-file-name file)))
+      (setq mimetype (string-trim
+                      (shell-command-to-string
+                       (format "xdg-mime query filetype %s" (shell-quote-argument file)))))
+      (when (string-empty-p mimetype)
+		(error "Could not determine mime type for %s" (file-name-nondirectory file)))
+      (setq gio-output (shell-command-to-string
+						(format "gio mime %s" (shell-quote-argument mimetype))))
+      (dolist (word (split-string gio-output "[ \t\n\r]+" t))
+		(when (string-suffix-p ".desktop" word)
+          (push word apps)))
+      (setq apps (delete-dups (nreverse apps)))
+      (unless apps
+		(error "No applications found to handle mime type: %s" mimetype))
+      (setq selected-desktop (completing-read 
+                              (format "Open '%s' with: " (file-name-nondirectory file)) 
+                              apps nil t))
+      (let ((process-connection-type nil))
+		(start-process "dired-open-with-process" "*dired-open-errors*" 
+                       "gtk-launch" selected-desktop file-uri))
+      (message "Opened %s with %s" (file-name-nondirectory file) selected-desktop)))
+
   (defun dired-rename-to-snake-case ()
-  "Rename marked files in Dired to snake_case format."
-  (interactive)
-  (require 'subr-x)
-  (dired-map-over-marks
-   (let* ((old (dired-get-filename))
-          (filename (file-name-nondirectory old))
-          (dir (file-name-directory old))
-          (name-no-ext (file-name-sans-extension filename))
-          (ext (file-name-extension filename))
-          ;; Convert camelCase, PascalCase, kebab-case, and space to snake_case
-          (snake (downcase
-                  (replace-regexp-in-string
-                   "[^A-Za-z0-9]+" "_"
-                   (replace-regexp-in-string
-                    "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2" name-no-ext))))
-          (newname (if ext
-                       (concat snake "." ext)
-                     snake))
-          (newpath (expand-file-name newname dir)))
-     (rename-file old newpath)
-     (message "Renamed: %s -> %s" old newpath))
-   nil)))
+	"Rename marked files in Dired to snake_case format."
+	(interactive)
+	(require 'subr-x)
+	(dired-map-over-marks
+	 (let* ((old (dired-get-filename))
+			(filename (file-name-nondirectory old))
+			(dir (file-name-directory old))
+			(name-no-ext (file-name-sans-extension filename))
+			(ext (file-name-extension filename))
+			;; Convert camelCase, PascalCase, kebab-case, and space to snake_case
+			(snake (downcase
+					(replace-regexp-in-string
+					 "[^A-Za-z0-9]+" "_"
+					 (replace-regexp-in-string
+                      "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2" name-no-ext))))
+			(newname (if ext
+						 (concat snake "." ext)
+                       snake))
+			(newpath (expand-file-name newname dir)))
+       (rename-file old newpath)
+       (message "Renamed: %s -> %s" old newpath))
+	 nil)))
 
 (defun goto-match-paren ()
   "Go to the matching parenthesis if on a parenthesis character."
@@ -181,6 +220,8 @@
 (use-package undo-fu-session
   :ensure t
   :init
+  (setq undo-fu-session-directory
+		(expand-file-name ".cache/undo-fu-session" user-emacs-directory))
   (undo-fu-session-global-mode))
 
 (use-package sudo-edit
