@@ -3,6 +3,7 @@
 	name = ebeem
 [core]
 	autocrlf = input
+	excludesfile = /home/ebeem/.gitignore_global
 [http]
 	sslverify = false
 	proxy = 

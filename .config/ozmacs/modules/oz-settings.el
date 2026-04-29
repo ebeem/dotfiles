@@ -13,7 +13,7 @@
 					  :height 165
 					  :weight 'bold)
   (set-face-attribute 'variable-pitch nil
-					  :font "Iosevka Charon Mono"
+					  :font "Iosevka Charon"
 					  :height 165
 					  :weight 'bold))
 

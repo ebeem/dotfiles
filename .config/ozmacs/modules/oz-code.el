@@ -114,14 +114,6 @@
   :hook
   (compilation-filter . ansi-color-compilation-filter))
 
-;; (use-package lsp-mode
-;;   :init
-;;   (setq lsp-session-file (expand-file-name ".cache/lsp-sessions" user-emacs-directory)
-;;         lsp-server-install-dir (expand-file-name ".cache/lsp-servers" user-emacs-directory))
-;;   :hook (
-;;          (lsp-mode . lsp-enable-which-key-integration))
-;;   :commands lsp)
-
 ;; (use-package with-venv)
 
 (use-package eldoc
@@ -171,11 +163,142 @@
 
 (use-package geiser
   :ensure t
-  :defer t)
+  :defer t
+  :init
+  (setq geiser-repl-add-project-paths t))
 
 (use-package geiser-guile
   :ensure t
   :defer t)
+
+(defun eb/re-export-all-defs ()
+  "Clear the current #:export list and re-export all definitions in the buffer."
+  (interactive)
+  (let ((orig-point (point-marker)))
+    (save-excursion
+      (goto-char (point-min))
+      (when (search-forward "#:export" nil t)
+        (skip-chars-forward " \t\n")
+        (when (looking-at "(")
+          (let ((start (1+ (point)))
+                (end (save-excursion (forward-list 1) (1- (point)))))
+            ;; Delete everything inside the parentheses
+            (delete-region start end)))))
+
+    (mark-whole-buffer)
+    (call-interactively 'eb/append-defs-to-export)
+
+    (deactivate-mark)
+    (goto-char orig-point)
+    (set-marker orig-point nil)))
+
+(defun eb/append-defs-to-export ()
+  "Extract defined variables/functions and record types in the active region 
+or current line, check if they are already exported, and append new ones to 
+the #:export section."
+  (interactive)
+  (let* ((bounds (if (use-region-p)
+                     (cons (region-beginning) (region-end))
+                   (cons (line-beginning-position) (line-end-position))))
+         (beg (car bounds))
+         (end (cdr bounds))
+         (name-alist nil) ; Store (position . "name") to maintain document order
+         (names nil)
+         (def-regex "(\\(define\\*?\\(?:-[a-z-]+\\)?\\|def[a-z-]+\\)\\s-+[(]?\\s-*\\([^ \t\n()]+\\)"))
+
+    ;; PASS 1: Extract standard definitions via Regex
+    (save-excursion
+      (goto-char beg)
+      (while (re-search-forward def-regex end t)
+        ;; CHANGED: (nth 8 (syntax-ppss)) returns non-nil if point is inside a string or comment.
+        (unless (nth 8 (syntax-ppss)) 
+          (let ((keyword (match-string-no-properties 1)) 
+                (name (match-string-no-properties 2))    
+                (pos (match-beginning 2)))
+            ;; Ignore 'define-module' and Scheme type tags like <container>
+            (unless (or (string= keyword "define-module")
+                        (string-match-p "^<[^>]+>$" name))
+              (push (cons pos name) name-alist))))))
+
+    ;; PASS 2: Extract record types using Emacs's internal Lisp parser
+    (save-excursion
+      (goto-char beg)
+      (while (re-search-forward "(define-record-type\\_>" end t)
+        (save-excursion
+          (goto-char (match-beginning 0))
+          (let ((pos (point)))
+            (condition-case nil
+                (let* ((form (read (current-buffer)))
+                       (is-record (and (listp form) (eq (car form) 'define-record-type)))
+                       (constructor (and is-record (nth 2 form)))
+                       (predicate (and is-record (nth 3 form)))
+                       (fields (and is-record (nthcdr 4 form))))
+                  
+                  ;; 1. Constructor
+                  (when constructor
+                    (cond ((listp constructor)
+                           (when (car constructor)
+                             (push (cons pos (symbol-name (car constructor))) name-alist)))
+                          ((symbolp constructor)
+                           (push (cons pos (symbol-name constructor)) name-alist))))
+                  
+                  ;; 2. Predicate
+                  (when (and predicate (symbolp predicate))
+                    (push (cons pos (symbol-name predicate)) name-alist))
+                  
+                  ;; 3. Fields (Getters and Setters)
+                  (when fields
+                    (dolist (field fields)
+                      (when (listp field)
+                        (let ((getter (nth 1 field))
+                          (setter (nth 2 field)))
+                          (when (and getter (symbolp getter))
+                            (push (cons pos (symbol-name getter)) name-alist))
+                          (when (and setter (symbolp setter))
+                            (push (cons pos (symbol-name setter)) name-alist)))))))
+              (error nil))))))
+
+    ;; Sort by buffer position so variables appear in document order
+    (setq name-alist (sort name-alist (lambda (a b) (< (car a) (car b)))))
+    (setq names (mapcar #'cdr name-alist))
+    (setq names (delete-dups names)) ;; Remove duplicates between Pass 1 and 2
+
+    (if (not names)
+        (message "No definitions found in the selected area.")
+      (save-excursion
+        (goto-char (point-min))
+        ;; search for the export section
+        (if (search-forward "#:export" nil t)
+            (progn
+              (skip-chars-forward " \t\n")
+              (if (looking-at "(")
+                  (let* ((export-list-start (point))
+                         ;; find the exact end of the export list
+                         (export-list-end (save-excursion (forward-list 1) (point)))
+                         (names-to-add nil))
+
+                    ;; filter out names that are already exported
+                    (dolist (name names)
+                      (save-excursion
+                        (goto-char export-list-start)
+                        (let ((sym-regex (concat "\\_<" (regexp-quote name) "\\_>")))
+                          (unless (re-search-forward sym-regex export-list-end t)
+                            (push name names-to-add)))))
+                    
+                    (setq names-to-add (nreverse names-to-add))
+
+                    ;; insert only the new names
+                    (if (not names-to-add)
+                        (message "All selected definitions are already exported.")
+                      (goto-char export-list-end)
+                      (backward-char 1)
+                      (dolist (name names-to-add)
+                        (newline-and-indent)
+                        (insert name))
+                      
+                      (message "Successfully exported: %s" (mapconcat #'identity names-to-add ", "))))
+                (message "Expected a list '(' after #:export.")))
+          (message "Could not find an #:export section in this file."))))))
 
 (use-package csharp-mode
   :ensure nil
@@ -271,6 +394,9 @@
   :custom-face
   (pgmacs-table-data
    ((t (:inherit default :weight bold)))))
+
+(use-package logview
+  :ensure t)
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

@@ -142,7 +142,7 @@
   :init
   (vertico-mode)
   :config
-  (setq vertico-resize t
+  (setq vertico-resize nil
         vertico-count 15
         vertico-cycle t)
   :bind
@@ -157,20 +157,21 @@
         ("C-'" . vertico-quick-jump)))
 
 ;; lets 'vertico' use 'posframe' to show its candidate menu
-(use-package vertico-posframe
-  :ensure t
-  :after vertico
-  :init
-  (vertico-posframe-mode 1)
-  :config
-  (advice-add 'vertico-posframe--show
-              :before
-              (defun vertico-posframe--show/before (&rest _args)
-                (setq vertico-posframe-truncate-lines
-                      (< (point) (* 0.8 (window-width (active-minibuffer-window)))))))
-  (setq vertico-posframe-parameters
-        '((left-fringe . 12)
-          (right-fringe . 12))))
+;; good looking, but I find it sometimes buggy and slow
+;; (use-package vertico-posframe
+;;   :ensure t
+;;   :after vertico
+;;   :init
+;;   (vertico-posframe-mode 1)
+;;   :config
+;;   (advice-add 'vertico-posframe--show
+;;               :before
+;;               (defun vertico-posframe--show/before (&rest _args)
+;;                 (setq vertico-posframe-truncate-lines
+;;                       (< (point) (* 0.8 (window-width (active-minibuffer-window)))))))
+;;   (setq vertico-posframe-parameters
+;;         '((left-fringe . 12)
+;;           (right-fringe . 12))))
 
 ;; Optionally use the `orderless' completion style.
 ;; (use-package orderless

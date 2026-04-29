@@ -17,6 +17,7 @@ mode "$mode_hotkeygrab" {
 
 default_border none 
 for_window [title="^.*"] title_format ""
+for_window [title="^floating-emacs$"] floating enable, move position center
 default_border normal 0
 default_floating_border normal 0
 floating_maximum_size -1 x -1

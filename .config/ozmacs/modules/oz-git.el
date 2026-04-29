@@ -32,6 +32,11 @@
 
 )
 
+(use-package magit-todos
+  :ensure t
+  :after magit
+  :config (magit-todos-mode 1))
+
 (use-package forge
   :after magit
   :ensure t

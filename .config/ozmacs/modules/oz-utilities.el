@@ -355,24 +355,25 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
   :bind
   ("C-=" . er/expand-region))
 
-(use-package pulsar
-  :ensure t
-  :bind
-  ( :map global-map
-    ("C-x l" . pulsar-pulse-line)
-    ("C-x L" . pulsar-highlight-dwim))
-  :init
-  (pulsar-global-mode 1)
-  :config
-  (set-face-background 'pulsar-generic "#c6a0f6")
-  (setq pulsar-face 'pulsar-generic)
-  (setq pulsar-highlight-face 'pulsar-generic)
-  (setq pulsar-region-face 'pulsar-generic)
-  (setq pulsar-delay 0.05)
-  (setq pulsar-iterations 3)
-  :hook
-  (next-error . pulsar-pulse-line)
-  (minibuffer-setup . pulsar-pulse-line))
+;; pulsar is a good package but causes many performance issues
+;; (use-package pulsar
+;;   :ensure t
+;;   :bind
+;;   ( :map global-map
+;;     ("c-x l" . pulsar-pulse-line)
+;;     ("c-x l" . pulsar-highlight-dwim))
+;;   :init
+;;   (pulsar-global-mode 1)
+;;   :config
+;;   (set-face-background 'pulsar-generic "#c6a0f6")
+;;   (setq pulsar-face 'pulsar-generic)
+;;   (setq pulsar-highlight-face 'pulsar-generic)
+;;   (setq pulsar-region-face 'pulsar-generic)
+;;   (setq pulsar-delay 0.05)
+;;   (setq pulsar-iterations 3)
+;;   :hook
+;;   (next-error . pulsar-pulse-line)
+;;   (minibuffer-setup . pulsar-pulse-line))
 
 (use-package show-font
   :ensure t
@@ -412,6 +413,14 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 	(define-key map [remap forward-page] #'logos-forward-page-dwim)
 	(define-key map [remap backward-page] #'logos-backward-page-dwim)
 	(define-key map (kbd "<f9>") #'logos-focus-mode)))
+
+(use-package multiple-cursors
+  :ensure t
+  :defer t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->"         . mc/mark-next-like-this)
+         ("C-<"         . mc/mark-previous-like-this)
+         ("C-c C-<"     . mc/mark-all-like-this)))
 
 (provide 'oz-utilities)
 ;;; oz-utilities.el ends here
