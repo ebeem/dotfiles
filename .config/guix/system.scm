@@ -46,20 +46,13 @@
   ;; under their own account: use 'guix search KEYWORD' to search
   ;; for packages and 'guix install PACKAGE' to install a package.
   (packages (append (list curl
-                          gparted
                           git
                           vim
-                          neovim
                           ntfs-3g
                           gvfs
-                          brightnessctl
-                          plymouth
                           stow
-                          docker-compose
 
                           ;; databases
-                          mariadb
-                          sqlite
                           postgresql
 
                           pipewire)
@@ -210,20 +203,26 @@
                                ;; at least 10G of space.
                                #~(job "5 0 * * *" "guix gc -d 2m -F 10G"))))))
 
+ 
   (bootloader (bootloader-configuration
-               (bootloader grub-bootloader)
-               (targets (list "/dev/sda"))
-               (keyboard-layout keyboard-layout)))
+                (bootloader grub-efi-bootloader)
+                (targets (list "/boot/efi"))
+                (keyboard-layout keyboard-layout)))
   (swap-devices (list (swap-space
-                       (target (uuid
-                                "bd988b15-f520-4f96-ad57-942031e57570")))))
+                        (target (uuid
+                                 "97f9e316-c6a1-487c-8bec-df3303637694")))))
 
   ;; The list of file systems that get "mounted".  The unique
   ;; file system identifiers there ("UUIDs") can be obtained
   ;; by running 'blkid' in a terminal.
   (file-systems (cons* (file-system
+                         (mount-point "/boot/efi")
+                         (device (uuid "92C7-2ADC"
+                                       'fat32))
+                         (type "vfat"))
+                       (file-system
                          (mount-point "/")
                          (device (uuid
-                                  "cfcb344f-dc63-432c-a521-e7319071d51b"
+                                  "a8987e51-ee6b-40db-93b5-50a63b941fab"
                                   'ext4))
                          (type "ext4")) %base-file-systems)))

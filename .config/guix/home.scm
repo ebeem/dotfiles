@@ -17,10 +17,11 @@
 			 (nongnu packages game-client)
              (nonguix multiarch-container))
 
-(use-package-modules admin linux aspell bittorrent fonts ftp mail video image
+(use-package-modules admin linux aspell bittorrent fonts ftp mail video image debug
                      gnuzilla kodi pulseaudio audio music graphics shells guile-xyz
                      shellutils terminals rust-apps emacs inkscape gimp photo gnucash
-                     kde gdb mpd libreoffice chromium package-management hardware
+                     disk sqlite gdb mpd libreoffice chromium package-management hardware
+					 kde-multimedia vim
                      task-management gnome librewolf lua node php xfce engineering maths
                      tor vpn wm xdisorg password-utils web-browsers golang
                      game-development python jupyter python-xyz machine-learning
@@ -30,6 +31,8 @@
  (packages (list
             ;; utils
             hostapd
+			gparted
+            brightnessctl
             htop
             btop
             deluge
@@ -42,10 +45,13 @@
             neofetch
             pamixer
             tlp
-
+			qalculate-gtk
+			dbus
+			sqlite
+			
             ;; hardware
-            openrgb
-            ckb-next
+            ;; openrgb
+            ;; ckb-next
 
             ;; file manager
             filezilla
@@ -72,7 +78,6 @@
             font-iosevka-ss09
             font-iosevka-ss08
             font-iosevka-ss14
-            font-iosevka-comfy
             font-iosevka-aile
             font-jetbrains-mono
             font-fira-mono
@@ -111,6 +116,7 @@
             radare2
             cutter
             ghex
+			scanmem
 
             ;; hacking
             nmap
@@ -142,7 +148,7 @@
             darktable
             inkscape
             gimp
-            krita
+            ;;krita
 			libresprite
 
             ;; sound editing
@@ -163,7 +169,7 @@
             sway
             dunst
             waybar
-            rofi-wayland
+            rofi
 			fuzzel
             wofi
 			flameshot
@@ -171,12 +177,13 @@
 
             ;; text editors
             emacs
+			neovim
             ;; vscodium
 
             ;; browser
 			librewolf
 			;; ungoogled-chromium
-            nyxt
+            ;; nyxt
             qutebrowser
 
             ;; virtualization
@@ -191,8 +198,8 @@
             ;; gaming
             retroarch
             dolphin-emu
-            wine
-            wine64
+            ;;wine
+            ;;wine64
 
             ;; nongnu
             ;; element-desktop
