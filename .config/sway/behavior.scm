@@ -102,6 +102,6 @@
 (sway-input "10429:2359:UGTABLET_UGEE_S640_Mouse" "map_to_output DP-1")
 (sway-input "10429:2359:UGTABLET_UGEE_S640_Keyboard" "map_to_output DP-1")
 (sway-input "10429:2359:UGTABLET_UGEE_S640_Pen" "map_to_output DP-1")
-(sway-input "type:keyboard" "repeat_delay 200")
+(sway-input "type:keyboard" "repeat_delay 300")
 (sway-input "type:keyboard" "repeat_rate 30")
 (sway-input "type:keyboard" "xkb_layout 'us,ara'")

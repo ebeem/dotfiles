@@ -93,8 +93,8 @@
 (auto-reload-init)
 
 ;; init which-key
-(which-key-configure #:delay-idle 1.2)
-(which-key-init)
+;; (which-key-configure #:delay-idle 1.2)
+;; (which-key-init)
 
 (define (show-rofi-message msg)
   (hide-rofi-message)
