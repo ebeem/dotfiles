@@ -60,3 +60,4 @@ $ '
 source $HOME/.aliases
 # Created by `pipx` on 2024-04-20 09:45:54
 export PATH="$PATH:/home/ebeem/.local/bin"
+export PATH="/home/ebeem/.local/bin:$PATH"
