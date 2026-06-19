@@ -1,0 +1,20 @@
+font=Iosevka 14
+default-timeout=5000
+format=<b>%s</b>\n<b>%b</b>
+
+width=500
+height=300
+
+padding=10
+margin=25
+border-size=3
+border-radius=5
+
+background-color=#24273a
+text-color=#cad3f5
+border-color=#c6a0f6
+progress-color=over #363a4f
+max-history=20
+
+[urgency=high]
+border-color=#f5a97f
