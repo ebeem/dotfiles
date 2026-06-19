@@ -1,9 +1,4 @@
 ;;; Code:
-(use-package eshell-syntax-highlighting
-  :ensure t
-  :after esh-mode
-  :config
-  (eshell-syntax-highlighting-global-mode +1))
 
 ;; eshell and evaluation
 (use-package eshell
@@ -20,6 +15,45 @@
         eshell-last-dir-ring-file-name (expand-file-name ".cache/eshell/lastdir" user-emacs-directory)
         eshell-aliases-file (expand-file-name ".cache/eshell/aliases" user-emacs-directory)
         eshell-history-file-name (expand-file-name ".cache/eshell/history" user-emacs-directory))
+
+  :config
+  (defun eb/eshell-git-info ()
+	"Return project name and git branch if in a git repo."
+	(let ((git-dir (locate-dominating-file default-directory ".git")))
+      (when (and git-dir (executable-find "git"))
+		(let* ((project-name (file-name-nondirectory (directory-file-name git-dir)))
+               ;; Get the current branch using git CLI
+               (branch (with-temp-buffer
+						 (call-process "git" nil t nil "branch" "--show-current")
+						 (string-trim (buffer-string)))))
+          ;; Format the output as: [project:branch]
+          (concat (propertize " [" 'face 'font-lock-comment-face)
+                  (propertize project-name 'face 'font-lock-string-face)
+                  (propertize ":" 'face 'font-lock-comment-face)
+                  (propertize branch 'face 'font-lock-keyword-face)
+                  (propertize "]" 'face 'font-lock-comment-face))))))
+
+  (defun eb/eshell-prompt ()
+	"Generate a Zsh-like multi-line Eshell prompt."
+	(concat
+	 "\n"
+	 ;; username and host (user@host)
+	 (propertize (user-login-name) 'face 'font-lock-variable-name-face)
+	 (propertize "@" 'face 'default)
+	 (propertize (system-name) 'face 'font-lock-constant-face)
+	 " "
+	 ;; current directory (e.g., ~/path/to/dir)
+	 (propertize (abbreviate-file-name default-directory) 'face 'font-lock-builtin-face)
+	 ;; git project & branch (if applicable)
+	 (or (eb/eshell-git-info) "")
+	 "\n"
+	 ;; input prompt symbol
+	 (propertize "❯ " 'face 'success)))
+
+  (with-eval-after-load 'esh-opt
+	(setq eshell-prompt-function #'eb/eshell-prompt
+          eshell-prompt-regexp "^❯ "))
+
   (defvar-keymap eb/toggle-map :doc "Toggle")
   :ensure nil
   :bind (
@@ -42,14 +76,17 @@
   :ensure t
   :hook (eshell-mode . esh-autosuggest-mode))
 
-(use-package vterm
+(use-package eshell-syntax-highlighting
   :ensure t
+  :after esh-mode
   :config
-  (setq shell-file-name "/bin/sh"
-        vterm-max-scrollback 5000)
-    :bind (
+  (eshell-syntax-highlighting-global-mode +1))
+
+(use-package ghostel  
+  :ensure t
+  :bind (
          :map eb/open-map
-         ("v" . vterm)))
+         ("g" . ghostel)))
 
 (provide 'oz-terminal)
 ;;; oz-terminal.el ends here

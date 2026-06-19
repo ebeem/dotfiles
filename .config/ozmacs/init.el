@@ -30,7 +30,7 @@
 (require 'oz-chat)            ;; (0.26)('erc', 'ement')
 (require 'oz-news)            ;; (0.08)('elfeed')
 (require 'oz-media)           ;; (0.00)('mingus')
-(require 'oz-ai)
+;; (require 'oz-ai)
 (require 'oz-os)
 
 ;; (profiler-stop)

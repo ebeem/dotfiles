@@ -83,6 +83,8 @@
   (setq eglot-server-programs
         (remove (assoc '(csharp-mode csharp-ts-mode)
                        eglot-server-programs) eglot-server-programs))
+  ;; (add-to-list 'eglot-server-programs
+  ;;              `(scheme-mode . ("guile-lsp-server")))
   (add-to-list 'eglot-server-programs
                `((csharp-mode csharp-ts-mode)
                  . ,(append '("csharp-ls")
@@ -168,8 +170,8 @@
   (setq geiser-repl-add-project-paths t))
 
 (use-package geiser-guile
-  :ensure t
-  :defer t)
+  :commands geiser-guile
+  :ensure t)
 
 (defun eb/re-export-all-defs ()
   "Clear the current #:export list and re-export all definitions in the buffer."
@@ -202,25 +204,21 @@ the #:export section."
                    (cons (line-beginning-position) (line-end-position))))
          (beg (car bounds))
          (end (cdr bounds))
-         (name-alist nil) ; Store (position . "name") to maintain document order
+         (name-alist nil)
          (names nil)
          (def-regex "(\\(define\\*?\\(?:-[a-z-]+\\)?\\|def[a-z-]+\\)\\s-+[(]?\\s-*\\([^ \t\n()]+\\)"))
-
-    ;; PASS 1: Extract standard definitions via Regex
     (save-excursion
       (goto-char beg)
       (while (re-search-forward def-regex end t)
-        ;; CHANGED: (nth 8 (syntax-ppss)) returns non-nil if point is inside a string or comment.
         (unless (nth 8 (syntax-ppss)) 
           (let ((keyword (match-string-no-properties 1)) 
                 (name (match-string-no-properties 2))    
                 (pos (match-beginning 2)))
-            ;; Ignore 'define-module' and Scheme type tags like <container>
+            ;; ignore 'define-module' and scheme type tags like <container>
             (unless (or (string= keyword "define-module")
                         (string-match-p "^<[^>]+>$" name))
               (push (cons pos name) name-alist))))))
 
-    ;; PASS 2: Extract record types using Emacs's internal Lisp parser
     (save-excursion
       (goto-char beg)
       (while (re-search-forward "(define-record-type\\_>" end t)
@@ -234,7 +232,6 @@ the #:export section."
                        (predicate (and is-record (nth 3 form)))
                        (fields (and is-record (nthcdr 4 form))))
                   
-                  ;; 1. Constructor
                   (when constructor
                     (cond ((listp constructor)
                            (when (car constructor)
@@ -242,11 +239,9 @@ the #:export section."
                           ((symbolp constructor)
                            (push (cons pos (symbol-name constructor)) name-alist))))
                   
-                  ;; 2. Predicate
                   (when (and predicate (symbolp predicate))
                     (push (cons pos (symbol-name predicate)) name-alist))
                   
-                  ;; 3. Fields (Getters and Setters)
                   (when fields
                     (dolist (field fields)
                       (when (listp field)
@@ -258,10 +253,9 @@ the #:export section."
                             (push (cons pos (symbol-name setter)) name-alist)))))))
               (error nil))))))
 
-    ;; Sort by buffer position so variables appear in document order
     (setq name-alist (sort name-alist (lambda (a b) (< (car a) (car b)))))
     (setq names (mapcar #'cdr name-alist))
-    (setq names (delete-dups names)) ;; Remove duplicates between Pass 1 and 2
+    (setq names (delete-dups names)) ;; remove duplicates between pass 1 and 2
 
     (if (not names)
         (message "No definitions found in the selected area.")
@@ -398,5 +392,13 @@ the #:export section."
 (use-package logview
   :ensure t)
 
+(use-package lispy
+  :ensure t)
+
 (provide 'oz-code)
 ;;; oz-code.el ends here
+
+
+;; TODO:
+;; mentor
+;; tokei

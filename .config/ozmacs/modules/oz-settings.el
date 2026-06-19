@@ -5,16 +5,16 @@
   "Reset the font to default ones."
   (interactive)
   (set-face-attribute 'default nil
-					  :font "Iosevka Charon Mono"
-					  :height 165
+					  :font "Iosevka Nerd Font"
+					  :height 180
 					  :weight 'bold)
   (set-face-attribute 'fixed-pitch nil
-					  :font "Iosevka Charon Mono"
-					  :height 165
+					  :font "Iosevka Nerd Font"
+					  :height 180
 					  :weight 'bold)
   (set-face-attribute 'variable-pitch nil
-					  :font "Iosevka Charon"
-					  :height 165
+					  :font "Iosevka Nerd Font"
+					  :height 180
 					  :weight 'bold))
 
 (defun eb/reset-font-hook (frame)
@@ -49,7 +49,7 @@ Intended for `after-make-frame-functions'."
 			  resize-mini-windows nil
 			  ispell-program-name "aspell"
 			  ispell-extra-args '("--sug-mode=ultra" "--lang=en")
-)
+			  confirm-kill-emacs t)
 
 ;; completion configuration (completion-styles overridden by orderless in oz-completion)
 (setq-default completion-auto-select t ;; Show completion on first call

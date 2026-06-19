@@ -102,6 +102,7 @@
   (corfu-popupinfo-delay 0.5)
   (corfu-scroll-margin 5)
   :hook ((prog-mode . corfu-mode)
+		 (eshell-mode . corfu-mode)
          (corfu-mode . corfu-popupinfo-mode)))
   
 (use-package nerd-icons-corfu

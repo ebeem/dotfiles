@@ -46,13 +46,14 @@
 ;; (use-package seq)
 
 ;; highlight diffs
-;; (use-package diff-hl
-;;   :init
-;;   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-;;   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-;;   :config
-;;   (global-diff-hl-mode)
-;;   (diff-hl-margin-mode))
+(use-package diff-hl
+  :ensure t
+  :init
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  :config
+  (global-diff-hl-mode)
+  (diff-hl-margin-mode))
 
 ;; (use-package vc
 ;;   :ensure nil

@@ -188,6 +188,7 @@ If not visiting a file, show buffer name."
 (use-package dired
   :ensure nil
   :config
+  (setq dired-listing-switches "-alh")
   (setq dired-dwim-target t)
   (defun dired-get-size ()
 	(interactive)
