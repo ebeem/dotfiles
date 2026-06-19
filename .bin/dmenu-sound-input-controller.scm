@@ -15,8 +15,8 @@
 
 (let* ((choice (dmenu-prompt "Input Devics Menu > " devices)))
   (when (not (string-null? choice))
-	(run-command
-	 (string-append "pactl set-default-source \"$("
-					"pactl -f json list sources | jq -r --arg d \"$desc\" '.[]"
-					" | select((.description|ascii_downcase)"
-					" | contains(\"" choice "\"|ascii_downcase)) | .name' | head -n1)\""))))
+    (run-command
+     (string-append "pactl set-default-source \"$("
+                    "pactl -f json list sources | jq -r --arg c \"" choice "\" '.[]"
+                    " | select((.description|ascii_downcase)"
+                    " | contains($c|ascii_downcase)) | .name' | head -n1)\""))))

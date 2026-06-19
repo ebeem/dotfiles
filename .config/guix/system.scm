@@ -48,13 +48,6 @@
   (packages (append (list curl
                           git
                           vim
-                          ntfs-3g
-                          gvfs
-                          stow
-
-                          ;; databases
-                          postgresql
-
                           pipewire)
                     %base-packages))
 

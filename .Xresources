@@ -34,7 +34,7 @@
 #define v_icons_theme Colloid-nord-dark
 #define v_cursor_theme Breeze_Snow
 
-#define v_pitch_font Iosevka Aile 12
+#define v_pitch_font Iosevka 12
 #define v_fixed_font Iosevka 12
 
 *.icons.theme: v_icons_theme
