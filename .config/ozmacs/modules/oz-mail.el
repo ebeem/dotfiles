@@ -293,6 +293,7 @@ that and instead tries to complete against dictionary entries."
     ("C-<tab>" . nil)))
 
 (use-package gnus
+  :defer t
   :init
   (defvar gnus-unread-mails-count 0)
 

@@ -150,6 +150,8 @@ If not visiting a file, show buffer name."
 
 (use-package spacious-padding
   :ensure t
+  :defer t
+  :hook (emacs-startup . spacious-padding-mode)
   :init
   (setq spacious-padding-widths
 		'( :internal-border-width 12
@@ -157,8 +159,7 @@ If not visiting a file, show buffer name."
 		   :mode-line-width 6
 		   :tab-width 8
 		   :right-divider-width 8
-		   :scroll-bar-width 8))
-  (spacious-padding-mode 1))
+		   :scroll-bar-width 8)))
 
 (use-package modus-themes
   :ensure t

@@ -1,23 +1,10 @@
 ;;; Code:
 
-(add-to-list 'load-path "~/workspace/emacs/topel")
-(add-to-list 'load-path "~/workspace/emacs/bluel")
-(add-to-list 'load-path "~/workspace/emacs/duelzer")
-(add-to-list 'load-path "~/workspace/emacs/dmenuel")
-(add-to-list 'load-path "~/workspace/emacs/skyel")
-(add-to-list 'load-path "~/workspace/emacs/ytbel")
-(add-to-list 'load-path "~/workspace/emacs/academel")
-(add-to-list 'load-path "~/workspace/emacs/typel")
+;; add custom package paths
+(dolist (pkg '("topel" "bluel" "duelzer" "dmenuel" "skyel" "ytbel" "academel" "typel"))
+  (add-to-list 'load-path (expand-file-name pkg "~/workspace/emacs/")))
 
-(require 'topel)
-(require 'bluel)
-(require 'duelzer)
-(require 'dmenuel)
-(require 'skyel)
-(require 'ytbel)
-(require 'academel)
-(require 'typel)
-
+;; set configuration variables before packages load (variables are just symbols)
 (setq academel-progress-file (expand-file-name ".cache/academel-progress.json" user-emacs-directory)
 	  dmenuel-app-history-file (expand-file-name ".cache/dmmenuel-app-history.el" user-emacs-directory)
 	  typel-stats-file (expand-file-name ".cache/typelstats.el" user-emacs-directory)
@@ -30,6 +17,17 @@
 		("New York"    40.7128  -74.0060  "America/New_York")
 		("London"      51.5074   -0.1278  "Europe/London")))
 
+;; defer loading custom packages until 2 seconds of idle time
+(run-with-idle-timer 2 nil
+  (lambda ()
+    (require 'topel nil t)
+    (require 'bluel nil t)
+    (require 'duelzer nil t)
+    (require 'dmenuel nil t)
+    (require 'skyel nil t)
+    (require 'ytbel nil t)
+    (require 'academel nil t)
+    (require 'typel nil t)))
 
 ;; (add-to-list 'load-path "~/workspace/emacs/empdel")
 ;; (require 'empdel)

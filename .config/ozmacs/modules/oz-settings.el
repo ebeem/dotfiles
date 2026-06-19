@@ -68,7 +68,7 @@ Intended for `after-make-frame-functions'."
 			(electric-pair-local-mode)))
 ;; (add-hook 'before-save-hook #'whitespace-cleanup)	;; cleanup whitespaces
 
-(global-auto-revert-mode 1)							;; auto revert unchanged buffers
+(add-hook 'after-init-hook #'global-auto-revert-mode)	;; auto revert unchanged buffers (deferred)
 (column-number-mode)								;; modeline column indicator
 (delete-selection-mode 1)
 
@@ -97,6 +97,7 @@ Intended for `after-make-frame-functions'."
 ;; tramp fix remote paths
 (use-package tramp
   :ensure nil
+  :defer t
   :init
   (setq tramp-persistency-file-name  (expand-file-name ".cache/tramp" user-emacs-directory))
   :config

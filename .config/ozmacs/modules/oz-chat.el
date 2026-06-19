@@ -76,6 +76,8 @@ Allows only messages, encrypted messages, reactions, and redactions."
 
 (use-package mastodon
   :ensure t
+  :defer t
+  :commands (mastodon)
   :config
   (setq mastodon-instance-url "https://mastodon.social"
         mastodon-active-user "ebeem"))

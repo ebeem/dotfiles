@@ -219,13 +219,16 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 
 (use-package undo-fu-session
   :ensure t
+  :defer t
   :init
   (setq undo-fu-session-directory
 		(expand-file-name ".cache/undo-fu-session" user-emacs-directory))
-  (undo-fu-session-global-mode))
+  :hook (emacs-startup . undo-fu-session-global-mode))
 
 (use-package sudo-edit
-  :ensure t)
+  :ensure t
+  :defer t
+  :commands (sudo-edit sudo-edit-find-file))
 
 ;; (use-package visual-fill-column
 ;;   :ensure t)
@@ -332,6 +335,8 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 
 (use-package burly
   :ensure t
+  :defer t
+  :commands (burly-bookmark-frames burly-bookmark-windows burly-open-bookmark)
   :config
   (setq burly-frameset-filter-alist '((name . nil)
                                       (posframe-parent-buffer . :never))))
@@ -386,6 +391,8 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 
 (use-package logos
   :ensure t
+  :defer t
+  :commands (logos-focus-mode logos-narrow-dwim logos-forward-page-dwim logos-backward-page-dwim)
   :config
   ;; If you want to use outlines instead of page breaks (the ^L):
   (setq logos-outlines-are-pages t)

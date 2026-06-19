@@ -4,7 +4,18 @@
 ;; TODO: keybindings to cycle next/prev options
 (use-package which-key
   :ensure nil
+  :defer 1
   :init
+  (with-eval-after-load 'page-ext
+    (which-key-add-key-based-replacements
+      "C-x C-p" "page-extras"))
+  (with-eval-after-load 'org
+    (which-key-add-keymap-based-replacements org-mode-map
+      "C-c \""      "org-plot"
+      "C-c C-v"     "org-babel"
+      "C-c C-x"     "org-extra-commands"))
+  :diminish
+  :config
   (which-key-add-key-based-replacements
     "<f1> 4"        "help-other-win"
     "<f1>"          "help"
@@ -38,22 +49,6 @@
     "M-g"           "goto-map"
     "M-s h"         "search-highlight"
     "M-s"           "search-map")
-
-  ;; Upon loading, the built-in `page-ext' package turns "C-x C-p" into
-  ;; a prefix-key.  If you know of other built-in packages that have
-  ;; this behavior, please let me know, so I can add them.
-  (with-eval-after-load 'page-ext
-    (which-key-add-key-based-replacements
-      "C-x C-p" "page-extras"))
-
-  ;; Org-mode provides some additional prefix-keys in `org-mode-map'.
-  (with-eval-after-load 'org
-    (which-key-add-keymap-based-replacements org-mode-map
-      "C-c \""      "org-plot"
-      "C-c C-v"     "org-babel"
-      "C-c C-x"     "org-extra-commands"))
-
-  ;; custom keybinding
   (which-key-add-key-based-replacements
     "C-c b" "buffers"
     "C-c c" "code"
@@ -67,10 +62,7 @@
     "C-c p" "projects"
     "C-c s" "search"
     "C-c w" "windows")
-  
   (which-key-mode)
-  :diminish
-  :config
   (setq which-key-side-window-location 'bottom
         which-key-sort-order #'which-key-key-order-alpha
         which-key-allow-imprecise-window-fit nil
@@ -256,7 +248,8 @@
          ("C-c C-e" . embark-export)))
 
 (use-package embark-consult
-  :ensure t)
+  :ensure t
+  :after (embark consult))
 
 (use-package wgrep
   :ensure t

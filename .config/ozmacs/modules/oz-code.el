@@ -62,7 +62,7 @@
 
 (use-package treesit-auto
   :ensure t
-  :demand t
+  :defer t
   :init
   (setq treesit-auto-install 'prompt))
 
@@ -390,10 +390,16 @@ the #:export section."
    ((t (:inherit default :weight bold)))))
 
 (use-package logview
-  :ensure t)
+  :ensure t
+  :defer t
+  :commands (logview-mode))
 
 (use-package lispy
-  :ensure t)
+  :ensure t
+  :defer t
+  :hook ((emacs-lisp-mode . lispy-mode)
+         (scheme-mode . lispy-mode)
+         (lisp-mode . lispy-mode)))
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

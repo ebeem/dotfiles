@@ -48,6 +48,7 @@
 ;; highlight diffs
 (use-package diff-hl
   :ensure t
+  :defer 3
   :init
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
