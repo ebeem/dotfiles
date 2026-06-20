@@ -49,15 +49,14 @@ Intended for `after-make-frame-functions'."
 			  resize-mini-windows nil
 			  ispell-program-name "aspell"
 			  ispell-extra-args '("--sug-mode=ultra" "--lang=en")
-			  confirm-kill-emacs t)
-
+			  confirm-kill-emacs 'yes-or-no-p)
 ;; completion configuration (completion-styles overridden by orderless in oz-completion)
 (setq-default completion-auto-select t ;; Show completion on first call
-      completion-auto-help 'visible ;; Display *Completions* upon first request
-      completions-format 'one-column ;; Use only one column
-      completions-sort 'historical ;; Order based on minibuffer history
-      completions-max-height 20 ;; Limit completions to 15 (completions start at line 5)
-      completion-ignore-case t)
+			  completion-auto-help 'visible ;; Display *Completions* upon first request
+			  completions-format 'one-column ;; Use only one column
+			  completions-sort 'historical ;; Order based on minibuffer history
+			  completions-max-height 20 ;; Limit completions to 15 (completions start at line 5)
+			  completion-ignore-case t)
 
 (put 'downcase-region 'disabled nil)
 

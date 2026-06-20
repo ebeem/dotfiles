@@ -1,4 +1,4 @@
-font=Iosevka 14
+font=Iosevka 13
 default-timeout=5000
 format=<b>%s</b>\n<b>%b</b>
 
