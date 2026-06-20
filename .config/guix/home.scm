@@ -13,44 +13,48 @@
              (ebeem packages gnome-xyz)
              (nongnu packages messaging)
              (nongnu packages mozilla)
+             (nongnu packages hugo)
              (nongnu packages k8s)
              (nongnu packages game-client)
              (nonguix multiarch-container))
 
 (use-package-modules admin linux aspell bittorrent fonts ftp mail video image debug
-                     gnuzilla kodi pulseaudio audio music graphics shells guile-xyz
-                     shellutils terminals rust-apps emacs inkscape gimp photo gnucash
+                     gnuzilla kodi pulseaudio audio music graphics shells guile-xyz databases
+                     shellutils terminals rust-apps emacs inkscape gimp photo gnucash image-viewers
                      disk sqlite gdb mpd libreoffice chromium package-management hardware
                      kde-multimedia vim autotools finance ssh ncurses networking freedesktop
-                     task-management gnome librewolf lua node php xfce engineering maths
-                     tor vpn wm xdisorg password-utils web-browsers golang
-                     game-development python jupyter python-xyz machine-learning
-                     java virtualization containers emulators wine glib base)
+                     task-management gnome librewolf lua node php xfce engineering maths gnome-xyz
+                     tor vpn wm xdisorg password-utils web-browsers golang wget cinnamon zig
+                     game-development python jupyter python-xyz machine-learning kde-graphics
+                     java virtualization containers emulators wine glib base version-control)
 
 (define %packages-utils
   (list alsa-utils aspell aspell-dict-en aspell-dict-ar ispell bluez
-        fastfetch findutils gparted brightnessctl ripgrep grep hostapd
+        findutils gparted brightnessctl ripgrep grep hostapd
         btop inotify-tools openssh sed ncurses stow sudo wget rtorrent
-        dbus password-store fd tlp nix
-		;; TODO bandwhich (custom package)
+        dbus password-store fd nix
+		;; TODO bandwhich (custom package), fastfetch (too many deps), tlp
 		))
 
 (define %packages-file-managers
   (list thunar thunar-volman thunar-vcs-plugin thunar-shares-plugin
-        thunar-media-tags-plugin thunar-archive-plugin nemo tumbler yazi))
+        thunar-media-tags-plugin thunar-archive-plugin nemo tumbler
+	;; TODO: yazi
+	))
 
 (define %packages-mail
   (list goimapnotify notmuch))
 
 (define %packages-media
-  (list ardour blender darktable inkscape gimp krita libresprite
-        ffmpegthumbnailer kdenlive obs libresprite lmms mpd mpd-mpc
-        tenacity vlc yt-dlp))
+  (list blender darktable inkscape gimp libresprite
+        ffmpegthumbnailer kdenlive obs lmms mpd mpd-mpc
+        tenacity vlc yt-dlp libresprite
+	;; TODO: kirta ardour (aarch64 issues?)
+	))
 
 (define %packages-fonts
   (list font-iosevka font-google-noto font-fira-mono font-fira-sans
-        ;; TODO: font-nerd-iosevka (custom package)
-        ))
+		font-iosevka-nerd))
 
 (define %packages-coding
   (list emacs neovim tokei autoconf automake binutils
@@ -69,10 +73,12 @@
         zsh-autosuggestions))
 
 (define %packages-window-management
-  (list awww bibata-cursor-theme colloid-catppuccin-purple-gtk-theme
-        colloid-catppuccin-purple-icon-theme flameshot fuzzel river
+  (list bibata-cursor-theme colloid-catppuccin-purple-gtk-theme
+        colloid-catppuccin-purple-icon-theme fuzzel
         sway swaybg swayidle swayimg swaynotificationcenter guile-swayer
-        wofi waybar xdg-utils mako))
+        wofi waybar xdg-utils mako
+	;;TODO: awww, river flameshot
+	))
 
 (define %packages-game-development
   (list godot
@@ -93,9 +99,8 @@
   (list podman flatpak))
 
 (define %packages-websites
-  (list 
-        ;; TODO: hugo (wishlist)
-        ))
+  ;; TODO: wishlist, currently not working
+  (list hugo))
 
 (define %packages-office-suite
   (list libreoffice))
@@ -126,12 +131,13 @@
                    %packages-databases
                    %packages-communication
                    %packages-virtualization
-                   %packages-websites
-                   %packages-office-suite
+                   ;;%packages-websites
+                   ;;%packages-office-suite
                    %packages-finance
-                   %packages-browser
+                   ;;%packages-browser
                    %packages-networking
-                   %packages-gaming))
+                   ;;%packages-gaming
+		   ))
  (services
   (list
    (service home-bash-service-type
