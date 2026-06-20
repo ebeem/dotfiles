@@ -21,7 +21,7 @@
 (use-package-modules admin linux aspell bittorrent fonts ftp mail video image debug
                      gnuzilla kodi pulseaudio audio music graphics shells guile-xyz databases
                      shellutils terminals rust-apps emacs inkscape gimp photo gnucash image-viewers
-                     disk sqlite gdb mpd libreoffice chromium package-management hardware
+                     disk sqlite gdb mpd libreoffice chromium package-management hardware guile
                      kde-multimedia vim autotools finance ssh ncurses networking freedesktop
                      task-management gnome librewolf lua node php xfce engineering maths gnome-xyz
                      tor vpn wm xdisorg password-utils web-browsers golang wget cinnamon zig
@@ -57,7 +57,8 @@
 		font-iosevka-nerd))
 
 (define %packages-coding
-  (list emacs neovim tokei autoconf automake binutils
+  (list emacs-pgtk vim neovim tokei autoconf automake binutils
+		zeromq guile-3.0
         ;; TODO: android, agy, dotnet
         go python python-cython lua octave php node openjdk zig
         ;; TODO: dart, flutter (nix)
