@@ -394,13 +394,6 @@ the #:export section."
   :defer t
   :commands (logview-mode))
 
-(use-package lispy
-  :ensure t
-  :defer t
-  :hook ((emacs-lisp-mode . lispy-mode)
-         (scheme-mode . lispy-mode)
-         (lisp-mode . lispy-mode)))
-
 (provide 'oz-code)
 ;;; oz-code.el ends here
 
