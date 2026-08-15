@@ -12,18 +12,17 @@
         newsticker-groups '("Linux" "Data Science" "Godot" "Games")
         newsticker-url-list
         '(("Arch Linux" "https://archlinux.org/feeds/news/" nil nil nil)
-          ("Its Foss" "https://itsfoss.com/feed/" nil nil nil)
-          ("Cyber Citi" "https://www.cyberciti.com/faq/feed/" nil nil nil)
-          ("Data Science" "http://feeds.feedburner.com/FeaturedBlogPosts-DataScienceCentral" nil nil nil)
-          ("Data Science" "https://towardsdatascience.com/feed" nil nil nil)
-          ("Hacking News" "https://latesthackingnews.com/feed/" nil nil nil)
           ("The Hacker News" "http://feeds.feedburner.com/TheHackersNews" nil nil nil)
           ("Godot" "https://godotengine.org/rss.xml" nil nil nil)
           
           ("Reddit Emacs" "https://www.reddit.com/r/emacs.rss" nil nil nil)
           ("Reddit Godot" "https://www.reddit.com/r/godot.rss" nil nil nil)
           ("Reddit Sway" "https://www.reddit.com/r/swaywm.rss" nil nil nil)
-          
+
+		  ("Prot Blog" "https://protesilaos.com/codelog.xml" nil nil nil)
+		  ("LionyxML Blog" "https://www.rahuljuliato.com/rss.xml" nil nil nil)
+          ("Ozbem Blog" "https://ozbem.com/rss.xml" nil nil nil)
+
           ("Games" "https://store.steampowered.com/feeds/news/app/3443650/?cc=SA&l=englis" nil nil nil)))
   
   (with-eval-after-load 'newsticker

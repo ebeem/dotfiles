@@ -96,39 +96,12 @@
   :hook ((prog-mode . corfu-mode)
 		 (eshell-mode . corfu-mode)
          (corfu-mode . corfu-popupinfo-mode)))
-  
+
 (use-package nerd-icons-corfu
   :ensure t
   :after corfu
   :init
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
-
-;; (use-package company
-;;   :defer 2
-;;   :diminish
-;;   :hook (company-mode . evil-normalize-keymaps)
-;;   :init (global-company-mode)
-;;   :config
-;;   (setq company-minimum-prefix-length     2
-;;         company-toolsip-limit             14
-;;         company-tooltip-align-annotations t
-;;         company-require-match             nil
-;;         company-global-modes              '(not erc-mode message-mode help-mode gud-mode)
-;;         company-backends '(company-capf)
-;;         company-auto-commit         nil
-;;         company-auto-complete-chars nil
-;;         company-dabbrev-other-buffers nil
-;;         company-dabbrev-ignore-case nil
-;;         company-dabbrev-downcase    nil
-;;         company-begin-commands '(self-insert-command)
-;;         company-idle-delay 0.1
-;;         company-show-numbers t))
-
-;; ;; TODO: configure icons with nerd
-;; (use-package company-box
-;;   :after (company nerd-icons-completion)
-;;   :diminish
-;;   :hook (company-mode . company-box-mode))
 
 (use-package vertico
   :ensure t
@@ -148,31 +121,6 @@
         ("TAB" . vertico-insert)
         ("?" . minibuffer-completion-help)
         ("C-'" . vertico-quick-jump)))
-
-;; lets 'vertico' use 'posframe' to show its candidate menu
-;; good looking, but I find it sometimes buggy and slow
-;; (use-package vertico-posframe
-;;   :ensure t
-;;   :after vertico
-;;   :init
-;;   (vertico-posframe-mode 1)
-;;   :config
-;;   (advice-add 'vertico-posframe--show
-;;               :before
-;;               (defun vertico-posframe--show/before (&rest _args)
-;;                 (setq vertico-posframe-truncate-lines
-;;                       (< (point) (* 0.8 (window-width (active-minibuffer-window)))))))
-;;   (setq vertico-posframe-parameters
-;;         '((left-fringe . 12)
-;;           (right-fringe . 12))))
-
-;; Optionally use the `orderless' completion style.
-;; (use-package orderless
-;;   :ensure t
-;;   :config
-;;   (setq completion-styles '(orderless basic)
-;;         completion-category-defaults nil
-;;         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package orderless
   :ensure t
@@ -251,17 +199,20 @@
   :ensure t
   :after (embark consult))
 
-(use-package wgrep
-  :ensure t
-  :bind ( :map grep-mode-map
-          ("e" . wgrep-change-to-wgrep-mode)
-          ("C-x C-q" . wgrep-change-to-wgrep-mode)
-          ("C-c C-c" . wgrep-finish-edit)))
-
-;; (use-package helpful
-;;   :bind
-;;   ([premap describe-command] . helpful-command)
-;;   ([premap describe-key] . helpful-key))
+(use-package minibuffer
+  :ensure nil
+  :config
+  (setq completion-show-help nil
+		completion-show-inline-help nil
+		completions-detailed t
+		completions-format 'one-column
+		completions-max-height 12
+		completions-sort 'historical
+		completion-auto-help t
+		completion-auto-select ni
+        minibuffer-visible-completions t
+		completion-eager-display t
+		completion-eager-update t))
 
 (provide 'oz-completion)
 ;;; oz-completion.el ends here

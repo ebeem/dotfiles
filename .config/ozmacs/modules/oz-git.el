@@ -28,14 +28,7 @@
          ("F" . magit-fetch)
          ("L" . magit-log-buffer-file)
          ("S" . magit-stage-file)
-         ("U" . magit-unstage-file))
-
-)
-
-(use-package magit-todos
-  :ensure t
-  :after magit
-  :config (magit-todos-mode 1))
+         ("U" . magit-unstage-file)))
 
 (use-package forge
   :after magit
@@ -55,28 +48,6 @@
   :config
   (global-diff-hl-mode)
   (diff-hl-margin-mode))
-
-;; (use-package vc
-;;   :ensure nil
-;;   :init
-;;   (defvar-keymap eb/magit-map :doc "Magit")
-;;   :bind-keymap (("C-c g" . eb/magit-map))
-
-;;   (defun eb/vc-git-init-repo ()
-;;     "Initialize a new Git repository in the current directory and enable VC support."
-;;     (interactive)
-;;     (let ((default-directory (expand-file-name default-directory)))
-;;       (if (vc-find-root default-directory ".git")
-;;           (message "Git repository already exists in %s" default-directory)
-;;         (progn
-;;           (shell-command "git init")
-;;           (vc-refresh-state)
-;;           (message "Initialized new Git repository in %s" default-directory)))))
-  
-;;   :bind (
-;;          :map eb/magit-map
-;;          ("R" . vc-revert)
-;;          ("i" . eb/vc-git-init-repo)))
 
 (provide 'oz-git)
 ;;; oz-git.el ends here

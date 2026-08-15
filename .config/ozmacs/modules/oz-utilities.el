@@ -215,7 +215,34 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
     "Paste current buffer's content"
     (interactive)
     (delete-region (point-min) (point-max))
-    (yank)))
+    (yank))
+  :custom
+  (inhibit-startup-screen t)
+  (initial-scratch-message nil)
+  (initial-major-mode 'emacs-lisp-mode)
+  :preface
+  (defun my/scratch-startup-greeting ()
+    "Display startup time, total packages, and dependencies in *scratch*."
+    (let* ((init-time (emacs-init-time))
+           (total-pkgs (length package-alist))
+           (direct-pkgs (length package-selected-packages))
+           (dep-pkgs (max 0 (- total-pkgs direct-pkgs)))
+           (greeting
+            (format
+             (concat ";; Welcome to GNU Emacs\n"
+                     ";; ------------------------------------------------------------\n"
+                     ";; Startup time : %s\n"
+                     ";; Packages     : %d total (%d direct, %d dependencies)\n"
+                     ";; ------------------------------------------------------------\n\n")
+             init-time total-pkgs direct-pkgs dep-pkgs)))
+      (setq initial-scratch-message greeting)
+      (when-let ((buf (get-buffer "*scratch*")))
+        (with-current-buffer buf
+          (when (= (buffer-size) 0)
+            (insert greeting)
+            (set-buffer-modified-p nil))))))
+  :hook
+  (emacs-startup . my/scratch-startup-greeting))
 
 (use-package undo-fu-session
   :ensure t
@@ -230,9 +257,6 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
   :defer t
   :commands (sudo-edit sudo-edit-find-file))
 
-;; (use-package visual-fill-column
-;;   :ensure t)
-
 (use-package olivetti
   :ensure t
   :config
@@ -240,13 +264,6 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 		olivetti-body-width 0.8
 		olivetti-margin-width 0
 		olivetti-recall-visual-line-mode-entry-state t))
-
-;; TODO: read pdf, docx, libreoffice
-;; (setq package-vc-allow-build-commands t)
-;; (use-package reader
-;;   :ensure t
-;;   :vc (:url "https://codeberg.org/divyaranjan/emacs-reader"
-;; 	  :make "all"))
 
 (use-package eww
   :ensure nil
@@ -332,15 +349,6 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
     (let ((new-window (split-window-vertically)))
       (select-window new-window))))
 
-
-(use-package burly
-  :ensure t
-  :defer t
-  :commands (burly-bookmark-frames burly-bookmark-windows burly-open-bookmark)
-  :config
-  (setq burly-frameset-filter-alist '((name . nil)
-                                      (posframe-parent-buffer . :never))))
-
 (use-package proced
   :ensure nil
   :commands proced
@@ -359,26 +367,6 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
   :ensure t
   :bind
   ("C-=" . er/expand-region))
-
-;; pulsar is a good package but causes many performance issues
-;; (use-package pulsar
-;;   :ensure t
-;;   :bind
-;;   ( :map global-map
-;;     ("c-x l" . pulsar-pulse-line)
-;;     ("c-x l" . pulsar-highlight-dwim))
-;;   :init
-;;   (pulsar-global-mode 1)
-;;   :config
-;;   (set-face-background 'pulsar-generic "#c6a0f6")
-;;   (setq pulsar-face 'pulsar-generic)
-;;   (setq pulsar-highlight-face 'pulsar-generic)
-;;   (setq pulsar-region-face 'pulsar-generic)
-;;   (setq pulsar-delay 0.05)
-;;   (setq pulsar-iterations 3)
-;;   :hook
-;;   (next-error . pulsar-pulse-line)
-;;   (minibuffer-setup . pulsar-pulse-line))
 
 (use-package show-font
   :ensure t

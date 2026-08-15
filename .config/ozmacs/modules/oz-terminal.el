@@ -72,21 +72,11 @@
          ("r" . eval-region)
          ("s" . eshell)))
 
-(use-package esh-autosuggest
-  :ensure t
-  :hook (eshell-mode . esh-autosuggest-mode))
-
 (use-package eshell-syntax-highlighting
   :ensure t
   :after esh-mode
   :config
   (eshell-syntax-highlighting-global-mode +1))
-
-(use-package ghostel  
-  :ensure t
-  :bind (
-         :map eb/open-map
-         ("g" . ghostel)))
 
 (provide 'oz-terminal)
 ;;; oz-terminal.el ends here

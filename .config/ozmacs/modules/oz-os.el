@@ -40,7 +40,7 @@
 (use-package erc-history
   :after erc
   :ensure t
-;  :vc (:url "https://github.com/ebeem/erc-history")
+  :vc (:url "https://github.com/ebeem/erc-history")
   :hook (erc-mode . erc-history-mode)
   :init
   (defun erc-history-ubuntu-message-parser (msg)

@@ -1,37 +1,4 @@
 ;;; Code:
-;; (use-package plz
-;;   :ensure (:host github :repo "alphapapa/plz.el"))
-
-(use-package ement  
-  :ensure t
-  :commands (ement-connect)
-  :bind (:map ement-room-mode-map
-              ("C-p" . my-ement-previous-line-or-retro))
-  :config
-  (defun my-ement-filter-noisy-events (orig-fun event &rest args)
-    "Filter out membership and state events to keep Ement rooms compact.
-Allows only messages, encrypted messages, reactions, and redactions."
-    (let ((type (ement-event-type event)))
-      ;; replies and edits are just "m.room.message" under the hood,
-      ;; so they will automatically be preserved by this check.
-      (if (member type '("m.room.message" 
-                         "m.room.encrypted" 
-                         "m.reaction" 
-                         "m.room.redaction"))
-          (apply orig-fun event args)
-        nil)))
-  (defun my-ement-previous-line-or-retro (&optional arg try-vscroll)
-    "Move to the previous line. If at the top of the buffer, load history."
-    (interactive "^p\np")
-    (condition-case nil
-        ;; attempt to move up normally
-        (previous-line arg try-vscroll)
-      ;; catch the error when you hit the top of the buffer
-      (beginning-of-buffer
-       (message "Fetching older messages...")
-       (call-interactively #'ement-room-retro))))
-    (advice-add 'ement-room--insert-event :around #'my-ement-filter-noisy-events))
-
 (use-package erc
   :ensure nil
   :init
@@ -64,11 +31,13 @@ Allows only messages, encrypted messages, reactions, and redactions."
   :defer t)
 
 (use-package erc-hl-nicks
+  :ensure t
   :after erc
   :config
   (add-to-list 'erc-modules 'hl-nicks))
 
 (use-package erc-image
+  :ensure t
   :after erc
   :config
   (setq erc-image-inline-rescale 300)

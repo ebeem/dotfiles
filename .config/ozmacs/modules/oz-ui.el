@@ -1,23 +1,4 @@
 ;;; Code:
-;; (use-package dashboard
-;;   :ensure t
-;;   :demand t
-;;   :config
-;;   (setq initial-buffer-choice 'dashboard-open
-;;         dashboard-set-heading-icons t
-;;         dashboard-set-file-icons t
-;;         dashboard-projects-backend 'project-el
-;;         dashboard-banner-logo-title "Emacs Is More Than A Text Editor!"
-;;         dashboard-startup-banner (expand-file-name "imgs/logo.png" user-emacs-directory)
-;;         dashboard-center-content t
-;;         dashboard-items '((projects . 10)
-;;                           (bookmarks . 10)))
-;;   (dashboard-setup-startup-hook)
-;;   :custom
-;;   (dashboard-modify-heading-icons '((recents . "file-text")
-;;                                     (bookmarks . "book"))))
-;;(setq initial-scratch-message ";;; ")
-
 (defun eb/mode-line-file-icon ()
   "Return a nerd icon based on the current buffer's file type."
   (if (featurep 'nerd-icons)
@@ -54,17 +35,6 @@ If not visiting a file, show buffer name."
     ;; Not visiting a file
     (propertize (buffer-name)
                 'face (when (buffer-modified-p) 'error))))
-
-;;(defun eb/mode-line-meow-state ()
-;;  "Return an icon or emoji representing the current Meow state."
-;;  (let ((state (meow--current-state)))
-;;    (alist-get state
-;;               '((normal . "🅝")
-;;                 (insert . "🅘")
-;;                 (motion . "🅜")
-;;                 (keypad . "🅚")
-;;                 (beacon . "🅑"))
-;;               "?" nil #'eq)))
 
 (defun eb/mode-line-read-only ()
   "Return the a lock icon if the buffer is read-only"
@@ -148,21 +118,20 @@ If not visiting a file, show buffer name."
        branch-str)))
    ))
 
-(use-package spacious-padding
-  :ensure t
+(use-package mini-padding
+  :ensure nil
   :defer t
-  :hook (emacs-startup . spacious-padding-mode)
+  :hook (emacs-startup . mini-padding-mode)
   :init
-  (setq spacious-padding-widths
+  (setq mini-padding-widths
 		'( :internal-border-width 12
-		   :header-line-width 4
-		   :mode-line-width 6
-		   :tab-width 8
-		   :right-divider-width 8
-		   :scroll-bar-width 8)))
+		   :mode-line-width       6
+		   :fringe-width          6
+		   :right-divider-width   8
+		   :scroll-bar-width      8)))
 
 (use-package modus-themes
-  :ensure t
+  :ensure nil
   :init
   (load-theme 'modus-alucard t))
 
@@ -180,12 +149,6 @@ If not visiting a file, show buffer name."
   (dired-mode . nerd-icons-dired-mode))
 
 ;; colorful dired
-(use-package diredfl
-  :ensure t
-  :hook
-  (dired-mode . diredfl-mode))
-
-;; colorful dired
 (use-package dired
   :ensure nil
   :config
@@ -200,8 +163,12 @@ If not visiting a file, show buffer name."
 				 (progn 
                    (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
                    (match-string 1)))))))
-;; :hook
-;; (dired-mode . dired-hide-details-mode))
+
+;; colorful dired
+(use-package mini-diredfl
+  :ensure nil
+  :hook
+  (dired-mode . mini-diredfl-mode))
 
 (provide 'oz-ui)
 ;;; oz-ui.el ends here
