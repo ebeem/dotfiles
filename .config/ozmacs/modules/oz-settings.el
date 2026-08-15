@@ -104,26 +104,10 @@ Intended for `after-make-frame-functions'."
       (append tramp-remote-path
               '(tramp-own-remote-path))))
 
-;; (use-package easysession
-;;   :ensure t
-;;   :demand t
-;;   :init
-;;   (setq easysession-directory (expand-file-name ".cache/easy-session" user-emacs-directory))
-;;   :custom
-;;   (easysession-save-interval (* 10 60))
-;;   (easysession-switch-to-save-session t)
-;;   (easysession-switch-to-exclude-current t)
-;;   (easysession-save-mode-lighter-show-session-name t)
-;;   :config
-;;   (global-set-key (kbd "C-c sl") #'easysession-switch-to) ; Load session
-;;   (global-set-key (kbd "C-c ss") #'easysession-save) ; Save session
-;;   (global-set-key (kbd "C-c sL") #'easysession-switch-to-and-restore-geometry)
-;;   (global-set-key (kbd "C-c sr") #'easysession-rename)
-;;   (global-set-key (kbd "C-c sR") #'easysession-reset)
-;;   (global-set-key (kbd "C-c su") #'easysession-unload)
-;;   (global-set-key (kbd "C-c sd") #'easysession-delete)
-;;   (setq easysession-setup-load-session t)
-;;   (easysession-setup))
+(use-package nsm
+  :ensure nil
+  :custom
+  (nsm-settings-file (expand-file-name ".cache/network-security.data" user-emacs-directory)))
 
 ;; keybindings
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)

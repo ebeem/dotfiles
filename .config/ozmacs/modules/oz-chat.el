@@ -46,10 +46,16 @@
 (use-package mastodon
   :ensure t
   :defer t
+  :custom (mastodon-client--token-file (expand-file-name ".cache/mastodon.plstore" user-emacs-directory))
   :commands (mastodon)
   :config
   (setq mastodon-instance-url "https://mastodon.social"
         mastodon-active-user "ebeem"))
+
+(use-package persist
+  :ensure nil
+  :custom
+  (persist-default-location (expand-file-name ".cache/persist" user-emacs-directory)))
 
 ;; TODO: whatsapp client
 ;; https://github.com/tulir/whatsmeow

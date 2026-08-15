@@ -411,6 +411,7 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 
 (use-package multiple-cursors
   :ensure t
+  :custom (mc/list-file (expand-file-name ".cache/.mc-lists.el" user-emacs-directory))
   :defer t
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C->"         . mc/mark-next-like-this)

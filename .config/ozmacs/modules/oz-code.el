@@ -212,6 +212,9 @@
   :mode ("\\.md\\'" . gfm-mode))
 
 (use-package logview
+  :custom
+  (logview-cache-filename (expand-file-name ".cache/logview-cache.extmap" user-emacs-directory))
+  (logview-views-file (expand-file-name ".cache/logview.views" user-emacs-directory))
   :ensure t
   :defer t
   :commands (logview-mode))
