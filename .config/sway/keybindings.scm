@@ -82,7 +82,7 @@
    `("s-," (sway-focus-container-sibling SWAY-SIBLING-PREV) #:wk "Cycle Tabs Previous")
 
    `("s-w" (sway-kill) #:wk "Kill Window")
-   `("s-Return" (exec "alacritty") #:wk "Spawn Terminal")
+   `("s-Return" (exec "foot") #:wk "Spawn Terminal")
    ;; `("M-s-Space" (exec "~/.bin/switch-keyboard-layout") #:wk "Switch Keyboard Layout")
    `("C-s-Space" (exec "sleep 0.05 && fuzzel")) #:wk "Application Launcher")
 
