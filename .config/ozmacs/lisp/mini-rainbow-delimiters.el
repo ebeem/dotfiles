@@ -11,10 +11,10 @@
 (eval-when-compile
   (defmacro mini-rainbow-delimiters--define-depth-faces ()
     (let ((faces '())
-          (light-colors ["#707183" "#7388d6" "#909183" "#709870" "#907373"
-                         "#6276ba" "#858580" "#80a880" "#887070"])
-          (dark-colors ["grey55" "#93a8c6" "#b0b1a3" "#97b098" "#aebed8"
-                        "#b0b0b3" "#90a890" "#a2b6da" "#9cb6ad"]))
+          (light-colors ["#c6a0f6" "#ed8796" "#f5a97f" "#a6da95" "#7dc4e4"
+                         "#f5bde6" "#eed49f" "#8aadf4" "#b7bdf8"])
+          (dark-colors ["#c6a0f6" "#ed8796" "#f5a97f" "#a6da95" "#7dc4e4"
+                         "#f5bde6" "#eed49f" "#8aadf4" "#b7bdf8"]))
       (dotimes (i 9)
         (push `(defface ,(intern (format "mini-rainbow-delimiters-depth-%d-face" (1+ i)))
                  '((default (:inherit default))
