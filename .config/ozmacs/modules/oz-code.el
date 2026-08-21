@@ -23,9 +23,7 @@
 ;; colorize color hex code in buffers. (#ff0000)
 (use-package mini-color
   :ensure nil
-  :defer t
-  :init
-  (global-mini-color-mode 1))
+  :hook (prog-mode . global-mini-color-mode))
 
 ;; highlight delimiters such as parentheses, brackets or braces according to their depth
 (use-package mini-rainbow-delimiters
@@ -211,13 +209,10 @@
   :ensure t
   :mode ("\\.md\\'" . gfm-mode))
 
-(use-package logview
-  :custom
-  (logview-cache-filename (expand-file-name ".cache/logview-cache.extmap" user-emacs-directory))
-  (logview-views-file (expand-file-name ".cache/logview.views" user-emacs-directory))
-  :ensure t
+(use-package mini-logview
+  :ensure nil
   :defer t
-  :commands (logview-mode))
+  :commands (mini-logview-mode))
 
 (use-package scheme
   :ensure nil

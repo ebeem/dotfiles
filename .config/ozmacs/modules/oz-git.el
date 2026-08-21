@@ -36,8 +36,6 @@
   :commands (forge-create-pullreq forge-create-issue)
   :custom (forge-database-file (expand-file-name ".cache/forge-database.sqlite" user-emacs-directory)))
 
-;; (use-package seq)
-
 ;; highlight diffs
 (use-package diff-hl
   :ensure t
