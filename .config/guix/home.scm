@@ -24,14 +24,14 @@
                      disk sqlite gdb mpd libreoffice chromium package-management hardware guile
                      kde-multimedia vim autotools finance ssh ncurses networking freedesktop
                      task-management gnome librewolf lua node php xfce engineering maths gnome-xyz
-                     tor vpn wm xdisorg password-utils web-browsers golang wget cinnamon zig
+                     tor vpn wm xdisorg password-utils web-browsers golang wget cinnamon zig window-management
                      game-development python jupyter python-xyz machine-learning kde-graphics
                      java virtualization containers emulators wine glib base version-control)
 
 (define %packages-utils
   (list alsa-utils aspell aspell-dict-en aspell-dict-ar ispell bluez
         findutils gparted brightnessctl ripgrep grep hostapd
-        btop inotify-tools openssh sed ncurses stow sudo wget rtorrent
+        btop inotify-tools openssh sed ncurses stow wget rtorrent
         dbus password-store fd nix
 		;; TODO bandwhich (custom package), fastfetch (too many deps), tlp
 		))
@@ -53,7 +53,7 @@
 	))
 
 (define %packages-fonts
-  (list font-iosevka font-google-noto font-fira-mono font-fira-sans
+  (list font-iosevka font-nerd-symbols font-google-noto font-fira-mono font-fira-sans
 		font-iosevka-nerd))
 
 (define %packages-coding
@@ -132,12 +132,12 @@
                    %packages-databases
                    %packages-communication
                    %packages-virtualization
-                   ;;%packages-websites
-                   ;;%packages-office-suite
+                   %packages-websites
+                   %packages-office-suite
                    %packages-finance
-                   ;;%packages-browser
+                   %packages-browser
                    %packages-networking
-                   ;;%packages-gaming
+                   %packages-gaming
 		   ))
  (services
   (list
