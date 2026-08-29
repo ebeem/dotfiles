@@ -1,4 +1,4 @@
-;;; Code:
+;;; Code:  -*- lexical-binding: t; -*-
 
 ;; eshell and evaluation
 (use-package eshell

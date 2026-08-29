@@ -1,3 +1,4 @@
+;;; Code:  -*- lexical-binding: t; -*-
 (use-package project
   :ensure nil
   :config
@@ -31,18 +32,12 @@
   :diminish
   :hook (prog-mode . mini-rainbow-delimiters-mode))
 
-;; TODO: remove in emacs 31 and replace by built-in alternative
-;; (treesit-auto-install-grammar 'always)
-;; (treesit-enabled-modes t)
-(use-package treesit-auto
-  :ensure t
-  :defer t
+(use-package treesit
+  :ensure nil
   :init
-  (setq treesit-auto-install 'prompt))
+  (setq treesit-auto-install-grammar 'always
+		treesit-enabled-modes t))
 
-;; TODO: in emacs 31, documentation can be viewed via markdown mode
-;; (eglot-documentation-renderer 'markdown-ts-view-mode)
-;; (eglot-code-action-indications nil)
 (use-package eglot
   :ensure nil
   ;; :hook (before-save . eglot-format-buffer)
@@ -56,6 +51,8 @@
       (if (length> solutions 1)
           (list "-s" (completing-read "Select a solution: " solutions))
         '())))
+  (setq eglot-code-action-indications nil)
+  (setq eglot-documentation-renderer 'markdown-ts-view-mode)
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-server-programs
         (remove (assoc '(csharp-mode csharp-ts-mode)
@@ -93,18 +90,10 @@
   :hook
   (compilation-filter . ansi-color-compilation-filter))
 
-;; (use-package with-venv)
-
 (use-package eldoc
   :ensure nil
   :config
   (setq eldoc-echo-area-use-multiline-p 1))
-
-;; (use-package eldoc-box
-;;   :init
-;;   (setq eldoc-echo-area-use-multiline-p nil)
-;;   :bind
-;;   ([remap eldoc-doc-buffer] . eldoc-box-help-at-point))
   
 ;; rest client
 (use-package restclient
@@ -205,13 +194,14 @@
   :ensure nil
   :mode ("\\.csproj\\'" . csproj-mode))
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("\\.md\\'" . gfm-mode))
+(use-package markdown-ts-mode
+  :ensure nil
+  :mode ("\\.md\\'" "\\.mdx\\'" "\\.markdown\\'"))
 
 (use-package mini-logview
   :ensure nil
   :defer t
+  :mode ("\\.log\\'" . mini-logview-mode)
   :commands (mini-logview-mode))
 
 (use-package scheme
@@ -229,126 +219,141 @@
 							 (1 font-lock-keyword-face)
 							 (2 font-lock-function-name-face nil t))))
 
-  (defun eb/re-export-all-defs ()
-	"Clear the current #:export list and re-export all definitions in the buffer."
+  (defun eb/clear-export-list ()
+	"Clear the contents inside the #:export (...) list in the current buffer."
+	(save-excursion
+      (goto-char (point-min))
+      (when (search-forward "#:export" nil t)
+		(skip-chars-forward " \t\n")
+		(when (looking-at "(")
+          (let ((start (1+ (point)))
+				(end (save-excursion (forward-list 1) (1- (point)))))
+			(delete-region start end))))))
+
+  (defun eb/re-export-public-defs ()
+	"Clear the current #:export list and re-export only public definitions (skipping '%')."
 	(interactive)
 	(let ((orig-point (point-marker)))
-      (save-excursion
-		(goto-char (point-min))
-		(when (search-forward "#:export" nil t)
-          (skip-chars-forward " \t\n")
-          (when (looking-at "(")
-			(let ((start (1+ (point)))
-                  (end (save-excursion (forward-list 1) (1- (point)))))
-              ;; Delete everything inside the parentheses
-              (delete-region start end)))))
-
-      (mark-whole-buffer)
-      (call-interactively 'eb/append-defs-to-export)
-
-      (deactivate-mark)
+      (eb/clear-export-list)
+      (save-restriction
+		(widen)
+		(eb/append-defs-to-export (point-min) (point-max) t))
       (goto-char orig-point)
       (set-marker orig-point nil)))
 
-  (defun eb/append-defs-to-export ()
-	"Extract defined variables/functions and record types in the active region 
-or current line, check if they are already exported, and append new ones to 
-the #:export section."
+  (defun eb/re-export-all-defs ()
+	"Clear the current #:export list and re-export all definitions in the buffer, including '%'."
 	(interactive)
-	(let* ((bounds (if (use-region-p)
+	(let ((orig-point (point-marker)))
+      (eb/clear-export-list)
+      (save-restriction
+		(widen)
+		(eb/append-defs-to-export (point-min) (point-max) nil))
+      (goto-char orig-point)
+      (set-marker orig-point nil)))
+
+  (defun eb/append-defs-to-export (&optional beg end exclude-private)
+	"Extract definitions in the region between BEG and END and append them to #:export.
+When EXCLUDE-PRIVATE is non-nil (or with prefix arg if interactive), ignore names starting with '%'."
+	(interactive
+	 (let ((bounds (if (use-region-p)
                        (cons (region-beginning) (region-end))
-					 (cons (line-beginning-position) (line-end-position))))
-           (beg (car bounds))
-           (end (cdr bounds))
+					 (cons (line-beginning-position) (line-end-position)))))
+       (list (car bounds) (cdr bounds) current-prefix-arg)))
+	(let* ((beg (or beg (if (use-region-p) (region-beginning) (line-beginning-position))))
+           (end (or end (if (use-region-p) (region-end) (line-end-position))))
            (name-alist nil)
            (names nil)
            (def-regex "(\\(define\\*?\\(?:-[a-z-]+\\)?\\|def[a-z-]+\\)\\s-+[(]?\\s-*\\([^ \t\n()]+\\)"))
-      (save-excursion
-		(goto-char beg)
-		(while (re-search-forward def-regex end t)
-          (unless (nth 8 (syntax-ppss)) 
-			(let ((keyword (match-string-no-properties 1)) 
-                  (name (match-string-no-properties 2))    
-                  (pos (match-beginning 2)))
-              ;; ignore 'define-module' and scheme type tags like <container>
-              (unless (or (string= keyword "define-module")
-                          (string-match-p "^<[^>]+>$" name))
-				(push (cons pos name) name-alist))))))
 
-      (save-excursion
-		(goto-char beg)
-		(while (re-search-forward "(define-record-type\\_>" end t)
-          (save-excursion
-			(goto-char (match-beginning 0))
-			(let ((pos (point)))
-              (condition-case nil
-                  (let* ((form (read (current-buffer)))
-						 (is-record (and (listp form) (eq (car form) 'define-record-type)))
-						 (constructor (and is-record (nth 2 form)))
-						 (predicate (and is-record (nth 3 form)))
-						 (fields (and is-record (nthcdr 4 form))))
-					
-					(when constructor
-                      (cond ((listp constructor)
-							 (when (car constructor)
-                               (push (cons pos (symbol-name (car constructor))) name-alist)))
-							((symbolp constructor)
-							 (push (cons pos (symbol-name constructor)) name-alist))))
-					
-					(when (and predicate (symbolp predicate))
-                      (push (cons pos (symbol-name predicate)) name-alist))
-					
-					(when fields
-                      (dolist (field fields)
-						(when (listp field)
-                          (let ((getter (nth 1 field))
-								(setter (nth 2 field)))
-							(when (and getter (symbolp getter))
-                              (push (cons pos (symbol-name getter)) name-alist))
-							(when (and setter (symbolp setter))
-                              (push (cons pos (symbol-name setter)) name-alist)))))))
-				(error nil))))))
+      (cl-flet ((add-name (pos sym-name)
+                  (when (and sym-name
+							 (not (and exclude-private (string-prefix-p "%" sym-name))))
+					(push (cons pos sym-name) name-alist))))
 
-      (setq name-alist (sort name-alist (lambda (a b) (< (car a) (car b)))))
-      (setq names (mapcar #'cdr name-alist))
-      (setq names (delete-dups names)) ;; remove duplicates between pass 1 and 2
-
-      (if (not names)
-          (message "No definitions found in the selected area.")
+		;; standard definitions
 		(save-excursion
-          (goto-char (point-min))
-          ;; search for the export section
-          (if (search-forward "#:export" nil t)
-              (progn
-				(skip-chars-forward " \t\n")
-				(if (looking-at "(")
-					(let* ((export-list-start (point))
-                           ;; find the exact end of the export list
-                           (export-list-end (save-excursion (forward-list 1) (point)))
-                           (names-to-add nil))
+          (goto-char beg)
+          (while (re-search-forward def-regex end t)
+			(unless (nth 8 (syntax-ppss)) 
+              (let ((keyword (match-string-no-properties 1)) 
+					(name (match-string-no-properties 2))    
+					(pos (match-beginning 2)))
+				(unless (or (string= keyword "define-module")
+							(string-match-p "^<[^>]+>$" name))
+                  (add-name pos name))))))
 
-                      ;; filter out names that are already exported
-                      (dolist (name names)
-						(save-excursion
-                          (goto-char export-list-start)
-                          (let ((sym-regex (concat "\\_<" (regexp-quote name) "\\_>")))
-							(unless (re-search-forward sym-regex export-list-end t)
-                              (push name names-to-add)))))
+		;; define-record-type definitions
+		(save-excursion
+          (goto-char beg)
+          (while (re-search-forward "(define-record-type\\_>" end t)
+			(save-excursion
+              (goto-char (match-beginning 0))
+              (let ((pos (point)))
+				(condition-case nil
+					(let* ((form (read (current-buffer)))
+                           (is-record (and (listp form) (eq (car form) 'define-record-type)))
+                           (constructor (and is-record (nth 2 form)))
+                           (predicate (and is-record (nth 3 form)))
+                           (fields (and is-record (nthcdr 4 form))))
                       
-                      (setq names-to-add (nreverse names-to-add))
+                      (when constructor
+						(cond ((listp constructor)
+                               (when (car constructor)
+								 (add-name pos (symbol-name (car constructor)))))
+                              ((symbolp constructor)
+                               (add-name pos (symbol-name constructor)))))
+                      
+                      (when (and predicate (symbolp predicate))
+						(add-name pos (symbol-name predicate)))
+                      
+                      (when fields
+						(dolist (field fields)
+                          (when (listp field)
+							(let ((getter (nth 1 field))
+                                  (setter (nth 2 field)))
+                              (when (and getter (symbolp getter))
+								(add-name pos (symbol-name getter)))
+                              (when (and setter (symbolp setter))
+								(add-name pos (symbol-name setter))))))))
+                  (error nil))))))
 
-                      ;; insert only the new names
-                      (if (not names-to-add)
-                          (message "All selected definitions are already exported.")
-						(goto-char export-list-end)
-						(backward-char 1)
-						(dolist (name names-to-add)
-                          (newline-and-indent)
-                          (insert name))
+		(setq name-alist (sort name-alist (lambda (a b) (< (car a) (car b)))))
+		(setq names (mapcar #'cdr name-alist))
+		(setq names (delete-dups names))
+
+		(if (not names)
+			(message "No definitions found to export.")
+          (save-excursion
+			(goto-char (point-min))
+			(if (search-forward "#:export" nil t)
+				(progn
+                  (skip-chars-forward " \t\n")
+                  (if (looking-at "(")
+                      (let* ((export-list-start (point))
+							 (export-list-end (save-excursion (forward-list 1) (point)))
+							 (names-to-add nil))
+
+						(dolist (name names)
+                          (save-excursion
+							(goto-char export-list-start)
+							(let ((sym-regex (concat "\\_<" (regexp-quote name) "\\_>")))
+                              (unless (re-search-forward sym-regex export-list-end t)
+								(push name names-to-add)))))
 						
-						(message "Successfully exported: %s" (mapconcat #'identity names-to-add ", "))))
-                  (message "Expected a list '(' after #:export.")))
-			(message "Could not find an #:export section in this file.")))))))
+						(setq names-to-add (nreverse names-to-add))
+
+						(if (not names-to-add)
+							(message "All matching definitions are already exported.")
+                          (goto-char export-list-end)
+                          (backward-char 1)
+                          (dolist (name names-to-add)
+							(newline-and-indent)
+							(insert name))
+                          
+                          (message "Successfully exported: %s" (mapconcat #'identity names-to-add ", "))))
+					(message "Expected a list '(' after #:export.")))
+              (message "Could not find an #:export section in this file."))))))))
 
 (provide 'oz-code)
 ;;; oz-code.el ends here

@@ -1,5 +1,4 @@
-;;; Code:
-
+;;; Code:  -*- lexical-binding: t; -*-
 ;; font
 (defun eb/reset-font ()
   "Reset the font to default ones."

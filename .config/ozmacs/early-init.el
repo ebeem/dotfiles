@@ -1,4 +1,4 @@
-;;; Code:
+;;; Code:  -*- lexical-binding: t; -*-
 ;;; Commentary
 
 ;; UI configuration

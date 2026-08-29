@@ -1,4 +1,4 @@
-;;; Code:
+;;; Code:  -*- lexical-binding: t; -*-
 ;; https://github.com/justbur/emacs-which-key
 ;; displays the key bindings following your currently entered incomplete command
 ;; TODO: keybindings to cycle next/prev options
@@ -164,15 +164,15 @@
         consult-async-input-throttle 0.2
         consult-async-input-debounce 0.1)
 
-  (consult-customize
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file
-   consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
-   :preview-key "C-SPC")
+  (consult-customize consult-ripgrep
+					 consult-git-grep
+					 consult-grep
+					 consult-bookmark
+					 consult-recent-file
+					 :preview-key "C-SPC")
 
-  (consult-customize
-   consult-theme
-   :preview-key (list "C-SPC" :debounce 0.5 'any)))
+  (consult-customize consult-theme
+					 :preview-key (list "C-SPC" :debounce 0.5 'any)))
 
 
 ;; Enable rich annotations using the Marginalia package
@@ -209,7 +209,7 @@
 		completions-max-height 12
 		completions-sort 'historical
 		completion-auto-help t
-		completion-auto-select ni
+		completion-auto-select nil
         minibuffer-visible-completions t
 		completion-eager-display t
 		completion-eager-update t))

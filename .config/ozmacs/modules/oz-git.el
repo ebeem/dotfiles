@@ -30,11 +30,11 @@
          ("S" . magit-stage-file)
          ("U" . magit-unstage-file)))
 
-(use-package forge
-  :after magit
-  :ensure t
-  :commands (forge-create-pullreq forge-create-issue)
-  :custom (forge-database-file (expand-file-name ".cache/forge-database.sqlite" user-emacs-directory)))
+;; (use-package forge
+;;   :after magit
+;;   :ensure t
+;;   :commands (forge-create-pullreq forge-create-issue)
+;;   :custom (forge-database-file (expand-file-name ".cache/forge-database.sqlite" user-emacs-directory)))
 
 ;; highlight diffs
 (use-package diff-hl

@@ -1,4 +1,4 @@
-;;; Code:
+;;; Code:  -*- lexical-binding: t; -*-
 
 ;; add custom package paths
 (dolist (pkg '("topel" "bluel" "duelzer" "dmenuel" "skyel" "ytbel" "academel" "typel"))
@@ -18,16 +18,14 @@
 		("London"      51.5074   -0.1278  "Europe/London")))
 
 ;; defer loading custom packages until 2 seconds of idle time
-(run-with-idle-timer 2 nil
-  (lambda ()
-    (require 'topel nil t)
-    (require 'bluel nil t)
-    (require 'duelzer nil t)
-    (require 'dmenuel nil t)
-    (require 'skyel nil t)
-    (require 'ytbel nil t)
-    (require 'academel nil t)
-    (require 'typel nil t)))
+(require 'topel nil t)
+(require 'bluel nil t)
+(require 'duelzer nil t)
+(require 'dmenuel nil t)
+(require 'skyel nil t)
+(require 'ytbel nil t)
+(require 'academel nil t)
+(require 'typel nil t)
 
 ;; (add-to-list 'load-path "~/workspace/emacs/empdel")
 ;; (require 'empdel)

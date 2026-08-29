@@ -77,8 +77,8 @@
   (list bibata-cursor-theme colloid-catppuccin-purple-gtk-theme
         colloid-catppuccin-purple-icon-theme fuzzel
         sway swaybg swayidle swayimg swaynotificationcenter guile-swayer
-        wofi waybar xdg-utils mako
-	;;TODO: awww, river flameshot
+        wofi waybar xdg-utils mako flameshot
+		;;TODO: river
 	))
 
 (define %packages-game-development

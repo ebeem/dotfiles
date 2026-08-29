@@ -1,4 +1,4 @@
-;;; Code:
+;;; Code:  -*- lexical-binding: t; -*-
 (use-package org-mode
   :ensure nil
   :init
@@ -30,7 +30,7 @@
   :bind (("C-c n f" . denote-open-or-create)))
 
 (use-package org-faces
-  :init
+  :config
   (setq org-hide-emphasis-markers t)
   (set-face-attribute 'org-document-title nil :inherit 'fixed-pitch :weight 'bold :height 1.2)
   (set-face-attribute 'org-block nil :inherit 'fixed-pitch)

@@ -1,4 +1,4 @@
-;;; Code:
+;;; Code:  -*- lexical-binding: t; -*-
 (defun eb/mode-line-file-icon ()
   "Return a nerd icon based on the current buffer's file type."
   (if (featurep 'nerd-icons)
@@ -131,7 +131,7 @@ If not visiting a file, show buffer name."
 		   :scroll-bar-width      8)))
 
 (use-package modus-themes
-  :ensure nil
+  :ensure t
   :init
   (load-theme 'modus-alucard t))
 
