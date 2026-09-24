@@ -11,14 +11,14 @@
   :bind (
          :map eb/dired-map
          ("d" . dired-jump)
-         ("D" . dired-delete-permanently) 
-         ("j" . dired-jump) 
+         ("D" . dired-delete-permanently)
+         ("j" . dired-jump)
          ("p" . peep-dired)
-         
+
          :map eb/open-map
          ("d" . dired-jump)
          ("-" . dired-jump)
-         
+
          :map eb/files-map
          ("C" . editorconfig-find-current-editorconfig)
          ("c" . copy-this-file)
@@ -30,6 +30,7 @@
          ("s" . save-buffer)
          ("r" . counsel-recentf))
   :config
+  (setq dired-mouse-drag-files t)
   (defun dired-delete-permanently (&optional arg)
 	"Delete marked files in Dired permanently, bypassing the trash."
 	(interactive "P")
@@ -67,11 +68,11 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
       (setq apps (delete-dups (nreverse apps)))
       (unless apps
 		(error "No applications found to handle mime type: %s" mimetype))
-      (setq selected-desktop (completing-read 
-                              (format "Open '%s' with: " (file-name-nondirectory file)) 
+      (setq selected-desktop (completing-read
+                              (format "Open '%s' with: " (file-name-nondirectory file))
                               apps nil t))
       (let ((process-connection-type nil))
-		(start-process "dired-open-with-process" "*dired-open-errors*" 
+		(start-process "dired-open-with-process" "*dired-open-errors*"
                        "gtk-launch" selected-desktop file-uri))
       (message "Opened %s with %s" (file-name-nondirectory file) selected-desktop)))
 
@@ -142,7 +143,7 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
          ("S" . save-all-buffers)
          ("x" . scratch-buffer)
          ("y" . yank-buffer)
-         
+
          :map eb/evaluate-map
          ("d" . eval-defun)
          ("e" . eval-expression)
@@ -150,7 +151,7 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
          ("l" . eval-last-sexp)
          ("r" . eval-region)
          ("s" . eshell))
-  
+
   :config
   ;; delete current file
   (defun delete-current-file ()
@@ -324,7 +325,7 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
 
 (use-package windmove
   :ensure nil
-  :init 
+  :init
   (defvar-keymap eb/window-map :doc "Window")
   :bind-keymap (("C-c w" . eb/window-map))
   :bind (
@@ -360,9 +361,33 @@ Relies on `xdg-mime`, `gio`, and `gtk-launch`."
   (proced-enable-color-flag t)
   (proced-format 'custom)
   :config
+  (defvar proced-cpu-cores
+	(max 1 (string-to-number (string-trim (shell-command-to-string "nproc")))))
+
+  (defun proced-format-total-cpu (cpu)
+	(let* ((val (if (numberp cpu) cpu (string-to-number (or cpu "0"))))
+           (normalized (/ (float val) proced-cpu-cores)))
+      (format "%5.1f" normalized)))
+
+  (setq proced-grammar-alist
+      (append
+       '(
+		 ;; total cpu scaled down to 0-100%
+         (total-cpu "%CPU" proced-format-total-cpu right
+                    (lambda (x y) (> (or (cdr (assq 'pcpu (cdr x))) 0)
+                                     (or (cdr (assq 'pcpu (cdr y))) 0)))
+                    (lambda (attr) (cdr (assq 'pcpu attr))))
+
+         ;; thread count using built-in 'thcount
+         (threads "NLWP" "%4d" right
+                  (lambda (x y) (> (or (cdr (assq 'thcount (cdr x))) 0)
+                                   (or (cdr (assq 'thcount (cdr y))) 0)))
+                  (lambda (attr) (or (cdr (assq 'thcount attr)) 1))))
+       proced-grammar-alist))
+
   (add-to-list
    'proced-format-alist
-   '(custom user pid ppid sess tree pcpu pmem rss start time state (args comm))))
+   '(custom pid user comm threads total-cpu rss time (args comm))))
 
 (use-package expand-region
   :ensure t

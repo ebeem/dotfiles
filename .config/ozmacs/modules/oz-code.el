@@ -104,10 +104,6 @@
   :mode ("\\.rest\\'" . restclient-mode))
 
 ;; programming langauges major modes
-;; (use-package rjsx-mode
-;;   :mode ("\\.jsx\\'" . rjsx-mode)
-;;   :hook (rjsx-mode . eglot-ensure))
-
 (use-package javascript-mode
   :ensure nil
   :hook (js-jsx-mode . eglot-ensure))
@@ -137,11 +133,6 @@
   :ensure nil
   :mode ("\\.rs\\'" . rust-ts-mode)
   :hook (rust-ts-mode . eglot-ensure))
-
-(use-package rjsx-mode
-  :ensure t
-  :mode ("\\.tsx\\'" . rjsx-mode)
-  :hook (rjsx-mode . eglot-ensure))
 
 (use-package csv-mode
   :ensure t
