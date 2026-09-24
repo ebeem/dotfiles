@@ -17,6 +17,9 @@
   :ensure nil
   :hook (prog-mode . mini-hl-todo-mode))
 
+(use-package mini-tokei
+  :ensure nil)
+
 (use-package editorconfig
   :ensure nil
   :hook (prog-mode . editorconfig-mode))

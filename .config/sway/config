@@ -15,6 +15,7 @@ mode "$mode_hotkeygrab" {
   bindsym $mod+Shift+z mode "default"
 }
 
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 default_border none 
 for_window [title="^.*"] title_format ""
 for_window [title="^floating-emacs$"] floating enable, move position center

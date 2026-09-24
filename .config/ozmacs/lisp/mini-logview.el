@@ -85,16 +85,23 @@
     ("\\bERROR\\b" 0 'mini-logview-error-face)
     ("\\bFATAL\\b" 0 'mini-logview-error-face)))
 
+;; Buffer-local variable to persist the current active level
+(defvar-local mini-logview--current-min-level nil
+  "Current minimum log level filter applied to the buffer.")
+(put 'mini-logview--current-min-level 'permanent-local t)
+
 (defun mini-logview-reset-filters ()
   "Show all hidden log entries."
   (interactive)
+  (setq mini-logview--current-min-level nil)
   (remove-overlays (point-min) (point-max) 'mini-logview-hidden t)
   (message "Filters cleared (showing all)"))
 
 (defun mini-logview-filter-by-level (min-level-num)
   "Hide all log lines with severity strictly below MIN-LEVEL-NUM."
   (interactive "nMin level (1=TRACE, 2=DEBUG, 3=INFO, 4=WARN, 5=ERROR): ")
-  (mini-logview-reset-filters)
+  (setq mini-logview--current-min-level min-level-num)
+  (remove-overlays (point-min) (point-max) 'mini-logview-hidden t)
   (let ((count 0))
     (save-excursion
       (goto-char (point-min))
@@ -114,6 +121,11 @@
             (cl-incf count)))
         (forward-line 1)))
     (message "Applied level >= %d filter (hidden %d lines)" min-level-num count)))
+
+(defun mini-logview--after-revert-hook ()
+  "Reapply existing filter after buffer revert."
+  (when mini-logview--current-min-level
+    (mini-logview-filter-by-level mini-logview--current-min-level)))
 
 (defun mini-logview--jump-to-message ()
   "Position point at the start of the message body (immediately after '- ')."
@@ -173,6 +185,7 @@
   :group 'mini-logview
   (setq-local font-lock-defaults '(mini-logview-font-lock-keywords t nil nil nil))
   (setq-local truncate-lines t)
+  (add-hook 'after-revert-hook #'mini-logview--after-revert-hook nil t)
   (font-lock-flush))
 
 (provide 'mini-logview)

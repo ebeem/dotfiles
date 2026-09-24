@@ -5,7 +5,6 @@
   :group 'dired
   :prefix "mini-diredfl-")
 
-;; Faces
 (defface mini-diredfl-dir-priv
   '((t :inherit font-lock-function-name-face :weight bold))
   "Face for directory 'd' bit."
@@ -42,7 +41,7 @@
   :group 'mini-diredfl)
 
 (defvar mini-diredfl--font-lock-keywords
-  `(;; Permissions: match 10-char file mode string (e.g. drwxr-xr-x)
+  `(;; permissions: match 10-char file mode string (e.g. drwxr-xr-x)
     ("^ *\\([bcdlps-][r-][w-][x-][r-][w-][x-][r-][w-][x-]\\)"
      (1 (let ((str (match-string 1)))
           (dotimes (i (length str))
@@ -58,10 +57,10 @@
                  (?- 'mini-diredfl-no-priv)
                  (_  'default)))))
           nil)))
-    ;; File size (numeric or human-readable like 4.2K, 12M, 1.1G)
+    ;; file size (numeric or human-readable like 4.2k, 12m, 1.1g)
     (" [0-9]+\\(?:\\.[0-9]+\\)?[BkKMGTPEZY]? "
      0 'mini-diredfl-size prepend)
-    ;; Standard timestamps: Jan 12 10:45 or 2026-08-14 19:20
+    ;; standard timestamps: jan 12 10:45 or 2026-08-14 19:20
     ("\\(?:[A-Z][a-z]\\{2\\} +[0-9]\\{1,2\\} +\\(?:[0-9]\\{4\\}\\|[0-9]\\{2\\}:[0-9]\\{2\\}\\)\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} +[0-9]\\{2\\}:[0-9]\\{2\\}\\)"
      0 'mini-diredfl-date prepend))
   "Font-lock keywords for `mini-diredfl-mode`.")

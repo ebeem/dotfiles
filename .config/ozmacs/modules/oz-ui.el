@@ -162,7 +162,60 @@ If not visiting a file, show buffer name."
 		(message "Size of all marked files: %s"
 				 (progn 
                    (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
-                   (match-string 1)))))))
+                   (match-string 1))))))
+
+  (defun eb/mount-and-open-in-dired ()
+	"List unmounted drives with their labels, mount the selection, and open Dired."
+	(interactive)
+	(let* ((cmd "lsblk -Pp -o NAME,SIZE,TYPE,FSTYPE,LABEL,MOUNTPOINT")
+           (lines (split-string (shell-command-to-string cmd) "\n" t))
+           (candidates nil))
+      ;; parse lsblk key="value" output
+      (dolist (line lines)
+		(let ((pos 0)
+              (data nil))
+          (while (string-match "\\([A-Z_]+\\)=\"\\([^\"]*\\)\"" line pos)
+			(push (cons (match-string 1 line) (match-string 2 line)) data)
+			(setq pos (match-end 0)))
+          (let ((name       (cdr (assoc "NAME" data)))
+				(size       (cdr (assoc "SIZE" data)))
+				(fstype     (cdr (assoc "FSTYPE" data)))
+				(label      (cdr (assoc "LABEL" data)))
+				(mountpoint (cdr (assoc "MOUNTPOINT" data))))
+			;; filter for unmounted block devices with a filesystem (skipping swap)
+			(when (and name
+                       (not (equal name ""))
+                       (or (null mountpoint) (equal mountpoint ""))
+                       fstype
+                       (not (equal fstype ""))
+                       (not (equal fstype "swap")))
+              (let* ((lbl (if (and label (not (equal label "")))
+                              (format "[%s]" label)
+							"[no label]"))
+					 (display (format "%-14s  %-18s  (%s, %s)" name lbl size fstype)))
+				(push (cons display name) candidates))))))
+      (if (null candidates)
+          (message "No unmounted drives found.")
+		(let* ((cand-alist (reverse candidates))
+               (choice (completing-read "Mount drive: " cand-alist nil t))
+               (device (cdr (assoc-string choice cand-alist))))
+          (if (not device)
+              (message "Failed to resolve block device for choice: %s" choice)
+			(message "Mounting %s..." device)
+			(let* ((mount-cmd (format "udisksctl mount -b %s" (shell-quote-argument device)))
+                   (output (string-trim (shell-command-to-string mount-cmd))))
+              ;; extract the mount directory from udisksctl output, or query lsblk directly
+              (let ((mountpoint
+					 (or (when (string-match "at \\(/[^. \n\t]+\\(?: [^. \n\t]+\\)*\\)" output)
+                           (match-string 1 output))
+						 (string-trim
+                          (shell-command-to-string
+                           (format "lsblk -no MOUNTPOINT %s" (shell-quote-argument device)))))))
+				(if (and mountpoint (not (string-empty-p mountpoint)) (file-directory-p mountpoint))
+					(progn
+                      (message "Mounted at: %s" mountpoint)
+                      (dired mountpoint))
+                  (message "Mount failed: %s" output))))))))))
 
 ;; colorful dired
 (use-package mini-diredfl

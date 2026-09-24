@@ -11,17 +11,17 @@
              #:position '(0 0)
              #:resolution '(1920 1080)
              #:refresh-rate 120
-             #:background "~/.wallpapers/fixed/flat-16.png")
+             #:background "~/.wallpapers/fixed/ships.png")
 (sway-output "DP-1"
              #:position '(1920 0)
              #:resolution '(1920 1080)
              #:refresh-rate 144
-             #:background "~/.wallpapers/fixed/flat-16.png")
+             #:background "~/.wallpapers/fixed/ships.png")
 (sway-output "DP-2"
              #:position '(3840 0)
              #:resolution '(1920 1080)
              #:refresh-rate 144
-             #:background "~/.wallpapers/fixed/flat-16.png")
+             #:background "~/.wallpapers/fixed/ships.png")
 
 (sway-focus-follow-mouse SWAY-FOCUS-FOLLOW-MOUSE-FLAG-NO)
 (sway-default-gaps SWAY-GAPS-OPTION-INNER 10)

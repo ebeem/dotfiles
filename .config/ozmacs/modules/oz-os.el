@@ -1,7 +1,7 @@
 ;;; Code:  -*- lexical-binding: t; -*-
 
 ;; add custom package paths
-(dolist (pkg '("topel" "bluel" "duelzer" "dmenuel" "skyel" "ytbel" "academel" "typel"))
+(dolist (pkg '("topel" "bluel" "duelzer" "dmenuel" "skyel" "ytbel" "academel" "typel" "cheatel"))
   (add-to-list 'load-path (expand-file-name pkg "~/workspace/emacs/")))
 
 ;; set configuration variables before packages load (variables are just symbols)
@@ -26,6 +26,7 @@
 (require 'ytbel nil t)
 (require 'academel nil t)
 (require 'typel nil t)
+(require 'cheatel nil t)
 
 ;; (add-to-list 'load-path "~/workspace/emacs/empdel")
 ;; (require 'empdel)
